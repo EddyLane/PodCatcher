@@ -1,0 +1,226 @@
+<?php
+
+namespace Podcast\MainBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Exception;
+use SimpleXMLElement;
+
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+
+
+/**
+ * Podcast\MainBundle\Entity\Podcast
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="Podcast\MainBundle\Entity\PodcastRepository")
+ */
+class Podcast {
+
+    /**
+     * @var integer $id
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string $name
+     * @ORM\Column(name="name", type="string", length=1020)
+     */
+    private $name;
+
+    /**
+     * @var type
+     * @ORM\Column(name="slug", type="string", length=1020) 
+     */
+    private $slug;
+
+    /**
+     * @var string $link
+     * @ORM\Column(name="link", type="string", length=1020)
+     */
+    private $link;
+
+    /**
+     * @var integer $rating
+     *
+     * @ORM\Column(name="rating", type="integer")
+     */
+    private $rating = 1;
+    
+    /**
+     * @var string $image
+     * @ORM\Column(name="image", type="string", length=1020, nullable=true)
+     * @Assert\Null()
+     */
+    private $image;
+    
+    
+    private $xml;
+
+    /**
+     * Get name
+     * 
+     * @return type 
+     */
+    public function getName() {
+        return $this->name;
+    }
+    
+    
+    
+
+    /**
+     * Set name
+     * 
+     * @param type $name 
+     */
+    public function setName($name) {
+        
+        if($this->slug === null)
+        {
+            $this->slug = MyStringHelper::sluggize($name);
+        }
+        $this->name = $name;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * Set link
+     *
+     * @param string $link
+     */
+    public function setLink($link) {
+        $this->link = $link;
+    }
+
+    /**
+     * Get link
+     *
+     * @return string 
+     */
+    public function getLink() {
+        return $this->link;
+    }
+
+    /**
+     * Set rating
+     *
+     * @param integer $rating
+     */
+    public function setRating($rating) {
+        $this->rating = $rating;
+    }
+
+    /**
+     * Get rating
+     *
+     * @return integer 
+     */
+    public function getRating() {
+        return $this->rating;
+    }
+    
+
+    public function init()
+    {
+        $this->xml = $this->getFeed();
+        
+        try
+        {
+            $this->setImage((string)$this->xml->channel->image->url);
+            $this->setName((string)$this->xml->channel->title);
+        }
+        catch(Exception $e)
+        {
+            return $e->getMessage();
+        }
+        
+        return true;
+       
+    }
+    
+    public function getFeed() {
+
+        libxml_use_internal_errors(true);
+        try {
+            $xml = simplexml_load_string(file_get_contents($this->getLink()));
+            if (!$xml) {
+                echo "Failed loading XML\n";
+                foreach (libxml_get_errors() as $error) {
+                    echo "\t", $error->message;
+                }
+            }
+            return $xml;
+            
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+    
+    
+    public function setImage($image) {
+        $this->image = $image;
+    }
+    
+    
+    
+    
+    /**
+     * @param string $image
+     * @return image
+     */
+    public function getImage() {
+        
+        
+        return $this->image;
+    }
+
+    public function getPodcastFiles($amount = 5) {
+
+        $this->xml = $this->getFeed();
+        $podcasts = array();
+        
+        for ($i = 0; $i < $amount; $i++) {
+            if(isset($this->xml->channel->item[$i]))
+            {
+                $item = $this->xml->channel->item[$i];
+                $podcasts[(string)$item->enclosure["url"]] = (string)$item->title;
+            }   
+        }
+        
+        
+        return $podcasts;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     */
+    public function setSlug($slug) {
+        $this->slug = $slug;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug() {
+        return $this->slug;
+    }
+
+}

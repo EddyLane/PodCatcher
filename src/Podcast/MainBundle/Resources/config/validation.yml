@@ -1,0 +1,4 @@
+#Podcast\MainBundle\Entity\Podcast:
+#    properties:
+#        link:
+#            - NotBlank: ~

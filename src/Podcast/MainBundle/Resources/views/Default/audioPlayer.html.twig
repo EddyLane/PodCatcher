@@ -1,0 +1,48 @@
+<div class="well well-small" id="large_audio_player" data-bind="with: $root.podcastController">
+    <div class="alert alert-info player-display"> 
+
+
+        <i class="icon-blue" data-bind="css: { 'icon-play': playing() , 'icon-stop': !playing(), 'icon-pause': paused() }"></i> 
+        {#
+        <!-- ko with: nowPlayingPodcast -->
+        <span data-bind="text: name"> </span>
+        <!-- /ko -->
+        #}
+    </div>
+        
+    {#<audio id="audio-player" data-bind="attr: { src: nowPlayingUrl }" controls="controls"> 
+        HTML5 audio not supported
+    </audio>#}
+        
+
+
+    <div class="btn-toolbar">
+        <div class="btn-group">
+        {% include 'PodcastMainBundle:Default:audioPlayerButtons.html.twig' %}
+            </div>
+            <div class="btn-group pull-right">
+
+                <button class="btn dropdown-toggle btn-primary" data-toggle="dropdown"><i class="icon-share-alt icon-white"></i>&nbsp;Share <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Share</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                </ul>
+            </div>
+        </div>
+
+
+        <table class="table table-striped">
+            <tbody data-bind="foreach: nowPlayingPodcast.audioQueue">
+                <tr class="pointer">
+                    <td data-bind="text:name, click: $parent.playAudio">
+                    </td>
+                    <td class="collapse pointer" data-bind="click: $parent.unqueuePodcast">
+                        <a class="close">×</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>

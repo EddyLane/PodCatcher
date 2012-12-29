@@ -1,0 +1,20 @@
+
+<form action="{{ path('PodcastMainBundle_new') }}" method="post" {{ form_enctype(form) }} class="clearfix" id="submit_podcast_form">
+    <fieldset>
+        <legend>Add Podcast</legend>
+        {#
+        <div class="alert alert-error" data-bind="with: formError">
+            <p data-bind="text: formError"></p>
+            
+        </div>
+        #}
+            <div class="link-box">
+                  {{ form_errors(form) }}
+
+                    {{ form_widget(form.link, { 'attr': {'data-bind': 'value: $root.submitPodcastLink','placeholder': 'Submit a link' }}) }}
+
+                    {{ form_rest(form) }}
+            </div>
+        <a class="btn btn-primary pull-right" data-bind="click: $root.submitPodcastForm, css: { 'active': $root.formBusy() }"><i class="icon-music icon-white"></i>&nbsp;Add Podcast</a>
+    </fieldset>
+</form>

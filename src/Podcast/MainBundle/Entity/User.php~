@@ -1,0 +1,65 @@
+<?php
+
+namespace Podcast\MainBundle\Entity;
+
+use FOS\UserBundle\Entity\User as BaseUser;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OneToMany as OneToMany;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="fos_user")
+ */
+class User extends BaseUser
+{
+    
+    /**
+     * Bidirectional - One-To-Many (INVERSE SIDE)
+     *
+     * @ORM\OneToMany(targetEntity="Playlist", mappedBy="user")
+     */
+    private $playlists;
+    
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    public function __construct()
+    {
+        parent::__construct();
+        // your own logic
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Add playlists
+     *
+     * @param Podcast\MainBundle\Entity\Playlist $playlists
+     */
+    public function addPlaylist(\Podcast\MainBundle\Entity\Playlist $playlists)
+    {
+        $this->playlists[] = $playlists;
+    }
+
+    /**
+     * Get playlists
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getPlaylists()
+    {
+        return $this->playlists;
+    }
+}

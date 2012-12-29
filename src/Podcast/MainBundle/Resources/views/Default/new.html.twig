@@ -1,0 +1,19 @@
+{% extends 'PodcastMainBundle::layout.html.twig' %}
+
+{% block title %}Symfony - Welcome{% endblock %}
+
+{% block content_header '' %}
+
+{% block content %}
+
+<form action="" method="post" {{ form_enctype(form) }}>
+    <fieldset>
+        <legend>Add Podcast</legend>
+        {{ form_widget(form) }}
+        <div class="form-actions">
+            <button class="btn" type="submit">Add Podcast</button>
+        </div>
+    </fieldset>
+</form>
+
+{% endblock %}

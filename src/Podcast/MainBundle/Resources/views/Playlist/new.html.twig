@@ -1,0 +1,14 @@
+<!-- ko with: playlists -->
+    <form action="{{ path('playlist_create') }}" method="post" {{ form_enctype(form) }}  id="playlist_form" data-bind="submit: submit">
+        <legend>Create Playlist</legend>
+        <div class="link-box">
+            {{ form_errors(form) }}
+                
+            {{ form_widget(form.name, { 'attr': {'placeholder': 'Playlist Name', 'data-bind': 'value: name'} }) }}
+                        
+            {{ form_rest(form) }}
+        </div>
+        
+        <button class="btn btn-primary pull-right" data-bind="click: submit, css: { active: submitting }"><i class="icon-list-alt icon-white"></i>&nbsp;Create Playlist</button>
+    </form>
+<!-- /ko -->
