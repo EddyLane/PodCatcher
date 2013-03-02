@@ -7,11 +7,15 @@
 #    resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
 #    prefix:   /_internal
 
-PodcastMainBundle:
-    resource: "@PodcastMainBundle/Resources/config/routing.yml"
-    prefix:   /
-    options:
-      expose: true
+#PodcastMainBundle:
+#    resource: "@PodcastMainBundle/Resources/config/routing.yml"
+#    prefix:   /
+#    options:
+#      expose: true
+      
+podcasts:
+    type: rest
+    resource: Podcast\MainBundle\PodcastsController
       
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"

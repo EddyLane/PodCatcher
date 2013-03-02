@@ -5,6 +5,7 @@ namespace Podcast\MainBundle\Controller;
 use Symfony\Component\HttpFoundation\Request,
     Symfony\Component\HttpFoundation\Response,
     Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
 
