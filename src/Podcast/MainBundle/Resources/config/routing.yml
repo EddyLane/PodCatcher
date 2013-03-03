@@ -1,3 +1,0 @@
-podcasts:
-  type: rest
-  resource: Podcast\MainBundle\PodcastsController

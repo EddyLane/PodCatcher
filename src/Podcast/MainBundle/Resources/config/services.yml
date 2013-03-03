@@ -6,17 +6,14 @@
 #        class: %podcast_main.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
 #
-#parameters:
-#
-#    security.authentication.success_handler.class: Podcast\MainBundle\Handler\AuthenticationHandler
-#
-#services:
-#
-#    security.authentication.success_handler:
-#        class: %security.authentication.success_handler.class%
-#        public: false
-#        arguments:  ['@router', '@security.user.entity_manager']
-#
+parameters:
+    security.authentication.success_handler.class: Podcast\MainBundle\Handler\AuthenticationHandler
+
+services:
+    security.authentication.success_handler:
+        class: %security.authentication.success_handler.class%
+        public: false
+        arguments:  ['@router', '@security.user.entity_manager']
 #    security.authentication.failure_handler:
 #        class: %security.authentication.success_handler.class%
 #        public: false
