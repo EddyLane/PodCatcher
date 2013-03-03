@@ -13,9 +13,7 @@ PodcastMainBundle:
    options:
      expose: true
 # app/config/routing.yml
-podcasts:
-    type:     rest
-    resource: Podcast\MainBundle\Controller\PodcastsController
+
       
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"

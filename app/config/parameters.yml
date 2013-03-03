@@ -12,4 +12,8 @@ parameters:
     mailer_password:   ~
 
     locale:            en
-    secret:            ThisTokenIsNotSoSecretChangeIt
+    secret:            RyoHazuki
+    
+    node_base_path:    /usr/lib/nodejs
+    node_lib_path:     /usr/lib/nodejs/npm/lib
+    node_modules_path: /usr/lib/nodejs/npm/node_modules

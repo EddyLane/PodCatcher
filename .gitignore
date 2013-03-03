@@ -7,3 +7,15 @@ vendor
 composer.phar
 
 /vendor/
+/src/Podcast/MainBundle/Resources/public/datatables/
+/src/Podcast/MainBundle/Resources/public/jquery/
+/src/Podcast/MainBundle/Resources/public/bootstrap/
+/src/Podcast/MainBundle/Resources/public/knockout/
+/src/Podcast/MainBundle/Resources/public/select2/
+/src/Podcast/MainBundle/Resources/public/sammy/
+/src/Podcast/MainBundle/Resources/public/font-awesome/
+/src/Podcast/MainBundle/Resources/public/datejs/
+/src/Podcast/MainBundle/Resources/public/requirejs/
+/src/Podcast/MainBundle/Resources/public/less.js/
+/src/Podcast/MainBundle/Resources/public/soundmanager/
+/src/Podcast/MainBundle/Resources/public/knockout-mapping/

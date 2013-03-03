@@ -22,7 +22,8 @@
         "jms/serializer-bundle": "0.9.*",
         "friendsofsymfony/user-bundle": "*",
         "friendsofsymfony/rest-bundle": "*",
-        "friendsofsymfony/jsrouting-bundle": "1.0.*"
+        "friendsofsymfony/jsrouting-bundle": "1.0.*",
+        "leafo/lessphp": "~0.3"
     },
     "scripts": {
         "post-install-cmd": [

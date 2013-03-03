@@ -1,0 +1,169 @@
+body {
+height:100%;
+}
+img.show-podcast-image {
+  width:200px;
+  height:200px;
+}
+.clear-both {
+  clear:both;
+}
+
+
+.row-fluid .btn-toolbar:first-child {
+  margin-top:0px;
+}
+
+.well .nav {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.table-striped tbody tr:nth-child(2n+1) td, .table-striped tbody tr:nth-child(2n+1) th {
+    background-color: inherit;
+}
+footer {
+  position:fixed;
+  left:0px;
+  bottom:0px;
+  width:100%;
+   background-color: #FAFAFA;
+    background-image: linear-gradient(to bottom, #FFFFFF, #F2F2F2);
+    background-repeat: repeat-x;
+border-top:1px solid #ccc;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+
+}
+
+#progress-bar .progress {
+  position: relative;
+  top:16px;
+}
+
+#subscriptions {
+    max-height:200px;
+    overflow: auto;
+}
+
+
+tbody tr.even:hover, tbody tr.odd:hover, tbody tr.info:hover {
+	background-color: #E5E5E5;
+}
+tbody tr.info {
+    background-color: #D9EDF7 !important;
+}
+
+tbody tr td {
+    cursor: pointer !important;
+}
+
+#wrap {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -60px;
+}
+#push,
+#footer {
+    height: 60px;
+}
+
+#progress, #buffer {
+    position: absolute;   
+}
+
+#buffer {
+    z-index: 0;
+}
+#progress {
+    z-index: 1;
+}
+#progress-container {
+    cursor: pointer;
+}
+
+
+
+.thumbnail.loading
+{
+    opacity:0.2;
+    filter:alpha(opacity=20);
+    cursor: wait;
+}
+
+#header h1 {
+    background-image: none
+}
+
+.nomargin {
+    margin: 0px;
+}
+
+
+.thumbnails .span2 .widget-box .widget-title {
+
+    padding: 5px 0px 0px 5px;
+    height: 18px;
+
+        h5 {
+            padding: 0px;
+            width: 100%;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+
+        }
+}
+
+
+#sidebar > ul ul li {
+
+}
+#sidebar > ul ul li a {
+    width: 200px;
+    overflow:hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+}
+
+.table.with-check tr td:first-child, table.with-check tr th:first-child {
+width: 10px !important;
+}
+
+.navbar .nav.player-buttons > li {
+
+  background-color: hsl(44, 3%, 67%) !important;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#e8e8e7", endColorstr="#adaca8");
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#e8e8e7), to(#adaca8));
+  background-image: -moz-linear-gradient(top, #e8e8e7, #adaca8);
+  background-image: -ms-linear-gradient(top, #e8e8e7, #adaca8);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e8e8e7), color-stop(100%, #adaca8));
+  background-image: -webkit-linear-gradient(top, #e8e8e7, #adaca8);
+  background-image: -o-linear-gradient(top, #e8e8e7, #adaca8);
+  background-image: linear-gradient(#e8e8e7, #adaca8);
+  border-color: #adaca8 #adaca8 hsl(44, 3%, 61%);
+  color: #333 !important;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.39);
+  -webkit-font-smoothing: antialiased;
+
+
+}
+
+#sidebar > ul ul li a {
+    color: #777777;
+    display: block;
+    padding: 10px 0 10px 10px;
+}
+.navbar .nav.player-buttons > li > a {
+    color: #777777;
+    float: none;
+    padding: 5px 10px;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #FFFFFF;
+
+
+
+
+}

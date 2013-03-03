@@ -1,0 +1,11 @@
+podcasts:
+    type:     rest
+    resource: Podcast\MainBundle\Controller\PodcastsController
+
+users:
+    type:     rest
+    resource: Podcast\MainBundle\Controller\UsersController
+    
+episodes:
+    type:     rest
+    resource: Podcast\MainBundle\Controller\EpisodesController
