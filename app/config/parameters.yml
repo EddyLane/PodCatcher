@@ -17,3 +17,6 @@ parameters:
     node_base_path:    /usr/lib/nodejs
     node_lib_path:     /usr/lib/nodejs/npm/lib
     node_modules_path: /usr/lib/nodejs/npm/node_modules
+    
+    behat_paths_base: /
+    behat_paths_features: /features

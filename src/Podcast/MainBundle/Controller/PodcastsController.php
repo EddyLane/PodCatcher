@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request,
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
 
-class PodcastsController extends Controller {
+class PodcastsController extends FOSRestController {
 
     public function optionsPodcastsAction() {
         
@@ -17,7 +17,6 @@ class PodcastsController extends Controller {
 
     // "options_Podcasts" [OPTIONS] /podcasts
     public function getPodcastsAction() {
-        
 
         $em = $this->getDoctrine()->getEntityManager();
 
@@ -26,12 +25,12 @@ class PodcastsController extends Controller {
         $qb->select('p')
                 ->from('Podcast\MainBundle\Entity\Podcast', 'p')
                 ->orderBy('p.id', 'desc');
-
         $podcasts = $qb->getQuery()->getArrayResult();
+        
+        $view = $this->view($podcasts);
+        
+        return $this->handleView($view);
 
-        $view = View::create()->setData($podcasts);
-
-        return $view;
     }
 
     // "get_podcasts"     [GET] /podcasts/new/asfasfa

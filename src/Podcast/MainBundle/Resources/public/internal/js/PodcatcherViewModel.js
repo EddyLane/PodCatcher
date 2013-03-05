@@ -176,9 +176,9 @@ function User()
         return match;
     }
     
-    $.get(base_url+"users/authenticate", function(response){
-        self.authenticate(response);
-    });
+    //$.get(base_url+"users/authenticate", function(response){
+    //    self.authenticate(response);
+    //});
 }
 
 

@@ -23,7 +23,14 @@
         "friendsofsymfony/user-bundle": "*",
         "friendsofsymfony/rest-bundle": "*",
         "friendsofsymfony/jsrouting-bundle": "1.0.*",
-        "leafo/lessphp": "~0.3"
+        "leafo/lessphp": "~0.3",
+        "behat/behat": "2.4.*@stable",
+        "behat/symfony2-extension": "*",
+        "behat/mink-extension": "*",
+        "behat/mink-browserkit-driver":  "*"
+    },
+    "config": {
+        "bin-dir": "bin/"
     },
     "scripts": {
         "post-install-cmd": [
