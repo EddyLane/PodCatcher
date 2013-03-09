@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
 	    new JMS\SerializerBundle\JMSSerializerBundle($this),
 	    new FOS\RestBundle\FOSRestBundle(),
+            new Braincrafted\BootstrapBundle\BraincraftedBootstrapBundle(),
             new Podcast\MainBundle\PodcastMainBundle()
         );
 

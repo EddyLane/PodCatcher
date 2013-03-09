@@ -282,7 +282,9 @@ function PodcatcherViewModel()
          console.log(soundManager.bytesLoaded / soundManager)
     });
     
-    $('select').select2();
+    $('select').select2({
+            placeholder: "Add some podcasts",
+    });
 
     
 })();

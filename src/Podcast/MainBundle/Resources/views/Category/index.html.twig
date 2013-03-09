@@ -30,21 +30,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                    {% for entity in entities %}
-                                <tr>
-                                    <td><a href="{{ path('category_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
-                                    <td>
-                                        <ul class="unstyled">
-                                            <li>
-                                                <a href="{{ path('category_show', { 'id': entity.id }) }}"><i class="icon-eye-open"></i> show</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ path('category_edit', { 'id': entity.id }) }}"><i class="icon-edit"></i> edit</a>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                    {% endfor %}
+                            {% for entity in entities %}
+                                        <tr>
+                                            <td><a href="{{ path('category_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
+                                            <td>
+                                                <ul class="unstyled">
+                                                    <li>
+                                                        <a href="{{ path('category_show', { 'id': entity.id }) }}"><i class="icon-eye-open"></i> show</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{{ path('category_edit', { 'id': entity.id }) }}"><i class="icon-edit"></i> edit</a>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                            {% endfor %}
                             </tbody>
                         </table>
                     </div>

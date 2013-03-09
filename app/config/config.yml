@@ -22,8 +22,11 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
-
-# Assetic Configuration
+    form:
+        resources:
+            - "BraincraftedBootstrapBundle:Form:form_div_layout.html.twig"
+             
+       
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false

@@ -1,22 +1,41 @@
-<h1>Category edit</h1>
+{% extends 'PodcastMainBundle::layout.html.twig' %}
 
-<form action="{{ path('category_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-    {{ form_widget(edit_form) }}
-    <p>
-        <button type="submit">Edit</button>
-    </p>
-</form>
+{% block title %}Podcast Tool{% endblock %}
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('category') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <form action="{{ path('category_delete', { 'id': entity.id }) }}" method="post">
+{% block content_header '' %}
+
+{% block content %}
+<div id="content-header">
+    <h1>Category edit</h1>
+    <div class="btn-group">
+        <form action="{{ path('category_delete', { 'id': entity.id }) }}" method="post" style="display:inline">
             {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
-        </form>
-    </li>
-</ul>
+                <button type="submit" class="btn">Delete</button>
+            </form>
+        </div></div>
+    <div id="breadcrumb">
+        <a class="tip-bottom" href="#" data-original-title="Go to Home"><i class="icon-home"></i> Home</a>
+        <a class="current" href="#">Dashboard</a>
+    </div>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget-box">
+                    <div class="widget-title">
+                        <span class="icon"><i class="icon-edit"></i></span>
+                        <h5>Edit</h5>
+                    </div>
+                    <div class="widget-content nopadding">
+                        <form class="form-horizontal" action="{{ path('category_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+                            {{ form_widget(edit_form, {'form_type': 'horizontal'}) }}
+                                <div class="form-actions">
+                                    <button class="btn" type="submit">Update</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>          
+                </div><!--/span-->
+            </div><!--/row-->
+        </div>
+    </div>
+{% endblock %}
