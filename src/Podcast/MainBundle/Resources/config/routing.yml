@@ -1,6 +1,9 @@
 podcasts:
     type:     rest
     resource: Podcast\MainBundle\Controller\PodcastsController
+    
+categories:
+    resource: Podcast\MainBundle\Controller\CategoryController
 
 users:
     type:     rest
