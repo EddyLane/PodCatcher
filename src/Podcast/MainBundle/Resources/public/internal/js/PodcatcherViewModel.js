@@ -265,9 +265,9 @@ function PodcatcherViewModel()
             self.showPodcast(this.params.podcastSlug);
         });
 
-        this.get('', function() {
-            this.app.runRoute('get', '#index')
-        });
+//        this.get('', function() {
+//            this.app.runRoute('get', '#index')
+//        });
 
     }).run();
 }

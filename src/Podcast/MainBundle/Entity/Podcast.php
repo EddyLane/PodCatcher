@@ -335,5 +335,14 @@ class Podcast {
     public function getSlug() {
         return $this->slug;
     }
+    
+    
+    /**
+     * 
+     * @return type
+     */
+    public function __toString() {
+        return $this->name;
+    }
 
 }
