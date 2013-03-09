@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping\OneToMany as OneToMany;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="fos_user")
+ * @ORM\Table(name="User")
  */
 class User extends BaseUser {
 

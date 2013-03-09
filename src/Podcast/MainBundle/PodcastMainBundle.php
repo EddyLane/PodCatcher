@@ -10,4 +10,7 @@ class PodcastMainBundle extends Bundle
     {
         return 'FOSUserBundle';
     }
+
+
+
 }

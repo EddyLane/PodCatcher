@@ -19,4 +19,3 @@ parameters:
     node_modules_path: /usr/lib/nodejs/npm/node_modules
     
     behat_paths_base: /
-    behat_paths_features: /features

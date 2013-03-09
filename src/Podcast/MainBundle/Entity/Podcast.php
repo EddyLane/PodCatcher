@@ -81,6 +81,12 @@ class Podcast {
      */
     private $subscribed;
     
+    /**
+     * @ORM\ManyToMany(targetEntity="Category", mappedBy="podcasts")
+     */
+    private $categories;
+    
+    
     private $xml;
     
     
@@ -185,7 +191,7 @@ class Podcast {
     }
 
     
-    public function cleanEpisodes(\SimplePie $feed) {
+    public function cleanEpisodes($feed) {
         
         $feed->set_feed_url($this->getLink());
         $feed->init();
@@ -208,7 +214,7 @@ class Podcast {
         }
     }
     
-    public function refreshEpisodes(\SimplePie $feed) {
+    public function refreshEpisodes($feed) {
 
         $feed->set_feed_url($this->getLink());
         $feed->init();

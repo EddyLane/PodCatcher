@@ -1,7 +1,10 @@
 web/bundles/
+web/css/*
+web/js/*
 app/bootstrap.php.cache
 app/cache/*
 app/logs/*
+nbproject/*
 build/
 vendor
 composer.phar
