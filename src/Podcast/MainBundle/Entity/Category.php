@@ -3,11 +3,14 @@
 namespace Podcast\MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 /**
  * Category
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Podcast\MainBundle\Entity\CategoryRepository")
+ * @UniqueEntity("name")
  */
 class Category {
 
@@ -23,9 +26,15 @@ class Category {
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
     private $name;
+    
+    /**
+     * @var type
+     * @ORM\Column(name="slug", type="string", length=255) 
+     */
+    private $slug;    
 
     /**
      * Owning Side
@@ -55,7 +64,7 @@ class Category {
      */
     public function setName($name) {
         $this->name = $name;
-
+        $this->slug = MyStringHelper::sluggize($name);
         return $this;
     }
 
@@ -69,6 +78,9 @@ class Category {
     }
     
     
+    public function getSlug() {
+        return $this->slug;
+    } 
     /**
      * Get podcats
      * 
@@ -77,7 +89,7 @@ class Category {
     public function getPodcasts() {
         return $this->podcasts;
     }
-    
+
     /**
      * Set podcasts
      * 

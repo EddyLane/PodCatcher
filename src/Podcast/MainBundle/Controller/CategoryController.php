@@ -37,20 +37,20 @@ class CategoryController extends Controller
     /**
      * Finds and displays a Category entity.
      *
-     * @Route("/{id}/show", name="category_show")
+     * @Route("/{slug}/show", name="category_show")
      * @Template()
      */
-    public function showAction($id)
+    public function showAction($slug)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('PodcastMainBundle:Category')->find($id);
+        $entity = $em->getRepository('PodcastMainBundle:Category')->findOneBySlug($slug);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Category entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->createDeleteForm($entity->getId());
 
         return array(
             'entity'      => $entity,
@@ -93,7 +93,7 @@ class CategoryController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('category_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('category_show', array('slug' => $entity->getSlug())));
         }
 
         return array(

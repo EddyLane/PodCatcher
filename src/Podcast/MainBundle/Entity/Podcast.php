@@ -319,7 +319,7 @@ class Podcast {
     }
 
     /**
-     * Set slug
+            * Set slug
      *
      * @param string $slug
      */

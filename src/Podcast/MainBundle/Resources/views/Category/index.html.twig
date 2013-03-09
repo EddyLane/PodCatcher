@@ -32,11 +32,11 @@
                         <tbody>
                             {% for entity in entities %}
                                         <tr>
-                                            <td><a href="{{ path('category_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
+                                            <td><a href="{{ path('category_show', { 'slug': entity.slug }) }}">{{ entity.name }}</a></td>
                                             <td>
                                                 <ul class="unstyled">
                                                     <li>
-                                                        <a href="{{ path('category_show', { 'id': entity.id }) }}"><i class="icon-eye-open"></i> show</a>
+                                                        <a href="{{ path('category_show', { 'slug': entity.slug }) }}"><i class="icon-eye-open"></i> show</a>
                                                     </li>
                                                     <li>
                                                         <a href="{{ path('category_edit', { 'id': entity.id }) }}"><i class="icon-edit"></i> edit</a>

@@ -24,16 +24,12 @@
                     <form class="form-horizontal" action="{{ path('category_create') }}" method="post" {{ form_enctype(form) }}>
                             {{ form_widget(form, {'form_type': 'horizontal'}) }}
                             <div class="form-actions">
-                                <button class="btn" type="submit">Create</button>
+                                <a class="btn" href="{{ path('category') }}">
+                                    Cancel
+                                </a>                                <button class="btn" type="submit">Create</button>
                             </div>
                         </form>
-                        <ul class="record_actions">
-                            <li>
-                                <a href="{{ path('category') }}">
-                                    Back to the list
-                                </a>
-                            </li>
-                        </ul>
+
                     </div>
                 </div>          
             </div><!--/span-->
