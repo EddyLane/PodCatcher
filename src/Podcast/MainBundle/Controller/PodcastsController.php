@@ -10,20 +10,22 @@ use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
 
 class PodcastsController extends FOSRestController {
+    
 
-    // "options_Podcasts" [OPTIONS] /podcasts
     public function getPodcastsAction() {
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
-        $qb = $em->createQueryBuilder();
+        $query = $em->getRepository('PodcastMainBundle:Podcast')->findAllWithDefaultSort($this->get('request')->query->get('sort', "id"), $this->get('request')->query->get('direction', "desc"));
 
-        $qb->select('p')
-                ->from('Podcast\MainBundle\Entity\Podcast', 'p')
-                ->orderBy('p.id', 'desc');
-        $podcasts = $qb->getQuery()->getArrayResult();
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+                $query, $this->get('request')->query->get('page', 1), 10
+        );
+
         
-        $view = $this->view($podcasts);
+        $view = $this->view($pagination);
         
         return $this->handleView($view);
 
@@ -51,27 +53,13 @@ class PodcastsController extends FOSRestController {
 
         $em = $this->getDoctrine()->getEntityManager();
 
-        //$podcast = $em->getRepository('PodcastMainBundle:Podcast')->findOneBySlug($slug);
-        
-        $user = $this->get('security.context')->getToken()->getUser();
-        
-        $qb = $em->createQueryBuilder();
+        $podcast = $em->getRepository('PodcastMainBundle:Podcast')->findOneBySlug($slug);
 
-        $qb->select(array("p","e","l"))
-                ->from('Podcast\MainBundle\Entity\Podcast', 'p')
-                ->where('p.slug = :slug')
-                ->leftJoin('p.episodes','e')
-                ->leftJoin('e.listenedBy','l','WITH','l.id = :user_id')
-                ->orderBy('p.id', 'desc')
-                ->setParameter('slug', $slug)
-                ->setParameter('user_id', $user->getId());
-        
-        $podcast = $qb->getQuery()->getArrayResult();
-        $view = View::create();
-        $view->setData($podcast[0]);
-        return $view;
+        $view = $this->view($podcast);
+
+        return $this->handleView($view);
     }
-    
+
     public function unsubscribePodcastAction($slug) {
 
         $em = $this->getDoctrine()->getEntityManager();

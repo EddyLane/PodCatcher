@@ -5,12 +5,17 @@ namespace Podcast\MainBundle\Entity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
+use JMS\SerializerBundle\Annotation;
+
+
 /**
  * Podcast\MainBundle\Entity\Episode
  *
  * @ORM\Table()
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="Podcast\MainBundle\Entity\EpisodeRepository")
+ * 
+ * @Annotation\ExclusionPolicy("all")
  */
 class Episode {
 
@@ -20,6 +25,7 @@ class Episode {
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Annotation\Expose
      */
     private $id;
 
@@ -32,14 +38,14 @@ class Episode {
 
     /**
      * @var string $name
-     *
+     * @Annotation\Expose
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
      * @var date $date
-     * 
+     * @Annotation\Expose
      * @ORM\Column(name="pub_date", type="datetime", nullable=true)
      * @Assert\Null()
      */
@@ -47,7 +53,7 @@ class Episode {
 
     /**
      * @var type
-     * 
+     * @Annotation\Expose
      * @ORM\Column(name="description", type="text", nullable=true)
      * @Assert\Null()
      *  
@@ -57,7 +63,7 @@ class Episode {
     /**
      *
      * @var type
-     * 
+     * @Annotation\Expose
      * @ORM\Column(name="length", type="integer", nullable=true)
      * @ Assert\Null()
      */
@@ -65,7 +71,7 @@ class Episode {
 
     /**
      * @var string $link
-     *
+     * @Annotation\Expose
      * @ORM\Column(name="link", type="string", length=1020)
      */
     private $link;

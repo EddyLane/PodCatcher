@@ -16,6 +16,8 @@ class Builder extends ContainerAware {
         $menu->addChild('Categories', array(
             'route' => 'category',
         ));
+        
+        $menu['Categories']->addChild('New', array('route' => 'category_new' ));
 
         // ... add more children
 

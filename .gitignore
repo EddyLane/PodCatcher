@@ -22,4 +22,5 @@ composer.phar
 /src/Podcast/MainBundle/Resources/public/less.js/
 /src/Podcast/MainBundle/Resources/public/soundmanager/
 /src/Podcast/MainBundle/Resources/public/knockout-mapping/
+/src/Podcast/MainBundle/Resources/public/Knockout.Extensions/
 /bin/

@@ -10,11 +10,16 @@ use Doctrine\Common\Collections\ArrayCollection as ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\DateTime;
+
+use JMS\SerializerBundle\Annotation;
 /**
  * Podcast\MainBundle\Entity\Podcast
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Podcast\MainBundle\Entity\PodcastRepository")
+ * 
+ * @Annotation\ExclusionPolicy("all")
+ *
  */
 class Podcast {
 
@@ -29,18 +34,21 @@ class Podcast {
     
 
     /**
+     * @Annotation\Expose
      * @var string $name
      * @ORM\Column(name="name", type="string", length=1020)
      */
     private $name;
 
     /**
+     * @Annotation\Expose
      * @var type
      * @ORM\Column(name="slug", type="string", length=1020) 
      */
     private $slug;
 
     /**
+     * @Annotation\Expose
      * @var string $link
      * @ORM\Column(name="link", type="string", length=1020)
      */
@@ -54,6 +62,7 @@ class Podcast {
     private $rating = 1;
 
     /**
+     * @Annotation\Expose
      * @var string $image
      * @ORM\Column(name="image", type="string", length=1020, nullable=true)
      * @Assert\Null()
@@ -61,6 +70,7 @@ class Podcast {
     private $image;
     
     /**
+     * @Annotation\Expose
      * @var string $description
      * @ORM\Column(name="description", type="string", length=1020, nullable=true)
      * @Assert\Null()
@@ -69,6 +79,8 @@ class Podcast {
     
 
     /**
+     * @Annotation\Expose
+     * 
      * @ORM\OneToMany(targetEntity="Episode", mappedBy="podcast", cascade={"all"})
      * @ORM\OrderBy({"pub_date" = "DESC"})
      * 
@@ -83,6 +95,7 @@ class Podcast {
     
     /**
      * @ORM\ManyToMany(targetEntity="Category", mappedBy="podcasts")
+     * @ORM\OrderBy({"name" = "DESC"})
      */
     private $categories;
     

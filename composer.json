@@ -31,7 +31,8 @@
         "behat/mink-browserkit-driver":  "*",
         "braincrafted/bootstrap-bundle": "dev-master",
         "knplabs/knp-menu-bundle":"dev-master",
-        "knplabs/knp-paginator-bundle": "dev-master"
+        "knplabs/knp-paginator-bundle": "dev-master",
+        "fkr/simplepie-bundle": "1.0.*"
     },
     "require-dev": {
         "phpspec/phpspec2": "*",

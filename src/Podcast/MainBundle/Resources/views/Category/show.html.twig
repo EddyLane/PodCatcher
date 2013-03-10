@@ -12,6 +12,7 @@
         <a class="btn" href="{{ path('category_edit', { 'id': entity.id }) }}">Edit</a>
         <form action="{{ path('category_delete', { 'id': entity.id }) }}" method="post" style="display:inline; margin-left:10px;">
             {{ form_widget(delete_form) }}
+                <input type="hidden" name="_method" value="DELETE" />
             <button type="submit" class="btn btn-danger">Delete</button>
         </form>        
     </div>

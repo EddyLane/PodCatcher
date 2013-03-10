@@ -34,40 +34,68 @@ var mapping = {
     }
 }
 
-
-var Episode = function(data)
-{
-    var self = this;
-    this.id = data.id, this.name = data.name, this.hash = data.hash, this.link = data.link, this.description = data.description, this.isNew = ko.observable(data.listenedBy.length > 0 ? true : false);
-    var date = new Date.parse(data.pub_date);
-    this.pub_date = date.toString('dddd, MMMM d yyyy')  
-    
-    this.isNew.subscribe(function(value) {
-        if(value) {
-            $.ajax({
-                type: "patch",
-                url: base_url+"episodes/"+self.id+"/listen"
-            });
-        } else {
-            $.ajax({
-                type: "patch",
-                url: base_url+"episodes/"+self.id+"/unlisten"
-            });
-        }
-    });
-
+function Episode(data) {
+    this.data = data;
 }
 
 
 
+var Episode = function(data)
+{
+    var self = this;
+    this.id = data.id, 
+    this.name = data.name,
+    this.hash = data.hash, 
+    this.link = data.link, 
+    this.description = data.description,    
+    this.pub_date = new Date.parse(data.pub_date).toString('dddd, MMMM d yyyy');  
+//    
+//    this.isNew.subscribe(function(value) {
+//        if(value) {
+//            $.ajax({
+//                type: "patch",
+//                url: base_url+"episodes/"+self.id+"/listen"
+//            });
+//        } else {
+//            $.ajax({
+//                type: "patch",
+//                url: base_url+"episodes/"+self.id+"/unlisten"
+//            });
+//        }
+//    });
+
+}
+//
+//function Podcast(data) {
+//    this.data = data;
+//}
+//
+
 var Podcast = function(data)
 {
+    //Private variables;
+    var self = this,
+        name = data.name || "Unnamed", 
+        slug = data.slug || false,
+        image = data.image || "http://placehold.it/350x350&text="+name,
+        description = data.description || "No desc";
     
-    var prev;
+    //Getters
+    this.slug = function() {
+        return slug;
+    };
     
-    var self = this;
+    this.image = function() {
+        return image;
+    };
+    
+    this.description = function() {
+        return description;
+    }
+    console.log(slug);
+    
     this.loading = ko.observable(false);
-    ko.mapping.fromJS(data, {}, this);
+    
     
     this.episodes = (!data.episodes) ? [] : $.map(data.episodes, function(episode) {
         return new Episode(episode);
@@ -76,7 +104,7 @@ var Podcast = function(data)
     this.selected = ko.observable();
     
     this.getImage = ko.computed(function() {
-        return self.image ? self.image() : "http://placehold.it/350x350&text="+self.name();
+        return self.image ? self.image() : "http://placehold.it/350x350&text="+self.name;
     });
     
     this.subscribed = ko.computed(function(){
@@ -112,26 +140,22 @@ var Podcast = function(data)
     }
 }
 
-Podcast.prototype.nowPlaying = function(episode)
-{
-    if (user.episodeId() == episode.id) {
-        return true;
+
+Podcast.prototype = {
+    nowPlaying: function(episode) {
+        return !!user.episodeId() === episode.id;
+    },
+    subscribe: function() {
+        var self = this, url = base_url + "podcasts/" + self.slug();
+        url += self.subscribed() ? "/unsubscribe" : "/subscribe"
+        self.subscribed() ? user.removeSubscription(ko.mapping.toJS(self)) : user.addSubscription(ko.mapping.toJS(self));
+
+        $.ajax({
+            url: url,
+            type: "patch"
+        });
     }
-    return false;
 }
-
-Podcast.prototype.subscribe = function() 
-{
-    var self = this, url = base_url+"podcasts/"+self.slug();
-    url += self.subscribed() ? "/unsubscribe" : "/subscribe"
-    self.subscribed() ? user.removeSubscription(ko.mapping.toJS(self)) : user.addSubscription(ko.mapping.toJS(self));
-
-    $.ajax({
-        url: url, 
-        type: "patch"
-    });
-}
-
 function User()
 {
     var self = this;
@@ -222,18 +246,15 @@ function PodcatcherViewModel()
 
     this.main = function() {
         self.podcast(false);
-        self.podcastId(false);
-        $.get(base_url+"podcasts", function(response) {
+        $.get(Routing.generate('get_podcasts')+".json", function(response) {
             self.directory.indexPodcasts(ko.mapping.fromJS(response,mapping));
         });
     }
 
     this.showPodcast = function(podcastSlug, episodeSlug) {
-        $.get(base_url+"podcasts/"+podcastSlug, function(response) {
+        $.get(Routing.generate('get_podcast', { slug: podcastSlug })+".json", function(response) {
             var podcast = ko.mapping.fromJS(response,mapping);
-            self.podcast(podcast);
-            self.podcastId(response.id);
-         
+            self.podcast(podcast);         
             if(user.authenticated()) {
                 self.podcast().subscribed();
             }
@@ -241,13 +262,15 @@ function PodcatcherViewModel()
     }
     
     this.loadSubscription = function(podcast) {
-        self.podcastId(podcast.id);
-        location.hash = "podcasts/"+podcast.slug;
+        
+        location.hash = "podcasts/"+podcast.slug();
     }
 
     this.loadPodcast = function(podcast,e) {
+        
+        console.log(podcast);
+        
         podcast.loading(true);        
-        self.podcastId(podcast.id());
         location.hash = "podcasts/"+podcast.slug();
     }
 

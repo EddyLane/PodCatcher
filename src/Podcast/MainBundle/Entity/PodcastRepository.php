@@ -14,8 +14,15 @@ class PodcastRepository extends EntityRepository
 {
     
     
-    
-    
+    /**
+     * 
+     * @param string $sortField
+     * @param string $sortDirection
+     * @return type
+     */
+    public function findAllWithDefaultSort($sortField, $sortDirection) {
+        return $this->findBy(array(), array($sortField => $sortDirection));
+    }    
     /**
      *
      * @param type $maxResults

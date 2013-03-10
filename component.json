@@ -13,6 +13,7 @@
     "sammy": "~0.7.4",
     "less.js": "~1.3.3",
     "requirejs": "~2.1.4",
-    "knockout-mapping": "~2.4.1"
+    "knockout-mapping": "~2.4.1",
+    "Knockout.Extensions": "git@github.com:CogShift/Knockout.Extensions.git"
   }
 }
