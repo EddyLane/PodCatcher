@@ -13,19 +13,31 @@ class CategoryControllerTest extends WebTestCase {
     protected function getClient() {
         return $this->client;
     }
-
-    public function testCompleteScenario() {
+    
+    
+    /**
+     * Click on the New link on the index
+     * 
+     * @return Crawler
+     */
+    public function testClickNewLinkFromIndex() {
         // Create a new client to browse the application
         $client = $this->getClient();
         // Create a new entry in the database
         $crawler = $client->request('GET', '/category/');
         $this->assertTrue(200 === $client->getResponse()->getStatusCode());
         $crawler = $client->click($crawler->selectLink('New')->link());
+        return $crawler;
+    }
+    
 
-
-        //die("<pre>".print_r($client->getResponse()->getContent(),1)."</pre>");
+    public function testCompleteScenario() {
+        
+        $client = $this->getClient();
+        
+        $crawler = $this->testClickNewLinkFromIndex();
+        
         $name = $this->generateRandomString(20);
-
 
         // Fill in the form and submit it
         $form = $crawler->selectButton('Create')->form(array(
@@ -43,8 +55,6 @@ class CategoryControllerTest extends WebTestCase {
         $crawler = $client->click($crawler->selectLink('Edit')->link());
 
         $newName = $this->generateRandomString(20);
-
-        //die("<pre>" . print_r($client->getResponse()->getContent(), 1) . "</pre>");
 
         $form = $crawler->selectButton('Update')->form(array(
             'podcast_mainbundle_categorytype[name]' => $newName

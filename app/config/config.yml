@@ -25,8 +25,27 @@ twig:
     form:
         resources:
             - "BraincraftedBootstrapBundle:Form:form_div_layout.html.twig"
-             
-       
+            
+knp_menu:
+   twig:
+       template: "BraincraftedBootstrapBundle:Menu:menu.html.twig"  
+   # if true, enables the helper for PHP templates
+   templating: false 
+   # The renderer to use, list is also available by default
+   default_renderer: twig
+   
+knp_paginator:
+    page_range: 5                      # default page range used in pagination control
+    default_options:
+        page_name: page                # page query parameter name
+        sort_field_name: sort          # sort field query parameter name
+        sort_direction_name: direction # sort direction query parameter name
+        distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
+    template:
+        #pagination: KnpPaginatorBundle:Pagination:sliding.html.twig   
+        pagination: BraincraftedBootstrapBundle:Pagination:pagination.html.twig
+        sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig
+
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
