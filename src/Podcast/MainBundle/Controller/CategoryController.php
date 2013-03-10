@@ -24,19 +24,17 @@ class CategoryController extends Controller {
      * @Template()
      */
     public function indexAction() {
-        
+
         $em = $this->getDoctrine()->getManager();
 
-        $query = $em->getRepository('PodcastMainBundle:Category')->findAllWithDefaultSort($this->get('request')->query->get('sort', "id"),$this->get('request')->query->get('direction', "desc"));
-        
-        
+        $query = $em->getRepository('PodcastMainBundle:Category')->findAllWithDefaultSort($this->get('request')->query->get('sort', "id"), $this->get('request')->query->get('direction', "desc"));
+
+
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-                $query, 
-                $this->get('request')->query->get('page', 1),
-                10
+                $query, $this->get('request')->query->get('page', 1), 10
         );
-        
+
 
         return array(
             'entities' => $pagination,

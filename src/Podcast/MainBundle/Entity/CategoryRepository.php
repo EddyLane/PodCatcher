@@ -19,7 +19,7 @@ class CategoryRepository extends EntityRepository {
      * @return type
      */
     public function findAllWithDefaultSort($sortField, $sortDirection) {
-        return $this->findBy(array(), array($sortField=>$sortDirection));
+        return $this->findBy(array(), array($sortField => $sortDirection));
     }
 
 }

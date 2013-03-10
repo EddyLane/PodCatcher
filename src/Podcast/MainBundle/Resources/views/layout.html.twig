@@ -23,7 +23,7 @@
         {% endstylesheets %}
         {% stylesheets
             '@PodcastMainBundle/Resources/public/internal/css/unicorn.main.css'
-            '@PodcastMainBundle/Resources/public/internal/css/unicorn.blue.css'
+            '@PodcastMainBundle/Resources/public/internal/css/unicorn.grey.css'
             '@PodcastMainBundle/Resources/public/internal/css/internal.css'
         %}
         <link rel="stylesheet" href="{{ asset_url }}" />
@@ -37,33 +37,13 @@
             <input type="text" placeholder="Search here..."><button class="tip-right" type="submit" data-original-title="Search"><i class="icon-search icon-white"></i></button>
         </div>
         <div class="navbar navbar-inverse" id="user-nav">
-            
+
+
+        </div>
+    </div>            
+    <div id="sidebar">
             {{ knp_menu_render('PodcastMainBundle:Builder:mainMenu') }}
 
-            
-            <ul class="nav btn-group" style="width: auto; margin: 0px;">
-
-                <li href="#" class="btn btn-inverse">
-                    <a href="#">
-                        <i class="icon-white icon-backward"></i>
-                        <span class="text">Prev</span>
-                    </a>
-                </li>
-                <li href="#" class="btn btn-inverse"><a href="#"><i class="icon-white icon-stop"></i><span class="text">Stop</span></a></li>
-                <li href="#" class="btn btn-inverse"><a href="#"><i class="icon-white icon-play"></i><span class="text">Play</span></a></li>
-                <li href="#" class="btn btn-inverse"><a href="#"><i class="icon-white icon-forward"></i><span class="text">Next</span></a></li>
-        </div>
-    </div>            <div id="sidebar">
-        <a class="visible-phone" href="#"><i class="icon icon-home"></i> Dashboard</a>
-        <ul style="display: block;">
-            <li class="active"><a href="#index"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
-            <li class="submenu">
-                <a href="#"><i class="icon icon-th-list"></i> <span>Subscriptions</span> <span class="label" data-bind="text: user.subscriptions().length"></span></a>
-                <ul data-bind="foreach: user.subscriptions">
-                    <li data-bind="css: { active: $data.id == $root.podcastId() }"><a href="#" data-bind="text: name, click: $root.loadSubscription"></a></li>
-                </ul>
-            </li>
-        </ul>
     </div>
     <div id="content">
                 {% block content %}

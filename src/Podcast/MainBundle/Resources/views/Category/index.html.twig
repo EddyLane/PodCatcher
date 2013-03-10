@@ -24,7 +24,7 @@
                     <table class="records_list table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th>{% if entities.isSorted('Name') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(entities, 'Name', 'name') }}</th>
+                                <th {% if entities.isSorted('Name') %} class="sorted"{% endif %}>{{ entities.isSorted('Name') }}  {{ knp_pagination_sortable(entities, 'Name', 'name') }}</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -46,20 +46,22 @@
                             {% endfor %}
                             </tbody>
                         </table>
+                        <div class="pull-right">
                             {{ knp_pagination_render(entities) }}
-                    </div>
-                </div>          
-            </div><!--/span-->
+                            </div>
+                        </div>
+                    </div>          
+                </div><!--/span-->
 
-            <div class="span2">
-                <a class="btn btn-block" id="new-category-button" href="{{ path('category_new') }}">
-                    New
-                </a>
-            </div>
+                <div class="span2">
+                    <a class="btn btn-block" id="new-category-button" href="{{ path('category_new') }}">
+                        New
+                    </a>
+                </div>
 
-        </div><!--/row-->
+            </div><!--/row-->
+        </div>
     </div>
-</div>
 </div>
 
 {% endblock %}
