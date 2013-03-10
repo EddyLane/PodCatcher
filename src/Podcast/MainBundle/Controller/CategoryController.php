@@ -27,21 +27,19 @@ class CategoryController extends Controller {
         
         $em = $this->getDoctrine()->getManager();
 
-        //$em = $this->get('doctrine.orm.entity_manager');
-        $dql = "SELECT a FROM AcmeMainBundle:Article a";
-        $query = $em->createQuery($dql);
-
+        $query = $em->getRepository('PodcastMainBundle:Category')->findAllWithDefaultSort($this->get('request')->query->get('sort', "id"),$this->get('request')->query->get('direction', "desc"));
+        
+        
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-                $query, $this->get('request')->query->get('page', 1)/* page number */, 10/* limit per page */
+                $query, 
+                $this->get('request')->query->get('page', 1),
+                10
         );
-
-        // parameters to template
-        return $this->render('AcmeMainBundle:Article:list.html.twig', array('pagination' => $pagination));
-        $entities = $em->getRepository('PodcastMainBundle:Category')->findAll();
+        
 
         return array(
-            'entities' => $entities,
+            'entities' => $pagination,
         );
     }
 

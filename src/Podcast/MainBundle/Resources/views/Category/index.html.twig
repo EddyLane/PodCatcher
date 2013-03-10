@@ -24,28 +24,29 @@
                     <table class="records_list table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th>Name</th>
+                                <th>{% if entities.isSorted('Name') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(entities, 'Name', 'name') }}</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for entity in entities %}
-                                        <tr>
-                                            <td><a href="{{ path('category_show', { 'slug': entity.slug }) }}">{{ entity.name }}</a></td>
-                                            <td>
-                                                <ul class="unstyled">
-                                                    <li>
-                                                        <a href="{{ path('category_show', { 'slug': entity.slug }) }}"><i class="icon-eye-open"></i> show</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="{{ path('category_edit', { 'id': entity.id }) }}"><i class="icon-edit"></i> edit</a>
-                                                    </li>
-                                                </ul>
-                                            </td>
-                                        </tr>
+                                <tr>
+                                    <td><a href="{{ path('category_show', { 'slug': entity.slug }) }}">{{ entity.name }}</a></td>
+                                    <td>
+                                        <ul class="unstyled">
+                                            <li>
+                                                <a href="{{ path('category_show', { 'slug': entity.slug }) }}"><i class="icon-eye-open"></i> show</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ path('category_edit', { 'id': entity.id }) }}"><i class="icon-edit"></i> edit</a>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
                             {% endfor %}
                             </tbody>
                         </table>
+                            {{ knp_pagination_render(entities) }}
                     </div>
                 </div>          
             </div><!--/span-->
