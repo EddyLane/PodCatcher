@@ -2,24 +2,51 @@
 
 {% block fos_user_content %}
 {% if error %}
-    <div>{{ error|trans({}, 'FOSUserBundle') }}</div>
+<div>{{ error|trans({}, 'FOSUserBundle') }}</div>
 {% endif %}
+<div class="row-fluid">
+    <div class="span12">
+        <div class="widget-box">
+            <div class="widget-title">
+                <span class="icon">
+                    <i class="icon-user"></i>
+                </span>
+                <h5>Login</h5>
+            </div>
+            <div class="widget-content">
 
-        <!-- ko with: error -->
-        <div class="alert alert-error" data-bind="text: $data"></div>
-        <!-- /ko -->
+                <form action="{{ path("fos_user_security_check") }}" method="post" class="form-horizontal">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 
-        <form action="{{ path("fos_user_security_check") }}" class="form-inline well well-small" method="post" data-bind="submit: user.login" id="login">
+                    <div class="control-group">
+                        <label class="control-label" for="username">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
+                        <div class="controls">
+                            <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+                        </div>
+                    </div>
 
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                    <div class="control-group">
+                        <label class="control-label" for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
+                        <div class="controls">
+                            <input type="password" id="password" name="_password" required="required" />                       
+                        </div>
+                    </div>                    
 
-            <input type="text" id="username" name="_username" class="input-small" placeholder="Username" value="{{ last_username }}" />
+                    <div class="control-group">
+                        <label class="control-label" for="remember_me">{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}</label>
+                        <div class="controls">
+                            <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                        </div>
+                    </div>
 
-            <input type="password" id="password" name="_password" class="input-small" placeholder="Password" />
 
-            <label class="checkbox" for="remember_me"><input type="checkbox" id="remember_me" name="_remember_me" value="on" />Remember me</label>
-
-            <input type="submit" class="btn" id="_submit" name="_submit" value="Sign in" />
-        </form>
-
+                    <div class="form-actions">
+                        <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock fos_user_content %}
+
