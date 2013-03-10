@@ -1197,6 +1197,13 @@ div.dataTables_wrapper .ui-widget-header {
 	margin-bottom: 0;
 }
 
+/*.DataTables_sort_wrapper span.DataTables_sort_icon {
+    background-color: green;
+    width:100px;
+    display: block;
+    position: relative;
+    height:20px;
+}*/
 
 .table th {
 	height: auto;

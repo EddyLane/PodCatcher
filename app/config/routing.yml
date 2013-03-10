@@ -17,6 +17,7 @@ PodcastMainBundle_new:
   pattern: /new
   defaults: { _controller: PodcastMainBundle:Default:new }
       
+# app/config/routing.yml
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 

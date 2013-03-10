@@ -94,6 +94,8 @@ class Podcast {
     private $subscribed;
     
     /**
+     * @Annotation\Expose
+     * 
      * @ORM\ManyToMany(targetEntity="Category", mappedBy="podcasts")
      * @ORM\OrderBy({"name" = "DESC"})
      */

@@ -5,6 +5,7 @@
 {% block content_header '' %}
 
 {% block content %}
+
 <div id="content-header">
     <h1>Dashboard</h1>
     <div class="btn-group" style="width: auto;" data-bind="with: podcast">
@@ -16,25 +17,37 @@
     </div>
     <hr>
 </div>
+
 <div class="row-fluid" data-bind="with: user">
     <div class="span12" data-bind="if: !authenticated()">
-           
-        </div>
-    </div>
-    <div id="breadcrumb">
-        <a class="tip-bottom" href="#" data-original-title="Go to Home"><i class="icon-home"></i> Home</a>
-        <a class="current" href="#">Dashboard</a>
-    </div>
-    <div class="container-fluid">
-        <div class="row-fluid">
-            <div class="span12">
-                <div data-bind="template: { name: 'directoryTemplate', 'if': !podcast(), data: directory }"> </div>
-                <div data-bind="template: { name: 'podcastTemplate', 'if': podcast, data: podcast, afterRender: function() { $('select').select2(); } }"></div>
-            </div><!--/span-->
-        </div><!--/row-->
+
     </div>
 </div>
+
+<div id="breadcrumb">
+    <a class="tip-bottom" href="#" data-original-title="Go to Home"><i class="icon-home"></i> Home</a>
+    <a class="current" href="#">Dashboard</a>
 </div>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div data-bind="template: { name: 'directoryTemplate', 'if': !podcast(), data: directory }"> </div>
+            <div data-bind="template: { name: 'podcastTemplate', 'if': podcast, data: podcast, afterRender: function() { $('select').select2(); } }"></div>
+        </div><!--/span-->
+    </div><!--/row-->
+</div>
+
+
+<script id="episodeRowTemplate" type="text/html">
+    <td style="width:20px;">
+        <input type="checkbox"></input>
+    </td>
+    <td data-bind="click: $parent.playEpisode">
+        <span data-bind="html: name"></span> 
+    </td>
+    <td data-bind="text: pub_date"></td>
+</script>
 
 <script id="directoryTemplate" type="text/html">
     <div class="well well-small clearfix" data-bind="with: pagination">
@@ -67,19 +80,17 @@
 <script id="podcastTemplate" type="text/html">
     <div class="row-fluid">
         <div class="span3">
-            <img data-bind="attr: { src: image }">
-            <div class="widget-box">
-                <div class="widget-title">
-                    <span class="icon">
-                        <i class="icon-comment"></i>
-                    </span>
-                    <h5>Description</h5>
-                </div>
-                <div class="widget-content">
-                    <p data-bind="text: description"></p>
+        
+            <div class="thumbnail">
+                <img data-bind="attr:{ src: image() }" class"img-polaroid img-rounded">
+                <div class="caption">
+                    <p data-bind="text: description()"></p>
                 </div>
             </div>
+    
         </div>
+                            
+
         <div class="span9">
             <div class="widget-box" style="margin-top:0px;">
                 <div class="widget-title">
@@ -89,21 +100,20 @@
                     <h5>Episodes</h5>
                 </div>
                 <div class="widget-content nopadding">
-                    <table id="episode-table" class="table data-table table-striped table-bordered with-check nomargin" data-bind="
+                    <table id="episode-table" class="table data-table table-striped table-bordered with-check nomargin dataTable" data-bind="
                            dataTable: {
-                           dataSource: episodes,
-                           rowTemplate: 'episodeRowTemplate',
-                           data: episodes,
-                           columns: [ 'name', 'pub_date' ],
-                           'bScrollCollapse': true,
-                           'sScrollX': '100%',
-                           'bAutoWidth': false,
-                           aaSorting: [ [ 1, 'asc' ] ] ,
+                            dataSource: episodes,
+                            rowTemplate: 'episodeRowTemplate',
+                            data: episodes,
+                            columns: [ 'name', 'name', 'timestamp' ],
+                            'aaSorting': [[2,'desc']]
                            }
                            ">
                         <thead>
                             <tr>
-                                <th><i class="icon-resize-vertical"></i></th><th>Episode</th><th>Date Published</th>
+                                <th><i class="icon-resize-vertical"></i></th>
+                                <th>Episode</th>
+                                <th>Date Published</th>
                             </tr>
                         </thead>
                         <tbody>

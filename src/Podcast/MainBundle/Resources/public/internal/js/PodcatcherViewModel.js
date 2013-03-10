@@ -1,19 +1,21 @@
+
 var podcast = {
     dom: {
-        progress: $('#progress')
+        progress: $('#progress'),
+        buffer: $('#buffer')
     }
 }
 
 soundManager.setup({
-    url: '/Podcasts/web/bundles/podcasttool/swf'
+    url: 'bundles/podcastmain/soundmanager/swf'
 });
 
 soundManager.defaultOptions.whileplaying = function() {
-    $('#progress').css('width', ((this.position / this.duration) * 100) + '%');
+    podcast.dom.progress.css('width', ((this.position / this.duration) * 100) + '%');
 }
 
 soundManager.defaultOptions.whileloading = function() {
-    $('#buffer').css('width', ((this.bytesLoaded/this.bytesTotal) * 100) + '%');
+    podcast.dom.buffer.css('width', ((this.bytesLoaded/this.bytesTotal) * 100) + '%');
 }
 
 var base_url = "/";
@@ -34,21 +36,17 @@ var mapping = {
     }
 }
 
-function Episode(data) {
-    this.data = data;
-}
-
-
-
-var Episode = function(data)
+function Episode(data)
 {
-    var self = this;
+    
+    var date = Date.parse(data.pub_date);
     this.id = data.id, 
     this.name = data.name,
     this.hash = data.hash, 
     this.link = data.link, 
     this.description = data.description,    
-    this.pub_date = new Date.parse(data.pub_date).toString('dddd, MMMM d yyyy');  
+    this.pub_date = date.toString('dddd, MMMM d yyyy');  
+    this.timestamp = date.getTime()/100;
 //    
 //    this.isNew.subscribe(function(value) {
 //        if(value) {
@@ -65,11 +63,7 @@ var Episode = function(data)
 //    });
 
 }
-//
-//function Podcast(data) {
-//    this.data = data;
-//}
-//
+
 
 var Podcast = function(data)
 {
@@ -113,7 +107,7 @@ var Podcast = function(data)
     
     this.playEpisode = function(episode, event)
     {
-        episode.isNew(true);
+        //episode.isNew(true);
         var id = episode.id;
         self.selected(episode);
         soundManager.stopAll();
@@ -297,9 +291,24 @@ function PodcatcherViewModel()
 
 (function(){
     
+    // Create a global user and our app.
     var user, app = new PodcatcherViewModel();
+
+    
+    // Put some DataTable Defaults.
+    ko.bindingHandlers['dataTable'].options.sDom = '<""l>t<"F"fp>';
+    ko.bindingHandlers['dataTable'].options.bScrollCollapse = true;
+    ko.bindingHandlers['dataTable'].options.bAutoWidth = false;
+    ko.bindingHandlers['dataTable'].options.sPaginationType = "full_numbers";
+    ko.bindingHandlers['dataTable'].options.bJQueryUI = true;
+    
+    // Init a Knockout app
     ko.applyBindings(app);
     
+    
+    /**
+     * TEMP
+     */
     $('#progress').click(function(e) {
          var posX = $(this).offset().left;
          console.log(soundManager.bytesLoaded / soundManager)

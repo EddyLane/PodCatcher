@@ -49,7 +49,7 @@ knp_paginator:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [PodcastMainBundle]
+    bundles:        [PodcastMainBundle, FOSUserBundle]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -92,6 +92,9 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: Podcast\MainBundle\Entity\User
+    registration:
+        form:
+            type: podcast_mainbundle_registrationformtype
     
 fos_rest:
 #    routing_loader:
