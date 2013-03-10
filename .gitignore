@@ -25,3 +25,4 @@ composer.phar
 /src/Podcast/MainBundle/Resources/public/Knockout.Extensions/
 /bin/
 /.idea/
+/nbproject/
