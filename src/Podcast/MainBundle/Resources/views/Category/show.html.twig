@@ -9,10 +9,10 @@
     <h1>{{ entity.name }}</h1>
     <div class="btn-group" style="width: auto;">
         <a class="btn" href="{{ path('category') }}"><i class="icon-arrow-left"></i></a>
-        <a class="btn" href="{{ path('category_edit', { 'id': entity.id }) }}"><i class="icon-edit"></i></a>
+        <a class="btn" href="{{ path('category_edit', { 'id': entity.id }) }}">Edit</a>
         <form action="{{ path('category_delete', { 'id': entity.id }) }}" method="post" style="display:inline; margin-left:10px;">
             {{ form_widget(delete_form) }}
-            <button type="submit" class="btn btn-danger"><i class="icon-remove"></i></button>
+            <button type="submit" class="btn btn-danger">Delete</button>
         </form>        
     </div>
 </div>

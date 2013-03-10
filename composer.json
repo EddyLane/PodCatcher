@@ -32,7 +32,8 @@
         "braincrafted/bootstrap-bundle": "dev-master"
     },
     "require-dev": {
-        "phpspec/phpspec2": "*"
+        "phpspec/phpspec2": "*",
+        "phpunit/phpunit": "3.7.*"
     },
     "config": {
         "bin-dir": "bin/"

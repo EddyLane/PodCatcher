@@ -12,7 +12,7 @@
 
 
 
-        
+
         {% stylesheets filter="lessphp,cssrewrite"
             'bundles/podcastmain/bootstrap/less/bootstrap.less'
             'bundles/podcastmain/bootstrap/less/responsive.less'
@@ -28,138 +28,48 @@
         %}
         <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
-
-
-
     </head>
     <body>
-        {#
-        <div class="navbar navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container-fluid">
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
-                    <a class="brand" href="#">PodCatch</a>
-                    <div class="nav-collapse navbar-responsive-collapse collapse">
-                        <!-- ko with: user -->
-                        <p class="navbar-text pull-right" data-bind="if: !authenticated()">
-                            Anonymous
-                        </p>
-                        <p class="navbar-text pull-right" data-bind="if: authenticated">
-                            Logged in as <a href="#" class="navbar-link" data-bind="text: username">Username</a>
-                        </p>
-                        <!-- /ko -->
-                        <ul class="nav">
-                            <li data-bind="css: { active: !$root.podcast()  }"><a href="#" data-bind="click: $root.loadIndex">Home</a></li>
-                        </ul>
-                    </div><!--/.nav-collapse -->
-                </div>
-            </div>
-        </div>#}
-
-
-            <div id="header">
-                <h1><a href="./dashboard.html">Unicorn Admin</a></h1>	
-            </div>
-            <div id="search">
-
-                <input type="text" placeholder="Search here..."><button class="tip-right" type="submit" data-original-title="Search"><i class="icon-search icon-white"></i></button>
-
-
-            </div>
-
-
-
-
-            <div class="navbar navbar-inverse" id="user-nav">
-                <ul class="nav btn-group" style="width: auto; margin: 0px;">
-
-                    <li href="#" class="btn btn-inverse">
-                        <a href="#">
-                            <i class="icon-white icon-backward"></i>
-                            <span class="text">Prev</span>
-                        </a>
-                    </li>
-                    <li href="#" class="btn btn-inverse"><a href="#"><i class="icon-white icon-stop"></i><span class="text">Stop</span></a></li>
-                    <li href="#" class="btn btn-inverse"><a href="#"><i class="icon-white icon-play"></i><span class="text">Play</span></a></li>
-                    <li href="#" class="btn btn-inverse"><a href="#"><i class="icon-white icon-forward"></i><span class="text">Next</span></a></li>
-            </div>
-
-
-        </div>            <div id="sidebar">
-
-            <a class="visible-phone" href="#"><i class="icon icon-home"></i> Dashboard</a>
-
-
-            <ul style="display: block;">
-                <li class="active"><a href="#index"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
-                <li class="submenu">
-                    <a href="#"><i class="icon icon-th-list"></i> <span>Subscriptions</span> <span class="label" data-bind="text: user.subscriptions().length"></span></a>
-                    <ul data-bind="foreach: user.subscriptions">
-                        <li data-bind="css: { active: $data.id == $root.podcastId() }"><a href="#" data-bind="text: name, click: $root.loadSubscription"></a></li>
-                    </ul>
-                </li>
-            </ul>
-
-
-
-
-
-
-
-
+        <div id="header">
+            <h1><a href="./dashboard.html">Unicorn Admin</a></h1>	
         </div>
+        <div id="search">
+            <input type="text" placeholder="Search here..."><button class="tip-right" type="submit" data-original-title="Search"><i class="icon-search icon-white"></i></button>
+        </div>
+        <div class="navbar navbar-inverse" id="user-nav">
+            <ul class="nav btn-group" style="width: auto; margin: 0px;">
 
-        <div id="content">
-
+                <li href="#" class="btn btn-inverse">
+                    <a href="#">
+                        <i class="icon-white icon-backward"></i>
+                        <span class="text">Prev</span>
+                    </a>
+                </li>
+                <li href="#" class="btn btn-inverse"><a href="#"><i class="icon-white icon-stop"></i><span class="text">Stop</span></a></li>
+                <li href="#" class="btn btn-inverse"><a href="#"><i class="icon-white icon-play"></i><span class="text">Play</span></a></li>
+                <li href="#" class="btn btn-inverse"><a href="#"><i class="icon-white icon-forward"></i><span class="text">Next</span></a></li>
+        </div>
+    </div>            <div id="sidebar">
+        <a class="visible-phone" href="#"><i class="icon icon-home"></i> Dashboard</a>
+        <ul style="display: block;">
+            <li class="active"><a href="#index"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
+            <li class="submenu">
+                <a href="#"><i class="icon icon-th-list"></i> <span>Subscriptions</span> <span class="label" data-bind="text: user.subscriptions().length"></span></a>
+                <ul data-bind="foreach: user.subscriptions">
+                    <li data-bind="css: { active: $data.id == $root.podcastId() }"><a href="#" data-bind="text: name, click: $root.loadSubscription"></a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div id="content">
                 {% block content %}
                 {% endblock %}
         </div>
-
-
-        <footer>
-            <div class="container-fluid">
-                <div class="row-fluid">
-                    <div class="span1" style="text-align:center;">
-                        <div class="btn-toolbar" style="margin-top:5px;">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-primary"><i class="icon-step-backward icon-white"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon-pause icon-white"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon-step-forward icon-white"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="span2">
-                        <div class="alert alert-info" style="width: 100%;text-overflow:ellipsis;white-space:nowrap; ">
-                            Frank Skinner on Absolute Radio - Bad Gifts
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </footer>
-        <script id="podcastRowTemplate" type="text/html">
-            <td style="cursor: pointer" data-bind="text: name, click: $root.loadPodcast"></td>
-        </script>
-
-        <script id="episodeRowTemplate" type="text/html">
-            <td style="width:20px;">
-            <input type="checkbox" data-bind="checked: isNew, uniform:{}"></input>
-            </td>
-            <td data-bind="click: $parent.playEpisode">
-            <span data-bind="html: name"></span> 
-            </td>
-            <td data-bind="text: pub_date"></td>
-        </script>
-
         <!-- fos_js_routing -->
         <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
         <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
         <!-- /fos_js_routing -->
-        
+
         <script>var cog = {};</script>
         {% javascripts 
             '@PodcastMainBundle/Resources/public/jquery/jquery.js'
@@ -191,7 +101,7 @@
 
             '@PodcastMainBundle/Resources/public/internal/js/PodcatcherViewModel.js'
         %}
-            <script src="{{ asset_url }}"></script>
+        <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
     </body>
 </html>
