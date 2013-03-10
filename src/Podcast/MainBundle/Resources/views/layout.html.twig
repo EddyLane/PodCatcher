@@ -9,10 +9,6 @@
         <!--[if lt IE 9]>
           <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
-
-
-
-
         {% stylesheets filter="lessphp,cssrewrite"
             'bundles/podcastmain/bootstrap/less/bootstrap.less'
             'bundles/podcastmain/bootstrap/less/responsive.less'
@@ -42,10 +38,15 @@
         </div>
     </div>            
     <div id="sidebar">
+
+
+
             {{ knp_menu_render('PodcastMainBundle:Builder:mainMenu') }}
 
     </div>
     <div id="content">
+                {% block fos_user_content %}
+                {% endblock %}                
                 {% block content %}
                 {% endblock %}
         </div>

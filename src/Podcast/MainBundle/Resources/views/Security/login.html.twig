@@ -1,8 +1,9 @@
+{% extends 'PodcastMainBundle::layout.html.twig' %}
+
 {% block fos_user_content %}
 {% if error %}
     <div>{{ error|trans({}, 'FOSUserBundle') }}</div>
 {% endif %}
-
 
         <!-- ko with: error -->
         <div class="alert alert-error" data-bind="text: $data"></div>
