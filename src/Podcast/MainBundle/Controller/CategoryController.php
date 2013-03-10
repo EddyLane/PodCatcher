@@ -135,7 +135,7 @@ class CategoryController extends Controller {
      * Edits an existing Category entity.
      *
      * @Route("/{id}/update", name="category_update")
-     * @Method("POST")
+     * @Method("PUT")
      * @Template("PodcastMainBundle:Category:edit.html.twig")
      */
     public function updateAction(Request $request, $id) {
@@ -169,7 +169,7 @@ class CategoryController extends Controller {
      * Deletes a Category entity.
      *
      * @Route("/{id}/delete", name="category_delete")
-     * @Method("POST")
+     * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
