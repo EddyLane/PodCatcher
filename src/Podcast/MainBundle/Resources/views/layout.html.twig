@@ -26,34 +26,59 @@
         {% endstylesheets %}
     </head>
     <body>
+        
         <div id="header">
             <h1><a href="./dashboard.html">Unicorn Admin</a></h1>	
         </div>
         <div id="search">
-            <input type="text" placeholder="Search here..."><button class="tip-right" type="submit" data-original-title="Search"><i class="icon-search icon-white"></i></button>
+			<input type="text" placeholder="Search here..."><button type="submit" class="tip-right" title="" data-original-title="Search"><i class="icon-search icon-white"></i></button>
+		</div>
+                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") == true %}
+        <div id="user-nav" class="navbar navbar-inverse">
+            <ul class="nav btn-group">
+                <li class="btn btn-inverse"><a title="" href="#"><i class="icon icon-user"></i> <span class="text">Profile</span></a></li>
+                <li class="btn btn-inverse dropdown" id="menu-messages"><a href="#" data-toggle="dropdown" data-target="#menu-messages" class="dropdown-toggle"><i class="icon icon-envelope"></i> <span class="text">Messages</span> <span class="label label-important">5</span> <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a class="sAdd" title="" href="#">new message</a></li>
+                        <li><a class="sInbox" title="" href="#">inbox</a></li>
+                        <li><a class="sOutbox" title="" href="#">outbox</a></li>
+                        <li><a class="sTrash" title="" href="#">trash</a></li>
+                    </ul>
+                </li>
+                <li class="btn btn-inverse"><a title="" href="#"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>
+                <li class="btn btn-inverse"><a title="" href="login.html"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
+                </ul>
         </div>
-        <div class="navbar navbar-inverse" id="user-nav">
+                    {% endif %}        
 
-
-        </div>
-    </div>            
     <div id="sidebar">
 
-
+                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") == false %}
+                        {% render "FOSUserBundle:Security:login" %}
+                    {% endif %}        
 
             {{ knp_menu_render('PodcastMainBundle:Builder:mainMenu') }}
 
     </div>
     <div id="content">
+        
+        {% block content_header %}
+                {% endblock %} 
+        
+        <div class="container-fluid">
+
                 {% block fos_user_content %}
-                {% endblock %}                
+                {% endblock %}          
+
                 {% block content %}
                 {% endblock %}
         </div>
-        <!-- fos_js_routing -->
-        <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-        <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-        <!-- /fos_js_routing -->
+    </div>
+
+    <!-- fos_js_routing -->
+    <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+    <!-- /fos_js_routing -->
 
         {% javascripts 
             '@PodcastMainBundle/Resources/public/jquery/jquery.js'
@@ -79,13 +104,14 @@
             '@PodcastMainBundle/Resources/public/soundmanager/script/soundmanager2.js' 
 
             '@PodcastMainBundle/Resources/public/datejs/build/date-en-GB.js' 
+
             '@PodcastMainBundle/Resources/public/Knockout.Extensions/Javascript/src/cog.js'
             '@PodcastMainBundle/Resources/public/Knockout.Extensions/Javascript/src/cog.utils.js'
             '@PodcastMainBundle/Resources/public/Knockout.Extensions/Javascript/src/knockout.bindings.dataTables.js'
 
             '@PodcastMainBundle/Resources/public/internal/js/PodcatcherViewModel.js'
         %}
-        <script src="{{ asset_url }}"></script>
+    <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
-    </body>
+</body>
 </html>

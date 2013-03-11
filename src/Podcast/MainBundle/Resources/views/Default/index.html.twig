@@ -2,10 +2,7 @@
 
 {% block title %}Podcast Tool{% endblock %}
 
-{% block content_header '' %}
-
-{% block content %}
-
+{% block content_header %}
 <div id="content-header">
     <h1>Dashboard</h1>
     <div class="btn-group" style="width: auto;" data-bind="with: podcast">
@@ -15,113 +12,105 @@
         <a class="btn btn-large tip-bottom" data-original-title="Manage Comments"><i class="icon-comment"></i><span class="label label-important">5</span></a>
         <a class="btn btn-large tip-bottom" data-original-title="Manage Orders"><i class="icon-shopping-cart"></i></a>
     </div>
-    <hr>
 </div>
-
-<div class="row-fluid" data-bind="with: user">
-    <div class="span12" data-bind="if: !authenticated()">
-
-    </div>
-</div>
-
 <div id="breadcrumb">
     <a class="tip-bottom" href="#" data-original-title="Go to Home"><i class="icon-home"></i> Home</a>
     <a class="current" href="#">Dashboard</a>
-</div>
+</div> 
+{% endblock %}
 
-<div class="container-fluid">
-    <div class="row-fluid">
-        <div class="span12">
-            <div data-bind="template: { name: 'directoryTemplate', 'if': !podcast(), data: directory }"> </div>
-            <div data-bind="template: { name: 'podcastTemplate', 'if': podcast, data: podcast, afterRender: function() { $('select').select2(); } }"></div>
-        </div><!--/span-->
-    </div><!--/row-->
-</div>
+{% block content %}
+<div class="row-fluid">
+    <div class="span12">
+        <div data-bind="template: { name: 'directoryTemplate', 'if': !podcast(), data: directory }"> </div>
+        <div data-bind="template: { name: 'podcastTemplate', 'if': podcast, data: podcast, afterRender: function() { $('select').select2(); } }"></div>
+    </div><!--/span-->
+</div><!--/row-->
 
 
 <script id="episodeRowTemplate" type="text/html">
     <td style="width:20px;">
-        <input type="checkbox"></input>
+    <input type="checkbox"></input>
     </td>
     <td data-bind="click: $parent.playEpisode">
-        <span data-bind="html: name"></span> 
+    <span data-bind="html: name"></span> 
     </td>
     <td data-bind="text: pub_date"></td>
 </script>
 
 <script id="directoryTemplate" type="text/html">
     <div class="well well-small clearfix" data-bind="with: pagination">
-        <div style="margin:0px;" class="pagination alternate pull-right">
-            <ul>
-                <li><a href="#" data-bind="click: previous">Prev</a></li>
-                <li class="active">
-                    <a href="#" data-bind="text: page"></a>
-                </li>
-                <li><a href="#" data-bind="click: next">Next</a></li>
-            </ul>
-        </div> 
+    <div style="margin:0px;" class="pagination alternate pull-right">
+    <ul>
+    <li><a href="#" data-bind="click: previous">Prev</a></li>
+    <li class="active">
+    <a href="#" data-bind="text: page"></a>
+    </li>
+    <li><a href="#" data-bind="click: next">Next</a></li>
+    </ul>
+    </div> 
     </div>
     <div class="row-fluid">
-        <ul class="thumbnails" data-bind="foreach: thumbnails">
-            <li class="span2">
-                <div class="widget-box">
-                    <div class="widget-title">
-                        <h5 data-bind="text: name"></h5>
-                    </div>
-                    <a href="#" class="thumbnail" data-bind="click: $parents[1].loadPodcast, css: { loading: loading }">
-                        <img data-bind="attr: { src: $data.getImage }">
-                    </a>  
-                </div>
-            </li>
-        </ul>
+    <ul class="thumbnails" data-bind="foreach: thumbnails">
+    <li class="span2">
+    <div class="widget-box">
+    <div class="widget-title">
+    <h5 data-bind="text: name"></h5>
+    </div>
+    <a href="#" class="thumbnail" data-bind="click: $parents[1].loadPodcast, css: { loading: loading }">
+    <img data-bind="attr: { src: $data.getImage }">
+    </a>  
+    </div>
+    </li>
+    </ul>
     </div>
 </script>
 
 <script id="podcastTemplate" type="text/html">
     <div class="row-fluid">
-        <div class="span3">
-        
-            <div class="thumbnail">
-                <img data-bind="attr:{ src: image() }" class"img-polaroid img-rounded">
-                <div class="caption">
-                    <p data-bind="text: description()"></p>
-                </div>
-            </div>
-    
-        </div>
-                            
+    <div class="span3">
 
-        <div class="span9">
-            <div class="widget-box" style="margin-top:0px;">
-                <div class="widget-title">
-                    <span class="icon">
-                        <div class="checker" id="uniform-title-checkbox"><span class=""><input type="checkbox" id="title-checkbox" name="title-checkbox" style="opacity: 0;"></span></div>
-                    </span>
-                    <h5>Episodes</h5>
-                </div>
-                <div class="widget-content nopadding">
-                    <table id="episode-table" class="table data-table table-striped table-bordered with-check nomargin dataTable" data-bind="
-                           dataTable: {
-                            dataSource: episodes,
-                            rowTemplate: 'episodeRowTemplate',
-                            data: episodes,
-                            columns: [ 'name', 'name', 'timestamp' ],
-                            'aaSorting': [[2,'desc']]
-                           }
-                           ">
-                        <thead>
-                            <tr>
-                                <th><i class="icon-resize-vertical"></i></th>
-                                <th>Episode</th>
-                                <th>Date Published</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+    <div class="thumbnail">
+    <img data-bind="attr:{ src: image() }" class"img-polaroid img-rounded">
+    <div class="caption">
+    <p data-bind="text: description()"></p>
+    </div>
+    </div>
+
+    </div>
+
+
+    <div class="span9">
+    <div class="widget-box" style="margin-top:0px;">
+    <div class="widget-title">
+    <span class="icon">
+    <div class="checker" id="uniform-title-checkbox"><span class=""><input type="checkbox" id="title-checkbox" name="title-checkbox" style="opacity: 0;"></span></div>
+    </span>
+    <h5>Episodes</h5>
+    </div>
+    <div class="widget-content nopadding">
+    <table id="episode-table" class="table data-table table-striped table-bordered with-check nomargin dataTable" data-bind="
+    dataTable: {
+    dataSource: episodes,
+    rowTemplate: 'episodeRowTemplate',
+    data: episodes,
+    columns: [ 'name', 'name', 'timestamp' ],
+    'aaSorting': [[2,'desc']]
+    }
+    ">
+    <thead>
+    <tr>
+    <th><i class="icon-resize-vertical"></i></th>
+    <th>Episode</th>
+    <th>Date Published</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+    </table>
+    </div>
+    </div>
+    </div>
     </div>
 </script>
 {% endblock %}

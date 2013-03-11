@@ -167,3 +167,12 @@ width: 10px !important;
 
 
 }
+
+#login-form {
+    padding-left:13px;
+    padding-top:20px;
+}
+
+#login-form .control-group label {
+    color: #fff;
+}
