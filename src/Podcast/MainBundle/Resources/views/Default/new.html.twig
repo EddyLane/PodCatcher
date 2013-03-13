@@ -2,18 +2,19 @@
 
 {% block title %}Symfony - Welcome{% endblock %}
 
-{% block content_header '' %}
+{% block content_header  %}
+<div id="content-header">
+    <h1>Add Podcast</h1>
+</div>
+{% endblock %}
 
 {% block content %}
-
-<form action="" method="post" {{ form_enctype(form) }}>
-    <fieldset>
-        <legend>Add Podcast</legend>
+<div class="row-fluid">
+    <form action="" method="post" {{ form_enctype(form) }} class="form-horizontal">
         {{ form_widget(form) }}
-        <div class="form-actions">
-            <button class="btn" type="submit">Add Podcast</button>
-        </div>
-    </fieldset>
-</form>
-
+            <div class="form-actions">
+                <button class="btn" type="submit">Add Podcast</button>
+            </div>
+        </form>
+    </div>
 {% endblock %}

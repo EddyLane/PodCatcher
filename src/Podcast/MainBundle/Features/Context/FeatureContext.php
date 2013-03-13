@@ -10,6 +10,10 @@ use Behat\Mink\Mink;
 
 use Symfony\Component\HttpKernel\KernelInterface;
 
+require_once 'PHPUnit/Autoload.php';
+require_once 'PHPUnit/Framework/Assert/Functions.php';
+
+
 class FeatureContext extends BehatContext implements MinkAwareInterface, KernelAwareInterface
 {
     /**
@@ -34,11 +38,49 @@ class FeatureContext extends BehatContext implements MinkAwareInterface, KernelA
     {
         $this->minkParameters = $parameters;
     }    
+    
     public function setMink(Mink $mink)
     {
         $this->mink = $mink;
     }
+    
+    
+    /**
+     * @Given /There is no "([^"]*)" in database/
+     */
+    public function thereIsNoRecordInDatabase($entityName) {
+        
+        $entities = $this->getEntityManager()->getRepository('PodcastMainBundle:' . $entityName)->findAll();
+        foreach ($entities as $eachEntity) {
+            $this->getEntityManager()->remove($eachEntity);
+        }
 
+        $this->getEntityManager()->flush();
+    }
+
+    /**
+     * @Given /I have a category "([^"]*)"/
+     */
+    public function iHaveACategory($name) {
+        $category = new \Podcast\MainBundle\Entity\Category();
+        $category->setName($name);
+        $this->getEntityManager()->persist($category);
+        $this->getEntityManager()->flush();
+    }
+    
+    /**
+     * @Given /I have a podcast "([^"]*)"/
+     */
+    public function iHaveAPodcast($name) {
+
+        $podcast = new \Podcast\MainBundle\Entity\Podcast();
+        $podcast->setName($name);
+        $podcast->setLink("http://"+$this->generateRandomString(30));
+        $this->getEntityManager()->persist($podcast);
+        $this->getEntityManager()->flush();
+   }
+    
+    
     /**
      * @Given /^There is a podcast$/
      */
@@ -50,7 +92,48 @@ class FeatureContext extends BehatContext implements MinkAwareInterface, KernelA
         $this->getEntityManager()->persist($podcast);
         $this->getEntityManager()->flush();
     }
+    
+    
 
+    
+
+    /**
+     * @Then /^I should find podcast "([^"]*)" in category "([^"]*)"$/
+     */
+    public function iShouldFindPodcastInCategory($podcastName, $categoryName)
+    {
+        $category = $this->getEntityManager()->getRepository('PodcastMainBundle:Category')->findOneByName($categoryName);
+
+        $found = false;
+        
+        foreach ($category->getPodcasts() as $podcast) {
+            if ($podcastName === $podcast->getName()) {
+                $found = true;
+                break;
+            }
+        }
+
+        assertTrue($found);        
+    }
+
+    /**
+     * @When /^I add podcast "([^"]*)" to category "([^"]*)"$/
+     */
+    public function iAddPodcastToCategory($podcastName, $categoryName)
+    {
+        
+        $podcast = $this->getEntityManager()->getRepository('PodcastMainBundle:Podcast')->findOneByName($podcastName);
+        $category = $this->getEntityManager()->getRepository('PodcastMainBundle:Category')->findOneByName($categoryName);
+
+        $category->addPodcast($podcast);
+
+        $this->getEntityManager()->persist($category);
+        $this->getEntityManager()->flush();        
+        
+    }
+    
+    
+    
     /**
      * @Then /^That podcast should be displayed$/
      */

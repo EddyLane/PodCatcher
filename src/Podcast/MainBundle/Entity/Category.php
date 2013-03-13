@@ -82,7 +82,8 @@ class Category {
     
     public function getSlug() {
         return $this->slug;
-    } 
+    }
+    
     /**
      * Get podcats
      * 
@@ -90,6 +91,14 @@ class Category {
      */
     public function getPodcasts() {
         return $this->podcasts;
+    }
+    
+    
+    /**
+     * Add a podcast
+     */
+    public function addPodcast($podcast) {
+        $this->podcasts[] = $podcast;
     }
 
     /**

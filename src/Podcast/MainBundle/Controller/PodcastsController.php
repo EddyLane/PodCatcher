@@ -6,6 +6,9 @@ use Symfony\Component\HttpFoundation\Request,
     Symfony\Component\HttpFoundation\Response,
     Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use Podcast\MainBundle\Form\PodcastType;
+use Podcast\MainBundle\Entity;
+
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
 
@@ -35,15 +38,13 @@ class PodcastsController extends FOSRestController {
 
     public function newPodcastsAction() {
         
-        $podcast = new Entity\Podcast();
-        
-        $form = $this->createFormBuilder($podcast)
-            ->add('link', 'text')
-            ->getForm();
-        
-        return $this->render('PodcastMainBundle:Default:podcastForm.html.twig', array(
-            'form' => $form->createView()
-        ));
+        $entity = new Entity\Podcast();
+        $form = $this->createForm(new PodcastType(), $entity);
+
+        return array(
+            'entity' => $entity,
+            'form' => $form->createView(),
+        );
     }
 
   

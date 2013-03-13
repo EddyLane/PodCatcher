@@ -102,6 +102,10 @@ class Podcast {
     private $categories;
     
     
+    /**
+     * The feed
+     * @var type 
+     */
     private $xml;
     
     
@@ -178,17 +182,26 @@ class Podcast {
         return $this->rating;
     }
 
+    /**
+     * Get dem eps
+     * 
+     * @param type $amount
+     */
     public function getEpisodes($amount = 5) {
-
         $episodes = $this->episodes->toArray();
-
     }
 
+    
+    /**
+     * Grab the feed 
+     * 
+     * @param type $amount
+     * @return type
+     */
     private function getPodcastFiles($amount = 100) {
 
         $this->getFeed();
-        $podcasts = array();
-
+        $podcasts = [];
         for ($i = 0; $i < $amount; $i++) {
             if (isset($this->xml->channel->item[$i])) {
                 $item = $this->xml->channel->item[$i];  
@@ -206,6 +219,11 @@ class Podcast {
     }
 
     
+    /**
+     * Clean it up a bit
+     * 
+     * @param type $feed
+     */
     public function cleanEpisodes($feed) {
         
         $feed->set_feed_url($this->getLink());
@@ -222,19 +240,15 @@ class Podcast {
             }
             if(!$found) {
                 echo "Found dead episode: ".$episode->getName()."\n";
-                //unset($this->episodes[$key]);
                 $this->episodes->remove($key);
             }
-
         }
     }
     
     public function refreshEpisodes($feed) {
 
         $feed->set_feed_url($this->getLink());
-        $feed->init();
-        //$episodes = new ArrayCollection();
-        
+        $feed->init();        
         echo "Podcast '".$this->getName()."'\n";
         echo "--------------------------------\n";
         foreach($feed->get_items() as $key=>$item)
@@ -272,15 +286,12 @@ class Podcast {
 
         $this->getFeed();
         try {
-            
             $this->setImage((string) $this->xml->channel->image->url);
             $this->setName((string) $this->xml->channel->title);
             $this->setDescription((string) $this->xml->channel->description);
             
         } catch (Exception $e) {
-            
             return $e->getMessage();
-            
         }
         return true;
     }
@@ -290,7 +301,11 @@ class Podcast {
     }
 
 
-
+    /**
+     *  Attempt to load the feed from the link
+     * 
+     * @return boolean
+     */
     private function getFeed() {
 
         libxml_use_internal_errors(true);
@@ -308,7 +323,10 @@ class Podcast {
         }
     }
     
-    
+    /**
+     * 
+     * @param type $description
+     */
     public function setDescription($description) {
         if((string) strlen($description) > 0) {
             $this->description = $description;

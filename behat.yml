@@ -1,0 +1,28 @@
+## 1.3
+
+#default:
+#    paths:
+#        features: features
+#        bootstrap: %behat.paths.features%/bootstrap
+#    context:
+#      class:  Podcast\MainBundle\Features\Context\FeatureContext
+#    extensions:
+#        Behat\Symfony2Extension\Extension:
+#            mink_driver: true
+#        Behat\MinkExtension\Extension:
+#            default_session: 'symfony2'
+
+## 1.4
+default:
+  formatter:
+    name: progress
+  extensions:
+    Behat\Symfony2Extension\Extension:
+      mink_driver: true
+      kernel:
+        env: test
+        debug: true
+    Behat\MinkExtension\Extension:
+      base_url: 'http://eddylane.co.uk'
+      default_session: symfony2
+      #selenium2: ~

@@ -190,6 +190,8 @@ class CategoryController extends Controller {
         return $this->redirect($this->generateUrl('category'));
     }
 
+    
+    
     private function createDeleteForm($id) {
         return $this->createFormBuilder(array('id' => $id))
                         ->add('id', 'hidden')

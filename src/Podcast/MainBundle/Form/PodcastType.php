@@ -9,10 +9,20 @@ class PodcastForm extends AbstractType
 {
     public function buildForm(FormBuilder $builder, array $options)
     {
-        $builder->add('link','text');
+        $builder->add('link', 'text')
+                ->add('name', 'text');
     }
+    
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'Podcast\MainBundle\Entity\Podcast'
+        ));
+    }    
+    
     public function getName()
     {
         return 'podcast';
     }
+    
 }
