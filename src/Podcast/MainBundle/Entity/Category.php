@@ -109,5 +109,13 @@ class Category {
     public function setPodcasts($podcasts) {
         $this->podcasts = $podcasts;
     }
+    
+    
+    /**
+     * @return type
+     */
+    public function __toString() {
+        return $this->name;
+    }
 
 }

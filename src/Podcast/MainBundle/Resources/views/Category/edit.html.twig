@@ -4,7 +4,7 @@
 
 {% block content_header %}
 <div id="content-header">
-    <h1>Category edit</h1>
+    <h1>Edit {{ entity }}</h1>
     <div class="btn-group">
         <form action="{{ path('category_delete', { 'id': entity.id }) }}" method="post" style="display:inline">
             {{ form_widget(delete_form) }}

@@ -1,4 +1,3 @@
-
 var podcast = {
     dom: {
         progress: $('#progress'),
@@ -79,6 +78,10 @@ var Podcast = function(data)
         return slug;
     };
     
+    this.name = function() {
+        return name;
+    }
+    
     this.image = function() {
         return image;
     };
@@ -86,21 +89,15 @@ var Podcast = function(data)
     this.description = function() {
         return description;
     }
-    console.log(slug);
     
-    this.loading = ko.observable(false);
-    
-    
+    this.loading = ko.observable(false);    
     this.episodes = (!data.episodes) ? [] : $.map(data.episodes, function(episode) {
         return new Episode(episode);
     });
-    
     this.selected = ko.observable();
-    
     this.getImage = ko.computed(function() {
         return self.image ? self.image() : "http://placehold.it/350x350&text="+self.name;
     });
-    
     this.subscribed = ko.computed(function(){
         return user.isSubscribed(ko.mapping.toJS(self)) ? true : false;
     });
@@ -234,7 +231,6 @@ function PodcatcherViewModel()
 {
     var self = this;
     this.podcast = ko.observable(false);
-    this.podcastId = ko.observable();
     this.directory = new Directory();
     user = new User();
 
@@ -282,9 +278,9 @@ function PodcatcherViewModel()
             self.showPodcast(this.params.podcastSlug);
         });
 
-//        this.get('', function() {
-//            this.app.runRoute('get', '#index')
-//        });
+        this.get('', function() {
+            this.app.runRoute('get', '#index')
+        });
 
     }).run();
 }
