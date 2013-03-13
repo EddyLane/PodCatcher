@@ -97,17 +97,16 @@ fos_user:
             type: podcast_mainbundle_registrationformtype
     
 fos_rest:
-#    routing_loader:
-#        default_format: html
+    routing_loader:
+        default_format: html
     view:
         formats:
             rss: true
-            xml: true
+            xml: false
             json: true
         templating_formats:
             html: true
-        force_redirects:
-            html: true
+
         failed_validation: HTTP_BAD_REQUEST
         default_engine: twig
         

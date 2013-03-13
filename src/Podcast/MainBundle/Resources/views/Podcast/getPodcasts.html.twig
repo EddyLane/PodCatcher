@@ -1,0 +1,74 @@
+{% extends 'PodcastMainBundle::layout.html.twig' %}
+
+{% block title %}Podcast Tool{% endblock %}
+
+{% block content_header %}
+<div id="content-header">
+    <h1>Podcast list</h1>
+</div>
+<div id="breadcrumb">
+    <a class="tip-bottom" href="#" data-original-title="Go to Home"><i class="icon-home"></i> Home</a>
+    <a class="current" href="#">Dashboard</a>
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="row-fluid">
+    <div class="span10">
+        <div class="widget-box">
+            <div class="widget-title">
+                <span class="icon"><i class="icon-list"></i></span>
+                <h5>Categories</h5>
+            </div>
+            <div class="widget-content nopadding">
+                <table class="records_list table table-striped table-bordered" id="category-table">
+                    <thead>
+                        <tr>
+                            <th {% if entities.isSorted('Name') %} class="sorted"{% endif %}>{{ entities.isSorted('Name') }}  {{ knp_pagination_sortable(entities, 'Name', 'name') }}</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            {% for entity in entities %}
+                            <tr>
+                                <td><a href="{{ path('category_show', { 'slug': entity.slug }) }}">{{ entity.name }}</a></td>
+                                <td>
+                                    <ul class="unstyled">
+                                        <li>
+                                            <a href="{{ path('category_show', { 'slug': entity.slug }) }}"><i class="icon-eye-open"></i> show</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('category_edit', { 'id': entity.id }) }}" id="edit-{{ entity.slug }}"><i class="icon-edit"></i> edit</a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="pull-right">
+                            {{ knp_pagination_render(entities) }}
+                        </div>
+                    </div>
+                </div>          
+            </div><!--/span-->
+
+            <div class="span2">
+                <a class="btn btn-block" id="new-category-button" href="{{ path('category_new') }}">
+                    New
+                </a>
+            </div>
+
+        </div><!--/row-->
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+
+
+

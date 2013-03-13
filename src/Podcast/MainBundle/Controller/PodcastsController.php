@@ -2,10 +2,6 @@
 
 namespace Podcast\MainBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request,
-    Symfony\Component\HttpFoundation\Response,
-    Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Podcast\MainBundle\Form\PodcastType;
 use Podcast\MainBundle\Entity;
 
@@ -15,23 +11,27 @@ use FOS\RestBundle\View\View;
 class PodcastsController extends FOSRestController {
     
 
+    /**
+     *  Get all dem podcasts man.
+     * @return type
+     */
     public function getPodcastsAction() {
 
         $em = $this->getDoctrine()->getManager();
 
         $query = $em->getRepository('PodcastMainBundle:Podcast')->findAllWithDefaultSort($this->get('request')->query->get('sort', "id"), $this->get('request')->query->get('direction', "desc"));
 
-
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
                 $query, $this->get('request')->query->get('page', 1), 10
         );
 
-        
-        $view = $this->view($pagination);
-        
-        return $this->handleView($view);
+        $view = $this->view($pagination, 200)
+                ->setTemplate('PodcastMainBundle:Podcast:getPodcasts.html.twig')
+                ->setTemplateVar('entities');
 
+
+        return $this->handleView($view);
     }
 
     // "get_podcasts"     [GET] /podcasts/new/asfasfa
