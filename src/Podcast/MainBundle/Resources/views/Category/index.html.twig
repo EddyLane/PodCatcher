@@ -23,7 +23,7 @@
                 <h5>Categories</h5>
             </div>
             <div class="widget-content nopadding">
-                <table class="records_list table table-striped table-bordered">
+                <table class="records_list table table-striped table-bordered" id="category-table">
                     <thead>
                         <tr>
                             <th {% if entities.isSorted('Name') %} class="sorted"{% endif %}>{{ entities.isSorted('Name') }}  {{ knp_pagination_sortable(entities, 'Name', 'name') }}</th>

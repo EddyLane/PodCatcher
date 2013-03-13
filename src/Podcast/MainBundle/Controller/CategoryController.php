@@ -13,7 +13,7 @@ use Podcast\MainBundle\Form\CategoryType;
 /**
  * Category controller.
  *
- * @Route("/category")
+ * @Route("/categories")
  */
 class CategoryController extends Controller {
 

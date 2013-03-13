@@ -12,3 +12,4 @@ web_profiler:
 
 swiftmailer:
     disable_delivery: true
+    

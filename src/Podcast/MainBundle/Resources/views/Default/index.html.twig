@@ -115,3 +115,11 @@
 </script>
 {% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+        {% javascripts 
+            '@PodcastMainBundle/Resources/public/internal/js/PodcatcherViewModel.js'
+        %}
+        <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+{% endblock %}

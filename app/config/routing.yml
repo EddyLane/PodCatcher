@@ -7,17 +7,20 @@
 #    resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
 #    prefix:   /_internal
 
+_welcome:
+    pattern:  /
+    defaults: { _controller: PodcastMainBundle:Default:index }
+
 PodcastMainBundle:
    resource: "@PodcastMainBundle/Resources/config/routing.yml"
    prefix:   /
    options:
      expose: true
-# app/config/routing.yml
+     
 PodcastMainBundle_new:
   pattern: /new
   defaults: { _controller: PodcastMainBundle:Default:new }
       
-# app/config/routing.yml
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 

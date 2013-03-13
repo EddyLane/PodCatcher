@@ -80,6 +80,7 @@
     <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
     <!-- /fos_js_routing -->
 
+    {% block javascripts %}
         {% javascripts 
             '@PodcastMainBundle/Resources/public/jquery/jquery.js'
 
@@ -109,9 +110,9 @@
             '@PodcastMainBundle/Resources/public/Knockout.Extensions/Javascript/src/cog.utils.js'
             '@PodcastMainBundle/Resources/public/Knockout.Extensions/Javascript/src/knockout.bindings.dataTables.js'
 
-            '@PodcastMainBundle/Resources/public/internal/js/PodcatcherViewModel.js'
         %}
-    <script src="{{ asset_url }}"></script>
+        <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
+        {% endblock %}
 </body>
 </html>

@@ -14,7 +14,7 @@ parameters:
     locale:            en
     secret:            RyoHazuki
     
-    node_base_path:    /usr/lib/nodejs
+    node_base_path:    /usr/lib/node_modules
     node_lib_path:     /usr/lib/nodejs/npm/lib
     node_modules_path: /usr/lib/nodejs/npm/node_modules
     

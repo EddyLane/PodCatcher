@@ -13,16 +13,28 @@
 #            default_session: 'symfony2'
 
 ## 1.4
+
 default:
-  formatter:
-    name: progress
-  extensions:
-    Behat\Symfony2Extension\Extension:
-      mink_driver: true
-      kernel:
-        env: test
-        debug: true
-    Behat\MinkExtension\Extension:
-      base_url: 'http://eddylane.co.uk'
-      default_session: symfony2
-      #selenium2: ~
+  
+    paths:
+        features: features  
+        
+    context:
+        class:  Podcast\MainBundle\Features\Context\FeatureContext
+        
+    extensions:
+      Behat\Symfony2Extension\Extension:
+        mink_driver: true
+        kernel:
+          env: test
+          debug: true
+      Behat\MinkExtension\Extension:
+        base_url: 'http://test.eddylane.co.uk'
+        default_session: 'symfony2'
+        goutte: ~
+        sahi: ~
+        zombie: ~
+            #      javascript_session: selenium
+#      selenium:
+#        host: 127.0.0.1
+#        port: 4444

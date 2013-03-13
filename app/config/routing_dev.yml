@@ -1,7 +1,3 @@
-_welcome:
-    pattern:  /
-    defaults: { _controller: PodcastMainBundle:Default:index }
-
 _demo_secured:
     resource: "@AcmeDemoBundle/Controller/SecuredController.php"
     type:     annotation
