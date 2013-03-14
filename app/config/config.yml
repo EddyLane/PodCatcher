@@ -101,7 +101,7 @@ fos_rest:
         default_format: html
     view:
         formats:
-            rss: true
+            rss: false
             xml: false
             json: true
         templating_formats:
