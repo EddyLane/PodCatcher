@@ -12,40 +12,38 @@ use Doctrine\ORM\EntityRepository;
  */
 class PodcastRepository extends EntityRepository
 {
-    
-    
-    /**
-     * 
-     * @param string $sortField
-     * @param string $sortDirection
-     * @return type
-     */
-    public function findAllWithDefaultSort($sortField, $sortDirection) {
-        return $this->findBy(array(), array($sortField => $sortDirection));
-    }    
+
     /**
      *
-     * @param type $maxResults
-     * @return type 
+     * @param  string $sortField
+     * @param  string $sortDirection
+     * @return type
+     */
+    public function findAllWithDefaultSort($sortField, $sortDirection)
+    {
+        return $this->findBy(array(), array($sortField => $sortDirection));
+    }
+    /**
+     *
+     * @param  type $maxResults
+     * @return type
      */
     private function getLatestPodcastsQuery($maxResults,$user)
     {
-        
+
         $query = $this->createQueryBuilder('p')
                 ->add('orderBy','p.id DESC')
                 ->setMaxResults($maxResults);
-        
-        if(false !== $user)
-        {
+
+        if (false !== $user) {
             $query->leftJoin('p.subscribed','u','WITH','u.id = :user_id')
                     ->addSelect('u.id as subscribed')
                     ->setParameter('user_id', $user->getId());
-        }   
-        
+        }
+
         return $query;
     }
-    
-    
+
     public function getMostSubscribedQuery($maxResults = 10,$user)
     {
         $query = $this->createQueryBuilder('p')
@@ -56,31 +54,31 @@ class PodcastRepository extends EntityRepository
                 ->orderBy('subscribed','desc')
                 ->setMaxResults($maxResults)
                 ->setParameter('user_id', $user->getId());
-        
+
         return $query->getQuery();
     }
-    
+
     /**
-     * 
-     * @param type $maxResults
-     * @return type 
+     *
+     * @param  type $maxResults
+     * @return type
      */
     public function getLatestPodcasts($maxResults = 10,$user = null)
     {
         $podcasts = $this->getLatestPodcastsQuery($maxResults,$user);
-        
+
         return $podcasts->getQuery()->getResult();
     }
-    
+
     public function getSubscribedPodcasts($user)
     {
-        
+
         $podcasts = $this->getLatestPodcastsQuery(100, false);
         $podcasts->innerJoin('p.subscribed','u','WITH','u.id = :user_id')
                 ->addSelect('u.id as subscribed')
                 ->setParameter('user_id',$user->getId());
-        
+
         return $podcasts->getQuery()->getResult();
     }
-    
+
 }

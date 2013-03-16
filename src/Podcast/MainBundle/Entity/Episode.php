@@ -7,18 +7,17 @@ use Doctrine\ORM\Mapping as ORM;
 
 use JMS\SerializerBundle\Annotation;
 
-
 /**
  * Podcast\MainBundle\Entity\Episode
  *
  * @ORM\Table()
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="Podcast\MainBundle\Entity\EpisodeRepository")
- * 
+ *
  * @Annotation\ExclusionPolicy("all")
  */
-class Episode {
-
+class Episode
+{
     /**
      * @var integer $id
      *
@@ -56,7 +55,7 @@ class Episode {
      * @Annotation\Expose
      * @ORM\Column(name="description", type="text", nullable=true)
      * @Assert\Null()
-     *  
+     *
      */
     private $description;
 
@@ -75,22 +74,20 @@ class Episode {
      * @ORM\Column(name="link", type="string", length=1020)
      */
     private $link;
-    
-    
+
     private $podcast_id;
     /**
      * @ORM\ManyToOne(targetEntity="Podcast", inversedBy="episodes")
      * @ORM\JoinColumn(name="podcast_id", referencedColumnName="id")
-     * @var type 
+     * @var type
      */
     protected $podcast;
-    
 
     /**
      *
      * @var type
-     * 
-     * @ORM\Column(name="expired", type="boolean") 
+     *
+     * @ORM\Column(name="expired", type="boolean")
      */
     private $expired = false;
 
@@ -98,27 +95,29 @@ class Episode {
      * @ORM\ManyToMany(targetEntity="Playlist", mappedBy="episodes", cascade={"persist"})
      */
     private $playlists;
-    
 
     /**
      * @ORM\ManyToMany(targetEntity="User", mappedBy="listenedTo", cascade={"all"})
      */
     protected $listenedBy;
 
-    public function addPlaylist($playlist) {
+    public function addPlaylist($playlist)
+    {
         $this->playlists[] = $playlist;
     }
 
-    public function removePlaylist(Playlist $playlist) {
+    public function removePlaylist(Playlist $playlist)
+    {
         $this->playlists->removeElement($playlist);
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -127,37 +126,45 @@ class Episode {
      *
      * @param string $name
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
     }
 
-    public function setPubDate($date) {
+    public function setPubDate($date)
+    {
         $this->pub_date = $date;
     }
 
-    public function getPubDate() {
+    public function getPubDate()
+    {
         $date = new \DateTime($this->pub_date);
+
         return $date->format('Y-m-d');
     }
 
-    public function setDescription($description) {
+    public function setDescription($description)
+    {
         $this->description = $description;
     }
 
-    public function getHash() {
+    public function getHash()
+    {
         return $this->hash;
     }
 
-    public function setLength($length) {
+    public function setLength($length)
+    {
         $this->length = $length;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
@@ -166,20 +173,23 @@ class Episode {
      *
      * @param string $link
      */
-    public function setLink($link) {
+    public function setLink($link)
+    {
         $this->link = $link;
     }
 
-    public function setHash($hash) {
+    public function setHash($hash)
+    {
         $this->hash = $hash;
     }
 
     /**
      * Get link
      *
-     * @return string 
+     * @return string
      */
-    public function getLink() {
+    public function getLink()
+    {
         return $this->link;
     }
 
@@ -188,16 +198,18 @@ class Episode {
      *
      * @param integer $podcastId
      */
-    public function setPodcastId($podcastId) {
+    public function setPodcastId($podcastId)
+    {
         $this->podcast_id = $podcastId;
     }
 
     /**
      * Get podcast_id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getPodcastId() {
+    public function getPodcastId()
+    {
         return $this->podcast_id;
     }
 
@@ -206,7 +218,8 @@ class Episode {
      *
      * @param Podcast\MainBundle\Entity\Podcast $podcast
      */
-    public function setPodcast(\Podcast\MainBundle\Entity\Podcast $podcast) {
+    public function setPodcast(\Podcast\MainBundle\Entity\Podcast $podcast)
+    {
         $this->podcast = $podcast;
     }
 

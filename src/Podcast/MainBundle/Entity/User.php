@@ -9,12 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="User")
  */
-class User extends BaseUser {
-
+class User extends BaseUser
+{
     /**
      * @ORM\ManyToOne(targetEntity="Playlist", inversedBy="user")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     * @var type 
+     * @var type
      */
     private $playlists;
 
@@ -46,27 +46,32 @@ class User extends BaseUser {
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
-    
-    public function removeListenedTo(\Podcast\MainBundle\Entity\Episode $episode) {
+
+    public function removeListenedTo(\Podcast\MainBundle\Entity\Episode $episode)
+    {
         $this->listenedTo->removeElement($episode);
     }
 
-    public function addListenedTo(\Podcast\MainBundle\Entity\Episode $episode) {
+    public function addListenedTo(\Podcast\MainBundle\Entity\Episode $episode)
+    {
         if (!$this->listenedTo->contains($episode)) {
             $this->listenedTo[] = $episode;
         }
     }
 
-    public function getSubscriptions() {
+    public function getSubscriptions()
+    {
         return $this->subscriptions;
     }
 
-    public function getPublicData() {
+    public function getPublicData()
+    {
         return array(
             "username" => $this->getUsername(),
             "email" => $this->getEmail(),
@@ -79,15 +84,15 @@ class User extends BaseUser {
      *
      * @param Podcast\MainBundle\Entity\Playlist $playlists
      */
-    public function addSubscription(\Podcast\MainBundle\Entity\Podcast $podcast) {
-
+    public function addSubscription(\Podcast\MainBundle\Entity\Podcast $podcast)
+    {
         if (!$this->subscriptions->contains($podcast)) {
             $this->subscriptions->add($podcast);
         }
     }
 
-    public function removeSubscription(\Podcast\MainBundle\Entity\Podcast $podcast) {
-
+    public function removeSubscription(\Podcast\MainBundle\Entity\Podcast $podcast)
+    {
         if ($this->subscriptions->contains($podcast)) {
             $this->subscriptions->removeElement($podcast);
         }
@@ -96,7 +101,7 @@ class User extends BaseUser {
     /**
      * Get playlists
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
 //    public function getSubscriptions() {
 //        return $this->subscriptions;
@@ -107,14 +112,15 @@ class User extends BaseUser {
      *
      * @param Podcast\MainBundle\Entity\Playlist $playlists
      */
-    public function addPlaylist(\Podcast\MainBundle\Entity\Playlist $playlists) {
+    public function addPlaylist(\Podcast\MainBundle\Entity\Playlist $playlists)
+    {
         $this->playlists[] = $playlists;
     }
 
     /**
      * Get playlists
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
 //    public function getPlaylists() {
 //        return $this->playlists;

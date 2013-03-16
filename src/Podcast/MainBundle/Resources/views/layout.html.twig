@@ -28,7 +28,7 @@
     <body>
 
         <div id="header">
-            <h1><a href="./dashboard.html">Unicorn Admin</a></h1>	
+            <h1><a href="./dashboard.html">Unicorn Admin</a></h1>
         </div>
         <div id="search">
             <input type="text" placeholder="Search here..."><button type="submit" class="tip-right" title="" data-original-title="Search"><i class="icon-search icon-white"></i></button>
@@ -49,24 +49,24 @@
                 <li class="btn btn-inverse"><a title="" href="login.html"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
             </ul>
         </div>
-                    {% endif %}        
+                    {% endif %}
 
         <div id="sidebar">
 
                  {% if is_granted("IS_AUTHENTICATED_REMEMBERED") == false %}
                         {% render "FOSUserBundle:Security:login" %}
-                    {% endif %}        
+                    {% endif %}
 
             {{ knp_menu_render('PodcastMainBundle:Builder:mainMenu') }}
 
         </div>
         <div id="content">
 
-        {% block content_header %}{% endblock %} 
+        {% block content_header %}{% endblock %}
 
             <div class="container-fluid">
 
-                {% block fos_user_content %}{% endblock %}          
+                {% block fos_user_content %}{% endblock %}
                 {% block content %}{% endblock %}
             </div>
         </div>
@@ -77,15 +77,15 @@
         <!-- /fos_js_routing -->
 
     {% block javascripts %}
-        {% javascripts 
+        {% javascripts
             '@PodcastMainBundle/Resources/public/jquery/jquery.js'
-            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-alert.js' 
-            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-button.js' 
-            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-dropdown.js' 
-            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-modal.js' 
-            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-tooltip.js' 
-            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-popover.js' 
-            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-tab.js' 
+            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-alert.js'
+            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-button.js'
+            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-dropdown.js'
+            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-modal.js'
+            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-tooltip.js'
+            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-popover.js'
+            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-tab.js'
         %}
         <script src="{{ asset_url }}"></script>
         {% endjavascripts %}

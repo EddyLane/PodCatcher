@@ -9,16 +9,10 @@ use Podcast\MainBundle\Entity as Entity;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\EnCoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
-use Symfony\Component\Validator\Constraints\Collection;
 use Podcast\MainBundle\Entity\Episode;
 
-use Symfony\Component\DependencyInjection\ContainerAware;
-use Symfony\Component\Security\Core\SecurityContext;
-use FOS\RestBundle\View\View;
-
-
-class DefaultController extends Controller {
-
+class DefaultController extends Controller
+{
 //    private function getJsonSerializer() {
 //        $serializer = new Serializer(
 //                        array(
@@ -31,12 +25,13 @@ class DefaultController extends Controller {
 //    }
 //
 
-
-    public function newPodcastFormAction() {
+    public function newPodcastFormAction()
+    {
         $podcast = new Entity\Podcast();
         $form = $this->createFormBuilder($podcast)
                 ->add('link', 'text')
                 ->getForm();
+
         return $this->render('PodcastMainBundle:Default:podcastForm.html.twig', array(
                     'form' => $form->createView()
                 ));
@@ -108,19 +103,19 @@ class DefaultController extends Controller {
 //        if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
 //
 //            $user = $this->get('security.context')->getToken()->getUser();
-//            
+//
 //            $em = $this->getDoctrine()->getEntityManager();
 //            $episode = $em->getRepository('PodcastMainBundle:Episode')->find($id);
-//            
+//
 //            $user->addListenedTo($episode);
 //            $em->persist($user);
 //            $em->flush();
-//            
+//
 //            $serializer = $this->getJsonSerializer();
 //            $user_json = $serializer->serialize($user, 'json');
-//            
-//            
-//            
+//
+//
+//
 //            $user_json = json_decode($user_json);
 //            unset($user_json->password,$user_json->lastlogin,$user_json->plainpassword,$user_json->roles,$user_json->salt,$user_json->id,$user_json->groups,$user_json->groupnames,$user_json->confirmationtoken,$user_json->passwordrequestdat);
 //            $user_json = json_encode($user_json);
@@ -155,25 +150,25 @@ class DefaultController extends Controller {
 //        return $response;
 //    }
 //
-//    
+//
 //    public function createAction(Request $request) {
 //        die("BOB");
 //    }
-//    
-//    
+//
+//
 //    /**
 //     *
 //     * @param type $name
-//     * @return type 
+//     * @return type
 //     */
-//    
+//
 //   public function deleteAction(Request $request) {
 //       die("ABAGAGE");
 //   }
-//   
 //
-   public function indexAction(Request $request) {
-
+//
+   public function indexAction(Request $request)
+   {
         return $this->render('PodcastMainBundle:Default:index.html.twig');
     }
 //
@@ -181,7 +176,7 @@ class DefaultController extends Controller {
 //     *
 //     * @param Request $request
 //     * @param type $id
-//     * @return type 
+//     * @return type
 //     */
 //    public function showAction(Request $request, $id) {
 //
@@ -207,7 +202,8 @@ class DefaultController extends Controller {
 //        $em = $this->getDoctrine()->getEntityManager();
 //    }
 
-    protected function processForm(Request $request, $form) {
+    protected function processForm(Request $request, $form)
+    {
         $form->bindRequest($request);
 
         if ($form->isValid()) {
@@ -223,16 +219,17 @@ class DefaultController extends Controller {
                 return $podcast;
             }
         }
+
         return $form->getErrors();
     }
 
-    public function newAction(Request $request) {
-
+    public function newAction(Request $request)
+    {
         $podcast = new Entity\Podcast();
         $form = $this->createFormBuilder($podcast)
                 ->add('link', 'text')
                 ->getForm();
-        
+
         if ($request->getMethod() == 'POST') {
             $success = $this->processForm($request, $form);
             if ($request->isXmlHttpRequest()) {
@@ -240,9 +237,11 @@ class DefaultController extends Controller {
                 $json = $serializer->serialize($success, 'json');
                 $response = new Response($json);
                 $response->headers->set('Content-Type', 'application/json');
+
                 return $response;
             }
         }
+
         return $this->render('PodcastMainBundle:Default:new.html.twig', array(
                     'form' => $form->createView()
                 ));

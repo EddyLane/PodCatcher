@@ -15,26 +15,24 @@ use Podcast\MainBundle\Form\CategoryType;
  *
  * @Route("/categories")
  */
-class CategoryController extends Controller {
-
+class CategoryController extends Controller
+{
     /**
      * Lists all Category entities.
      *
      * @Route("/", name="category")
      * @Template()
      */
-    public function indexAction() {
-
+    public function indexAction()
+    {
         $em = $this->getDoctrine()->getManager();
 
         $query = $em->getRepository('PodcastMainBundle:Category')->findAllWithDefaultSort($this->get('request')->query->get('sort', "id"), $this->get('request')->query->get('direction', "desc"));
-
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
                 $query, $this->get('request')->query->get('page', 1), 10
         );
-
 
         return array(
             'entities' => $pagination,
@@ -47,7 +45,8 @@ class CategoryController extends Controller {
      * @Route("/{slug}/show", name="category_show")
      * @Template()
      */
-    public function showAction($slug) {
+    public function showAction($slug)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PodcastMainBundle:Category')->findOneBySlug($slug);
@@ -70,7 +69,8 @@ class CategoryController extends Controller {
      * @Route("/new", name="category_new")
      * @Template()
      */
-    public function newAction() {
+    public function newAction()
+    {
         $entity = new Category();
         $form = $this->createForm(new CategoryType(), $entity);
 
@@ -87,7 +87,8 @@ class CategoryController extends Controller {
      * @Method("POST")
      * @Template("PodcastMainBundle:Category:new.html.twig")
      */
-    public function createAction(Request $request) {
+    public function createAction(Request $request)
+    {
         $entity = new Category();
         $form = $this->createForm(new CategoryType(), $entity);
         $form->bind($request);
@@ -112,7 +113,8 @@ class CategoryController extends Controller {
      * @Route("/{id}/edit", name="category_edit")
      * @Template()
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PodcastMainBundle:Category')->find($id);
@@ -138,7 +140,8 @@ class CategoryController extends Controller {
      * @Method("PUT")
      * @Template("PodcastMainBundle:Category:edit.html.twig")
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PodcastMainBundle:Category')->find($id);
@@ -171,7 +174,8 @@ class CategoryController extends Controller {
      * @Route("/{id}/delete", name="category_delete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, $id) {
+    public function deleteAction(Request $request, $id)
+    {
         $form = $this->createDeleteForm($id);
         $form->bind($request);
 
@@ -190,9 +194,8 @@ class CategoryController extends Controller {
         return $this->redirect($this->generateUrl('category'));
     }
 
-    
-    
-    private function createDeleteForm($id) {
+    private function createDeleteForm($id)
+    {
         return $this->createFormBuilder(array('id' => $id))
                         ->add('id', 'hidden')
                         ->getForm()

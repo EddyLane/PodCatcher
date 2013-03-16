@@ -4,39 +4,41 @@ namespace Podcast\MainBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class CategoryControllerTest extends WebTestCase {
-
-    public function __construct() {
+class CategoryControllerTest extends WebTestCase
+{
+    public function __construct()
+    {
         $this->client = static::createClient();
     }
 
-    protected function getClient() {
+    protected function getClient()
+    {
         return $this->client;
     }
-    
-    
+
     /**
      * Click on the New link on the index
-     * 
+     *
      * @return Crawler
      */
-    public function testClickNewLinkFromIndex() {
+    public function testClickNewLinkFromIndex()
+    {
         // Create a new client to browse the application
         $client = $this->getClient();
         // Create a new entry in the database
         $crawler = $client->request('GET', '/category/');
         $this->assertTrue(200 === $client->getResponse()->getStatusCode());
         $crawler = $client->click($crawler->selectLink('New')->link());
+
         return $crawler;
     }
-    
 
-    public function testCompleteScenario() {
-        
+    public function testCompleteScenario()
+    {
         $client = $this->getClient();
-        
+
         $crawler = $this->testClickNewLinkFromIndex();
-        
+
         $name = $this->generateRandomString(20);
 
         // Fill in the form and submit it
@@ -76,16 +78,18 @@ class CategoryControllerTest extends WebTestCase {
 
     /**
      * Generate a random string of a given length
-     * 
-     * @param int $length
+     *
+     * @param  int    $length
      * @return string
      */
-    protected function generateRandomString($length = 10) {
+    protected function generateRandomString($length = 10)
+    {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $randomString = '';
         for ($i = 0; $i < $length; $i++) {
             $randomString .= $characters[rand(0, strlen($characters) - 1)];
         }
+
         return $randomString;
     }
 

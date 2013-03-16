@@ -13,8 +13,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass="Podcast\MainBundle\Entity\CategoryRepository")
  * @UniqueEntity("name")
  */
-class Category {
-
+class Category
+{
     /**
      * @var integer
      *
@@ -31,12 +31,12 @@ class Category {
      * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
     private $name;
-    
+
     /**
      * @var type
-     * @ORM\Column(name="slug", type="string", length=255) 
+     * @ORM\Column(name="slug", type="string", length=255)
      */
-    private $slug;    
+    private $slug;
 
     /**
      * Owning Side
@@ -52,69 +52,75 @@ class Category {
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string   $name
      * @return Category
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
         $this->slug = MyStringHelper::sluggize($name);
+
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
-    
-    
-    public function getSlug() {
+
+    public function getSlug()
+    {
         return $this->slug;
     }
-    
+
     /**
      * Get podcats
-     * 
+     *
      * @return ArrayCollection
      */
-    public function getPodcasts() {
+    public function getPodcasts()
+    {
         return $this->podcasts;
     }
-    
-    
+
     /**
      * Add a podcast
      */
-    public function addPodcast($podcast) {
+    public function addPodcast($podcast)
+    {
         $this->podcasts[] = $podcast;
     }
 
     /**
      * Set podcasts
-     * 
+     *
      * @param \Podcast\MainBundle\Entity\ArrayCollection $podcasts
      */
-    public function setPodcasts($podcasts) {
+    public function setPodcasts($podcasts)
+    {
         $this->podcasts = $podcasts;
     }
-    
-    
+
     /**
      * @return type
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->name;
     }
 

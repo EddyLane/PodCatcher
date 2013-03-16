@@ -7,8 +7,6 @@ use Podcast\MainBundle\Entity\Playlist;
 use Podcast\MainBundle\Form\PlaylistType;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
-use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Serializer\Normalizer\CustomNormalizer as CustomNormalizer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,10 +16,10 @@ use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
  * Playlist controller.
  *
  */
-class PlaylistController extends Controller {
-
-    public function renameAction(Request $request) {
-
+class PlaylistController extends Controller
+{
+    public function renameAction(Request $request)
+    {
         $security_context = $this->get('security.context');
 
         if (true === $security_context->isGranted('ROLE_USER')) {
@@ -34,7 +32,7 @@ class PlaylistController extends Controller {
 
             $user = $security_context->getToken()->getUser();
 
-            if ((int)$playlist->getUserId() !== (int)$user->getId()) {
+            if ((int) $playlist->getUserId() !== (int) $user->getId()) {
                 $data = array("error" => "Not yours pal.");
             } else {
                 $playlist->setName($data['value']);
@@ -47,11 +45,12 @@ class PlaylistController extends Controller {
 
         $response = new Response(json_encode($data));
         $response->headers->set('Content-Type', 'application/json');
+
         return $response;
     }
 
-    public function addPodcastAction(Request $request) {
-
+    public function addPodcastAction(Request $request)
+    {
         if ($request->getMethod() == 'POST') {
             if (0 === strpos($this->getRequest()->headers->get('Content-Type'), 'application/json')) {
                 $data = json_decode($this->getRequest()->getContent(), true);
@@ -63,15 +62,14 @@ class PlaylistController extends Controller {
         $episode = $em->getRepository('PodcastMainBundle:Episode')->find($data["id"]);
         $playlist = $em->getRepository('PodcastMainBundle:Playlist')->find($data["playlist_id"]);
 
-
         $playlist->addEpisode($episode);
 
         $em->persist($playlist);
         $em->flush();
 
-
         $response = new Response(json_encode($data));
         $response->headers->set('Content-Type', 'application/json');
+
         return $response;
     }
 
@@ -79,7 +77,8 @@ class PlaylistController extends Controller {
      * Lists all Playlist entities.
      *
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $em = $this->getDoctrine()->getEntityManager();
         $security_context = $this->get('security.context');
         // $entities = $em->getRepository('PodcastMainBundle:Playlist')->findAll();
@@ -91,6 +90,7 @@ class PlaylistController extends Controller {
 
             $user = $security_context->getToken()->getUser();
             $playlists = $user->getPlaylists();
+
             return $serializer->encode($playlists, 'json');
         } else {
 
@@ -106,7 +106,8 @@ class PlaylistController extends Controller {
      * Finds and displays a Playlist entity.
      *
      */
-    public function showAction($id) {
+    public function showAction($id)
+    {
         $em = $this->getDoctrine()->getEntityManager();
 
         $entity = $em->getRepository('PodcastMainBundle:Playlist')->find($id);
@@ -127,8 +128,8 @@ class PlaylistController extends Controller {
      * Displays a form to create a new Playlist entity.
      *
      */
-    public function newAction() {
-
+    public function newAction()
+    {
         $entity = new Playlist();
         $form = $this->createForm(new PlaylistType(), $entity);
 
@@ -138,8 +139,8 @@ class PlaylistController extends Controller {
         ));
     }
 
-    public function blindCreateAction(Request $request) {
-
+    public function blindCreateAction(Request $request)
+    {
         $user = $this->get('security.context')->getToken()->getUser();
 
         $em = $this->getDoctrine()->getEntityManager();
@@ -152,15 +153,15 @@ class PlaylistController extends Controller {
         $em->persist($entity);
         $em->flush();
 
-
         $json_data = array();
         $json_data["id"] = $entity->getId();
         $json_data["name"] = $entity->getName();
         $json_data["slug"] = $entity->getSlug();
         $json_data["rating"] = $entity->getRating();
-//        
+//
         $response = new Response(json_encode(array($json_data)));
         $response->headers->set('Content-Type', 'application/json');
+
         return $response;
     }
 
@@ -168,9 +169,8 @@ class PlaylistController extends Controller {
      * Creates a new Playlist entity.
      *
      */
-    public function createAction(Request $request) {
-
-
+    public function createAction(Request $request)
+    {
         $entity = new Playlist();
         $entity->setUser($this->get('security.context')->getToken()->getUser());
 
@@ -192,6 +192,7 @@ class PlaylistController extends Controller {
                 $json_data["rating"] = $entity->getRating();
                 $response = new Response(json_encode(array($json_data)));
                 $response->headers->set('Content-Type', 'application/json');
+
                 return $response;
             }
 
@@ -208,7 +209,8 @@ class PlaylistController extends Controller {
      * Displays a form to edit an existing Playlist entity.
      *
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $em = $this->getDoctrine()->getEntityManager();
 
         $entity = $em->getRepository('PodcastMainBundle:Playlist')->find($id);
@@ -231,7 +233,8 @@ class PlaylistController extends Controller {
      * Edits an existing Playlist entity.
      *
      */
-    public function updateAction($id) {
+    public function updateAction($id)
+    {
         $em = $this->getDoctrine()->getEntityManager();
 
         $entity = $em->getRepository('PodcastMainBundle:Playlist')->find($id);
@@ -265,8 +268,8 @@ class PlaylistController extends Controller {
      * Deletes a Playlist episode.
      *
      */
-    public function removeEpisodeAction($episode_id, $playlist_id) {
-
+    public function removeEpisodeAction($episode_id, $playlist_id)
+    {
         if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
 
             $em = $this->getDoctrine()->getEntityManager();
@@ -276,7 +279,6 @@ class PlaylistController extends Controller {
             if ((int) $playlist->getUserId() !== (int) $user->getId()) {
                 return new \Symfony\Component\Security\Core\Exception\AccessDeniedException();
             }
-
 
             $episode = $em->getRepository('PodcastMainBundle:Episode')->find($episode_id);
             $playlist->removeEpisode($episode);
@@ -294,20 +296,21 @@ class PlaylistController extends Controller {
             $json_episodes = $query->getArrayResult();
             $response = new Response(json_encode($json_episodes));
             $response->headers->set('Content-Type', 'application/json');
+
             return $response;
         }
     }
 
-    private function returnPlaylistsAction() {
-        
+    private function returnPlaylistsAction()
+    {
     }
 
     /**
      * Deletes a Playlist episode.
      *
      */
-    public function deleteAction($id) {
-
+    public function deleteAction($id)
+    {
         if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
 
             $em = $this->getDoctrine()->getEntityManager();
@@ -316,7 +319,6 @@ class PlaylistController extends Controller {
 
             if ((int) $playlist->getUserId() !== (int) $user->getId())
                 die;
-
 
             $playlist = $em->getRepository('PodcastMainBundle:Playlist')->find($id);
             $em->remove($playlist);
@@ -353,7 +355,8 @@ class PlaylistController extends Controller {
 //        //return $this->redirect($this->generateUrl('playlist'));
 //    }
 
-    private function createDeleteForm($id) {
+    private function createDeleteForm($id)
+    {
         return $this->createFormBuilder(array('id' => $id))
                         ->add('id', 'hidden')
                         ->getForm()

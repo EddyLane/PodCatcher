@@ -15,7 +15,6 @@ class RegistrationFormType extends BaseType
         // $builder->add('name');
     }
 
-
     public function getName()
     {
         return 'podcast_mainbundle_registrationformtype';

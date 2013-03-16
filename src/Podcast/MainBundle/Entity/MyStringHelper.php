@@ -12,9 +12,10 @@ namespace Podcast\MainBundle\Entity;
  *
  * @author Eddy
  */
-class MyStringHelper {
-
-    public static function sluggize($text) {
+class MyStringHelper
+{
+    public static function sluggize($text)
+    {
         // replace all non letters or digits by -
         $text = preg_replace('/\W+/', '-', $text);
 
@@ -25,5 +26,3 @@ class MyStringHelper {
     }
 
 }
-
-?>

@@ -8,15 +8,14 @@ use Podcast\MainBundle\Entity;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
 
-class PodcastsController extends FOSRestController {
-    
-
+class PodcastsController extends FOSRestController
+{
     /**
      *  Get all dem podcasts man.
      * @return type
      */
-    public function getPodcastsAction() {
-
+    public function getPodcastsAction()
+    {
         $em = $this->getDoctrine()->getManager();
 
         $query = $em->getRepository('PodcastMainBundle:Podcast')->findAllWithDefaultSort($this->get('request')->query->get('sort', "id"), $this->get('request')->query->get('direction', "desc"));
@@ -30,14 +29,13 @@ class PodcastsController extends FOSRestController {
                 ->setTemplate('PodcastMainBundle:Podcast:getPodcasts.html.twig')
                 ->setTemplateVar('entities');
 
-
         return $this->handleView($view);
     }
 
     // "get_podcasts"     [GET] /podcasts/new/asfasfa
 
-    public function newPodcastsAction() {
-        
+    public function newPodcastsAction()
+    {
         $entity = new Entity\Podcast();
         $form = $this->createForm(new PodcastType(), $entity);
 
@@ -47,11 +45,10 @@ class PodcastsController extends FOSRestController {
         );
     }
 
-  
     // "patch_Podcasts"   [PATCH] /podcasts
 
-    public function getPodcastAction($slug) {
-
+    public function getPodcastAction($slug)
+    {
         $em = $this->getDoctrine()->getEntityManager();
 
         $podcast = $em->getRepository('PodcastMainBundle:Podcast')->findOneBySlug($slug);
@@ -61,8 +58,8 @@ class PodcastsController extends FOSRestController {
         return $this->handleView($view);
     }
 
-    public function unsubscribePodcastAction($slug) {
-
+    public function unsubscribePodcastAction($slug)
+    {
         $em = $this->getDoctrine()->getEntityManager();
 
         $user = $this->get('security.context')->getToken()->getUser();
@@ -79,11 +76,10 @@ class PodcastsController extends FOSRestController {
 
         return $view;
     }
-    
+
     // "get_Podcast"      [GET] /podcasts/{slug}
-    public function subscribePodcastAction($slug) {
-
-
+    public function subscribePodcastAction($slug)
+    {
         $em = $this->getDoctrine()->getEntityManager();
 
         $user = $this->get('security.context')->getToken()->getUser();
@@ -100,5 +96,5 @@ class PodcastsController extends FOSRestController {
 
         return $view;
     }
-    
+
 }

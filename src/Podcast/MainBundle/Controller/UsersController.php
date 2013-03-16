@@ -5,13 +5,12 @@ namespace Podcast\MainBundle\Controller;
 use Symfony\Component\HttpFoundation\Request,
     Symfony\Component\HttpFoundation\Response,
     Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
-use JMS\SecurityExtraBundle\Annotation\Secure;
 
-class UsersController extends Controller {
-
-    public function authenticateUsersAction() {
+class UsersController extends Controller
+{
+    public function authenticateUsersAction()
+    {
         $view = View::create();
 
         if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
@@ -32,6 +31,7 @@ class UsersController extends Controller {
         }
 
         $view->setData($userData[0]);
+
         return $view;
     }
 

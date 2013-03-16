@@ -12,7 +12,6 @@
 namespace Podcast\MainBundle\Handler;
 
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,9 +29,8 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface,
         $this->router = $router;
     }
 
-
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token) {
-        
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token)
+    {
         if ($request->isXmlHttpRequest()) {
             $user = $token->getUser();
 
@@ -41,6 +39,7 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface,
             $response = new Response(json_encode($result));
 
             $response->headers->set('Content-Type', 'application/json');
+
             return $response;
         }
     }
@@ -50,9 +49,9 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface,
      * called by authentication listeners inheriting from
      * AbstractAuthenticationListener.
      *
-     * @param Request                 $request
-     * @param AuthenticationException $exception
-     * @return Response the response to return
+     * @param  Request                 $request
+     * @param  AuthenticationException $exception
+     * @return Response                the response to return
      */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
@@ -60,6 +59,7 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface,
             $result = array('success' => false, 'message' => $exception->getMessage());
             $response = new Response(json_encode($result));
             $response->headers->set('Content-Type', 'application/json');
+
             return $response;
         }
     }

@@ -22,12 +22,12 @@
                     <form class="form-horizontal" action="{{ path('category_create') }}" method="post" {{ form_enctype(form) }} {% if app.environment == "test" %}novalidate="true"{% endif %}>
                             {{ form_widget(form, {'form_type': 'horizontal'}) }}
                             <div class="form-actions">
-                                <a class="btn" href="{{ path('category') }}">Cancel</a>                               
+                                <a class="btn" href="{{ path('category') }}">Cancel</a>
                                 <button class="btn" type="submit" id="create-podcast-button">Create</button>
                             </div>
                         </form>
                     </div>
-                </div>          
+                </div>
             </div><!--/span-->
         </div><!--/row-->
     </div>

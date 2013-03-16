@@ -3,7 +3,6 @@
 namespace Podcast\MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\ManyToOne as ManyToOne;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -50,16 +49,14 @@ class Playlist
      * @ORM\Column(name="rating", type="integer")
      */
     private $rating = 1;
-    
-    
+
     /**
      * Bidirectional - One-To-Many (INVERSE SIDE)
      *
      * @ORM\OneToMany(targetEntity="User", mappedBy="playlists")
      */
     protected $user;
-    
-    
+
     /**
      * @ORM\ManyToMany(targetEntity="Episode", inversedBy="playlists", cascade={"all"})
      * @ORM\JoinTable(name="playlist_episode",
@@ -69,31 +66,28 @@ class Playlist
      */
     private $episodes;
 
-
-    
     public function addEpisode(Episode $episode)
     {
         $episode->addPlaylist($this);
         $this->episodes[] = $episode;
     }
-    
+
     public function removeEpisode(Episode $episode)
     {
         $episode->removePlaylist($this);
         $this->episodes->removeElement($episode);
-        
-        
+
     }
-    
+
     public function getEpisodes()
     {
         return $this->episodes;
     }
-    
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -114,7 +108,7 @@ class Playlist
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -134,7 +128,7 @@ class Playlist
     /**
      * Get slug
      *
-     * @return string 
+     * @return string
      */
     public function getSlug()
     {
@@ -154,7 +148,7 @@ class Playlist
     /**
      * Get user_id
      *
-     * @return integer 
+     * @return integer
      */
     public function getUserId()
     {
@@ -174,7 +168,7 @@ class Playlist
     /**
      * Get rating
      *
-     * @return integer 
+     * @return integer
      */
     public function getRating()
     {
@@ -194,7 +188,7 @@ class Playlist
     /**
      * Get user
      *
-     * @return Podcast\MainBundle\Entity\User 
+     * @return Podcast\MainBundle\Entity\User
      */
     public function getUser()
     {

@@ -1,19 +1,19 @@
 <div class="well well-small" id="large_audio_player" data-bind="with: $root.podcastController">
-    <div class="alert alert-info player-display"> 
+    <div class="alert alert-info player-display">
 
 
-        <i class="icon-blue" data-bind="css: { 'icon-play': playing() , 'icon-stop': !playing(), 'icon-pause': paused() }"></i> 
+        <i class="icon-blue" data-bind="css: { 'icon-play': playing() , 'icon-stop': !playing(), 'icon-pause': paused() }"></i>
         {#
         <!-- ko with: nowPlayingPodcast -->
         <span data-bind="text: name"> </span>
         <!-- /ko -->
         #}
     </div>
-        
-    {#<audio id="audio-player" data-bind="attr: { src: nowPlayingUrl }" controls="controls"> 
+
+    {#<audio id="audio-player" data-bind="attr: { src: nowPlayingUrl }" controls="controls">
         HTML5 audio not supported
     </audio>#}
-        
+
 
 
     <div class="btn-toolbar">

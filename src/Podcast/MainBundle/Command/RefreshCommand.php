@@ -3,21 +3,20 @@
 namespace Podcast\MainBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Podcast\MainBundle\Entity\Episode;
 
-class RefreshCommand extends ContainerAwareCommand {
-
-    protected function configure() {
+class RefreshCommand extends ContainerAwareCommand
+{
+    protected function configure()
+    {
         $this
                 ->setName('podcasts:refresh')
                 ->setDescription('Wipe and add episodes again');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) {
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
         $output->writeln("<info>" . $this->getName() . " Task Starting</info>");
 
         $em = $this->getContainer()->get('doctrine')->getEntityManager();
@@ -43,5 +42,3 @@ class RefreshCommand extends ContainerAwareCommand {
     }
 
 }
-
-?>
