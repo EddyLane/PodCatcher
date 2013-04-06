@@ -381,5 +381,12 @@ class Podcast
     {
         return $this->name;
     }
+    
+    
+    public function addCategory($category)
+    {
+        if(!$this->categories->contains($category))
+            $this->categories->add($category);
+    }
 
 }

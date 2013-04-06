@@ -3,8 +3,8 @@ Feature: A user can browse categories of podcasts
 
     Background:
      Given there are categories:
-            | name                                       | slug                                                        |
-            | Sport                                      | sport                                                       |
+            | name                                  |
+            | Sport                                 |
        And there are podcasts:
             | name                                  | link                                                             | category |
             | Manchester Sports: In The Spotlight   | http://downloads.bbc.co.uk/podcasts/manchester/spotlight/rss.xml | Sport    |

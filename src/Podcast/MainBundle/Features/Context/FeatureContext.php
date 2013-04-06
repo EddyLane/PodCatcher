@@ -28,7 +28,7 @@ class FeatureContext extends BehatContext implements MinkAwareInterface, KernelA
     public function __construct()
     {
         $this->useContext('mink', new MinkContext());
-        $this->useContext('category', new CategoryContext());
+        $this->useContext('category', new CategoryContext(array()));
     }
     /**
      * @param \Symfony\Component\HttpKernel\KernelInterface $kernel
@@ -49,7 +49,11 @@ class FeatureContext extends BehatContext implements MinkAwareInterface, KernelA
     {
         $this->mink = $mink;
     }
-
+    
+    public function getContainer()
+    {
+        return $this->kernel->getContainer();
+    }
     /**
      * @Given /There is no "([^"]*)" in database/
      */
@@ -162,7 +166,7 @@ class FeatureContext extends BehatContext implements MinkAwareInterface, KernelA
         return $randomString;
     }
 
-    protected function getEntityManager()
+    public function getEntityManager()
     {
         return $this->kernel->getContainer()->get('doctrine')->getEntityManager();
     }
