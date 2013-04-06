@@ -106,6 +106,7 @@ class Podcast
     public function __construct()
     {
         $this->episodes = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     /**

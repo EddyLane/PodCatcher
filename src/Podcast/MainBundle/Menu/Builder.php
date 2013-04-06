@@ -16,10 +16,17 @@ class Builder extends ContainerAware
         $menu->addChild('Categories', array(
             'route' => 'category',
         ));
-
-        $menu['Categories']->addChild('New', array('route' => 'category_new' ));
-
-        // ... add more children
+        
+        $categories = $this->container
+                           ->get('doctrine')
+                           ->getManager()
+                           ->getRepository('Podcast\MainBundle\Entity\Category')
+                           ->findAllWithDefaultSort('name','asc');
+        
+        foreach($categories as $category) {
+            $menu['Categories']->addChild($category->getName(), array('route' => 'category_new' ));
+        }
+        
         return $menu;
     }
 

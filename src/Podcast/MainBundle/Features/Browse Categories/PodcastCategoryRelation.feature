@@ -1,4 +1,4 @@
-@mink/symfony2
+@categories
 Feature: Podcast Category Relationship
     In order to setup a valid catalog
     As a developer
