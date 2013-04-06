@@ -53,9 +53,6 @@ assetic:
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
-        less:
-            node:       %node_base_path%
-            node_paths: [%node_lib_path%, %node_modules_path%]
         lessphp:
             apply_to: “\.less$”
         #closure:
