@@ -7,9 +7,9 @@ use Exception;
 use Podcast\MainBundle\Entity\Episode;
 use Doctrine\Common\Collections\ArrayCollection as ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 use JMS\SerializerBundle\Annotation;
+
 /**
  * Podcast\MainBundle\Entity\Podcast
  *
@@ -85,7 +85,7 @@ class Podcast
     protected $episodes;
 
     /**
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="subscriptions", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Podcast\UserBundle\Entity\User", mappedBy="subscriptions", cascade={"persist"})
      */
     private $subscribed;
 
@@ -232,13 +232,13 @@ class Podcast
             $found = false;
             foreach ($items as $key => $item) {
                 if ($episode->getHash() === $item->get_id()) {
-                    echo "Episode alive: ".$episode->getName()."\n";
+                    //echo "Episode alive: ".$episode->getName()."\n";
                     $found = true;
                     break;
                 }
             }
             if (!$found) {
-                echo "Found dead episode: ".$episode->getName()."\n";
+                //echo "Found dead episode: ".$episode->getName()."\n";
                 $this->episodes->remove($key);
             }
         }

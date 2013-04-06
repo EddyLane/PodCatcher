@@ -2,7 +2,7 @@
     "name": "PodCatcher",
     "description": "Cloud podcast solution",
     "autoload": {
-        "psr-0": { "": "src/" }
+        "psr-0": { "": "src/", "spec": "."  }
     },
     "minimum-stability": "dev",
     "require": {
@@ -25,6 +25,12 @@
         "friendsofsymfony/rest-bundle": "*",
         "friendsofsymfony/jsrouting-bundle": "1.0.*",
         "leafo/lessphp": "~0.3",
+        "braincrafted/bootstrap-bundle": "dev-master",
+        "knplabs/knp-menu-bundle":"dev-master",
+        "knplabs/knp-paginator-bundle": "dev-master",
+        "fkr/simplepie-bundle": "1.0.*"
+    },
+    "require-dev": {
         "behat/behat": "2.4.*@stable",
         "behat/mink": "1.4@stable",
         "behat/symfony2-extension": "*",
@@ -35,12 +41,6 @@
         "behat/mink-selenium2-driver": "*", 
         "behat/mink-sahi-driver": "*", 
         "behat/mink-zombie-driver": "*" ,
-        "braincrafted/bootstrap-bundle": "dev-master",
-        "knplabs/knp-menu-bundle":"dev-master",
-        "knplabs/knp-paginator-bundle": "dev-master",
-        "fkr/simplepie-bundle": "1.0.*"
-    },
-    "require-dev": {
         "phpspec/phpspec2": "*",
         "phpunit/phpunit": "3.7.*"
     },

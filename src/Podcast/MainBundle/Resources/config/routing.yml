@@ -5,10 +5,6 @@ podcasts:
 categories:
     resource: Podcast\MainBundle\Controller\CategoryController
 
-users:
-    type:     rest
-    resource: Podcast\MainBundle\Controller\UsersController
-
 episodes:
     type:     rest
     resource: Podcast\MainBundle\Controller\EpisodesController

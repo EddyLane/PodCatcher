@@ -97,7 +97,7 @@ class Episode
     private $playlists;
 
     /**
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="listenedTo", cascade={"all"})
+     * @ORM\ManyToMany(targetEntity="Podcast\UserBundle\Entity\User", mappedBy="listenedTo", cascade={"all"})
      */
     protected $listenedBy;
 

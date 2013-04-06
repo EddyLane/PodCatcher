@@ -1,8 +1,3 @@
-#----------------------------------
-# Example of Cucumber .feature file
-#----------------------------------
-    
-@mink:zombie 
 Feature: Navigating the podcasts on the user dashboard
   In order to listen to podcasts
   As a visitor

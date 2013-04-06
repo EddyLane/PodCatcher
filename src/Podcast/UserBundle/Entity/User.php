@@ -1,9 +1,13 @@
 <?php
 
-namespace Podcast\MainBundle\Entity;
+namespace Podcast\UserBundle\Entity;
 
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+
+use Podcast\MainBundle\Entity\Podcast,
+    Podcast\MainBundle\Entity\Playlist,
+    Podcast\MainBundle\Entity\Episode;
 
 /**
  * @ORM\Entity
@@ -12,14 +16,14 @@ use Doctrine\ORM\Mapping as ORM;
 class User extends BaseUser
 {
     /**
-     * @ORM\ManyToOne(targetEntity="Playlist", inversedBy="user")
+     * @ORM\ManyToOne(targetEntity="Podcast\MainBundle\Entity\Playlist", inversedBy="user")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * @var type
      */
     private $playlists;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Podcast", inversedBy="subscribed", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Podcast\MainBundle\Entity\Podcast", inversedBy="subscribed", cascade={"persist"})
      * @ORM\JoinTable(name="user_podcast",
      * joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
      * inverseJoinColumns={@ORM\JoinColumn(name="podcast_id", referencedColumnName="id")}
@@ -28,7 +32,7 @@ class User extends BaseUser
     private $subscriptions;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Episode", inversedBy="listenedBy", cascade={"all"})
+     * @ORM\ManyToMany(targetEntity="Podcast\MainBundle\Entity\Episode", inversedBy="listenedBy", cascade={"all"})
      * @ORM\JoinTable(name="user_episode",
      * joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
      * inverseJoinColumns={@ORM\JoinColumn(name="episode_id", referencedColumnName="id")}
@@ -53,12 +57,12 @@ class User extends BaseUser
         return $this->id;
     }
 
-    public function removeListenedTo(\Podcast\MainBundle\Entity\Episode $episode)
+    public function removeListenedTo(Episode $episode)
     {
         $this->listenedTo->removeElement($episode);
     }
 
-    public function addListenedTo(\Podcast\MainBundle\Entity\Episode $episode)
+    public function addListenedTo(Episode $episode)
     {
         if (!$this->listenedTo->contains($episode)) {
             $this->listenedTo[] = $episode;
@@ -84,14 +88,14 @@ class User extends BaseUser
      *
      * @param Podcast\MainBundle\Entity\Playlist $playlists
      */
-    public function addSubscription(\Podcast\MainBundle\Entity\Podcast $podcast)
+    public function addSubscription(Podcast $podcast)
     {
         if (!$this->subscriptions->contains($podcast)) {
             $this->subscriptions->add($podcast);
         }
     }
 
-    public function removeSubscription(\Podcast\MainBundle\Entity\Podcast $podcast)
+    public function removeSubscription(Podcast $podcast)
     {
         if ($this->subscriptions->contains($podcast)) {
             $this->subscriptions->removeElement($podcast);
@@ -112,7 +116,7 @@ class User extends BaseUser
      *
      * @param Podcast\MainBundle\Entity\Playlist $playlists
      */
-    public function addPlaylist(\Podcast\MainBundle\Entity\Playlist $playlists)
+    public function addPlaylist(Playlist $playlists)
     {
         $this->playlists[] = $playlists;
     }

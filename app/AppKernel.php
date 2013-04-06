@@ -27,7 +27,8 @@ class AppKernel extends Kernel
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Braincrafted\BootstrapBundle\BraincraftedBootstrapBundle(),
             new Fkr\SimplePieBundle\FkrSimplePieBundle(),
-            new Podcast\MainBundle\PodcastMainBundle()
+            new Podcast\MainBundle\PodcastMainBundle(),
+            new Podcast\UserBundle\PodcastUserBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

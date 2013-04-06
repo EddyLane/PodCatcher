@@ -1,6 +1,6 @@
 <?php
 
-namespace Podcast\MainBundle\Controller;
+namespace Podcast\UserBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request,
     Symfony\Component\HttpFoundation\Response,
