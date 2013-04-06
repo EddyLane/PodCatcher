@@ -3,12 +3,15 @@
 namespace Podcast\MainBundle\Features\Context;
 
 use Behat\Behat\Context\BehatContext,
-    Behat\Behat\Exception\PendingException;
-use Behat\MinkExtension\Context\MinkContext;
-use Behat\MinkExtension\Context\MinkAwareInterface;
-use Behat\Symfony2Extension\Context\KernelAwareInterface;
-use Behat\Mink\Mink;
+    Behat\Behat\Exception\PendingException,
+    Behat\MinkExtension\Context\MinkContext,
+    Behat\MinkExtension\Context\MinkAwareInterface,
+    Behat\Symfony2Extension\Context\KernelAwareInterface,
+    Behat\Mink\Mink;
+
 use Symfony\Component\HttpKernel\KernelInterface;
+
+use Podcast\MainBundle\Features\Context\CategoryContext;
 
 require_once 'PHPUnit/Autoload.php';
 require_once 'PHPUnit/Framework/Assert/Functions.php';
@@ -24,8 +27,8 @@ class FeatureContext extends BehatContext implements MinkAwareInterface, KernelA
 
     public function __construct()
     {
-        //$this->useContext('acme', new AcmeContext());
         $this->useContext('mink', new MinkContext());
+        $this->useContext('category', new CategoryContext());
     }
     /**
      * @param \Symfony\Component\HttpKernel\KernelInterface $kernel
