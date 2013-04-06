@@ -22,7 +22,7 @@ class UsersController extends Controller
             $qb = $em->createQueryBuilder();
 
             $qb->select(array("u", "s"))
-                    ->from('Podcast\MainBundle\Entity\User', 'u')
+                    ->from('Podcast\UserBundle\Entity\User', 'u')
                     ->leftJoin('u.subscriptions', 's')
                     ->where('u.id = :user_id')
                     ->setParameter('user_id', $user->getId());

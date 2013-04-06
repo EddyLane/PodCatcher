@@ -53,7 +53,7 @@ class Playlist
     /**
      * Bidirectional - One-To-Many (INVERSE SIDE)
      *
-     * @ORM\OneToMany(targetEntity="User", mappedBy="playlists")
+     * @ORM\OneToMany(targetEntity="Podcast\UserBundle\Entity\User", mappedBy="playlists")
      */
     protected $user;
 
@@ -178,9 +178,9 @@ class Playlist
     /**
      * Set user
      *
-     * @param Podcast\MainBundle\Entity\User $user
+     * @param Podcast\UserBundle\Entity\User $user
      */
-    public function setUser(\Podcast\MainBundle\Entity\User $user)
+    public function setUser(\Podcast\UserBundle\Entity\User $user)
     {
         $this->user = $user;
     }
@@ -188,7 +188,7 @@ class Playlist
     /**
      * Get user
      *
-     * @return Podcast\MainBundle\Entity\User
+     * @return Podcast\UserBundle\Entity\User
      */
     public function getUser()
     {

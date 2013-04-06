@@ -200,7 +200,7 @@ class Podcast
     private function getPodcastFiles($amount = 100)
     {
         $this->getFeed();
-        $podcasts = [];
+        $podcasts = array();
         for ($i = 0; $i < $amount; $i++) {
             if (isset($this->xml->channel->item[$i])) {
                 $item = $this->xml->channel->item[$i];
