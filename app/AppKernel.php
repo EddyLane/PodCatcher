@@ -28,7 +28,8 @@ class AppKernel extends Kernel
             new Braincrafted\BootstrapBundle\BraincraftedBootstrapBundle(),
             new Fkr\SimplePieBundle\FkrSimplePieBundle(),
             new Podcast\MainBundle\PodcastMainBundle(),
-            new Podcast\UserBundle\PodcastUserBundle()
+            new Podcast\UserBundle\PodcastUserBundle(),
+            new Podcast\AdminBundle\PodcastAdminBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
