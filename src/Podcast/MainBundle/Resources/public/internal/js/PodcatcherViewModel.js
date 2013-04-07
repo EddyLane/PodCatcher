@@ -288,7 +288,7 @@ function PodcatcherViewModel()
 (function(){
     
     // Create a global user and our app.
-    var user, app = new PodcatcherViewModel(), sidebar = new SideBar();
+    var user, app = new PodcatcherViewModel();
 
     
     // Put some DataTable Defaults.
