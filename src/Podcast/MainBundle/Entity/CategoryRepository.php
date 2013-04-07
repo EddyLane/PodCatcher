@@ -22,8 +22,4 @@ class CategoryRepository extends EntityRepository
     {
         return $this->findBy(array(), array($sortField => $sortDirection));
     }
-    
-    
-    
-
 }

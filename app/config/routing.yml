@@ -22,15 +22,12 @@ _welcome:
     defaults: { _controller: PodcastMainBundle:Default:index }
 
 PodcastMainBundle:
+   type: rest
    resource: "@PodcastMainBundle/Resources/config/routing.yml"
    prefix:   /
    options:
      expose: true
      
-PodcastMainBundle_new:
-  pattern: /new
-  defaults: { _controller: PodcastMainBundle:Default:new }
-      
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 

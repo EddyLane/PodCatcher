@@ -45,7 +45,6 @@ class Podcast
     private $slug;
 
     /**
-     * @Annotation\Expose
      * @var string $link
      * @ORM\Column(name="link", type="string", length=1020)
      */
@@ -75,8 +74,6 @@ class Podcast
     private $description;
 
     /**
-     * @Annotation\Expose
-     *
      * @ORM\OneToMany(targetEntity="Episode", mappedBy="podcast", cascade={"all"})
      * @ORM\OrderBy({"pub_date" = "DESC"})
      *
@@ -90,8 +87,6 @@ class Podcast
     private $subscribed;
 
     /**
-     * @Annotation\Expose
-     *
      * @ORM\ManyToMany(targetEntity="Category", mappedBy="podcasts")
      * @ORM\OrderBy({"name" = "DESC"})
      */

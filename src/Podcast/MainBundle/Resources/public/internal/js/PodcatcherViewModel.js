@@ -287,34 +287,36 @@ function PodcatcherViewModel()
 
 (function(){
     
-    // Create a global user and our app.
-    var user, app = new PodcatcherViewModel();
-
-    
-    // Put some DataTable Defaults.
-    ko.bindingHandlers['dataTable'].options.sDom = '<""l>t<"F"fp>';
-    ko.bindingHandlers['dataTable'].options.bScrollCollapse = true;
-    ko.bindingHandlers['dataTable'].options.bAutoWidth = false;
-    ko.bindingHandlers['dataTable'].options.sPaginationType = "full_numbers";
-    ko.bindingHandlers['dataTable'].options.bJQueryUI = true;
-    
-    // Init a Knockout app
-    ko.applyBindings(app);
-    
-    
-    /**
-     * TEMP
-     */
-    $('#progress').click(function(e) {
-         var posX = $(this).offset().left;
-         console.log(soundManager.bytesLoaded / soundManager)
-    });
-    
-    $('select').select2({
-            placeholder: "Add some podcasts",
-    });
-
-    
+    $.get(Routing.generate('get_category', { slug: "sport" })+".json");
+//    
+//    // Create a global user and our app.
+//    var user, app = new PodcatcherViewModel();
+//
+//    
+//    // Put some DataTable Defaults.
+//    ko.bindingHandlers['dataTable'].options.sDom = '<""l>t<"F"fp>';
+//    ko.bindingHandlers['dataTable'].options.bScrollCollapse = true;
+//    ko.bindingHandlers['dataTable'].options.bAutoWidth = false;
+//    ko.bindingHandlers['dataTable'].options.sPaginationType = "full_numbers";
+//    ko.bindingHandlers['dataTable'].options.bJQueryUI = true;
+//    
+//    // Init a Knockout app
+//    ko.applyBindings(app);
+//    
+//    
+//    /**
+//     * TEMP
+//     */
+//    $('#progress').click(function(e) {
+//         var posX = $(this).offset().left;
+//         console.log(soundManager.bytesLoaded / soundManager)
+//    });
+//    
+//    $('select').select2({
+//            placeholder: "Add some podcasts",
+//    });
+//
+//    
 })();
 
 ko.bindingHandlers.uniform = {

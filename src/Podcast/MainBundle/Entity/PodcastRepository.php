@@ -4,6 +4,7 @@ namespace Podcast\MainBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 
+use Podcast\MainBundle\Entity\Category;
 /**
  * PodcastRepository
  *
@@ -72,13 +73,23 @@ class PodcastRepository extends EntityRepository
 
     public function getSubscribedPodcasts($user)
     {
-
         $podcasts = $this->getLatestPodcastsQuery(100, false);
         $podcasts->innerJoin('p.subscribed','u','WITH','u.id = :user_id')
                 ->addSelect('u.id as subscribed')
                 ->setParameter('user_id',$user->getId());
 
-        return $podcasts->getQuery()->getResult();
+        return $podcasts->getQuery();
+    }
+    
+    
+    public function findByCategory(Category $category)
+    {
+        
+        $query = $this->createQueryBuilder('p')
+                      ->innerJoin('p.categories','c','WITH','c.id = :category_id')
+                      ->setParameter('category_id', $category->getId());
+        
+        return $query;
     }
 
 }

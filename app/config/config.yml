@@ -40,7 +40,7 @@ knp_paginator:
         page_name: page                # page query parameter name
         sort_field_name: sort          # sort field query parameter name
         sort_direction_name: direction # sort direction query parameter name
-        distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
+        distinct: false                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
     template:
         #pagination: KnpPaginatorBundle:Pagination:sliding.html.twig   
         pagination: BraincraftedBootstrapBundle:Pagination:pagination.html.twig
@@ -103,9 +103,19 @@ fos_rest:
             json: true
         templating_formats:
             html: true
-
         failed_validation: HTTP_BAD_REQUEST
         default_engine: twig
+        view_response_listener: 'force'        
+    param_fetcher_listener: true
+    body_listener: true
+    format_listener:
+        default_priorities: ['json', html, '*/*']
+        fallback_format: json
+        prefer_extension: true
+        
+sensio_framework_extra:
+    view:    { annotations: false }
+    router:  { annotations: true }        
         
 fkr_simple_pie:
     cache_enabled: false

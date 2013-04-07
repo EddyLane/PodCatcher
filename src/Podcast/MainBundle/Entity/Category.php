@@ -6,12 +6,15 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+use JMS\SerializerBundle\Annotation;
 /**
  * Category
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Podcast\MainBundle\Entity\CategoryRepository")
  * @UniqueEntity("name")
+ * 
+ * @Annotation\ExclusionPolicy("all")
  */
 class Category
 {
@@ -27,6 +30,7 @@ class Category
     /**
      * @var string
      *
+     * @Annotation\Expose
      * @Assert\NotBlank()
      * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
@@ -34,6 +38,8 @@ class Category
 
     /**
      * @var type
+     * 
+     * @Annotation\Expose
      * @ORM\Column(name="slug", type="string", length=255)
      */
     private $slug;
