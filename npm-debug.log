@@ -1,0 +1,238 @@
+info it worked if it ends with ok
+verbose cli [ 'node', '/usr/local/bin/npm', 'install', 'zombie' ]
+info using npm@1.1.0-3
+info using node@v0.8.21
+verbose config file /home/vagrant/.npmrc
+verbose config file /usr/local/etc/npmrc
+verbose config file /usr/local/lib/node_modules/npm/npmrc
+verbose cache add [ 'zombie', null ]
+silly cache add: name, spec, args [ undefined, 'zombie', [ 'zombie', null ] ]
+verbose parsed url { pathname: 'zombie', path: 'zombie', href: 'zombie' }
+verbose addNamed [ 'zombie', '' ]
+verbose addNamed [ null, '' ]
+silly name, range, hasData [ 'zombie', '', false ]
+verbose raw, before any munging zombie
+verbose url resolving [ 'https://registry.npmjs.org/', './zombie' ]
+verbose url resolved https://registry.npmjs.org/zombie
+verbose etag "7LYG2EH3Q6F4AKSZDXKJFAN8J"
+http GET https://registry.npmjs.org/zombie
+http 304 https://registry.npmjs.org/zombie
+silly get cb [ 304,
+silly get cb   { server: 'CouchDB/1.2.1 (Erlang OTP/R15B03)',
+silly get cb     etag: '"7LYG2EH3Q6F4AKSZDXKJFAN8J"',
+silly get cb     date: 'Mon, 08 Apr 2013 22:01:05 GMT',
+silly get cb     'content-length': '0' } ]
+verbose etag zombie from cache
+silly name, range, hasData 2 [ 'zombie', '', true ]
+silly versions [ 'zombie',
+silly versions   [ '0.12.1',
+silly versions     '0.12.2',
+silly versions     '0.12.3',
+silly versions     '0.12.4',
+silly versions     '0.12.5',
+silly versions     '0.12.6',
+silly versions     '0.12.7',
+silly versions     '0.12.8',
+silly versions     '0.12.9',
+silly versions     '0.12.10',
+silly versions     '0.12.11',
+silly versions     '0.12.12',
+silly versions     '0.12.13',
+silly versions     '0.12.14',
+silly versions     '0.12.15',
+silly versions     '0.13.0',
+silly versions     '0.13.1',
+silly versions     '0.13.2',
+silly versions     '0.13.3',
+silly versions     '0.13.4',
+silly versions     '0.13.6',
+silly versions     '0.13.7',
+silly versions     '0.13.8',
+silly versions     '0.13.9',
+silly versions     '0.13.10',
+silly versions     '0.13.11',
+silly versions     '0.13.12',
+silly versions     '0.13.13',
+silly versions     '0.13.14',
+silly versions     '1.0.0',
+silly versions     '1.1.0',
+silly versions     '1.1.1',
+silly versions     '1.1.2',
+silly versions     '1.1.3',
+silly versions     '1.1.4',
+silly versions     '1.1.5',
+silly versions     '1.1.6',
+silly versions     '1.1.7',
+silly versions     '1.2.0',
+silly versions     '1.3.0',
+silly versions     '1.3.1',
+silly versions     '1.4.0',
+silly versions     '1.4.1',
+silly versions     '2.0.0-alpha1',
+silly versions     '2.0.0-alpha2',
+silly versions     '2.0.0-alpha3',
+silly versions     '2.0.0-alpha4',
+silly versions     '2.0.0-alpha5',
+silly versions     '2.0.0-alpha6',
+silly versions     '2.0.0-alpha7',
+silly versions     '2.0.0-alpha8',
+silly versions     '2.0.0-alpha9',
+silly versions     '2.0.0-alpha10',
+silly versions     '2.0.0-alpha11' ] ]
+verbose bin dist [ '0.8-ares1.7.5-DEV-evundefined-openssl1.0.0f-v83.11.10.25-linux-x64-3.2.0-23-generic',
+verbose bin dist   { shasum: '05d44a2806309bbb7fcd3dc7caef540c6d9be972',
+verbose bin dist     tarball: 'http://registry.npmjs.org/zombie/-/zombie-1.4.1.tgz' } ]
+verbose caching /home/vagrant/.npm/zombie/1.4.1/package/package.json
+verbose loadDefaults zombie@1.4.1
+silly resolved [ { name: 'zombie',
+silly resolved     version: '1.4.1',
+silly resolved     description: 'Insanely fast, full-stack, headless browser testing using Node.js',
+silly resolved     homepage: 'http://zombie.labnotes.org/',
+silly resolved     author: 
+silly resolved      { name: 'Assaf Arkin',
+silly resolved        email: 'assaf@labnotes.org',
+silly resolved        url: 'http://labnotes.org/' },
+silly resolved     contributors: 
+silly resolved      [ { name: 'Bob Lail',
+silly resolved          email: 'bob.lailfamily@gmail.com',
+silly resolved          url: 'http://boblail.tumblr.com/' },
+silly resolved        { name: 'Brian McDaniel', url: 'https://github.com/brianmcd' },
+silly resolved        { name: 'Damian Janowski' },
+silly resolved        { name: 'José Valim',
+silly resolved          email: 'jose.valim@plataformatec.com.br',
+silly resolved          url: 'http://blog.plataformatec.com.br/' } ],
+silly resolved     keywords: 
+silly resolved      [ 'test',
+silly resolved        'tests',
+silly resolved        'testing',
+silly resolved        'TDD',
+silly resolved        'spec',
+silly resolved        'specs',
+silly resolved        'BDD',
+silly resolved        'headless',
+silly resolved        'browser',
+silly resolved        'html',
+silly resolved        'html5',
+silly resolved        'dom',
+silly resolved        'css',
+silly resolved        'javascript',
+silly resolved        'integration',
+silly resolved        'ajax',
+silly resolved        'full-stack',
+silly resolved        'DSL' ],
+silly resolved     main: 'lib/zombie',
+silly resolved     scripts: { prepublish: 'make build', test: './node_modules/.bin/mocha' },
+silly resolved     engines: { node: '>= 0.6.0' },
+silly resolved     dependencies: 
+silly resolved      { eventsource: '~0.0.5',
+silly resolved        html5: '~0.3.8',
+silly resolved        jsdom: '~0.2.15',
+silly resolved        mime: '~1.2.7',
+silly resolved        ms: '~0.1.0',
+silly resolved        q: '~0.8.6',
+silly resolved        request: '~2.10.0',
+silly resolved        'tough-cookie': '~0.9.13',
+silly resolved        ws: '~0.4.21' },
+silly resolved     devDependencies: 
+silly resolved      { 'coffee-script': '~1.3.3',
+silly resolved        docco: '~0.4.0',
+silly resolved        express: '~2.5.11',
+silly resolved        highlight: '~0.2.3',
+silly resolved        mocha: '~1.4.0',
+silly resolved        replay: '~1.5.3',
+silly resolved        requirejs: '~2.0.5',
+silly resolved        ronn: '~0.3.8' },
+silly resolved     repository: { type: 'git', url: 'git://github.com/assaf/zombie.git' },
+silly resolved     bugs: { url: 'http://github.com/assaf/zombie/issues' },
+silly resolved     licenses: 
+silly resolved      [ { type: 'MIT',
+silly resolved          url: 'http://github.com/assaf/zombie/blob/master/MIT-LICENSE' } ],
+silly resolved     _id: 'zombie@1.4.1',
+silly resolved     optionalDependencies: {},
+silly resolved     _engineSupported: true,
+silly resolved     _npmVersion: '1.1.0-3',
+silly resolved     _nodeVersion: 'v0.8.21',
+silly resolved     _defaultsLoaded: true } ]
+info into /home/vagrant/projects/podcasts/PodCatcher zombie@1.4.1
+info installOne zombie@1.4.1
+info unbuild /home/vagrant/projects/podcasts/PodCatcher/node_modules/zombie
+verbose from cache /home/vagrant/.npm/zombie/1.4.1/package/package.json
+verbose mkdir (expected) error ENOENT, stat '/home/vagrant/projects/podcasts/PodCatcher/node_modules'
+verbose mkdir (expected) error ENOENT, stat '/home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm'
+verbose mkdir done: /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm 755
+verbose unpack_ uid, gid [ 1000, 1000 ]
+verbose unpackTarget /home/vagrant/projects/podcasts/PodCatcher/node_modules/zombie
+silly gunzTarPerm modes [ '755', '644' ]
+silly afterUntar undefined
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/package.json
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/CHANGELOG.md
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/README.md
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/MIT-LICENSE
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/.npmignore
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/.travis.yml
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/man7
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/man7/zombie-API.7
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/man7/zombie-selectors.7
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/man7/zombie-guts.7
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/man7/zombie-changelog.7
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/man7/zombie-troubleshoot.7
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/man7/zombie.7
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/xpath
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/xpath/xpath.js
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/xpath/util.js
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/xpath/xmltoken.js
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/doc
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/doc/selectors.md
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/doc/render.coffee
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/doc/troubleshoot.md
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/doc/API.md
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/doc/guts.md
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/doc/css
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/doc/css/github.css
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/doc/css/screen.css
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/doc/css/print.css
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/doc/images
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/doc/images/zombie.png
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/doc/layout
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/doc/layout/main.html
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/doc/layout/header.html
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/doc/layout/cover.html
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/lib
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/lib/zombie
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/lib/zombie/storage.js
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/lib/zombie/cache.js
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/lib/zombie/xpath.js
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/lib/zombie/resources.js
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/lib/zombie/cookies.js
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/lib/zombie/eventloop.js
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/lib/zombie/helpers.js
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/lib/zombie/forms.js
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/lib/zombie/console.js
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/lib/zombie/history.js
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/lib/zombie/interact.js
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/lib/zombie/browser.js
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/lib/zombie/scripts.js
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/lib/zombie/xhr.js
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/lib/zombie/jsdom_patches.js
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/lib/zombie/bcat.js
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/lib/zombie/protocol.js
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/lib/zombie/index.js
+silly asyncMap in gTP /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm/package/lib/zombie/windows.js
+ERR! error installing zombie@1.4.1
+info unbuild /home/vagrant/projects/podcasts/PodCatcher/node_modules/zombie
+verbose installOne cb zombie@1.4.1
+ERR! Error: EPERM, chown '/home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm'
+ERR! 
+ERR! Please try running this command again as root/Administrator.
+ERR! 
+ERR! System Linux 3.2.0-23-generic
+ERR! command "node" "/usr/local/bin/npm" "install" "zombie"
+ERR! cwd /home/vagrant/projects/podcasts/PodCatcher
+ERR! node -v v0.8.21
+ERR! npm -v 1.1.0-3
+ERR! path /home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm
+ERR! code EPERM
+ERR! message EPERM, chown '/home/vagrant/projects/podcasts/PodCatcher/node_modules/___zombie.npm'
+ERR! errno {}
+verbose exit [ 1, true ]

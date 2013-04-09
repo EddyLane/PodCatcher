@@ -58,8 +58,9 @@ class Podcast
     private $rating = 1;
 
     /**
-     * @Annotation\Expose
      * @var string $image
+     * 
+     * @Annotation\Expose
      * @ORM\Column(name="image", type="string", length=1020, nullable=true)
      * @Assert\Null()
      */

@@ -197,34 +197,41 @@ function User()
 }
 
 
-function Directory(data) {
+function Directory() {
     
     var self = this;
+
     this.indexPodcasts = ko.observableArray();
     this.amount = 12;
+    this.page = ko.observable(1);
     
     this.pagination = {
-        page: ko.observable(1),
         next: function() {
-            var nextPage = (this.page() + 1), length = self.indexPodcasts().length;
-            this.page(nextPage);
+            var nextPage = (self.page() + 1), length = self.indexPodcasts().length;
+            self.page(nextPage);
         },
         previous: function() {
-            var previousPage = this.page();
-            this.page(previousPage - 1);
+            var previousPage = self.page();
+            self.page(previousPage - 1);
         }
     }
 
-
     this.thumbnails = ko.computed(function() {
-        var podcasts = self.indexPodcasts, start = (self.pagination.page() - 1) * self.amount, end = start + self.amount;
+        
+        var podcasts = self.indexPodcasts, 
+            start = (self.page() - 1) * self.amount, 
+            end = start + self.amount;
         return podcasts.slice(start,end);
     });
-
     
-
+    this.setCategory = function(categorySlug) {
+        $.get(Routing.generate('get_category_podcasts', {slug: categorySlug, _format: 'json', page: 1}), self.indexPodcasts);
+    }
     
+}
 
+function Category(data) {
+    
 }
 
 function PodcatcherViewModel()
@@ -235,11 +242,17 @@ function PodcatcherViewModel()
     user = new User();
 
     this.main = function() {
-        self.podcast(false);
-        $.get(Routing.generate('get_podcasts')+".json", function(response) {
-            self.directory.indexPodcasts(ko.mapping.fromJS(response,mapping));
-        });
+//        self.podcast(false);
+//        $.get(Routing.generate('get_podcasts')+".json", function(response) {
+//            self.directory.indexPodcasts(ko.mapping.fromJS(response,mapping));
+//        });
     }
+
+
+    this.getCategory = function(categorySlug) {
+        this.directory.setCategory(categorySlug);
+    }
+
 
     this.showPodcast = function(podcastSlug, episodeSlug) {
         $.get(Routing.generate('get_podcast', { slug: podcastSlug })+".json", function(response) {
@@ -286,37 +299,39 @@ function PodcatcherViewModel()
 }
 
 (function(){
+    //    
+    // Create a global user and our app.
+    var user, app = new PodcatcherViewModel();
     
-    $.get(Routing.generate('get_category', { slug: "sport" })+".json");
-//    
-//    // Create a global user and our app.
-//    var user, app = new PodcatcherViewModel();
-//
-//    
-//    // Put some DataTable Defaults.
-//    ko.bindingHandlers['dataTable'].options.sDom = '<""l>t<"F"fp>';
-//    ko.bindingHandlers['dataTable'].options.bScrollCollapse = true;
-//    ko.bindingHandlers['dataTable'].options.bAutoWidth = false;
-//    ko.bindingHandlers['dataTable'].options.sPaginationType = "full_numbers";
-//    ko.bindingHandlers['dataTable'].options.bJQueryUI = true;
-//    
-//    // Init a Knockout app
-//    ko.applyBindings(app);
-//    
-//    
-//    /**
-//     * TEMP
-//     */
-//    $('#progress').click(function(e) {
-//         var posX = $(this).offset().left;
-//         console.log(soundManager.bytesLoaded / soundManager)
-//    });
-//    
-//    $('select').select2({
-//            placeholder: "Add some podcasts",
-//    });
-//
-//    
+    $('.nav').on('click', 'li a', function(e){
+        e.preventDefault();
+        app.getCategory($(this).attr('data-slug'));
+    });
+    
+    // Put some DataTable Defaults.
+    ko.bindingHandlers['dataTable'].options.sDom = '<""l>t<"F"fp>';
+    ko.bindingHandlers['dataTable'].options.bScrollCollapse = true;
+    ko.bindingHandlers['dataTable'].options.bAutoWidth = false;
+    ko.bindingHandlers['dataTable'].options.sPaginationType = "full_numbers";
+    ko.bindingHandlers['dataTable'].options.bJQueryUI = true;
+    
+    // Init a Knockout app
+    ko.applyBindings(app);
+    
+    
+    /**
+     * TEMP
+     */
+    $('#progress').click(function(e) {
+         var posX = $(this).offset().left;
+         console.log(soundManager.bytesLoaded / soundManager)
+    });
+    
+    $('select').select2({
+            placeholder: "Add some podcasts",
+    });
+
+    
 })();
 
 ko.bindingHandlers.uniform = {

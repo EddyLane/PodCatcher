@@ -28,7 +28,7 @@
 {% block content %}
 <div class="row-fluid">
     <div class="span12">
-        <div data-bind="template: { name: 'directoryTemplate', 'if': !podcast(), data: directory }"> </div>
+        <div data-bind="template: { name: 'directoryTemplate', 'if': directory, data: directory }"> </div>
         <div data-bind="template: { name: 'podcastTemplate', 'if': podcast, data: podcast, afterRender: function() { $('select').select2(); } }"></div>
     </div><!--/span-->
 </div><!--/row-->
@@ -45,30 +45,16 @@
 </script>
 
 <script id="directoryTemplate" type="text/html">
-    <div class="well well-small clearfix" data-bind="with: pagination">
-    <div style="margin:0px;" class="pagination alternate pull-right">
-    <ul>
-    <li><a href="#" data-bind="click: previous">Prev</a></li>
-    <li class="active">
-    <a href="#" data-bind="text: page"></a>
-    </li>
-    <li><a href="#" data-bind="click: next">Next</a></li>
-    </ul>
-    </div>
-    </div>
     <div class="row-fluid">
-    <ul class="thumbnails" data-bind="foreach: thumbnails">
-    <li class="span2">
-    <div class="widget-box" data-bind="attr: { class: slug() }">
-    <div class="widget-title">
-    <h5 data-bind="text: name()"></h5>
-    </div>
-    <a href="#" class="thumbnail" data-bind="click: $parents[1].loadPodcast, css: { loading: loading }, attr: { title: name() }">
-    <img data-bind="attr: { src: $data.getImage }">
-    </a>
-    </div>
-    </li>
-    </ul>
+        <ul class="thumbnails" data-bind="foreach: thumbnails">
+            <li class="span2">
+                <div class="widget-box">
+                    <div class="widget-title">
+                        <h5 data-bind="text: name"></h5>
+                    </div>
+                </div>
+            </li>
+        </ul>
     </div>
 </script>
 

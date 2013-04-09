@@ -27,15 +27,12 @@ class Builder extends ContainerAware
     
     
     public function addCategories(MenuItem $menu, $categories)
-    {
-
-        $menu->addChild('Categories', array(
-            'route' => 'category',
-        ));
-        
+    {         
         foreach($categories as $category) {
-            $menu['Categories']->addChild($category->getName(), array('route' => 'category_new' ));
+            $menu->addChild($category->getName(), array('route' => 'get_category_podcasts', 'routeParameters' => array('slug' => $category->getSlug()) ));
+            $menu[$category->getName()]->setLinkAttribute('data-slug', $category->getSlug());
         }
+        
         
         
         return $menu;

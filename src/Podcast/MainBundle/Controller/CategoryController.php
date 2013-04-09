@@ -7,6 +7,8 @@ use FOS\RestBundle\Controller\FOSRestController;
 class CategoryController extends FOSRestController
 {
     /**
+     * "get_category" [GET] /categories/{$slug}
+     * 
      * Get a category!
      * @param string $slug
      * @return FOS\RestBundle\View\View
@@ -22,7 +24,9 @@ class CategoryController extends FOSRestController
             throw $this->createNotFoundException('Category does not exist');
         }
         
-        $view = $this->view($category);
+        $view = $this->view($category, 200)
+                     ->setTemplate('PodcastMainBundle:Category:show.html.twig')
+                     ->setTemplateVar('entity');
 
         return $this->handleView($view);
     }

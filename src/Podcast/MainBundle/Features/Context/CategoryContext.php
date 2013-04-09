@@ -2,7 +2,7 @@
 
 namespace Podcast\MainBundle\Features\Context;
 
-use Behat\Behat\Context\BehatContext;
+use Behat\MinkExtension\Context\RawMinkContext;
 use Behat\Gherkin\Node\TableNode;
 
 use Podcast\MainBundle\Entity\Category,
@@ -14,7 +14,7 @@ use Podcast\MainBundle\Entity\Category,
  *
  * @author eddy
  */
-class CategoryContext extends BehatContext {
+class CategoryContext extends RawMinkContext {
 
     private $kernel;
     private $parameters;
@@ -42,7 +42,7 @@ class CategoryContext extends BehatContext {
     }
     
     private function getRepository($entityName) {
-        return $this->getEntityManager()->getRepository(sprintf('Podcast\MainBundle\Entity\%s', $entityName));
+        return $this->getEntityManager()->getRepository(sprintf('PodcastMainBundle:%s', $entityName));
     }
     
         
@@ -59,6 +59,7 @@ class CategoryContext extends BehatContext {
             $category->setName($categoryRow['name']);
             $em->persist($category);
             $em->flush();
+            $em->clear();
         }
     }
     
@@ -66,16 +67,64 @@ class CategoryContext extends BehatContext {
      * @Given /^there are podcasts:$/
      */
     public function thereArePodcasts(TableNode $podcastTable) {
-        
-        $em = $this->getEntityManager();
+                
         foreach ($podcastTable->getHash() as $podcastRow) {
+            
             $exists = $this->getRepository('Podcast')->findOneByName($podcastRow['name']);
             $podcast =  $exists ? $exists : new Podcast();
+            
             $podcast->setName($podcastRow['name']);
             $podcast->setLink($podcastRow['link']);
-            $podcast->addCategory($this->getRepository('Category')->findOneByName($podcastRow['category']));
-            $em->persist($podcast);
-            $em->flush();
+            
+            $this->getEntityManager()->persist($podcast);
+            $this->getEntityManager()->flush();
+            $this->getEntityManager()->clear();
         }
     }
+    
+    /**
+     * @Then /^I should get a json response containing podcast "([^"]*)"$/
+     */
+    public function iShouldGetAJsonResponseContainingPodcast($podcastName)
+    {
+        $podcast = $this->getRepository('Podcast')->findOneByName($podcastName);
+        
+        $expected = array(
+            array(
+            "name" => $podcast->getName(),
+            "slug" => $podcast->getSlug()
+        ));
+        sort($expected);
+        
+        $result = json_decode($this->getSession()->getPage()->getContent(), true);
+        sort($result);
+                
+        if($result !== $expected) {
+            throw new \Exception("Arrays are not equal");
+        }
+    }
+    
+    /**
+     * @Then /^I should get a json response not containing podcast "([^"]*)"$/
+     */
+    public function iShouldGetAJsonResponseNotContainingPodcast($podcastName)
+    {
+        $podcast = $this->getRepository('Podcast')->findOneByName($podcastName);
+        
+        $expected = array(
+            array(
+            "name" => $podcast->getName(),
+            "slug" => $podcast->getSlug()
+        ));
+        sort($expected);
+        
+        $result = json_decode($this->getSession()->getPage()->getContent(), true);
+        sort($result);
+                
+        if($result === $expected) {
+            throw new \Exception("Arrays are equal");
+        }
+    }
+
+    
 }

@@ -20,11 +20,11 @@ class CategoryPodcastController extends FOSRestController
      * @return FOS\RestBundle\View\View
      * @throws Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
-    public function getPodcastsAction($categorySlug, ParamFetcher $paramFetcher)
+    public function getPodcastsAction($slug, ParamFetcher $paramFetcher)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $category = $em->getRepository('PodcastMainBundle:Category')->findOneBySlug($categorySlug);
+        $category = $em->getRepository('PodcastMainBundle:Category')->findOneBySlug($slug);
                 
         if(!$category) {
             throw $this->createNotFoundException('This category does not exist');
