@@ -48,7 +48,7 @@ knp_paginator:
 
 assetic:
     debug:          "%kernel.debug%"
-    use_controller: false
+    use_controller: true
     bundles:        [PodcastMainBundle, FOSUserBundle]
     #java: /usr/bin/java
     filters:

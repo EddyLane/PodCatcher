@@ -240,13 +240,13 @@ function PodcatcherViewModel()
     this.podcast = ko.observable(false);
     this.directory = new Directory();
     user = new User();
-
-    this.main = function() {
-//        self.podcast(false);
-//        $.get(Routing.generate('get_podcasts')+".json", function(response) {
+//
+//    this.main = function() {
+////        self.podcast(false);
+//        $.get(Routing.generate('get_category_podcasts', { slug: "sport" }), function(response) {
 //            self.directory.indexPodcasts(ko.mapping.fromJS(response,mapping));
 //        });
-    }
+//    }
 
 
     this.getCategory = function(categorySlug) {

@@ -53,18 +53,11 @@ class DefaultController extends Controller {
         $podcast = new Entity\Podcast();
         $form = $this->createFormBuilder($podcast)
                 ->add('link', 'text')
+                ->add('name', 'text')
                 ->getForm();
 
         if ($request->getMethod() == 'POST') {
             $success = $this->processForm($request, $form);
-            if ($request->isXmlHttpRequest()) {
-                $serializer = $this->getJsonSerializer();
-                $json = $serializer->serialize($success, 'json');
-                $response = new Response($json);
-                $response->headers->set('Content-Type', 'application/json');
-
-                return $response;
-            }
         }
 
         return $this->render('PodcastMainBundle:Default:new.html.twig', array(

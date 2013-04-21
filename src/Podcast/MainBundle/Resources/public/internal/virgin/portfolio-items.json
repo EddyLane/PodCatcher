@@ -1,0 +1,40 @@
+{
+	"items": [
+		{
+			"title":{
+				"hBig":"Amai Admin",
+				"small": "Admin Theme"		
+			},
+			"key":"amai",
+			"imageLink": "img/portfolio/amai.png",
+			"hasMarkDown": true,
+			"hasHTML": false,
+			"linkMarkdown": "data/amai.md",
+			"linkHTML": "data/amai.html"
+		},
+		{
+			"title":{
+				"hBig":"Elegancy",
+				"small": "One Page Theme"		
+			},
+			"key":"elegancy",
+			"imageLink": "img/portfolio/elegancy.png",
+			"hasMarkDown": true,
+			"hasHTML": false,
+			"linkMarkdown": "data/elegancy.md",
+			"linkHTML": "data/elegancy.html"
+		},
+		{
+			"title":{
+				"hBig":"Members Portfolio",
+				"small": "Bootstrap Members List"		
+			},
+			"key":"members_portfolio",
+			"imageLink": "img/portfolio/members_portfolio.png",
+			"hasMarkDown": true,
+			"hasHTML": false,
+			"linkMarkdown": "data/members_portfolio.md",
+			"linkHTML": "data/members_portfolio.html"
+		}
+	]
+}

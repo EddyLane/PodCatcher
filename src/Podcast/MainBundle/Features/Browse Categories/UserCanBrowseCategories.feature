@@ -11,7 +11,7 @@ Feature: A user can browse categories of podcasts
             | Drama                                 |
 
        And there are podcasts:
-            | name                                  | link                                                             |
+            | name                                  | link                                                             | image |
             | Manchester Sports: In The Spotlight   | http://downloads.bbc.co.uk/podcasts/manchester/spotlight/rss.xml |
 
        And I add podcast "Manchester Sports: In The Spotlight" to category "Sport"

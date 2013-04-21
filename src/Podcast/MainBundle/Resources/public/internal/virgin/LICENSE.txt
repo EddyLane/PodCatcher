@@ -1,0 +1,49 @@
+Virgin Responsive 1.0
+Tushar Kant Sahay
+nanu.clickity@gmail.com
+
+facebook.com/nanuclickity
+twitter.com/nanu_clickity
+http://geekli.st/nanu_clickity
+
+26 June 2012
+11:34 AM IST
+
+Virgin is my original work.
+This theme is multi useful theme.
+Can be used as an admin theme, a portfolio theme, a buisness template, or well.. just a theme.
+Documentation takes care that this theme us easily understandable
+Charts are rendered using google charts... so again.. you just have to supply data... nothing more required
+
+The main features of this theme is not the amount of goodies that come with it.
+The main feature is that ... this theme has predefined functions for almost everything that this theme requires.... hence no coding required from your side.
+
+Even Markdown is supported.
+
+Oh yeah... and a commandline is also included for programming geeks.
+
+
+So forget coding stuff.
+and Start using Virgin.
+
+Virgin symbolizes genesis of new era.
+with clean themes and great UI.
+This theme can adapt to almost every device. 
+The Extra responsiveness takes care of that.
+
+If You like my work... please donate some help to keep me supporting myself through college and bring awesome apps to public. :)
+
+
+P.S. I don't think i made a theme... this is an app i suppose.
+
+
+Resources Used
+1. jQuery
+2. Bootstrap
+3. Google Charts
+4. Showdown.js
+5. Lightbox
+6. Glyphicons Included (400+) (with a custom sprite for 400 icons and a css too)
+7. jQuery tablesorter is included
+8. Flotr2 Charts Library is Included
+9. Icomoon font is included ( More Icons )

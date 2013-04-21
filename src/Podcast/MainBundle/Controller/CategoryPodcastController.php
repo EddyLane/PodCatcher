@@ -15,6 +15,8 @@ use FOS\RestBundle\Controller\Annotations\QueryParam;
 class CategoryPodcastController extends FOSRestController
 {
     /**
+     * "get_category_podcasts" [GET] /categories/{$slug}/podcasts
+     * 
      * @QueryParam(name="page", requirements="\d+", default="1", description="Page of podcasts.")
      * @param type $categorySlug
      * @return FOS\RestBundle\View\View

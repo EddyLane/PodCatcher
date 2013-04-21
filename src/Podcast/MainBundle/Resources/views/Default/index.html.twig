@@ -26,87 +26,10 @@
 {% endblock %}
 
 {% block content %}
-<div class="row-fluid">
-    <div class="span12">
-        <div data-bind="template: { name: 'directoryTemplate', 'if': directory, data: directory }"> </div>
-        <div data-bind="template: { name: 'podcastTemplate', 'if': podcast, data: podcast, afterRender: function() { $('select').select2(); } }"></div>
-    </div><!--/span-->
-</div><!--/row-->
 
 
-<script id="episodeRowTemplate" type="text/html">
-    <td style="width:20px;">
-    <input type="checkbox"></input>
-    </td>
-    <td data-bind="click: $parent.playEpisode">
-    <span data-bind="html: name"></span>
-    </td>
-    <td data-bind="text: pub_date"></td>
-</script>
-
-<script id="directoryTemplate" type="text/html">
-    <div class="row-fluid">
-        <ul class="thumbnails" data-bind="foreach: thumbnails">
-            <li class="span2">
-                <div class="widget-box">
-                    <div class="widget-title">
-                        <h5 data-bind="text: name"></h5>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </div>
-</script>
-
-<script id="podcastTemplate" type="text/html">
-    <div class="row-fluid">
-    <div class="span3">
-
-    <div class="thumbnail">
-    <img data-bind="attr:{ src: image() }" class"img-polaroid img-rounded">
-    <div class="caption">
-    <p data-bind="text: description()"></p>
-    </div>
-    </div>
-
-    </div>
-
-
-    <div class="span9">
-    <div class="widget-box" style="margin-top:0px;">
-    <div class="widget-title">
-    <span class="icon">
-    <div class="checker" id="uniform-title-checkbox"><span class=""><input type="checkbox" id="title-checkbox" name="title-checkbox" style="opacity: 0;"></span></div>
-    </span>
-    <h5>Episodes</h5>
-    </div>
-    <div class="widget-content nopadding">
-    <table id="episode-table" class="table data-table table-striped table-bordered with-check nomargin dataTable" data-bind="
-    dataTable: {
-    dataSource: episodes,
-    rowTemplate: 'episodeRowTemplate',
-    data: episodes,
-    columns: [ 'name', 'name', 'timestamp' ],
-    'aaSorting': [[2,'desc']]
-    }
-    ">
-    <thead>
-    <tr>
-    <th><i class="icon-resize-vertical"></i></th>
-    <th>Episode</th>
-    <th>Date Published</th>
-    </tr>
-    </thead>
-    <tbody>
-    </tbody>
-    </table>
-    </div>
-    </div>
-    </div>
-    </div>
-</script>
 {% endblock %}
-
+{#
 {% block javascripts %}
     {{ parent() }}
         {% javascripts
@@ -127,8 +50,10 @@
 
             '@PodcastMainBundle/Resources/public/Knockout.Extensions/Javascript/src/cog.js'
             '@PodcastMainBundle/Resources/public/Knockout.Extensions/Javascript/src/cog.utils.js'
-            '@PodcastMainBundle/Resources/public/Knockout.Extensions/Javascript/src/knockout.bindings.dataTables.js'            '@PodcastMainBundle/Resources/public/internal/js/PodcatcherViewModel.js'
+            '@PodcastMainBundle/Resources/public/Knockout.Extensions/Javascript/src/knockout.bindings.dataTables.js'            
+            '@PodcastMainBundle/Resources/public/internal/js/PodcatcherViewModel.js'
         %}
         <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
 {% endblock %}
+#}
