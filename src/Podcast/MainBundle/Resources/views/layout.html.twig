@@ -1,36 +1,8 @@
 <!DOCTYPE html>
-<html>
-    <meta charset="utf-8">
+<html lang="en">
     <head>
         <title>Home |Virgin</title>
-        {#
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
-	<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css"/>
-	<link rel='stylesheet' type='text/css' href='css/customMarkdown.css'/>
-	<link rel="stylesheet" type="text/css" href="css/style.css"/>
-	<link rel='stylesheet' type='text/css' href="css/jquery.lightbox-0.5.css"/>
-	<script type='text/javascript' src="js/jquery-1.7.2.min.js"/></script>
-	<script type='text/javascript' src="js/bootstrap.min.js"/></script>
-	<script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
-	<script type='text/javascript' src='js/jquery.lightbox-0.5.min.js'></script>
-	<script type='text/javascript' src='js/jquery.lightbox-0.5.pack.js'></script>
-	<script type="text/javascript" src="js/showdown.js"></script>
-	<script type="text/javascript" src="js/google-jsapi.js"></script>
-	<script type='text/javascript'>
-		google.load("visualization", "1", {packages:["corechart","gauge"]});
-	</script>
-	<script type="text/javascript" src="js/main.js"></script>
 
-
-            'bundles/podcastmain/bootstrap/less/bootstrap.less'
-            'bundles/podcastmain/bootstrap/less/responsive.less'
-        #}
-        <!--[if lt IE 9]>
-          <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        
-        
-        
-        <![endif]-->
         {% stylesheets filter="lessphp,cssrewrite"
             'bundles/podcastmain/internal/virgin/css/bootstrap.css'
             'bundles/podcastmain/internal/virgin/css/bootstrap-responsive.css'
@@ -43,14 +15,39 @@
         <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
 
+        <!-- fos_js_routing -->
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+        <!-- /fos_js_routing -->
+
+        {% javascripts
+            '@PodcastMainBundle/Resources/public/jquery/jquery.js'
+            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-alert.js'
+            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-button.js'
+            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-dropdown.js'
+            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-modal.js'
+            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-tooltip.js'
+            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-popover.js'
+            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-tab.js'
+
+            '@PodcastMainBundle/Resources/public/internal/virgin/js/showdown.js'
+            '@PodcastMainBundle/Resources/public/internal/virgin/js/main.js'
+
+            '@PodcastMainBundle/Resources/public/knockout/build/output/knockout-latest.js'
+
+            '@PodcastMainBundle/Resources/public/internal/podcast-finder/js/app.js'
+        %}
+        <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
 
     </head>
     <body>
 
         <div class='frontLayer'>
             <header class="borBox row-fluid pat-lightwool">
-                <div class="span2 pull-left">
-                    <figure class="logo btn btn-success">Virgin</figure>
+                <div class="span2 pull-left subHeadInner">
+
+                
                 </div>
                 <div class="span7 pull-left">
                     <br/>
@@ -93,189 +90,53 @@
                 </section>
             </section>
             <section class="container-fluid" id="mainContainer">
-                <div class="row-fluid">
-                   <div class="span2 sideBar">
-                       {#  <div class="progress progress-striped active">
-                            <div class="bar" style="width: 40%;"></div>
-                        </div>
-                                <div class="btn-group">
-<a href="#" class="btn"><i class="icon-backward"></i></a>
-<a href="#" class="btn"><i class="icon-play"></i></a>
-<a href="#" class="btn"><i class="icon-pause"></i></a>
-<a href="#" class="btn"><i class="icon-forward"></i></a>
-</div>
-#}
-                        <ul>
-                            <li data-link="home"><figure><i class='icon-home'></i> <div class='menuText'>Home</div></figure></li>
-                            <li data-link="directory" class="active"><figure><i class="icon-th-large"></i> <div class="menuText">Directory</div></figure></li>                        </ul>
-                            </ul>
-                    </div>
-                    <div class="span10 content borBox">
-
-                        <div class='row-fluid'>
-                            <div class="span8">
-                                <div class='page-header'>
-                                    <h2 class='hBig'>Organization
-                                        <small class="pull-right">Clear</small>
-                                        </h2>
-                                </div>                                   <ul class="nav nav-stacked nav-pills">
-                                    <li class="active"><a href="/podcasts/radio1">Radio 1</a></li>
-                                    <li><a href="/podcasts/radio1">Radio 2</a></li>
-                                    <li><a href="/podcasts/radio1">Radio 3</a></li>
-                                    <li><a href="/podcasts/radio1">Radio 4</a></li>
-                                </ul>
+               {% block content %}{% endblock %}
+                </section>
+                <footer>
+                    <div class="container-fluid" id="footMain">
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div class="pull-left">
+                                    <h6>Press ` or tilde key to access command line</h6>
+                                </div>
                             </div>
-                            <div class="span4">
-                                <div class='page-header'>
-                                    <h2 class='hBig'>Category
-                                                                                <small class="pull-right">Clear</small>
-
-                                        </h2>
-                                </div>       
-                                <ul class="nav nav-stacked nav-pills">
-                                    <li class="active"><a href="/podcasts/radio1">Comedy</a></li>
-                                    <li><a href="/podcasts/radio1">Sport</a></li>
-                                    <li><a href="/podcasts/radio1">Drama</a></li>
-                                    <li><a href="/podcasts/radio1">Radio 4</a></li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class='page-header'>
-                            <h1 class='hBig'>Podcasts
-                            </h1>
-                        </div>
-
-                        <div class='row-fluid gallery photo'>
-                            <figure class='tile'>
-                                <img src="http://ichef.bbci.co.uk/podcasts/artwork/160/aled.jpg" alt="">
-                                <div class='hoverImg'><h3>Preview</h3></div>
-                                <div class="caption">
-                    <h3>Thumbnail label</h3>
-                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                    <p><a href="#" class="btn btn-primary">Action</a> <a href="#" class="btn">Action</a></p>
-                  </div>
-                            </figure>
-                            <figure class='tile'>
-                                <img src="img/placeholder2.jpg" alt=""/>
-                                <div class='hoverImg'><h3>Preview</h3></div>
-                            </figure>
-                            <figure class='tile'>
-                                <img src="img/placeholder2.jpg" alt=""/>
-                                <div class='hoverImg'><h3>Preview</h3></div>
-                            </figure>
-                            <figure class='tile'>
-                                <img src="img/placeholder2.jpg" alt=""/>
-                                <div class='hoverImg'><h3>Preview</h3></div>
-                            </figure>
-                            <figure class='tile'>
-                                <img src="img/placeholder2.jpg" alt=""/>
-                                <div class='hoverImg'><h3>Preview</h3></div>
-                            </figure>
-                            <figure class='tile'>
-                                <img src="img/placeholder2.jpg" alt=""/>
-                                <div class='hoverImg'><h3>Preview</h3></div>
-                            </figure>
-                            <figure class='tile'>
-                                <img src="img/placeholder2.jpg" alt=""/>
-                                <div class='hoverImg'><h3>Preview</h3></div>
-                            </figure>
-                            <figure class='tile'>
-                                <img src="img/placeholder2.jpg" alt=""/>
-                                <div class='hoverImg'><h3>Preview</h3></div>
-                            </figure>
-                            <figure class='tile'>
-                                <img src="img/placeholder2.jpg" alt=""/>
-                                <div class='hoverImg'><h3>Preview</h3></div>
-                            </figure>
-                            <figure class='tile'>
-                                <img src="img/placeholder2.jpg" alt=""/>
-                                <div class='hoverImg'><h3>Preview</h3></div>
-                            </figure>
-                            <figure class='tile'>
-                                <img src="img/placeholder2.jpg" alt=""/>
-                                <div class='hoverImg'><h3>Preview</h3></div>
-                            </figure>
-
-
-
-
-
-                        </div>
-
-                    </div>
-                </div>
-            </section>
-            <footer>
-                <div class="container-fluid" id="footMain">
-                    <div class="row-fluid">
-                        <div class="span6">
-                            <div class="pull-left">
-                                <h6>Press ` or tilde key to access command line</h6>
-                            </div>
-                        </div>
-                        <div class="span6">
-                            <div class="pull-right">
-                                <h6>Company Name Here</h6>
+                            <div class="span6">
+                                <div class="pull-right">
+                                    <h6>Company Name Here</h6>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </footer>
-        </div>
+                </footer>
+            </div>
 
 
-        <!-- ##### MODALS #####- -->
-        <div class='modal fade hide' id="thisModal">
+            <!-- ##### MODALS #####- -->
+            <div class='modal fade hide' id="thisModal">
 
-        </div>
+            </div>
 
 
-        <!-- ### BACKGROUND DIV -->
-        <div class='bg'>
-        </div>
+            <!-- ### BACKGROUND DIV -->
+            <div class='bg'>
+            </div>
 
-        <div class='commandWindow hide'>
-            <div class='commandWindow-inner'>
-                <h2 class='hBig'>CommandLine</h2><br/>
-                <div class='form sharp form-horizontal'>
-                    <div class='input-append row-fluid'>
-                        <input class='sharp span9' id="commandInput" placeholder='Enter Command' type='text'/><button class='btn btn-info'>Go</button>
+            <div class='commandWindow hide'>
+                <div class='commandWindow-inner'>
+                    <h2 class='hBig'>CommandLine</h2><br/>
+                    <div class='form sharp form-horizontal'>
+                        <div class='input-append row-fluid'>
+                            <input class='sharp span9' id="commandInput" placeholder='Enter Command' type='text'/><button class='btn btn-info'>Go</button>
+                        </div>
                     </div>
-                </div>
-                <br/>
-                <div class='alert fade in'>
-                    <a class='close' data-dismiss='alert'>&times;</a>
-                    <p>Type <code> goto("dashboard") or goto("portfolio") </code></p>
+                    <br/>
+                    <div class='alert fade in'>
+                        <a class='close' data-dismiss='alert'>&times;</a>
+                        <p>Type <code> goto("dashboard") or goto("portfolio") </code></p>
 
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- fos_js_routing -->
-        <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-        <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-        <!-- /fos_js_routing -->
 
-    {% block javascripts %}
-        {% javascripts
-            '@PodcastMainBundle/Resources/public/jquery/jquery.js'
-            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-alert.js'
-            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-button.js'
-            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-dropdown.js'
-            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-modal.js'
-            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-tooltip.js'
-            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-popover.js'
-            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-tab.js'
-
-            '@PodcastMainBundle/Resources/public/internal/virgin/js/showdown.js'
-
-
-            '@PodcastMainBundle/Resources/public/internal/virgin/js/main.js'
-
-        %}
-        <script src="{{ asset_url }}"></script>
-        {% endjavascripts %}
-        {% endblock %}
-
-    </body>
-</html>
+        </body>
+    </html>

@@ -13,7 +13,7 @@ use Podcast\MainBundle\Form\CategoryType;
 /**
  * Category controller.
  *
- * @Route("/categories")
+ * @Route("/admin/categories")
  */
 class CategoryController extends Controller
 {
@@ -25,6 +25,7 @@ class CategoryController extends Controller
      */
     public function indexAction()
     {
+        die;
         $em = $this->getDoctrine()->getManager();
 
         $query = $em->getRepository('PodcastMainBundle:Category')->findAllWithDefaultSort($this->get('request')->query->get('sort', "id"), $this->get('request')->query->get('direction', "desc"));
@@ -47,6 +48,7 @@ class CategoryController extends Controller
      */
     public function showAction($slug)
     {
+        die;
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PodcastMainBundle:Category')->findOneBySlug($slug);

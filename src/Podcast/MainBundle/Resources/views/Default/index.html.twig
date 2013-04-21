@@ -2,58 +2,106 @@
 
 {% block title %}Podcast Tool{% endblock %}
 
-{% block content_header %}
-<div id="content-header">
-    <!-- ko with: podcast -->
-        <h1 data-bind="text: name()"></h1>
-    <!-- /ko -->
-    <!-- ko ifnot: podcast -->
-        <h1>Dashboard</h1>
-    <!-- /ko -->
-
-    <div class="btn-group" style="width: auto;" data-bind="with: podcast">
-        <a class="btn btn-large" data-bind="css: { disabled: !user.authenticated(), active: subscribed }, click: subscribe"><i data-bind="css: { 'icon-star-empty': subscribed() == false, 'icon-star': subscribed() == true }"></i></a>
-        <a class="btn btn-large tip-bottom" data-original-title="Manage Files"><i class="icon-file"></i></a>
-        <a class="btn btn-large tip-bottom" data-original-title="Manage Users"><i class="icon-user"></i></a>
-        <a class="btn btn-large tip-bottom" data-original-title="Manage Comments"><i class="icon-comment"></i><span class="label label-important">5</span></a>
-        <a class="btn btn-large tip-bottom" data-original-title="Manage Orders"><i class="icon-shopping-cart"></i></a>
-    </div>
-</div>
-<div id="breadcrumb">
-    <a class="tip-bottom" href="#" data-original-title="Go to Home"><i class="icon-home"></i> Home</a>
-    <a class="current" href="#">Dashboard</a>
-</div>
-{% endblock %}
-
 {% block content %}
 
+<div class="row-fluid">
+    <div class="span2 sideBar">
+        <ul>
+            <li data-link="home"><figure><i class='icon-home'></i> <div class='menuText'>Home</div></figure></li>
+            <li data-link="directory" class="active"><figure><i class="icon-th-large"></i> <div class="menuText">Directory</div></figure></li>
+        </ul>
+    </div>
+    <div class="span10 content borBox">
+
+        <div class='row-fluid' data-bind="with: AppKernel.PodcastFinder">
+            <div class="span8">
+                <div class='page-header'>
+                    <h2 class='hBig'>Organization
+                        <small class="pull-right">Clear</small>
+                    </h2>
+                </div>
+                <ul class="nav nav-stacked nav-pills" data-bind="foreach: organizations">
+                    <li><a href="/podcasts/radio1" data-bind="text: name"></a></li>
+                </ul>
+            </div>
+            <div class="span4">
+                <div class='page-header'>
+                    <h2 class='hBig'>Category
+                        <small class="pull-right">Clear</small>
+
+                    </h2>
+                </div>       
+                <ul class="nav nav-stacked nav-pills" data-bind="foreach: categories">
+                      <li><a href="/podcasts/radio1" data-bind="text: name"></a></li>
+
+                </ul>
+            </div>
+        </div>
+
+        <div class='page-header'>
+            <h1 class='hBig'>Podcasts
+            </h1>
+        </div>
+
+        <div class='row-fluid gallery photo'>
+            <figure class='tile'>
+                <img src="http://ichef.bbci.co.uk/podcasts/artwork/160/aled.jpg" alt="">
+                <div class='hoverImg'><h3>Preview</h3></div>
+                <div class="caption">
+                    <h3>Thumbnail label</h3>
+                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                    <p><a href="#" class="btn btn-primary">Action</a> <a href="#" class="btn">Action</a></p>
+                </div>
+            </figure>
+            <figure class='tile'>
+                <img src="img/placeholder2.jpg" alt=""/>
+                <div class='hoverImg'><h3>Preview</h3></div>
+            </figure>
+            <figure class='tile'>
+                <img src="img/placeholder2.jpg" alt=""/>
+                <div class='hoverImg'><h3>Preview</h3></div>
+            </figure>
+            <figure class='tile'>
+                <img src="img/placeholder2.jpg" alt=""/>
+                <div class='hoverImg'><h3>Preview</h3></div>
+            </figure>
+            <figure class='tile'>
+                <img src="img/placeholder2.jpg" alt=""/>
+                <div class='hoverImg'><h3>Preview</h3></div>
+            </figure>
+            <figure class='tile'>
+                <img src="img/placeholder2.jpg" alt=""/>
+                <div class='hoverImg'><h3>Preview</h3></div>
+            </figure>
+            <figure class='tile'>
+                <img src="img/placeholder2.jpg" alt=""/>
+                <div class='hoverImg'><h3>Preview</h3></div>
+            </figure>
+            <figure class='tile'>
+                <img src="img/placeholder2.jpg" alt=""/>
+                <div class='hoverImg'><h3>Preview</h3></div>
+            </figure>
+            <figure class='tile'>
+                <img src="img/placeholder2.jpg" alt=""/>
+                <div class='hoverImg'><h3>Preview</h3></div>
+            </figure>
+            <figure class='tile'>
+                <img src="img/placeholder2.jpg" alt=""/>
+                <div class='hoverImg'><h3>Preview</h3></div>
+            </figure>
+            <figure class='tile'>
+                <img src="img/placeholder2.jpg" alt=""/>
+                <div class='hoverImg'><h3>Preview</h3></div>
+            </figure>
+
+            <p>Nothing here {% raw %}{{'yet' + '!'}}{% endraw %}</p>
+
+
+
+
+        </div>
+
+    </div>
+</div>
 
 {% endblock %}
-{#
-{% block javascripts %}
-    {{ parent() }}
-        {% javascripts
-
-            '@PodcastMainBundle/Resources/public/knockout/build/output/knockout-latest.js'
-
-            '@PodcastMainBundle/Resources/public/knockout-mapping/knockout.mapping.js'
-
-            '@PodcastMainBundle/Resources/public/sammy/lib/sammy.js'
-
-            '@PodcastMainBundle/Resources/public/select2/select2.js'
-
-            '@PodcastMainBundle/Resources/public/datatables/media/js/jquery.dataTables.js'
-
-            '@PodcastMainBundle/Resources/public/soundmanager/script/soundmanager2.js'
-
-            '@PodcastMainBundle/Resources/public/datejs/build/date-en-GB.js'
-
-            '@PodcastMainBundle/Resources/public/Knockout.Extensions/Javascript/src/cog.js'
-            '@PodcastMainBundle/Resources/public/Knockout.Extensions/Javascript/src/cog.utils.js'
-            '@PodcastMainBundle/Resources/public/Knockout.Extensions/Javascript/src/knockout.bindings.dataTables.js'            
-            '@PodcastMainBundle/Resources/public/internal/js/PodcatcherViewModel.js'
-        %}
-        <script src="{{ asset_url }}"></script>
-        {% endjavascripts %}
-{% endblock %}
-#}

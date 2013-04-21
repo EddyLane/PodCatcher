@@ -27,10 +27,6 @@ PodcastMainBundle:
    prefix:   /
    options:
      expose: true
-# app/config/routing.yml
-PodcastMainBundle_new:
-  pattern: /new
-  defaults: { _controller: PodcastMainBundle:Default:new }
      
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
