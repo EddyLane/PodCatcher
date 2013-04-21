@@ -1,0 +1,24 @@
+Podcast\MainBundle\Entity\Category:
+  cat-childrens:
+    name: Childrens
+  cat-comedy:
+    name: Comedy
+    podcasts: [@pod-matt]
+  cat-drama:
+    name: Drama
+  cat-entertainment:
+    name: Entertainment
+    podcasts: [@pod-matt, @pod-kermode]
+  cat-factual:
+    name: Factual
+    podcasts: [@pod-kermode]
+  cat-learning:
+    name: Learning
+  cat-music:
+    name: Music
+  cat-news:
+    name: News
+    podcasts: [@pod-football-weekly]
+  cat-sport:
+    name: Sport
+    podcasts: [@pod-football-weekly]

@@ -80,36 +80,35 @@
                         <figure class='menuButton btn sharp btn-success'><i class='icon-white icon-th-list'></i> Menu</figure>
                         <div class='form-horizontal centerOnPage' >
                             <div class="input-append">
-                                <input class="span4fix" id="searchInput" data-provide='typeahead' placeholder="Super Search" data-control='home' size="16" type="text"><button class='btn btn-info droppy-toggle sOpsB' data-toggle='droppy' type='button'>Designs&nbsp;&nbsp;<b class='caret'></b></button><ul class='dropdown-menu droppy-menu' id="sOpsL">
-                                    <li><a href="#"><i class='icon-fire'></i> Designs</a></li>
-                                    <li><a href="#"><i class='icon-eye-open'></i> Apps</a></li>
-                                    <li><a href="#"><i class='icon-eye-close'></i> Prototypes</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#"><i class='icon-user'></i> Members</a></li>
-                                    <li class='divider'></li>
-                                    <li><a href="#"><i class='icon-align-justify'></i> Articles</a></li>
-                                </ul><button class="btn btn-info" type="button"><i class='icon-white icon-search'></i></button>
+                                <input class="span4fix" id="searchInput" data-provide='typeahead' placeholder="Super Search" data-control='home' size="16" type="text">
+                                <button class="btn btn-info" type="button"><i class='icon-white icon-search'></i></button>
                             </div>
                         </div>
                         <ul class="bcrumbs pull-right">
-                            <li>Virgin</li>
+                            <li>Podcatcher</li>
                             <li class="divdot">.</li>
-                            <li>Jobs</li>
+                            <li>Directory</li>
                         </ul>
                     </div>
                 </section>
             </section>
             <section class="container-fluid" id="mainContainer">
                 <div class="row-fluid">
-                    <div class="span2 sideBar">
-                        <div class="progress progress-striped active">
+                   <div class="span2 sideBar">
+                       {#  <div class="progress progress-striped active">
                             <div class="bar" style="width: 40%;"></div>
                         </div>
+                                <div class="btn-group">
+<a href="#" class="btn"><i class="icon-backward"></i></a>
+<a href="#" class="btn"><i class="icon-play"></i></a>
+<a href="#" class="btn"><i class="icon-pause"></i></a>
+<a href="#" class="btn"><i class="icon-forward"></i></a>
+</div>
+#}
                         <ul>
-                            <li data-link="home" class="active"><figure><i class='icon-home'></i> <div class='menuText'>Home</div></figure></li>
-
-                        </ul>
-
+                            <li data-link="home"><figure><i class='icon-home'></i> <div class='menuText'>Home</div></figure></li>
+                            <li data-link="directory" class="active"><figure><i class="icon-th-large"></i> <div class="menuText">Directory</div></figure></li>                        </ul>
+                            </ul>
                     </div>
                     <div class="span10 content borBox">
 
@@ -117,7 +116,8 @@
                             <div class="span8">
                                 <div class='page-header'>
                                     <h2 class='hBig'>Organization
-                                        </h1>
+                                        <small class="pull-right">Clear</small>
+                                        </h2>
                                 </div>                                   <ul class="nav nav-stacked nav-pills">
                                     <li class="active"><a href="/podcasts/radio1">Radio 1</a></li>
                                     <li><a href="/podcasts/radio1">Radio 2</a></li>
@@ -128,7 +128,9 @@
                             <div class="span4">
                                 <div class='page-header'>
                                     <h2 class='hBig'>Category
-                                        </h1>
+                                                                                <small class="pull-right">Clear</small>
+
+                                        </h2>
                                 </div>       
                                 <ul class="nav nav-stacked nav-pills">
                                     <li class="active"><a href="/podcasts/radio1">Comedy</a></li>
@@ -141,7 +143,6 @@
 
                         <div class='page-header'>
                             <h1 class='hBig'>Podcasts
-                                <small>Select Podcasts</small>
                             </h1>
                         </div>
 
@@ -149,6 +150,11 @@
                             <figure class='tile'>
                                 <img src="http://ichef.bbci.co.uk/podcasts/artwork/160/aled.jpg" alt="">
                                 <div class='hoverImg'><h3>Preview</h3></div>
+                                <div class="caption">
+                    <h3>Thumbnail label</h3>
+                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                    <p><a href="#" class="btn btn-primary">Action</a> <a href="#" class="btn">Action</a></p>
+                  </div>
                             </figure>
                             <figure class='tile'>
                                 <img src="img/placeholder2.jpg" alt=""/>

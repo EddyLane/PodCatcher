@@ -6,7 +6,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+use Podcast\MainBundle\Entity\Podcast;
+use Doctrine\Common\Collections\ArrayCollection;
+
 use JMS\SerializerBundle\Annotation;
+
 /**
  * Category
  *
@@ -51,7 +55,7 @@ class Category
      * @ORM\JoinTable(name="podcast_categories",
      *      joinColumns={@ORM\JoinColumn(name="category_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="podcast_id", referencedColumnName="id")}
-     *      )
+     * )
      */
     private $podcasts;
 
@@ -105,9 +109,10 @@ class Category
     }
 
     /**
-     * Add a podcast
+     * 
+     * @param \Podcast\MainBundle\Entity\Podcast $podcast
      */
-    public function addPodcast($podcast)
+    public function addPodcast(Podcast $podcast)
     {
         $this->podcasts[] = $podcast;
     }
@@ -115,9 +120,9 @@ class Category
     /**
      * Set podcasts
      *
-     * @param \Podcast\MainBundle\Entity\ArrayCollection $podcasts
+     * @param ArrayCollection $podcasts
      */
-    public function setPodcasts($podcasts)
+    public function setPodcasts(ArrayCollection $podcasts)
     {
         $this->podcasts = $podcasts;
     }

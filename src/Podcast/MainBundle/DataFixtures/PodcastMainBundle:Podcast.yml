@@ -1,0 +1,19 @@
+Podcast\MainBundle\Entity\Podcast:
+  
+  pod-matt:
+    name: The Matt Edmondson Show
+    link: http://downloads.bbc.co.uk/podcasts/radio1/r1matt/rss.xml
+    description: Get your hands on all the best bits from Matt’s show on Radio 1. Check out the full show every Saturday and Sunday at 10am.
+    image: http://www.bbc.co.uk/podcasts/assets/artwork/r1matt.jpg
+  
+  pod-kermode:
+    name: Mark Kermode and Simon Mayo's Film Reviews
+    link: http://downloads.bbc.co.uk/podcasts/fivelive/kermode/rss.xml
+    description: Mark Kermode discusses the latest film releases with Simon Mayo. Lively, controversial and unmissable movie discussion. Broadcast live on Fridays at 2pm on BBC Radio 5 live.
+    image: http://www.bbc.co.uk/podcasts/assets/artwork/kermode.jpg
+
+  pod-football-weekly:
+    name: Football Weekly
+    link: http://www.guardian.co.uk/football/series/footballweekly/podcast.xml
+    description: James Richardson, Barry Glendenning, Rafa Honigstein, Sid Lowe and the rest of the Guardian's football writers deliver a twice-weekly dose of puns and punditry as they follow all the action from the 2012-13 season
+    image: http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2012/8/5/1344158892943/Football_weekly_1400.jpg  

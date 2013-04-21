@@ -92,7 +92,12 @@ class Podcast
      * @ORM\OrderBy({"name" = "DESC"})
      */
     private $categories;
-
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Organization", mappedBy="podcasts")
+     * @ORM\OrderBy({"name" = "DESC"})
+     */
+    private $organizations;
     /**
      * The feed
      * @var type
@@ -103,6 +108,7 @@ class Podcast
     {
         $this->episodes = new ArrayCollection();
         $this->categories = new ArrayCollection();
+        $this->organizations = new ArrayCollection();
     }
 
     /**
@@ -384,6 +390,21 @@ class Podcast
     {
         if(!$this->categories->contains($category))
             $this->categories->add($category);
+    }
+    
+    public function addOrganization($organization)
+    {
+        if(!$this->organizations->contains($organization))
+            $this->organizations->add($organization);
+    }    
+    public function setCategories($categories)
+    {
+        $this->categories = $categories;
+    }
+    
+    public function setOrganizations($organizations)
+    {
+        $this->organizations = $organizations;
     }
 
 }

@@ -25,12 +25,15 @@
         "friendsofsymfony/rest-bundle": "*",
         "friendsofsymfony/jsrouting-bundle": "1.0.*",
         "leafo/lessphp": "~0.3",
-        "braincrafted/bootstrap-bundle": "dev-master",
+        "braincrafted/bootstrap-bundle": "master",
         "knplabs/knp-menu-bundle":"dev-master",
         "knplabs/knp-paginator-bundle": "dev-master",
         "fkr/simplepie-bundle": "1.0.*"
     },
     "require-dev": {
+        "nelmio/alice": "1.4.*@dev",
+        "fzaninotto/faker": "1.1.*@dev",
+        "doctrine/data-fixtures": "@dev",
         "doctrine/doctrine-fixtures-bundle": "dev-master",
         "behat/behat": "2.4.*@stable",
         "behat/mink": "1.4@stable",

@@ -15,42 +15,11 @@ $(document).ready(function(){
 
 		$(window).on("load",function(){
 			fixLayout();		//This function fixes the layout... and is also reponsible for responsiveness of this theme.
-			loadPage('members');	//Change default loading page here
 		});
 		$(window).on("resize",function(){
 			fixLayout();
 		});
-	
-		//This is what happens when you click a button on sidebar
-		$(".sideBar>ul>li>figure:first-child").on("click",function(){
-			var link = $(this).parent().attr('data-link');
-			if(link != 'none'){
-				loadPage(link.toString().toLowerCase());
-			}
-			if(!$(this).parent().find('.subSide').length){
-				$('.subSide').slideUp();
-			}			
-		});
-		
-
-
-		//BIND DROPPER SIDEBAR ACTIONS
-		$('.sideBar > ul > li.dropper >figure:first-child').on("click",function(){
-			$(this).parent().find('.subSide').slideToggle(300);
-			var ac = $('.sideBar > ul >li.active')[0];
-			
-			var par = $(this).parent()[0];
-			$(ac).removeClass('active');
-			$(par).addClass('active');
-		});
-
-		//Dropper Subside Action Bind
-		$('.sideBar > ul > li.dropper > .subSide > li').on("click",function(){
-			var link = $(this).attr('data-target');
-			console.log(link);
-			loadPage(link);
-		});
-
+                
 		//Centering Elements with Class 'centerOnPage'
 		$("button[data-toggle='droppy']").on("click",function(e){
 			var bttn=0,ul=0,lcheck=1;

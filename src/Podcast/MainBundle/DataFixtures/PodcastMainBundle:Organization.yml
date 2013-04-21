@@ -1,0 +1,9 @@
+Podcast\MainBundle\Entity\Organization:
+  bbc:
+    name: BBC
+    podcasts: [@pod-matt, @pod-kermode]
+  guardian:
+    name: Guardian
+    podcasts: [@pod-football-weekly]
+  absolute: 
+    name: Absolute
