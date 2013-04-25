@@ -21,7 +21,7 @@ function PodCatcher() {
  */
 PodCatcher.prototype.AppKernel = function() {
     //Bootstrap our application.
-    this.PodcastFinder = new PodCatcher.PodcastFinder();
+    this.PodcastFinder = new PodCatcher.PodcastFinder;
 };
 
 /**
@@ -36,6 +36,7 @@ PodCatcher.PodcastFinder = function() {
 PodCatcher.PodcastFinder.prototype.categories = ko.observableArray();
 PodCatcher.PodcastFinder.prototype.organizations = ko.observableArray();
 PodCatcher.PodcastFinder.prototype.podcasts = ko.observableArray();
+PodCatcher.PodcastFinder.prototype.page = 1;
 //Constructor
 PodCatcher.PodcastFinder.prototype.__construct = function() {
     var self = this;
@@ -64,7 +65,7 @@ PodCatcher.PodcastFinder.prototype.clearCategories = function() {
     this.refresh();
 };
 PodCatcher.PodcastFinder.prototype.serialize = function() {
-    var data = ko.toJS(PodCatcher.PodcastFinder.prototype),
+    var data = ko.toJS(this),
         organizations = "",
         categories = "";
     for(var i = 0; i < data["categories"].length; i++) {
@@ -84,7 +85,7 @@ PodCatcher.PodcastFinder.prototype.serialize = function() {
 
 PodCatcher.PodcastFinder.prototype.refresh = function() {
     var self = this;
-    $.get(Routing.generate('get_podcasts')+"?"+PodCatcher.PodcastFinder.prototype.serialize(), function(response) {
+    $.get(Routing.generate('get_podcasts')+"?"+self.serialize(), function(response) {
         self.podcasts($.map(response, function(podcast) {
             return new self.entity.Podcast(podcast);
         }));
