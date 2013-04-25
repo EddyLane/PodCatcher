@@ -1,7 +1,11 @@
 categories:
     type:     rest
     resource: Podcast\MainBundle\Controller\CategoryController
-
+    
+podcasts:
+    type:     rest
+    resource: Podcast\MainBundle\Controller\PodcastController
+    
 organizations:
     type:     rest
     resource: Podcast\MainBundle\Controller\OrganizationController

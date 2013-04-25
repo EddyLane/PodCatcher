@@ -3,7 +3,7 @@
 namespace Podcast\MainBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-
+use Doctrine\ORM\Query;
 use Podcast\MainBundle\Entity\Category;
 /**
  * PodcastRepository
@@ -15,7 +15,6 @@ class PodcastRepository extends EntityRepository
 {
 
     /**
-     *
      * @param  string $sortField
      * @param  string $sortDirection
      * @return type
@@ -24,72 +23,42 @@ class PodcastRepository extends EntityRepository
     {
         return $this->findBy(array(), array($sortField => $sortDirection));
     }
+    
+    
     /**
-     *
-     * @param  type $maxResults
-     * @return type
+     * @param string $category
+     * @param string $category
      */
-    private function getLatestPodcastsQuery($maxResults,$user)
+    public function findAllByCategoryAndOrganization(array $categories = [], array $organizations = [])
     {
-
-        $query = $this->createQueryBuilder('p')
-                ->add('orderBy','p.id DESC')
-                ->setMaxResults($maxResults);
-
-        if (false !== $user) {
-            $query->leftJoin('p.subscribed','u','WITH','u.id = :user_id')
-                    ->addSelect('u.id as subscribed')
-                    ->setParameter('user_id', $user->getId());
+        $qb = $this->createQueryBuilder('podcast');
+        
+        if(count($categories) > 0) {
+            $qb
+               ->innerJoin('podcast.categories', 'category')
+               ->add('where', $qb->expr()->in('category.slug', $categories))
+            ;
         }
-
-        return $query;
+        if(count($organizations) > 0) {
+            $qb
+               ->innerJoin('podcast.organizations', 'organization')
+               ->add('where', $qb->expr()->in('organization.slug', $organizations))
+            ;
+        }
+        
+        return $qb->getQuery();
     }
-
-    public function getMostSubscribedQuery($maxResults = 10,$user)
-    {
-        $query = $this->createQueryBuilder('p')
-                ->addSelect('COUNT(p.id) as subscribed')
-                ->addSelect('SELECT(COUNT(u.id) WHERE u.id = :user_id) as subs')
-                ->leftJoin('p.subscribed','u')
-                ->groupBy('p.id')
-                ->orderBy('subscribed','desc')
-                ->setMaxResults($maxResults)
-                ->setParameter('user_id', $user->getId());
-
-        return $query->getQuery();
-    }
-
+    
     /**
-     *
-     * @param  type $maxResults
+     * 
+     * @param \Podcast\MainBundle\Entity\Category $category
      * @return type
      */
-    public function getLatestPodcasts($maxResults = 10,$user = null)
-    {
-        $podcasts = $this->getLatestPodcastsQuery($maxResults,$user);
-
-        return $podcasts->getQuery()->getResult();
-    }
-
-    public function getSubscribedPodcasts($user)
-    {
-        $podcasts = $this->getLatestPodcastsQuery(100, false);
-        $podcasts->innerJoin('p.subscribed','u','WITH','u.id = :user_id')
-                ->addSelect('u.id as subscribed')
-                ->setParameter('user_id',$user->getId());
-
-        return $podcasts->getQuery();
-    }
-    
-    
     public function findByCategory(Category $category)
     {
-        
-        $query = $this->createQueryBuilder('p')
-                      ->innerJoin('p.categories','c','WITH','c.id = :category_id')
-                      ->setParameter('category_id', $category->getId());
-        
-        return $query;
+        return $this->createQueryBuilder('p')
+                    ->innerJoin('p.categories','c','WITH','c.id = :category_id')
+                    ->setParameter('category_id', $category->getId());
     }
 
 }
