@@ -37,4 +37,27 @@ class PodcastController extends FOSRestController
         return $this->handleView($view);
     }
     
+    /**
+     * "get_podcast" [GET] /podcasts/{$slug}
+     * 
+     * Get a podcast!
+     * @param string $slug
+     * @return FOS\RestBundle\View\View
+     * @throws Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    public function getPodcastAction($slug)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $podcast = $em->getRepository('PodcastMainBundle:Podcast')->findOneBySlug($slug);
+        
+        if(!$podcast) {
+            throw $this->createNotFoundException('Podcast does not exist');
+        }
+        
+        $view = $this->view($podcast, 200)
+                     ->setTemplateVar('entity');
+
+        return $this->handleView($view);
+    }
 }

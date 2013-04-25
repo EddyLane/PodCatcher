@@ -14,34 +14,24 @@
     <div class="span10 content borBox" data-bind="with: AppKernel.PodcastFinder">
 
         <div class='row-fluid'>
-            {#
-            <div class="row-fluid">
-                <div class="span12">
-                    <code data-bind="text: selectedCategories"></code>
-                </div>
-            </div>
-            #}
-            
             <div class="span8">
                 <div class='page-header'>
                     <h2 class='hBig'>Organization
-                        <small class="pull-right">Clear</small>
+                        <small class="pull-right" style="cursor: pointer" data-bind="click: clearOrganizations">Clear</small>
                     </h2>
                 </div>
-                <ul class="nav nav-stacked nav-pills" data-bind="foreach: organizations">
+                <ul class="nav nav-stacked nav-pills" data-bind="foreach: organizations" style="height: 200px; overflow: auto; padding: 5px;">
                     <li data-bind="css: { active: selected }"><a href="#" data-bind="text: name, click: $parent.toggleItem, attr: { href: link() }"></a></li>
                 </ul>
             </div>
             <div class="span4">
                 <div class='page-header'>
                     <h2 class='hBig'>Category
-                        <small class="pull-right">Clear</small>
-
+                        <small class="pull-right" style="cursor: pointer" data-bind="click: clearCategories">Clear</small>
                     </h2>
                 </div>       
-                <ul class="nav nav-stacked nav-pills" data-bind="foreach: categories">
+                <ul class="nav nav-stacked nav-pills" data-bind="foreach: categories" style="height: 200px; overflow: auto; padding: 5px;">
                       <li data-bind="css: { active: selected }"><a href="#" data-bind="text: name, click: $parent.toggleItem, attr: { href: link() }"></a></li>
-
                 </ul>
             </div>
         </div>
@@ -53,9 +43,10 @@
 
         <div class='row-fluid gallery photo' data-bind="foreach: podcasts">
             <figure class='tile'>
-                <img data-bind="attr: { alt: name, src: image }">
-                <div class='hoverImg'><h3>Preview</h3>
-            </div>
+                <a data-bind="attr: { href: link() }">
+                    <img data-bind="attr: { alt: name, src: image }">
+                </a>
+            </figure>
         </div>
 
     </div>

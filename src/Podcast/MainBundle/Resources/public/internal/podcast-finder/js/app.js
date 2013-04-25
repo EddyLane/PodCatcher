@@ -39,37 +39,61 @@ PodCatcher.PodcastFinder.prototype.podcasts = ko.observableArray();
 //Constructor
 PodCatcher.PodcastFinder.prototype.__construct = function() {
     var self = this;
+    this.refresh();
     $.get(Routing.generate('get_categories', { page: 1 }), function(categories) {
         self.categories($.map(categories, function(category) {
-            return new PodCatcher.PodcastFinder.prototype.entity.Category(category);
+            return new self.entity.Category(category);
         }));
     });
     $.get(Routing.generate('get_organizations', { page: 1 }), function(organizations) {
         self.organizations($.map(organizations, function(organization) {
-            return new PodCatcher.PodcastFinder.prototype.entity.Organization(organization);
+            return new self.entity.Organization(organization);
         }));
     });
 };
-PodCatcher.PodcastFinder.prototype.toggleItem = function(item) {
-    
-    item.toggle();
-    
+PodCatcher.PodcastFinder.prototype.clearOrganizations = function() {
+    ko.utils.arrayForEach(this.organizations(), function(organization) {
+        organization.selected(false);
+    });
+    this.refresh();
+};
+PodCatcher.PodcastFinder.prototype.clearCategories = function() {
+    ko.utils.arrayForEach(this.categories(), function(category) {
+        category.selected(false);
+    });
+    this.refresh();
+};
+PodCatcher.PodcastFinder.prototype.serialize = function() {
     var data = ko.toJS(PodCatcher.PodcastFinder.prototype),
         organizations = "",
         categories = "";
-
     for(var i = 0; i < data["categories"].length; i++) {
-        if(data.categories[i].selected) {
-            categories+="categories[]="+data.categories[i].slug+"&";
+        var category = data.categories[i];
+        if(category.selected) {
+            categories+="categories[]="+category.slug+"&";
         }
     }
     for(var i = 0; i < data["organizations"].length; i++) {
-        if(data.organizations[i].selected) {
-            organizations+="organizations[]="+data.organizations[i].slug+"&";
+        var organization = data.organizations[i];
+        if(organization.selected) {
+            organizations+="organizations[]="+organization.slug+"&";
         }
     }
-    
-    $.get(Routing.generate('get_podcasts')+"?"+categories.substring(0,categories.length-1)+"&"+organizations.substring(0,organizations.length-1), PodCatcher.PodcastFinder.prototype.podcasts);
+    return categories.substring(0,categories.length-1)+"&"+organizations.substring(0,organizations.length-1)
+}
+
+PodCatcher.PodcastFinder.prototype.refresh = function() {
+    var self = this;
+    $.get(Routing.generate('get_podcasts')+"?"+PodCatcher.PodcastFinder.prototype.serialize(), function(response) {
+        self.podcasts($.map(response, function(podcast) {
+            return new self.entity.Podcast(podcast);
+        }));
+    });
+}
+
+PodCatcher.PodcastFinder.prototype.toggleItem = function(item) {
+    item.toggle();
+    PodCatcher.PodcastFinder.prototype.refresh();
 }
 
 /**
@@ -101,8 +125,15 @@ PodCatcher.PodcastFinder.prototype.entity.Organization.prototype = Object.create
 PodCatcher.PodcastFinder.prototype.entity.Organization.prototype.link = function() {
     return Routing.generate('get_organization', { slug: this.slug });
 }
-
-
+//Podcast
+PodCatcher.PodcastFinder.prototype.entity.Podcast = function(data) {
+    this.name = data.name;
+    this.slug = data.slug;
+    this.image = data.image;
+};
+PodCatcher.PodcastFinder.prototype.entity.Podcast.prototype.link = function() {
+    return Routing.generate('get_podcast', { slug: this.slug });
+}
 
 
 /**
