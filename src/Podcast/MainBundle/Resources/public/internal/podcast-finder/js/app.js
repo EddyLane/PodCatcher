@@ -38,9 +38,9 @@ PodCatcher.PodcastFinder.prototype.organizations = ko.observableArray();
 PodCatcher.PodcastFinder.prototype.podcasts = ko.observableArray();
 
 PodCatcher.PodcastFinder.prototype.pagination = {
-    page: ko.observable(0),
+    page: ko.observable(1),
     maxPageIndex: ko.observable(9),
-    amount: 20
+    amount: ko.observable(8)
 };
 
 
@@ -92,8 +92,8 @@ PodCatcher.PodcastFinder.prototype.serialize = function() {
 
 PodCatcher.PodcastFinder.prototype.refresh = function() {
     var self = this;
-    $.getJSON(Routing.generate('get_podcasts')+"?"+self.serialize(), function(response) {
-        self.pagination.maxPageIndex(Math.ceil(response.total / self.pagination.amount) - 1);
+    $.getJSON(Routing.generate('get_podcasts', { page: self.pagination.page(), amount: self.pagination.amount() })+self.serialize(), function(response) {
+        self.pagination.maxPageIndex(Math.ceil(response.total / self.pagination.amount()) - 1);
         delete response.total;
         self.podcasts($.map(response, function(podcast) {
             return new self.entity.Podcast(podcast);
