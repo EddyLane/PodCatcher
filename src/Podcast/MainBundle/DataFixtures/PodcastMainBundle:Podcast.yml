@@ -17,3 +17,51 @@ Podcast\MainBundle\Entity\Podcast:
     link: http://www.guardian.co.uk/football/series/footballweekly/podcast.xml
     description: James Richardson, Barry Glendenning, Rafa Honigstein, Sid Lowe and the rest of the Guardian's football writers deliver a twice-weekly dose of puns and punditry as they follow all the action from the 2012-13 season
     image: http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2012/8/5/1344158892943/Football_weekly_1400.jpg  
+    
+  pod-scott-mills:
+    name: Scott Mills Daily
+    link: http://downloads.bbc.co.uk/podcasts/radio1/mills/rss.xml
+    description: A daily slice of Scott, with more silly features, crank calls and plenty of attempts to make you laugh.
+    image: http://www.bbc.co.uk/podcasts/assets/artwork/mills.jpg
+
+  pod-front-row:
+    name: Front Row Weekly
+    link: http://downloads.bbc.co.uk/podcasts/radio4/fr/rss.xml
+    description: Interviews with leading novelists, musicians, film directors, artists and more, from Radio 4's flagship arts show, presented by Mark Lawson, Kirsty Lang and John Wilson. Front Row is broadcast on BBC Radio 4 each weekday evening at 7.15 - 7.45pm
+    image: http://www.bbc.co.uk/podcasts/assets/artwork/fr.jpg
+    
+  pod-world-football:
+    name: World Football
+    link: http://downloads.bbc.co.uk/podcasts/worldservice/wswf/rss.xml
+    description: This podcast gets right under the skin of world football with extraordinary stories, interviews, and features from BBC World Service's World Football.
+    image: http://www.bbc.co.uk/podcasts/assets/artwork/wswf.jpg
+
+  pod-chris-evans:
+    name: Chris Evans - The Best Bits
+    link: http://downloads.bbc.co.uk/podcasts/radio2/evans/rss.xml
+    description: Catch up with the latest Breakfast fun with Chris Evans. Hear the best stories and the biggest guests, every day.
+    image: http://www.bbc.co.uk/podcasts/assets/artwork/evans.jpg
+
+  pod-iain-wright:
+    name: Ian Wright on Absolute Radio
+    link: http://network.absoluteradio.co.uk/core/podcasts/rss.php?name=ian_wright
+    description: Wrighty is on Absolute Radio, Saturday afternoons from 5 with all of the big match reaction. Here's the full show podcast. Listen to Barclays Premier League commentaries on Absolute Radio every weekend. Get more at absoluteradio.co.uk
+    image: http://podcast.timlradio.co.uk/ian_wright/ian_wright_lrg.jpg
+    
+  pod-frank-skinner:
+    name:  Frank Skinner on Absolute Radio
+    link: http://network.absoluteradio.co.uk/core/podcasts/rss.php?name=frankskinner
+    description: Frank Skinner's on Absolute Radio every Saturday morning and you can enjoy the show's podcast right here.
+    image: http://podcast.timlradio.co.uk/frankskinner/frankskinner_lrg.jpg
+    
+  pod-tech-weekly:
+    name: Tech Weekly
+    link: http://www.guardian.co.uk/technology/series/techweekly/podcast.xml
+    description: The Guardian's tech team with news and discussion from the digital worlds of technology, gaming and the web
+    image: http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2013/4/24/1366813485911/Tech_Weekly_1400.jpg
+    
+  pod-film-weekly:
+    name: The Guardian Film Show
+    link: http://www.guardian.co.uk/film/series/filmweekly/podcast.xml
+    description: An audio version of guardian.co.uk/film's video film show, in which the team review the week's key movies and talk to the stars and directors who made them. This page formerly hosted the Film Weekly podcast. A full archive of that show is still available by clicking back through the series and on iTunes.
+    image: http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2012/8/17/1345198917516/Guardian_film_show_1400.jpg

@@ -1,9 +1,10 @@
 Podcast\MainBundle\Entity\Organization:
   bbc:
     name: BBC
-    podcasts: [@pod-matt, @pod-kermode]
+    podcasts: [@pod-matt, @pod-kermode, @pod-scott-mills, @pod-front-row, @pod-world-football, @pod-chris-evans]
   guardian:
     name: Guardian
-    podcasts: [@pod-football-weekly]
+    podcasts: [@pod-football-weekly, @pod-tech-weekly, @pod-film-weekly]
   absolute: 
     name: Absolute
+    podcasts: [@pod-frank-skinner, @pod-iain-wright]
