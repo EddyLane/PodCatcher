@@ -5,12 +5,12 @@
  */
 function PodCatcher() {
     this.AppKernel = new PodCatcher.prototype.AppKernel();
-    
-    Sammy(function() {
-        this.get('/', function() {
-            console.log('caught');
-        });
-    }).run();
+//    
+//    Sammy(function() {
+//        this.get('/', function() {
+//            console.log('caught');
+//        });
+//    }).run();
 }
 
 /**
@@ -36,7 +36,14 @@ PodCatcher.PodcastFinder = function() {
 PodCatcher.PodcastFinder.prototype.categories = ko.observableArray();
 PodCatcher.PodcastFinder.prototype.organizations = ko.observableArray();
 PodCatcher.PodcastFinder.prototype.podcasts = ko.observableArray();
-PodCatcher.PodcastFinder.prototype.page = 1;
+
+PodCatcher.PodcastFinder.prototype.pagination = {
+    page: ko.observable(0),
+    maxPageIndex: ko.observable(9),
+    amount: 20
+};
+
+
 //Constructor
 PodCatcher.PodcastFinder.prototype.__construct = function() {
     var self = this;
@@ -80,27 +87,29 @@ PodCatcher.PodcastFinder.prototype.serialize = function() {
             organizations+="organizations[]="+organization.slug+"&";
         }
     }
-    return categories.substring(0,categories.length-1)+"&"+organizations.substring(0,organizations.length-1)
-}
+    return categories.substring(0,categories.length-1)+"&"+organizations.substring(0,organizations.length-1);
+};
 
 PodCatcher.PodcastFinder.prototype.refresh = function() {
     var self = this;
-    $.get(Routing.generate('get_podcasts')+"?"+self.serialize(), function(response) {
+    $.getJSON(Routing.generate('get_podcasts')+"?"+self.serialize(), function(response) {
+        self.pagination.maxPageIndex(Math.ceil(response.total / self.pagination.amount) - 1);
+        delete response.total;
         self.podcasts($.map(response, function(podcast) {
             return new self.entity.Podcast(podcast);
         }));
     });
-}
+};
 
 PodCatcher.PodcastFinder.prototype.toggleItem = function(item) {
     item.toggle();
     PodCatcher.PodcastFinder.prototype.refresh();
-}
+};
 
 /**
  * Entities
  */
-PodCatcher.PodcastFinder.prototype.entity = {}
+PodCatcher.PodcastFinder.prototype.entity = {};
 //ListItem Abstract Class
 PodCatcher.PodcastFinder.prototype.entity.ListItem = function(data) {
     this.name = data.name;
@@ -109,7 +118,7 @@ PodCatcher.PodcastFinder.prototype.entity.ListItem = function(data) {
 };
 PodCatcher.PodcastFinder.prototype.entity.ListItem.prototype.toggle = function() {
     this.selected(this.selected() ? false : true);
-}
+};
 //Category
 PodCatcher.PodcastFinder.prototype.entity.Category = function(data) {
     PodCatcher.PodcastFinder.prototype.entity.ListItem.call(this, data);
@@ -117,7 +126,7 @@ PodCatcher.PodcastFinder.prototype.entity.Category = function(data) {
 PodCatcher.PodcastFinder.prototype.entity.Category.prototype = Object.create(PodCatcher.PodcastFinder.prototype.entity.ListItem.prototype);
 PodCatcher.PodcastFinder.prototype.entity.Category.prototype.link = function() {
     return Routing.generate('get_category', { slug: this.slug });
-}
+};
 //Organization
 PodCatcher.PodcastFinder.prototype.entity.Organization = function(data) {
     PodCatcher.PodcastFinder.prototype.entity.ListItem.call(this, data);
@@ -125,7 +134,7 @@ PodCatcher.PodcastFinder.prototype.entity.Organization = function(data) {
 PodCatcher.PodcastFinder.prototype.entity.Organization.prototype = Object.create(PodCatcher.PodcastFinder.prototype.entity.ListItem.prototype);
 PodCatcher.PodcastFinder.prototype.entity.Organization.prototype.link = function() {
     return Routing.generate('get_organization', { slug: this.slug });
-}
+};
 //Podcast
 PodCatcher.PodcastFinder.prototype.entity.Podcast = function(data) {
     this.name = data.name;
@@ -134,7 +143,7 @@ PodCatcher.PodcastFinder.prototype.entity.Podcast = function(data) {
 };
 PodCatcher.PodcastFinder.prototype.entity.Podcast.prototype.link = function() {
     return Routing.generate('get_podcast', { slug: this.slug });
-}
+};
 
 
 /**
