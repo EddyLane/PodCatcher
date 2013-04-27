@@ -36,6 +36,7 @@ PodCatcher.PodcastFinder = function() {
 PodCatcher.PodcastFinder.prototype.categories = ko.observableArray();
 PodCatcher.PodcastFinder.prototype.organizations = ko.observableArray();
 PodCatcher.PodcastFinder.prototype.podcasts = ko.observableArray();
+PodCatcher.PodcastFinder.prototype.podcast = ko.observable();
 PodCatcher.PodcastFinder.prototype.getSelectedCategories = function() {
     var selected = ko.utils.arrayFilter(this.categories(), function(category) {
         return category.selected();
@@ -65,8 +66,8 @@ PodCatcher.PodcastFinder.prototype.getSelectedOrganizationSlugs = function() {
 
 PodCatcher.PodcastFinder.prototype.pagination = {
     page: ko.observable(1),
-    maxPageIndex: ko.observable(9),
-    amount: ko.observable(8),
+    maxPageIndex: ko.observable(),
+    amount: ko.observable(16),
     getLinkForPage: function(page) {
         return Routing.generate('get_podcasts', { page: page, amount: this.amount(), categories: PodCatcher.PodcastFinder.prototype.getSelectedCategorySlugs(), organizations: PodCatcher.PodcastFinder.prototype.getSelectedOrganizationSlugs() });
     }
@@ -108,7 +109,12 @@ PodCatcher.PodcastFinder.prototype.clearCategories = function() {
 PodCatcher.PodcastFinder.prototype.refresh = function() {
     var self = this;
     $.get(self.pagination.getLinkForPage(self.pagination.page()), function(response) {
-        self.pagination.maxPageIndex(Math.floor(response.total / self.pagination.amount()) + 1);
+        
+        var maxPage = Math.floor(response.total / self.pagination.amount()) + 1;
+        if(self.pagination.page() > maxPage) {
+            self.pagination.page(maxPage);
+        }
+        self.pagination.maxPageIndex(maxPage);
         delete response.total;
         self.podcasts($.map(response, function(podcast) {
             return new self.entity.Podcast(podcast);
