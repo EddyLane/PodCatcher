@@ -11,6 +11,7 @@ class PodcastController extends FOSRestController
 {
     /**
      * @QueryParam(name="page", requirements="\d+", default="1", description="Page of the overview.")
+     * @QueryParam(name="amount", requirements="\d+", description="Amount of podcasts")
      * @QueryParam(array=true, name="categories", requirements="[a-z]+", description="Categories to filter on")
      * @QueryParam(array=true, name="organizations", requirements="[a-z]+", description="Organizations to filter on")
      * @param ParamFetcher $paramFetcher
@@ -26,9 +27,12 @@ class PodcastController extends FOSRestController
                         $paramFetcher->get('organizations')
                 )
         ;
+        
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-                $query, $paramFetcher->get('page'), 20
+                $query, 
+                $paramFetcher->get('page'), 
+                $paramFetcher->get('amount')
         );
 
         $view = $this->view($pagination)
@@ -52,7 +56,7 @@ class PodcastController extends FOSRestController
         $podcast = $em->getRepository('PodcastMainBundle:Podcast')->findOneBySlug($slug);
         
         if(!$podcast) {
-            throw $this->createNotFoundException('Podcast does not exist');
+            throw $this->createNotFoundException();
         }
         
         $view = $this->view($podcast, 200)

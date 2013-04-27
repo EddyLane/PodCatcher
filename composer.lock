@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "0489d0220bfb7312e9c9ebbac188eed0",
+    "hash": "abbbeeafc31fba2d2bfa2dcbfd1f9f62",
     "packages": [
         {
             "name": "braincrafted/bootstrap-bundle",
@@ -716,28 +716,29 @@
         },
         {
             "name": "friendsofsymfony/jsrouting-bundle",
-            "version": "1.0.3",
+            "version": "dev-master",
             "target-dir": "FOS/JsRoutingBundle",
             "source": {
                 "type": "git",
-                "url": "https://github.com/FriendsOfSymfony/FOSJsRoutingBundle",
-                "reference": "1.0.3"
+                "url": "https://github.com/FriendsOfSymfony/FOSJsRoutingBundle.git",
+                "reference": "1.1.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/FriendsOfSymfony/FOSJsRoutingBundle/zipball/1.0.3",
-                "reference": "1.0.3",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSJsRoutingBundle/zipball/1.1.5",
+                "reference": "1.1.5",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
-                "symfony/framework-bundle": ">=2.0,<2.2-dev",
-                "symfony/serializer": ">=2.0,<2.2-dev"
+                "symfony/console": ">=2.0,<3.0",
+                "symfony/framework-bundle": ">=2.0,<3.0",
+                "symfony/serializer": ">=2.0,<3.0"
             },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0-dev"
+                    "dev-master": "1.1-dev"
                 }
             },
             "autoload": {
@@ -745,7 +746,7 @@
                     "FOS\\JsRoutingBundle": ""
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -765,7 +766,7 @@
             "keywords": [
                 "Js Routing"
             ],
-            "time": "2012-10-22 06:35:23"
+            "time": "2013-04-05 20:13:12"
         },
         {
             "name": "friendsofsymfony/rest",
@@ -894,12 +895,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "20c2531805c40153112ecfdc65cddaf4a0f90f18"
+                "reference": "4f5e0d23dd5e98cafa22b214cdb754566180ab94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/20c2531805c40153112ecfdc65cddaf4a0f90f18",
-                "reference": "20c2531805c40153112ecfdc65cddaf4a0f90f18",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/4f5e0d23dd5e98cafa22b214cdb754566180ab94",
+                "reference": "4f5e0d23dd5e98cafa22b214cdb754566180ab94",
                 "shasum": ""
             },
             "require": {
@@ -951,7 +952,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2013-04-13 16:33:48"
+            "time": "2013-04-27 12:31:50"
         },
         {
             "name": "jms/aop-bundle",
@@ -1513,12 +1514,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kriswallsmith/assetic.git",
-                "reference": "0a55a9ba70bd9250899ad77deceaf8cb9e145371"
+                "reference": "1b17f9a239276f24344f9f7d7be8293f6dca4e19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kriswallsmith/assetic/zipball/0a55a9ba70bd9250899ad77deceaf8cb9e145371",
-                "reference": "0a55a9ba70bd9250899ad77deceaf8cb9e145371",
+                "url": "https://api.github.com/repos/kriswallsmith/assetic/zipball/1b17f9a239276f24344f9f7d7be8293f6dca4e19",
+                "reference": "1b17f9a239276f24344f9f7d7be8293f6dca4e19",
                 "shasum": ""
             },
             "require": {
@@ -1576,7 +1577,7 @@
                 "compression",
                 "minification"
             ],
-            "time": "2013-04-02 21:36:28"
+            "time": "2013-04-27 14:32:20"
         },
         {
             "name": "leafo/lessphp",
@@ -2237,12 +2238,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "501ecc5df33faa52cba864c65467419aae0b384f"
+                "reference": "536ea37d1f87a882ce8a5d62680caf881ecaf6fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/501ecc5df33faa52cba864c65467419aae0b384f",
-                "reference": "501ecc5df33faa52cba864c65467419aae0b384f",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/536ea37d1f87a882ce8a5d62680caf881ecaf6fe",
+                "reference": "536ea37d1f87a882ce8a5d62680caf881ecaf6fe",
                 "shasum": ""
             },
             "require": {
@@ -2278,7 +2279,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-04-24 14:49:01"
+            "time": "2013-04-26 09:34:36"
         }
     ],
     "packages-dev": [
@@ -3061,19 +3062,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineFixturesBundle.git",
-                "reference": "275540d96599baec19fa3292c4d06c5cd4eefd06"
+                "reference": "5696cd636df7cbfaf4d1c45ed2922438968cf890"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineFixturesBundle/zipball/275540d96599baec19fa3292c4d06c5cd4eefd06",
-                "reference": "275540d96599baec19fa3292c4d06c5cd4eefd06",
+                "url": "https://api.github.com/repos/doctrine/DoctrineFixturesBundle/zipball/5696cd636df7cbfaf4d1c45ed2922438968cf890",
+                "reference": "5696cd636df7cbfaf4d1c45ed2922438968cf890",
                 "shasum": ""
             },
             "require": {
                 "doctrine/data-fixtures": "*",
                 "doctrine/doctrine-bundle": ">=1.0,<2.0",
                 "php": ">=5.3.2",
-                "symfony/doctrine-bridge": ">=2.1.0,<2.3-dev"
+                "symfony/doctrine-bridge": ">=2.1.0,<2.4-dev"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -3110,7 +3111,7 @@
                 "Fixture",
                 "persistence"
             ],
-            "time": "2013-02-12 11:13:27"
+            "time": "2013-04-27 11:57:35"
         },
         {
             "name": "fabpot/goutte",
@@ -3215,12 +3216,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "ad64f76d344d1044af82662b4a4f02606098669c"
+                "reference": "b4b7152102ab047c3913ac90a2cbb75a5fd34c77"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/ad64f76d344d1044af82662b4a4f02606098669c",
-                "reference": "ad64f76d344d1044af82662b4a4f02606098669c",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/b4b7152102ab047c3913ac90a2cbb75a5fd34c77",
+                "reference": "b4b7152102ab047c3913ac90a2cbb75a5fd34c77",
                 "shasum": ""
             },
             "require": {
@@ -3266,7 +3267,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.3-dev"
+                    "dev-master": "3.4-dev"
                 }
             },
             "autoload": {
@@ -3301,7 +3302,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2013-04-25 04:15:21"
+            "time": "2013-04-26 19:13:31"
         },
         {
             "name": "instaclick/php-webdriver",
@@ -3461,12 +3462,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nelmio/alice.git",
-                "reference": "aafb62a84e523f121a010fe92161a4b5cb49e91a"
+                "reference": "3779183d51994a446b02cebea3ff76cbc800add8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nelmio/alice/zipball/aafb62a84e523f121a010fe92161a4b5cb49e91a",
-                "reference": "aafb62a84e523f121a010fe92161a4b5cb49e91a",
+                "url": "https://api.github.com/repos/nelmio/alice/zipball/3779183d51994a446b02cebea3ff76cbc800add8",
+                "reference": "3779183d51994a446b02cebea3ff76cbc800add8",
                 "shasum": ""
             },
             "require": {
@@ -3507,7 +3508,7 @@
                 "orm",
                 "test"
             ],
-            "time": "2013-04-18 07:32:16"
+            "time": "2013-04-26 17:50:30"
         },
         {
             "name": "phpspec/php-diff",

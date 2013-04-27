@@ -23,7 +23,7 @@
         "jms/serializer-bundle": "0.9.*",
         "friendsofsymfony/user-bundle": "*",
         "friendsofsymfony/rest-bundle": "*",
-        "friendsofsymfony/jsrouting-bundle": "1.0.*",
+        "friendsofsymfony/jsrouting-bundle": "master",
         "leafo/lessphp": "~0.3",
         "braincrafted/bootstrap-bundle": "master",
         "knplabs/knp-menu-bundle":"dev-master",

@@ -36,7 +36,32 @@ PodCatcher.PodcastFinder = function() {
 PodCatcher.PodcastFinder.prototype.categories = ko.observableArray();
 PodCatcher.PodcastFinder.prototype.organizations = ko.observableArray();
 PodCatcher.PodcastFinder.prototype.podcasts = ko.observableArray();
-
+PodCatcher.PodcastFinder.prototype.getSelectedCategories = function() {
+    var selected = ko.utils.arrayFilter(this.categories(), function(category) {
+        return category.selected();
+    });
+    return selected;
+};
+PodCatcher.PodcastFinder.prototype.getSelectedCategorySlugs = function() {
+    var slugs = [];
+    $.each(this.getSelectedCategories(), function(key, category){
+        slugs.push(category.slug);
+    });
+    return slugs;
+};
+PodCatcher.PodcastFinder.prototype.getSelectedOrganizations = function() {
+    var selected = ko.utils.arrayFilter(this.organizations(), function(item) {
+        return item.selected();
+    });
+    return selected;
+};
+PodCatcher.PodcastFinder.prototype.getSelectedOrganizationSlugs = function() {
+    var slugs = [];
+    $.each(this.getSelectedOrganizations(), function(key, organization){
+        slugs.push(organization.slug);
+    });
+    return slugs;
+};
 PodCatcher.PodcastFinder.prototype.pagination = {
     page: ko.observable(1),
     maxPageIndex: ko.observable(9),
@@ -71,28 +96,12 @@ PodCatcher.PodcastFinder.prototype.clearCategories = function() {
     });
     this.refresh();
 };
-PodCatcher.PodcastFinder.prototype.serialize = function() {
-    var data = ko.toJS(this),
-        organizations = "",
-        categories = "";
-    for(var i = 0; i < data["categories"].length; i++) {
-        var category = data.categories[i];
-        if(category.selected) {
-            categories+="categories[]="+category.slug+"&";
-        }
-    }
-    for(var i = 0; i < data["organizations"].length; i++) {
-        var organization = data.organizations[i];
-        if(organization.selected) {
-            organizations+="organizations[]="+organization.slug+"&";
-        }
-    }
-    return categories.substring(0,categories.length-1)+"&"+organizations.substring(0,organizations.length-1);
-};
+
+
 
 PodCatcher.PodcastFinder.prototype.refresh = function() {
     var self = this;
-    $.getJSON(Routing.generate('get_podcasts', { page: self.pagination.page(), amount: self.pagination.amount() })+self.serialize(), function(response) {
+    $.get(Routing.generate('get_podcasts', { page: self.pagination.page(), amount: self.pagination.amount(), categories: self.getSelectedCategorySlugs(), organizations: self.getSelectedOrganizationSlugs() }), function(response) {
         self.pagination.maxPageIndex(Math.ceil(response.total / self.pagination.amount()) - 1);
         delete response.total;
         self.podcasts($.map(response, function(podcast) {

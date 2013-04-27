@@ -185,16 +185,6 @@ class Podcast
     }
 
     /**
-     * Get dem eps
-     *
-     * @param type $amount
-     */
-    public function getEpisodes($amount = 5)
-    {
-        $episodes = $this->episodes->toArray();
-    }
-
-    /**
      * Grab the feed
      *
      * @param  type $amount
@@ -388,14 +378,12 @@ class Podcast
     
     public function addCategory($category)
     {
-        if(!$this->categories->contains($category))
-            $this->categories->add($category);
+        $this->categories->add($category);
     }
     
     public function addOrganization($organization)
     {
-        if(!$this->organizations->contains($organization))
-            $this->organizations->add($organization);
+        $this->organizations->add($organization);
     }    
     public function setCategories($categories)
     {
