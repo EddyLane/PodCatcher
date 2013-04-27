@@ -27,7 +27,6 @@ class PodcastController extends FOSRestController
                         $paramFetcher->get('organizations')
                 )
         ;
-        
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
                 $query, 
@@ -35,6 +34,8 @@ class PodcastController extends FOSRestController
                 $paramFetcher->get('amount')
         );
 
+        $pagination['total'] = $pagination->getTotalItemCount();
+        
         $view = $this->view($pagination)
                 ->setTemplateVar('entities');
 

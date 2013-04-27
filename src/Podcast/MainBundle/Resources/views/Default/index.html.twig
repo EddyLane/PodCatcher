@@ -52,8 +52,10 @@
         <div class="row-fluid">
             <div class="span12">
                 <div class="pagination pagination-centered" data-bind="with: pagination">
-                    <ul data-bind="foreach: ko.utils.range(0, maxPageIndex)">
-                        <li data-bind="css: { active: $data == $parent.page() }"><a href="#" data-bind="text: $data + 1">1</a></li>
+                    <ul data-bind="foreach: ko.utils.range(1, maxPageIndex)">
+                        <li data-bind="css: { active: ($data) == $parent.page() }">
+                            <a href="#" data-bind="text: $data, attr: { href: $parent.getLinkForPage($data) }, click: $parent.page"></a>
+                        </li>
                     </ul>
                 </div>
             </div>
