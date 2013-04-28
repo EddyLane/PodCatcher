@@ -1,5 +1,11 @@
 Podcast\MainBundle\Entity\Podcast:
   
+  pod-shop-talk:
+    name: ShopTalk
+    link: http://shoptalkshow.com/feed/podcast/
+    description: A live show about front end web design.
+    image: http://stscdn.paravel.netdna-cdn.com/wp-content/uploads/2012/08/shoptalk_album.jpeg
+    
   pod-matt:
     name: The Matt Edmondson Show
     link: http://downloads.bbc.co.uk/podcasts/radio1/r1matt/rss.xml

@@ -376,6 +376,10 @@ class Podcast
         return $this->name;
     }
     
+    public function addEpisode($episode)
+    {
+        $this->episodes->add($episode);
+    }
     
     public function addCategory($category)
     {

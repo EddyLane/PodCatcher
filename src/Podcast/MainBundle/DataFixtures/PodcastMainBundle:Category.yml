@@ -1,4 +1,7 @@
 Podcast\MainBundle\Entity\Category:
+  cat-learning:
+    name: Learning
+    podcasts: [@pod-shop-talk]
   cat-childrens:
     name: Childrens
   cat-comedy:
@@ -12,8 +15,6 @@ Podcast\MainBundle\Entity\Category:
   cat-factual:
     name: Factual
     podcasts: [@pod-kermode]
-  cat-learning:
-    name: Learning
   cat-music:
     name: Music
   cat-news:
