@@ -4,25 +4,40 @@
  * @returns {PodCatcher}
  */
 function PodCatcher() {
-    this.AppKernel = new PodCatcher.prototype.AppKernel();
-//    
-//    Sammy(function() {
-//        this.get('/', function() {
-//            console.log('caught');
-//        });
-//    }).run();
+    
+    var self = this;
+    
+    this.AppKernel = {
+        podcastFinder: new PodCatcher.PodcastFinder(),
+        podcastController: new PodCatcher.PodcastController()
+    };
+    
+    this.active = ko.observable();
+    
+    Sammy(function() {
+        this.get('/', function(context) {
+            self.active(self.AppKernel.podcastFinder);
+        });
+        this.get(Routing.generate('get_podcast')+'/:slug', function(context) {
+            self.active(self.AppKernel.podcastController);
+            self.active().getPodcastAction(this.params.slug);
+        });
+    }).run();
 }
 
-/**
- * AppKernel. Starts all our little app thingies.
- * 
- * @param {type} configuration
- * @returns {undefined}
- */
-PodCatcher.prototype.AppKernel = function() {
-    //Bootstrap our application.
-    this.PodcastFinder = new PodCatcher.PodcastFinder;
+
+PodCatcher.PodcastController = function() {
+    var self = this;
+    this.template = ko.observable('view-podcast');
+    this.podcast = ko.observable();
+    this.getPodcastAction = function(slug) {
+        self.template('view-podcast');
+        $.get(Routing.generate('get_podcast', { _format: "json", slug: slug }), function(response) {
+            self.podcast(new PodCatcher.entity.Podcast(response));
+        });
+    };
 };
+
 
 /**
  * The Podcast Finder TM module
@@ -30,8 +45,36 @@ PodCatcher.prototype.AppKernel = function() {
  * @returns {undefined}
  */
 PodCatcher.PodcastFinder = function() {
+    this.template = ko.observable('view-podcast-finder');
     this.__construct();
 };
+
+PodCatcher.PodcastFinder.prototype.page = ko.observable(1);
+PodCatcher.PodcastFinder.prototype.maxPageIndex = ko.observable();
+PodCatcher.PodcastFinder.prototype.amount = ko.observable(8);
+    
+PodCatcher.PodcastFinder.prototype.page.subscribe(function() {
+    PodCatcher.PodcastFinder.prototype.refresh();
+});
+PodCatcher.PodcastFinder.prototype.amount.subscribe(function() {
+    PodCatcher.PodcastFinder.prototype.refresh();
+});
+PodCatcher.PodcastFinder.prototype.getLinkForPage = function(page) {
+    return Routing.generate('get_podcasts', { _format: "json", page: page, amount: this.amount(), categories: this.getSelectedCategorySlugs(), organizations: this.getSelectedOrganizationSlugs() });
+};
+PodCatcher.PodcastFinder.prototype.clearOrganizations = function() {
+    ko.utils.arrayForEach(this.organizations(), function(organization) {
+        organization.selected(false);
+    });
+    this.refresh();
+};
+PodCatcher.PodcastFinder.prototype.clearCategories = function() {
+    ko.utils.arrayForEach(this.categories(), function(category) {
+        category.selected(false);
+    });
+    this.refresh();
+};
+
 //Set our observable arrays up
 PodCatcher.PodcastFinder.prototype.categories = ko.observableArray();
 PodCatcher.PodcastFinder.prototype.organizations = ko.observableArray();
@@ -51,10 +94,9 @@ PodCatcher.PodcastFinder.prototype.getSelectedCategorySlugs = function() {
     return slugs;
 };
 PodCatcher.PodcastFinder.prototype.getSelectedOrganizations = function() {
-    var selected = ko.utils.arrayFilter(this.organizations(), function(item) {
+    return ko.utils.arrayFilter(this.organizations(), function(item) {
         return item.selected();
     });
-    return selected;
 };
 PodCatcher.PodcastFinder.prototype.getSelectedOrganizationSlugs = function() {
     var slugs = [];
@@ -64,65 +106,38 @@ PodCatcher.PodcastFinder.prototype.getSelectedOrganizationSlugs = function() {
     return slugs;
 };
 
-PodCatcher.PodcastFinder.prototype.pagination = {
-    page: ko.observable(1),
-    maxPageIndex: ko.observable(),
-    amount: ko.observable(16),
-    getLinkForPage: function(page) {
-        return Routing.generate('get_podcasts', { page: page, amount: this.amount(), categories: PodCatcher.PodcastFinder.prototype.getSelectedCategorySlugs(), organizations: PodCatcher.PodcastFinder.prototype.getSelectedOrganizationSlugs() });
-    }
-};
-PodCatcher.PodcastFinder.prototype.pagination.page.subscribe(function(page) {
-    PodCatcher.PodcastFinder.prototype.refresh();
-});
-
 //Constructor
 PodCatcher.PodcastFinder.prototype.__construct = function() {
     var self = this;
     this.refresh();
-    $.get(Routing.generate('get_categories', { page: 1 }), function(categories) {
+    $.get(Routing.generate('get_categories', { _format: "json" }), function(categories) {
         self.categories($.map(categories, function(category) {
-            return new self.entity.Category(category);
+            return new PodCatcher.entity.ListItem(category);
         }));
     });
-    $.get(Routing.generate('get_organizations', { page: 1 }), function(organizations) {
+    $.get(Routing.generate('get_organizations', { _format: "json" }), function(organizations) {
         self.organizations($.map(organizations, function(organization) {
-            return new self.entity.Organization(organization);
+            return new PodCatcher.entity.ListItem(organization);
         }));
     });
 };
-PodCatcher.PodcastFinder.prototype.clearOrganizations = function() {
-    ko.utils.arrayForEach(this.organizations(), function(organization) {
-        organization.selected(false);
-    });
-    this.refresh();
-};
-PodCatcher.PodcastFinder.prototype.clearCategories = function() {
-    ko.utils.arrayForEach(this.categories(), function(category) {
-        category.selected(false);
-    });
-    this.refresh();
-};
-
-
 
 PodCatcher.PodcastFinder.prototype.refresh = function() {
     var self = this;
-    $.get(self.pagination.getLinkForPage(self.pagination.page()), function(response) {
-        
-        var maxPage = Math.floor(response.total / self.pagination.amount()) + 1;
-        if(self.pagination.page() > maxPage) {
-            self.pagination.page(maxPage);
+    $.get(this.getLinkForPage(this.page()), function(response) {
+        var maxPage = Math.floor(response.total / self.amount()) + 1;
+        if(self.page() > maxPage) {
+            self.page(maxPage);
         }
-        self.pagination.maxPageIndex(maxPage);
+        self.maxPageIndex(maxPage);
         delete response.total;
         self.podcasts($.map(response, function(podcast) {
-            return new self.entity.Podcast(podcast);
+            return new PodCatcher.entity.Podcast(podcast);
         }));
     });
 };
 PodCatcher.PodcastFinder.prototype.goToPage = function(page) {
-    this.pagination.page(page);
+    this.page(page);
     this.refresh();
 };
 PodCatcher.PodcastFinder.prototype.toggleItem = function(item) {
@@ -133,42 +148,29 @@ PodCatcher.PodcastFinder.prototype.toggleItem = function(item) {
 /**
  * Entities
  */
-PodCatcher.PodcastFinder.prototype.entity = {};
+PodCatcher.entity = {};
 //ListItem Abstract Class
-PodCatcher.PodcastFinder.prototype.entity.ListItem = function(data) {
-    this.name = data.name;
-    this.slug = data.slug;
-    this.selected = ko.observable(false);
+PodCatcher.entity.ListItem = function(data) {
+    return {
+        name: data.name,
+        slug: data.slug,
+        selected: ko.observable(data.selected || false)
+    };
 };
-PodCatcher.PodcastFinder.prototype.entity.ListItem.prototype.toggle = function() {
+PodCatcher.entity.ListItem.prototype.toggle = function() {
     this.selected(this.selected() ? false : true);
 };
-//Category
-PodCatcher.PodcastFinder.prototype.entity.Category = function(data) {
-    PodCatcher.PodcastFinder.prototype.entity.ListItem.call(this, data);
-};
-PodCatcher.PodcastFinder.prototype.entity.Category.prototype = Object.create(PodCatcher.PodcastFinder.prototype.entity.ListItem.prototype);
-PodCatcher.PodcastFinder.prototype.entity.Category.prototype.link = function() {
-    return Routing.generate('get_category', { slug: this.slug });
-};
-//Organization
-PodCatcher.PodcastFinder.prototype.entity.Organization = function(data) {
-    PodCatcher.PodcastFinder.prototype.entity.ListItem.call(this, data);
-};
-PodCatcher.PodcastFinder.prototype.entity.Organization.prototype = Object.create(PodCatcher.PodcastFinder.prototype.entity.ListItem.prototype);
-PodCatcher.PodcastFinder.prototype.entity.Organization.prototype.link = function() {
-    return Routing.generate('get_organization', { slug: this.slug });
-};
-//Podcast
-PodCatcher.PodcastFinder.prototype.entity.Podcast = function(data) {
-    this.name = data.name;
-    this.slug = data.slug;
-    this.image = data.image;
-};
-PodCatcher.PodcastFinder.prototype.entity.Podcast.prototype.link = function() {
-    return Routing.generate('get_podcast', { slug: this.slug });
-};
 
+//Podcast
+PodCatcher.entity.Podcast = function(data) {
+    return {
+        name: data.name,
+        slug: data.slug,
+        image: data.image,
+        organizations: data.organizations,
+        categories: data.categories
+    };
+};
 
 /**
  * Init this nonsense already

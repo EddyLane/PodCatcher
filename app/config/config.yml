@@ -95,7 +95,7 @@ fos_user:
     
 fos_rest:
     routing_loader:
-        default_format: json
+        default_format: html
     view:
         formats:
             rss: false

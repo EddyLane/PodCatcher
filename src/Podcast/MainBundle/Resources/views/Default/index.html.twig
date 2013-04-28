@@ -12,9 +12,7 @@
         </ul>
     </div>
     <div class="span10 content borBox">
-        
-        <div data-bind="template: { name: 'view-podcast-finder', data: AppKernel.PodcastFinder, ifnot: AppKernel.PodcastFinder.podcast }"></div>
-        <div data-bind="template: { name: 'view-podcast', data: AppKernel.PodcastFinder.podcast, if: AppKernel.PodcastFinder.podcast }"></div>
+        <div data-bind="template: { name: active().template(), data: active() }"></div>
         
     <script type="text/html" id="view-podcast-finder">
         <div class='row-fluid'>
@@ -25,7 +23,7 @@
                     </h2>
                 </div>
                 <ul class="nav nav-stacked nav-pills" data-bind="foreach: organizations" style="height: 200px; overflow: auto; padding: 5px;">
-                    <li data-bind="css: { active: selected }"><a href="#" data-bind="text: name, click: $parent.toggleItem, attr: { href: link() }"></a></li>
+                    <li data-bind="css: { active: selected }"><a href="#" data-bind="text: name, click: $parent.toggleItem, attr: { href: Routing.generate('get_organization', { slug: slug }) }"></a></li>
                 </ul>
             </div>
             <div class="span4">
@@ -35,7 +33,7 @@
                     </h2>
                 </div>       
                 <ul class="nav nav-stacked nav-pills" data-bind="foreach: categories" style="height: 200px; overflow: auto; padding: 5px;">
-                      <li data-bind="css: { active: selected }"><a href="#" data-bind="text: name, click: $parent.toggleItem, attr: { href: link() }"></a></li>
+                      <li data-bind="css: { active: selected }"><a href="#" data-bind="text: name, click: $parent.toggleItem, attr: { href: Routing.generate('get_category', { slug: slug }) }"></a></li>
                 </ul>
             </div>
         </div>
@@ -47,7 +45,7 @@
 
         <div class='row-fluid gallery photo' data-bind="foreach: podcasts">
             <figure class='tile'>
-                <a data-bind="attr: { href: link() }, click: $parent.podcast">
+                <a data-bind="attr: { href: Routing.generate('get_podcast', { slug: slug }) }">
                     <img data-bind="attr: { alt: name, src: image }">
                 </a>
             </figure>
@@ -55,7 +53,7 @@
          
         <div class="row-fluid">
             <div class="span12">
-                <div class="pagination pagination-centered" data-bind="with: pagination">
+                <div class="pagination pagination-centered">
                     <ul data-bind="foreach: ko.utils.range(1, maxPageIndex)">
                         <li data-bind="css: { active: ($data) == $parent.page() }">
                             <a href="#" data-bind="text: $data, attr: { href: $parent.getLinkForPage($data) }, click: $parent.page"></a>
@@ -66,6 +64,7 @@
         </div>
         </script>
         <script type="text/html" id="view-podcast">
+            <div data-bind="with: podcast">
             <div class="page-header">
                 <h1 class="hBig">Rhod Gilbert's Best Bits 
                     <small>Episodes</small>
@@ -116,40 +115,20 @@
                     <div class="span4 blogSide">
 
                             <div>
-                                <img src="http://www.bbc.co.uk/podcasts/assets/artwork/rhod.jpg" style="width:100%; height: auto; border: 1px solid #D2D2D2">
+                                <img style="width:100%; height: auto; border: 1px solid #D2D2D2" data-bind="attr: { src: image }">
                             </div>
 
-
-                        <div class="archive">
-                            <h6>Archive</h6>
-                            <ul class="unstyled">
-                                <li><a href="#">May 2012 (12)</a></li>
-                                <li><a href="#">April 2012 (4)</a></li>
-                                <li><a href="#">March 2012 (6)</a></li>
-                                <li><a href="#">Feb 2012 (2)</a></li>
-                            </ul>
-                        </div>
                         <hr>
                         <div class="tags">
                             <h6>Tags</h6>
-                            <ul class="unstyled">
-                                <li>Development</li>
-                                <li>Technology</li>
-                                <li>Media</li>
-                                <li>Latest</li>
-                                <li>Programming</li>
-                                <li>Cooking</li>
-                                <li>Architecture</li>
-                                <li>News</li>
-                                <li>Music</li>
-                                <li>Programming</li>
-                                <li>Cooking</li>
-                                <li>Architecture</li>
-                                <li>News</li>
-                                <li>Music</li>
+                            <ul class="unstyled" data-bind="foreach: categories">
+                                <li>
+                                    <a data-bind="text: name, attr: { href: Routing.generate('get_category', { slug: slug }) }" style="color: white"></a>
+                                </li>
                             </ul>
                         </div>
                     </div>
+                </div>
                 </div>
             </script>
         </div>

@@ -23,7 +23,6 @@ class Podcast
 {
     /**
      * @var integer $id
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -88,12 +87,14 @@ class Podcast
     private $subscribed;
 
     /**
+     * @Annotation\Expose
      * @ORM\ManyToMany(targetEntity="Category", mappedBy="podcasts")
      * @ORM\OrderBy({"name" = "DESC"})
      */
     private $categories;
     
     /**
+     * @Annotation\Expose
      * @ORM\ManyToMany(targetEntity="Organization", mappedBy="podcasts")
      * @ORM\OrderBy({"name" = "DESC"})
      */
