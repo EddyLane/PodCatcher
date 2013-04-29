@@ -63,60 +63,44 @@
             </div>
         </div>
         </script>
-        <script type="text/html" id="view-podcast">
+        <script id="view-podcast" type="text/html">
             <div data-bind="with: podcast">
-            <div class="page-header">
-                <h1 class="hBig">Rhod Gilbert's Best Bits 
-                    <small>Episodes</small>
-                </h1>
- 
+                <div class="page-header">
+                    <h1 class="hBig"><!-- ko text: name --><!-- /ko -->
+                        <small>Episodes</small>
+                    </h1>
 
-            </div>
 
-           
+                </div>
+
+
                 <div class="row-fluid">
-                    <div class="span8 blogContent">
+                    <div class="span8 blogContent" data-bind="foreach: episodes">
+
                         <div class="row-fluid blogPost">
                             <div class="title">
                                 <blockquote>
-                                    <p>Rhod: The Royal Eyebrow 27 April 2013</p>
-                                    <small>BBC Radio Wales | 27 Apr 2013 | 18:57 | 27:46</small>
+                                    <p data-bind="text: name"></p>
+                                    <small> <!-- ko text: pub_date --><!-- /ko --> | <!-- ko text: length --><!-- /ko --> </small>
                                 </blockquote>
                             </div>
                             <div class="blogContent">
 
-                                <p>
-                                    Rhod's vexed by the lamentable fashion in ladies' eyebrows, where they are plucked beyond recognition. The trend's even reached the Royal household. And Lloyd's after alternative suggestions to Winston Churchill for the back of the new five pound note; would a paintball fight between Bob Holness and Pat Sharp fit the (literal) bill?
+                                <p data-bind="html: description">
                                 </p>
                                 <p>
-                                    <a href="#">http://downloads.bbc.co.uk/podcasts/wales/rhod/rhod_20130427-1857.mp3k</a>
-                                </p>
-                            </div>
-
-                        </div>
-                        <div class="row-fluid blogPost">
-                            <div class="title">
-                                <blockquote>
-                                    <p>Rhod: You Can Leave Your Hat On 20 April 2013</p>
-                                    <small>BBC Radio Wales | 20 Apr 2013 | 18:57 | 26:40</small>
-                                </blockquote>
-                            </div>
-                            <div class="blogContent">
-
-                                <p>
-                                    Rhod and co-host Lloyd Langford brought a nostalgic tint to the show today, celebrate the 30th anniversary of the pound coin. And Rhod’s Stetson made an appearance once again, will he every take it off? Rhod says no, using the Tom Jones hit "You Can Leave Your Hat On" to back up his argument.                                </p>
-                                <p>
-                                    <a href="#">http://downloads.bbc.co.uk/podcasts/wales/rhod/rhod_20130420-1100a.mp3</a>
+                                    <a href="#" data-bind="attr: { href: link }, text: link"></a>
                                 </p>
                             </div>
 
                         </div>
+
                     </div>
                     <div class="span4 blogSide">
 
-                            <div>
-                                <img style="width:100%; height: auto; border: 1px solid #D2D2D2" data-bind="attr: { src: image }">
-                            </div>
+                        <div>
+                            <img style="width:100%; height: auto; border: 1px solid #D2D2D2" data-bind="attr: { src: image }">
+                        </div>
 
                         <hr>
                         <div class="tags">
@@ -129,8 +113,20 @@
                         </div>
                     </div>
                 </div>
+        
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="pagination pagination-centered">
+                        <ul data-bind="foreach: ko.utils.range(1, maxPageIndex)">
+                            <li data-bind="css: { active: ($data) == $parent.page() }">
+                                <a href="#" data-bind="text: $data, attr: { href: $parent.getLinkForPage($data) }, click: $parent.page"></a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </script>
+            </div>        
+            </div>
+        </script>
         </div>
     </div>
 

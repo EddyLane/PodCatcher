@@ -6,6 +6,11 @@ podcasts:
     type:     rest
     resource: Podcast\MainBundle\Controller\PodcastController
     
+podcasts_episodes:
+    type:     rest
+    parent:   podcasts
+    resource: Podcast\MainBundle\Controller\PodcastEpisodeController
+    
 organizations:
     type:     rest
     resource: Podcast\MainBundle\Controller\OrganizationController

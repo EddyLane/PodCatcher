@@ -34,6 +34,7 @@ class RefreshCommand extends ContainerAwareCommand {
 
         $output->writeln("<info>" . $this->getName() . " Task Finished</info>");
     }
+    
 
     protected function refreshPodcast(Entity\Podcast $podcast, \SimplePie $loader, EntityManager $em, OutputInterface $output) {
 
@@ -56,8 +57,17 @@ class RefreshCommand extends ContainerAwareCommand {
                 $episode->setLink($enclosure->link);
                 $episode->setHash($enclosure->link);
                 $episode->setName($episodeXml->get_title());
-                $episode->setDescription($episodeXml->get_item_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'summary')[0]["data"]);
-                $episode->setLength($episodeXml->get_item_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'duration')[0]["data"]);
+                $episode->setDescription(nl2br($episodeXml->get_item_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'summary')[0]["data"]));
+                
+                try {
+                    $episode->setLength(new \DateTime(
+                            $episodeXml->get_item_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'duration')[0]["data"]
+                    ));                    
+                } catch(\Exception $e) {
+                    $output->writeln(sprintf('<error>Podcast <comment>%s</comment> episode <comment>%s</comment> has incorrect duration: \'%s\'</error>', $podcast->getName(), $episodeXml->get_title(), $e->getMessage()));
+                }
+
+                $episode->setPubDate(new \DateTime($episodeXml->get_date()));
                 $episode->setPodcast($podcast);
 
                 $em->persist($episode);

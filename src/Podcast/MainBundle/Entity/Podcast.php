@@ -186,33 +186,6 @@ class Podcast
     }
 
     /**
-     * Grab the feed
-     *
-     * @param  type $amount
-     * @return type
-     */
-    private function getPodcastFiles($amount = 100)
-    {
-        $this->getFeed();
-        $podcasts = array();
-        for ($i = 0; $i < $amount; $i++) {
-            if (isset($this->xml->channel->item[$i])) {
-                $item = $this->xml->channel->item[$i];
-                $podcasts[(string) $item->enclosure["url"]] = array(
-                    "title" => (string) $item->title,
-                    "description" => (string) $item->description,
-                    "pub_date" => (string) $item->pubDate,
-                    "length" => (string) $item->enclosure["length"],
-                    "type" => (string) $item->enclosure["type"],
-                    "guid" => (string) $item->enclosure["guid"]
-                );
-            }
-        }
-
-        return $podcasts;
-    }
-
-    /**
      * Clean it up a bit
      *
      * @param type $feed
@@ -238,84 +211,11 @@ class Podcast
         }
     }
 
-    public function refreshEpisodes($feed)
-    {
-        $feed->set_feed_url($this->getLink());
-        $feed->init();
-        echo "Podcast '".$this->getName()."'\n";
-        echo "--------------------------------\n";
-        foreach ($feed->get_items() as $key=>$item) {
-
-            $episodeEntity = false;
-           foreach ($this->episodes as $episode) {
-               if ($episode->getHash() === $item->get_id()) {
-                   $episodeEntity = $episode;
-                   echo "Found episode: ".$episode->getName()."\n";
-               }
-           }
-           if ($episodeEntity === false) {
-                echo "New episode: ".$item->get_title()."\n";
-
-               $episodeEntity = new Episode();
-           }
-
-            $episodeEntity->setLink($item->get_link());
-            $episodeEntity->setHash($item->get_id());
-            $episodeEntity->setPubDate(new \DateTime(date('Y-m-d H:i:s',strtotime($item->get_date()))));
-            $episodeEntity->setDescription($item->get_description());
-            $episodeEntity->setName($item->get_title());
-            $episodeEntity->setPodcast($this);
-
-            if ($episodeEntity) {
-                $this->episodes->add($episodeEntity);
-            }
-
-        }
-        echo "-----------------------------------------\n\n";
-    }
-
-    public function init()
-    {
-        $this->getFeed();
-        try {
-            $this->setImage((string) $this->xml->channel->image->url);
-            $this->setName((string) $this->xml->channel->title);
-            $this->setDescription((string) $this->xml->channel->description);
-
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-
-        return true;
-    }
-
+ 
     public function clearEpisodes()
     {
         $this->episodes->clear();
     }
-
-    /**
-     *  Attempt to load the feed from the link
-     *
-     * @return boolean
-     */
-    private function getFeed()
-    {
-        libxml_use_internal_errors(true);
-        try {
-            $xml = simplexml_load_string(file_get_contents($this->getLink()));
-            if (!$xml) {
-                echo "Failed loading XML\n";
-                foreach (libxml_get_errors() as $error) {
-                    echo "\t", $error->message;
-                }
-            }
-            $this->xml = $xml;
-        } catch (Exception $e) {
-            return false;
-        }
-    }
-
     /**
      *
      * @param type $description
@@ -374,6 +274,11 @@ class Podcast
     public function __toString()
     {
         return $this->name;
+    }
+    
+    public function getEpisodes()
+    {
+        return $this->episodes;
     }
     
     public function addEpisode($episode)

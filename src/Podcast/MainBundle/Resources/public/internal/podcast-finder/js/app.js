@@ -85,7 +85,7 @@ PodCatcher.PodcastFinder.prototype = {
     },
     
     getLinkForPage: function(page) {
-        return Routing.generate('get_podcasts', { _format: "json", page: page, amount: this.amount(), categories: this.getSelectedCategorySlugs(), organizations: this.getSelectedOrganizationSlugs() });
+        return Routing.generate('get_podcasts', { _format: "json", page: page, amount: this.amount(), categories: this.getSelectedSlugs(this.categories()), organizations: this.getSelectedSlugs(this.organizations()) });
     },
     
     clearOrganizations: function() {
@@ -102,31 +102,17 @@ PodCatcher.PodcastFinder.prototype = {
         this.refresh();
     },
             
-    getSelectedCategories: function() {
-        var selected = ko.utils.arrayFilter(this.categories(), function(category) {
-            return category.selected();
+    getSelected: function(list) {
+        var selected = ko.utils.arrayFilter(list, function(item) {
+            return item.selected();
         });
         return selected;
     },
             
-    getSelectedCategorySlugs: function() {
+    getSelectedSlugs: function(list) {
         var slugs = [];
-        $.each(this.getSelectedCategories(), function(key, category){
-            slugs.push(category.slug);
-        });
-        return slugs;
-    },
-            
-    getSelectedOrganizations: function() {
-        return ko.utils.arrayFilter(this.organizations(), function(item) {
-            return item.selected();
-        });
-    },
-            
-    getSelectedOrganizationSlugs: function() {
-        var slugs = [];
-        $.each(this.getSelectedOrganizations(), function(key, organization){
-            slugs.push(organization.slug);
+        $.each(this.getSelected(list), function(key, item){
+            slugs.push(item.slug);
         });
         return slugs;
     },
@@ -177,11 +163,24 @@ PodCatcher.entity = {
     },
             
     Podcast: function(data) {
+
         this.name = data.name;
         this.slug = data.slug;
         this.categories = data.categories;
         this.organizations = data.organizations;
+        this.episodes = ko.observableArray();
         this.image = data.image;
+        this.__construct();
+    }
+};
+
+PodCatcher.entity.Podcast.pagination = {
+    
+};
+
+PodCatcher.entity.Podcast.prototype = {
+    __construct: function() {
+        $.get(Routing.generate('get_podcast_episodes', { slug: this.slug, _format: 'json' }), this.episodes);
     }
 };
 

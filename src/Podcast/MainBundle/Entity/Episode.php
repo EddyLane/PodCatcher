@@ -4,7 +4,7 @@ namespace Podcast\MainBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
-
+use Podcast\MainBundle\Entity;
 use JMS\SerializerBundle\Annotation;
 
 /**
@@ -43,7 +43,6 @@ class Episode
     private $name;
 
     /**
-     * @var date $date
      * @Annotation\Expose
      * @ORM\Column(name="pub_date", type="datetime", nullable=true)
      * @Assert\Null()
@@ -60,10 +59,9 @@ class Episode
     private $description;
 
     /**
-     *
      * @var type
      * @Annotation\Expose
-     * @ORM\Column(name="length", type="integer", nullable=true)
+     * @ORM\Column(name="length", type="time", nullable=true)
      * @ Assert\Null()
      */
     private $length;
@@ -75,7 +73,6 @@ class Episode
      */
     private $link;
 
-    private $podcast_id;
     /**
      * @ORM\ManyToOne(targetEntity="Podcast", inversedBy="episodes")
      * @ORM\JoinColumn(name="podcast_id", referencedColumnName="id")
@@ -100,13 +97,21 @@ class Episode
      * @ORM\ManyToMany(targetEntity="Podcast\UserBundle\Entity\User", mappedBy="listenedTo", cascade={"all"})
      */
     protected $listenedBy;
-
-    public function addPlaylist($playlist)
+    
+    /**
+     * 
+     * @param \Podcast\MainBundle\Entity\Playlist $playlist
+     */
+    public function addPlaylist(Entity\Playlist $playlist)
     {
         $this->playlists[] = $playlist;
     }
 
-    public function removePlaylist(Playlist $playlist)
+    /**
+     * 
+     * @param \Podcast\MainBundle\Entity\Playlist $playlist
+     */
+    public function removePlaylist(Entity\Playlist $playlist)
     {
         $this->playlists->removeElement($playlist);
     }
@@ -131,16 +136,14 @@ class Episode
         $this->name = $name;
     }
 
-    public function setPubDate($date)
+    public function setPubDate(\DateTime $date)
     {
         $this->pub_date = $date;
     }
 
     public function getPubDate()
     {
-        $date = new \DateTime($this->pub_date);
-
-        return $date->format('Y-m-d');
+        return \DateTime($this->pub_date);
     }
 
     public function setDescription($description)
@@ -153,7 +156,13 @@ class Episode
         return $this->hash;
     }
 
-    public function setLength($length)
+    public function getLength()
+    {
+        $length =  new \DateTime($this->length);
+        return $length->format('H:i:s');    
+    }
+    
+    public function setLength(\DateTime $length)
     {
         $this->length = $length;
     }
