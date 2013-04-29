@@ -38,7 +38,7 @@ class PodcastEpisodeController extends FOSRestController {
         $pagination = $paginator->paginate(
                 $podcast->getEpisodes(), $paramFetcher->get('page'), 10
         );
-
+        
         $view = $this->view($pagination, 200)
                 ->setTemplateVar('entities');
 

@@ -87,20 +87,13 @@ PodCatcher.PodcastFinder.prototype = {
     getLinkForPage: function(page) {
         return Routing.generate('get_podcasts', { _format: "json", page: page, amount: this.amount(), categories: this.getSelectedSlugs(this.categories()), organizations: this.getSelectedSlugs(this.organizations()) });
     },
-    
-    clearOrganizations: function() {
-        ko.utils.arrayForEach(this.organizations(), function(organization) {
+            
+    clearSelected: function(list) {
+        ko.utils.arrayForEach(list, function(organization) {
             organization.selected(false);
         });
-        this.refresh();
-    },
-            
-    clearCategories: function() {
-        ko.utils.arrayForEach(this.categories(), function(category) {
-            category.selected(false);
-        });
-        this.refresh();
-    },
+        PodCatcher.PodcastFinder.prototype.refresh();
+    },      
             
     getSelected: function(list) {
         var selected = ko.utils.arrayFilter(list, function(item) {
@@ -171,16 +164,40 @@ PodCatcher.entity = {
         this.episodes = ko.observableArray();
         this.image = data.image;
         this.__construct();
-    }
-};
+        
+        this.pagination = {
+            page: ko.observable(1),
+            maxPageIndex: ko.observable(0),
+            amount: ko.observable(8)
+        };
+    },
+            
+    Episode: function(data) {
 
-PodCatcher.entity.Podcast.pagination = {
-    
-};
+        this.name = data.name;
+        this.description = data.description;
+        this.length = data.length;
+        this.pub_date = data.pub_date;
+        this.link = data.link;
+    }
+}
 
 PodCatcher.entity.Podcast.prototype = {
     __construct: function() {
-        $.get(Routing.generate('get_podcast_episodes', { slug: this.slug, _format: 'json' }), this.episodes);
+        
+        var self = this;
+        
+        $.get(Routing.generate('get_podcast_episodes', { slug: this.slug, _format: 'json' }), function(response) {
+            var maxPage = Math.floor(response.total / self.pagination.amount()) + 1;
+            if(self.pagination.page() > maxPage) {
+                self.page(maxPage);
+            }
+            self.pagination.maxPageIndex(maxPage);
+            delete response.total;
+            self.episodes($.map(response, function(episode) {
+                return new PodCatcher.entity.Episode(episode);
+            }));
+        });
     }
 };
 

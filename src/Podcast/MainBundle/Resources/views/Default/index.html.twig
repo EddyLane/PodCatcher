@@ -16,24 +16,24 @@
         
     <script type="text/html" id="view-podcast-finder">
         <div class='row-fluid'>
-            <div class="span8">
+            <div class="span8" data-bind="with: organizations">
                 <div class='page-header'>
                     <h2 class='hBig'>Organization
-                        <small class="pull-right" style="cursor: pointer" data-bind="click: clearOrganizations">Clear</small>
+                        <small class="pull-right" style="cursor: pointer" data-bind="click: $parent.clearSelected">Clear</small>
                     </h2>
                 </div>
-                <ul class="nav nav-stacked nav-pills" data-bind="foreach: organizations" style="height: 200px; overflow: auto; padding: 5px;">
-                    <li data-bind="css: { active: selected }"><a href="#" data-bind="text: name, click: $parent.toggleItem, attr: { href: Routing.generate('get_organization', { slug: slug }) }"></a></li>
+                <ul class="nav nav-stacked nav-pills" data-bind="foreach: $data" style="height: 200px; overflow: auto; padding: 5px;">
+                    <li data-bind="css: { active: selected }"><a href="#" data-bind="text: name, click: $parents[1].toggleItem, attr: { href: Routing.generate('get_organization', { slug: slug }) }"></a></li>
                 </ul>
             </div>
-            <div class="span4">
+            <div class="span4" data-bind="with: categories">
                 <div class='page-header'>
                     <h2 class='hBig'>Category
-                        <small class="pull-right" style="cursor: pointer" data-bind="click: clearCategories">Clear</small>
+                        <small class="pull-right" style="cursor: pointer" data-bind="click: $parent.clearSelected">Clear</small>
                     </h2>
                 </div>       
-                <ul class="nav nav-stacked nav-pills" data-bind="foreach: categories" style="height: 200px; overflow: auto; padding: 5px;">
-                      <li data-bind="css: { active: selected }"><a href="#" data-bind="text: name, click: $parent.toggleItem, attr: { href: Routing.generate('get_category', { slug: slug }) }"></a></li>
+                <ul class="nav nav-stacked nav-pills" data-bind="foreach: $data" style="height: 200px; overflow: auto; padding: 5px;">
+                      <li data-bind="css: { active: selected }"><a href="#" data-bind="text: name, click: $parents[1].toggleItem, attr: { href: Routing.generate('get_category', { slug: slug }) }"></a></li>
                 </ul>
             </div>
         </div>
@@ -105,7 +105,7 @@
                         <hr>
                         <div class="tags">
                             <h6>Tags</h6>
-                            <ul class="unstyled" data-bind="foreach: categories">
+                            <ul class="unstyled" dcata-bind="foreach: categories">
                                 <li>
                                     <a data-bind="text: name, attr: { href: Routing.generate('get_category', { slug: slug }) }" style="color: white"></a>
                                 </li>
@@ -116,10 +116,10 @@
         
             <div class="row-fluid">
                 <div class="span12">
-                    <div class="pagination pagination-centered">
+                    <div class="pagination pagination-centered" data-bind="with: pagination">
                         <ul data-bind="foreach: ko.utils.range(1, maxPageIndex)">
                             <li data-bind="css: { active: ($data) == $parent.page() }">
-                                <a href="#" data-bind="text: $data, attr: { href: $parent.getLinkForPage($data) }, click: $parent.page"></a>
+                                <a href="#"></a>
                             </li>
                         </ul>
                     </div>
