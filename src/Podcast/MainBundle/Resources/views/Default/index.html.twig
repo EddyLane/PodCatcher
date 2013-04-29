@@ -76,7 +76,6 @@
 
                 <div class="row-fluid">
                     <div class="span8 blogContent" data-bind="foreach: episodes">
-
                         <div class="row-fluid blogPost">
                             <div class="title">
                                 <blockquote>
@@ -85,29 +84,30 @@
                                 </blockquote>
                             </div>
                             <div class="blogContent">
-
                                 <p data-bind="html: description">
                                 </p>
                                 <p>
                                     <a href="#" data-bind="attr: { href: link }, text: link"></a>
                                 </p>
                             </div>
-
                         </div>
-
                     </div>
                     <div class="span4 blogSide">
-
                         <div>
-                            <img style="width:100%; height: auto; border: 1px solid #D2D2D2" data-bind="attr: { src: image }">
+                            <img style="width:100%; height: auto; border: 1px solid #D2D2D2, max-width: 300px;" data-bind="attr: { src: image }">
                         </div>
-
                         <hr>
                         <div class="tags">
-                            <h6>Tags</h6>
-                            <ul class="unstyled" dcata-bind="foreach: categories">
+                            <h6>Categories</h6>
+                            <ul class="unstyled" data-bind="foreach: categories">
                                 <li>
                                     <a data-bind="text: name, attr: { href: Routing.generate('get_category', { slug: slug }) }" style="color: white"></a>
+                                </li>
+                            </ul>
+                            <h6>Organizations</h6>
+                            <ul class="unstyled" data-bind="foreach: organizations">
+                                <li>
+                                    <a data-bind="text: name, attr: { href: Routing.generate('get_organization', { slug: slug }) }" style="color: white"></a>
                                 </li>
                             </ul>
                         </div>
@@ -119,7 +119,7 @@
                     <div class="pagination pagination-centered" data-bind="with: pagination">
                         <ul data-bind="foreach: ko.utils.range(1, maxPageIndex)">
                             <li data-bind="css: { active: ($data) == $parent.page() }">
-                                <a href="#"></a>
+                                <a href="#" data-bind="text: $data, click: $parent.page"></a>
                             </li>
                         </ul>
                     </div>

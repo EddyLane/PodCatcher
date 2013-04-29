@@ -60,7 +60,7 @@ PodCatcher.PodcastFinder.prototype = {
     podcasts: ko.observableArray(),
     page: ko.observable(1),
     maxPageIndex: ko.observable(),
-    amount: ko.observable(8),
+    amount: ko.observable(16),
     
     __construct: function() {
         var self = this;
@@ -111,10 +111,13 @@ PodCatcher.PodcastFinder.prototype = {
     },
             
     refresh: function() {
-        var self = this;
+
+        var self = this,
+            maxPage;
+        
         $.get(this.getLinkForPage(this.page()), function(response) {
-            var maxPage = Math.floor(response.total / self.amount()) + 1;
-            if(self.page() > maxPage) {
+            maxPage = Math.floor(response.total / self.amount()) + 1;
+            if (self.page() > maxPage) {
                 self.page(maxPage);
             }
             self.maxPageIndex(maxPage);
@@ -156,37 +159,37 @@ PodCatcher.entity = {
     },
             
     Podcast: function(data) {
-
         this.name = data.name;
         this.slug = data.slug;
         this.categories = data.categories;
         this.organizations = data.organizations;
-        this.episodes = ko.observableArray();
         this.image = data.image;
-        this.__construct();
+        
+        this.episodes = ko.observableArray();
         
         this.pagination = {
             page: ko.observable(1),
-            maxPageIndex: ko.observable(0),
-            amount: ko.observable(8)
+            maxPageIndex: ko.observable(),
+            amount: ko.observable(10)
         };
+        
+        this.__construct();
     },
             
     Episode: function(data) {
-
         this.name = data.name;
         this.description = data.description;
         this.length = data.length;
         this.pub_date = data.pub_date;
         this.link = data.link;
     }
+    
 }
 
 PodCatcher.entity.Podcast.prototype = {
+    
     __construct: function() {
-        
         var self = this;
-        
         $.get(Routing.generate('get_podcast_episodes', { slug: this.slug, _format: 'json' }), function(response) {
             var maxPage = Math.floor(response.total / self.pagination.amount()) + 1;
             if(self.pagination.page() > maxPage) {
@@ -199,6 +202,9 @@ PodCatcher.entity.Podcast.prototype = {
             }));
         });
     }
+    
+    
+    
 };
 
 PodCatcher.entity.ListItem.prototype = {
