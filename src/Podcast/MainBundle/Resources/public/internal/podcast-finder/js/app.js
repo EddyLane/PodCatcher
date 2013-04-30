@@ -85,7 +85,9 @@ PodCatcher.PodcastFinder.prototype = {
     },
     
     getLinkForPage: function(page) {
-        return Routing.generate('get_podcasts', { _format: "json", page: page, amount: this.amount(), categories: this.getSelectedSlugs(this.categories()), organizations: this.getSelectedSlugs(this.organizations()) });
+        var link = Routing.generate('get_podcasts', { _format: "json", page: page, amount: this.amount() });
+        console.log(link);
+        return link;
     },
             
     clearSelected: function(list) {
@@ -115,7 +117,7 @@ PodCatcher.PodcastFinder.prototype = {
         var self = this,
             maxPage;
         
-        $.get(this.getLinkForPage(this.page()), function(response) {
+        $.get(this.getLinkForPage(this.page()), { organizations: this.getSelectedSlugs(this.organizations()), categories: this.getSelectedSlugs(this.categories())  }  ,function(response) {
             maxPage = Math.floor(response.total / self.amount()) + 1;
             if (self.page() > maxPage) {
                 self.page(maxPage);
