@@ -40,7 +40,13 @@
 
         <div class='page-header'>
             <h1 class='hBig'>Podcasts
+
             </h1>
+                <ul class="nav nav-tabs" data-bind="foreach: sorts">
+                    <li class="pull-right" data-bind="css: { active: ( $data == $parent.sort() ) }">
+                        <a href="#" data-bind="click: $parent.sort"><!-- ko text: name --><!-- /ko --></a>
+                    </li>
+                </ul>
         </div>
 
         <div class='row-fluid gallery photo' data-bind="foreach: podcasts">

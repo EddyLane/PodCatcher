@@ -54,13 +54,20 @@ PodCatcher.PodcastFinder = function() {
 //Set our observable arrays up
 PodCatcher.PodcastFinder.prototype = {
     
+    sorts: [
+        { name: 'Last Updated', sort: 'episode.pub_date' },
+        { name: 'A-Z', sort: 'podcast.name' }
+    ],
+    
     template: ko.observable('view-podcast-finder'),
     categories: ko.observableArray(),
     organizations: ko.observableArray(),
     podcasts: ko.observableArray(),
     page: ko.observable(1),
     maxPageIndex: ko.observable(),
-    amount: ko.observable(16),
+    amount: ko.observable(8),
+    sort: ko.observable(),
+    direction: ko.observable('desc'),
     
     __construct: function() {
         var self = this;
@@ -76,18 +83,28 @@ PodCatcher.PodcastFinder.prototype = {
             }));
         });
         
+        this.sort(this.sorts[1]);
+        
         this.page.subscribe(function() {
             self.refresh();
         });
         this.amount.subscribe(function() {
             self.refresh();
         });
+        this.sort.subscribe(function() {
+            self.refresh();
+        });
     },
     
     getLinkForPage: function(page) {
-        var link = Routing.generate('get_podcasts', { _format: "json", page: page, amount: this.amount() });
-        console.log(link);
-        return link;
+        var sort = this.sort() || this.sorts[1];
+        return Routing.generate('get_podcasts', { 
+            _format: "json", 
+            page: page, 
+            amount: this.amount(), 
+            sort: sort.sort, 
+            direction: this.direction() 
+        });
     },
             
     clearSelected: function(list) {
@@ -104,9 +121,9 @@ PodCatcher.PodcastFinder.prototype = {
         return selected;
     },
             
-    getSelectedSlugs: function(list) {
+    getSelectedSlugs: function(list, slugs) {
         var slugs = [];
-        $.each(this.getSelected(list), function(key, item){
+        ko.utils.arrayForEach(this.getSelected(list), function(item) {
             slugs.push(item.slug);
         });
         return slugs;
@@ -117,7 +134,7 @@ PodCatcher.PodcastFinder.prototype = {
         var self = this,
             maxPage;
         
-        $.get(this.getLinkForPage(this.page()), { organizations: this.getSelectedSlugs(this.organizations()), categories: this.getSelectedSlugs(this.categories())  }  ,function(response) {
+        $.get(this.getLinkForPage(this.page()), { organizations: this.getSelectedSlugs(this.organizations()), categories: this.getSelectedSlugs(this.categories()) },function(response) {
             maxPage = Math.floor(response.total / self.amount()) + 1;
             if (self.page() > maxPage) {
                 self.page(maxPage);
@@ -204,9 +221,7 @@ PodCatcher.entity.Podcast.prototype = {
             }));
         });
     }
-    
-    
-    
+      
 };
 
 PodCatcher.entity.ListItem.prototype = {

@@ -32,6 +32,8 @@ class PodcastRepository extends EntityRepository
     public function findAllByCategoryAndOrganization(array $categories = [], array $organizations = [])
     {
         $qb = $this->createQueryBuilder('podcast');
+
+        //$qb->leftJoin('podcast.episodes', 'episode');
         
         if(count($categories) > 0) {
             $qb
@@ -44,7 +46,10 @@ class PodcastRepository extends EntityRepository
                ->innerJoin('podcast.organizations', 'organization')
                ->add('where', $qb->expr()->in('organization.slug', $organizations))
             ;
+            
+            
         }
+        
         
         return $qb->getQuery();
     }
