@@ -29,12 +29,17 @@ class PodcastRepository extends EntityRepository
      * @param string $category
      * @param string $category
      */
-    public function findAllByCategoryAndOrganization(array $categories = [], array $organizations = [])
+    public function findAllByCategoryAndOrganization(array $categories = [], array $organizations = [], $sort = 'name', $order = 'asc', $amount = 8, $page = 1)
     {
         $qb = $this->createQueryBuilder('podcast');
+        $qb
+           ->addSelect(sprintf('%s as updated, %s as name',$qb->expr()->max('episode.pub_date'), 'podcast.name'))
+           ->distinct()
+           ->leftJoin('podcast.episodes','episode')
+           ->groupBy('podcast.id')
+           ->orderBy($sort, $order);
+        ;
 
-        //$qb->leftJoin('podcast.episodes', 'episode');
-        
         if(count($categories) > 0) {
             $qb
                ->innerJoin('podcast.categories', 'category')
@@ -46,11 +51,8 @@ class PodcastRepository extends EntityRepository
                ->innerJoin('podcast.organizations', 'organization')
                ->add('where', $qb->expr()->in('organization.slug', $organizations))
             ;
-            
-            
         }
-        
-        
+
         return $qb->getQuery();
     }
     

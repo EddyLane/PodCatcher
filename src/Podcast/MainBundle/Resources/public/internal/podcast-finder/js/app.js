@@ -55,8 +55,8 @@ PodCatcher.PodcastFinder = function() {
 PodCatcher.PodcastFinder.prototype = {
     
     sorts: [
-        { name: 'Last Updated', sort: 'episode.pub_date' },
-        { name: 'A-Z', sort: 'podcast.name' }
+        { name: 'Last Updated', sort: 'updated', direction: 'desc' },
+        { name: 'A-Z', sort: 'name', direction: 'asc' }
     ],
     
     template: ko.observable('view-podcast-finder'),
@@ -67,7 +67,6 @@ PodCatcher.PodcastFinder.prototype = {
     maxPageIndex: ko.observable(),
     amount: ko.observable(8),
     sort: ko.observable(),
-    direction: ko.observable('desc'),
     
     __construct: function() {
         var self = this;
@@ -103,7 +102,7 @@ PodCatcher.PodcastFinder.prototype = {
             page: page, 
             amount: this.amount(), 
             sort: sort.sort, 
-            direction: this.direction() 
+            direction: sort.direction
         });
     },
             
@@ -142,7 +141,7 @@ PodCatcher.PodcastFinder.prototype = {
             self.maxPageIndex(maxPage);
             delete response.total;
             self.podcasts($.map(response, function(podcast) {
-                return new PodCatcher.entity.ImageListItem(podcast);
+                return new PodCatcher.entity.ImageListItem(podcast[0]);
             }));
         });
     },
