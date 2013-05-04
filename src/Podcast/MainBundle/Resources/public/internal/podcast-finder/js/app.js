@@ -70,7 +70,7 @@ PodCatcher.PodcastFinder.prototype = {
     
     __construct: function() {
         var self = this;
-        this.refresh();
+        
         $.get(Routing.generate('get_categories', { _format: "json" }), function(categories) {
             self.categories($.map(categories, function(category) {
                 return new PodCatcher.entity.ListItem(category);
@@ -82,7 +82,7 @@ PodCatcher.PodcastFinder.prototype = {
             }));
         });
         
-        this.sort(this.sorts[1]);
+        this.sort(this.sorts[0]);
         
         this.page.subscribe(function() {
             self.refresh();
@@ -93,6 +93,8 @@ PodCatcher.PodcastFinder.prototype = {
         this.sort.subscribe(function() {
             self.refresh();
         });
+        
+        this.refresh();
     },
     
     getLinkForPage: function(page) {

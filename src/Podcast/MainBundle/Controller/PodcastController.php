@@ -22,7 +22,7 @@ class PodcastController extends FOSRestController
     {
         $em = $this->getDoctrine()->getManager();
                 
-        $query = $em
+        $podcasts = $em
                 ->getRepository('PodcastMainBundle:Podcast')
                 ->findAllByCategoryAndOrganization (
                     $paramFetcher->get('categories'), 
@@ -33,9 +33,9 @@ class PodcastController extends FOSRestController
                     $paramFetcher->get('page')
                 )
         ;
-        
-        $view = $this->view($query->getResult())
-                ->setTemplateVar('entities');
+                
+        $view = $this->view($podcasts)
+                     ->setTemplateVar('entities');
 
         return $this->handleView($view);
     }

@@ -3,8 +3,9 @@
 namespace Podcast\MainBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Query;
 use Podcast\MainBundle\Entity\Category;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+
 /**
  * PodcastRepository
  *
@@ -25,6 +26,7 @@ class PodcastRepository extends EntityRepository
     }
     
     
+    
     /**
      * @param string $category
      * @param string $category
@@ -33,11 +35,9 @@ class PodcastRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('podcast');
         $qb
-           ->addSelect(sprintf('%s as updated, %s as name',$qb->expr()->max('episode.pub_date'), 'podcast.name'))
            ->distinct()
            ->leftJoin('podcast.episodes','episode')
            ->groupBy('podcast.id')
-           ->orderBy($sort, $order);
         ;
 
         if(count($categories) > 0) {
@@ -53,8 +53,22 @@ class PodcastRepository extends EntityRepository
             ;
         }
 
-        return $qb->getQuery();
+        $total = count(new Paginator($qb->getQuery()));
+        
+        $results = $qb
+           ->addSelect(sprintf('%s as updated, %s as name', $qb->expr()->max('episode.pub_date'), 'podcast.name'))
+           ->setMaxResults($amount)
+           ->setFirstResult(($page-1) * $amount)
+           ->orderBy($sort, $order)
+           ->getQuery()
+           ->getArrayResult()
+        ;
+        
+        $results['total'] = $total;
+        
+        return $results;
     }
+    
     
     /**
      * 
