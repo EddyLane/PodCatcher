@@ -22,7 +22,16 @@ function PodCatcher() {
         
         this.get(Routing.generate('get_podcast')+'/:slug', function(context) {
             self.active(self.AppKernel.podcastController);
-            self.active().getPodcastAction(this.params.slug);
+            self.active().getPodcastAction(this.params);
+        });
+        
+        this.get(Routing.generate('get_podcast')+'/:slug/:episodes', function(context) {
+            self.active(self.AppKernel.podcastController);
+            if(!self.active().podcast()) {
+                self.active().getPodcastAction(this.params);
+            } else {
+                self.active().podcast().pagination.page(this.params.page);
+            }
         });
         
     }).run();
@@ -34,11 +43,11 @@ PodCatcher.PodcastController = {
     template: ko.observable('view-podcast'),
     podcast: ko.observable(),
     
-    getPodcastAction: function(slug) {
+    getPodcastAction: function(parameters) {
         var self = this;
         self.template('view-podcast');
-        $.get(Routing.generate('get_podcast', { _format: "json", slug: slug }), function(response) {
-            self.podcast(new PodCatcher.entity.Podcast(response));
+        $.get(Routing.generate('get_podcast', { _format: "json", slug: parameters.slug }), function(response) {
+            self.podcast(new PodCatcher.entity.Podcast($.extend(response, parameters)));
         });
     }
 };
@@ -63,10 +72,13 @@ PodCatcher.PodcastFinder.prototype = {
     categories: ko.observableArray(),
     organizations: ko.observableArray(),
     podcasts: ko.observableArray(),
-    page: ko.observable(1),
-    maxPageIndex: ko.observable(),
-    amount: ko.observable(8),
-    sort: ko.observable(),
+    
+    pagination: {
+        page: ko.observable(1),
+        maxPageIndex: ko.observable(),
+        amount: ko.observable(32),
+        sort: ko.observable()
+    },
     
     __construct: function() {
         var self = this;
@@ -82,27 +94,28 @@ PodCatcher.PodcastFinder.prototype = {
             }));
         });
         
-        this.sort(this.sorts[0]);
+        this.pagination.sort(this.sorts[0]);
         
-        this.page.subscribe(function() {
+        this.pagination.page.subscribe(function() {
             self.refresh();
         });
-        this.amount.subscribe(function() {
+        this.pagination.amount.subscribe(function() {
             self.refresh();
         });
-        this.sort.subscribe(function() {
+        this.pagination.sort.subscribe(function() {
             self.refresh();
         });
+        
         
         this.refresh();
     },
     
     getLinkForPage: function(page) {
-        var sort = this.sort() || this.sorts[1];
+        var sort = this.pagination.sort() || this.sorts[1];
         return Routing.generate('get_podcasts', { 
             _format: "json", 
             page: page, 
-            amount: this.amount(), 
+            amount: this.pagination.amount(), 
             sort: sort.sort, 
             direction: sort.direction
         });
@@ -135,22 +148,21 @@ PodCatcher.PodcastFinder.prototype = {
         var self = this,
             maxPage;
         
-        $.get(this.getLinkForPage(this.page()), { organizations: this.getSelectedSlugs(this.organizations()), categories: this.getSelectedSlugs(this.categories()) },function(response) {
-            maxPage = Math.floor(response.total / self.amount()) + 1;
-            if (self.page() > maxPage) {
-                self.page(maxPage);
+        $.get(this.getLinkForPage(this.pagination.page()), { organizations: this.getSelectedSlugs(this.organizations()), categories: this.getSelectedSlugs(this.categories()) },function(response) {
+            maxPage = Math.floor(response.metadata.total / self.pagination.amount()) + 1;
+            if (self.pagination.page() > maxPage) {
+                self.pagination.page(maxPage);
             }
-            self.maxPageIndex(maxPage);
-            delete response.total;
-            self.podcasts($.map(response, function(podcast) {
+            self.pagination.maxPageIndex(maxPage);
+            self.podcasts($.map(response.entities, function(podcast) {
                 return new PodCatcher.entity.ImageListItem(podcast[0]);
             }));
         });
     },
+        
     
     goToPage: function(page) {
-        this.page(page);
-        this.refresh();
+        this.pagination.page(page);
     },
             
     toggleItem: function(item) {
@@ -158,9 +170,6 @@ PodCatcher.PodcastFinder.prototype = {
         PodCatcher.PodcastFinder.prototype.refresh();
     }
 };
-
-
-
 
 /**
  * Entities
@@ -184,14 +193,8 @@ PodCatcher.entity = {
         this.categories = data.categories;
         this.organizations = data.organizations;
         this.image = data.image;
-        
         this.episodes = ko.observableArray();
-        
-        this.pagination = {
-            page: ko.observable(1),
-            maxPageIndex: ko.observable(),
-            amount: ko.observable(10)
-        };
+        this.pagination = new PodCatcher.Paginator(this.getEpisodesAction, { _format: 'json', slug: this.slug, page: data.page }, this.episodes);
         
         this.__construct();
     },
@@ -206,18 +209,71 @@ PodCatcher.entity = {
     
 }
 
+
+PodCatcher.Paginator = function(cb, parameters, results) {
+    
+    if(!cb) {
+        throw('You must provide a callback');
+    }
+        
+    var self = this;
+    this.refresh = cb;
+    this.parameters = parameters;
+    this.results = results;
+    this.page = ko.observable(parameters.page || 1);
+    this.maxPageIndex = ko.observable(parameters.max || 1);
+    this.amount = ko.observable(parameters.amount || 32);
+    this.sort = ko.observable(parameters.sort || "");
+    
+    this.page.subscribe(function() {
+        self.refresh(self.getRefreshParameters());
+    });
+    this.amount.subscribe(function() {
+        self.refresh(self.getRefreshParameters());
+    });
+    this.sort.subscribe(function() {
+        self.refresh(self.getRefreshParameters());
+    });    
+    
+    this.refresh(this.getRefreshParameters());
+}
+
+PodCatcher.Paginator.prototype = {
+    
+    getRefreshParameters: function() {
+        return $.extend(
+                this.parameters,
+                { page: this.page(), sort: this.sort(), amount: this.amount() }
+        );
+    }
+    
+}
+
 PodCatcher.entity.Podcast.prototype = {
     
-    __construct: function() {
+    __construct: function() {},
+    
+    getEpisodesAction: function(parameters) {
+        
+        console.log(parameters);
         var self = this;
-        $.get(Routing.generate('get_podcast_episodes', { slug: this.slug, _format: 'json' }), function(response) {
-            var maxPage = Math.floor(response.total / self.pagination.amount()) + 1;
-            if(self.pagination.page() > maxPage) {
+//        self.pagination.page(parameters.page);
+        
+        $.get(Routing.generate('get_podcast_episodes', { _format: 'json', slug: parameters.slug, page: parameters.page }), function(response) {
+            
+            var maxPage = Math.floor(response.metadata.total / parameters.amount) + 1;
+            
+            if(parameters.page > maxPage) {
                 self.page(maxPage);
             }
-            self.pagination.maxPageIndex(maxPage);
-            delete response.total;
-            self.episodes($.map(response, function(episode) {
+            
+            console.log(self);
+            console.log(self.maxPageIndex());
+            
+            self.maxPageIndex(maxPage);
+
+            delete response.metadata;            
+            self.results($.map(response, function(episode) {
                 return new PodCatcher.entity.Episode(episode);
             }));
         });

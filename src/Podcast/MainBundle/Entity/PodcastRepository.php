@@ -34,6 +34,7 @@ class PodcastRepository extends EntityRepository
     public function findAllByCategoryAndOrganization(array $categories = [], array $organizations = [], $sort = 'name', $order = 'asc', $amount = 8, $page = 1)
     {
         $qb = $this->createQueryBuilder('podcast');
+        
         $qb
            ->distinct()
            ->leftJoin('podcast.episodes','episode')
@@ -53,9 +54,11 @@ class PodcastRepository extends EntityRepository
             ;
         }
 
-        $total = count(new Paginator($qb->getQuery()));
+        $metadata = [
+            'total' => count(new Paginator($qb->getQuery(), false))
+        ];
         
-        $results = $qb
+        $entities = $qb
            ->addSelect(sprintf('%s as updated, %s as name', $qb->expr()->max('episode.pub_date'), 'podcast.name'))
            ->setMaxResults($amount)
            ->setFirstResult(($page-1) * $amount)
@@ -63,10 +66,11 @@ class PodcastRepository extends EntityRepository
            ->getQuery()
            ->getArrayResult()
         ;
-        
-        $results['total'] = $total;
-        
-        return $results;
+                
+        return [
+            'metadata' => $metadata,
+            'entities' => $entities
+        ];
     }
     
     

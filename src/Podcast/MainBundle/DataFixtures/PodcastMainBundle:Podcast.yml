@@ -71,3 +71,9 @@ Podcast\MainBundle\Entity\Podcast:
     link: http://www.guardian.co.uk/film/series/filmweekly/podcast.xml
     description: An audio version of guardian.co.uk/film's video film show, in which the team review the week's key movies and talk to the stars and directors who made them. This page formerly hosted the Film Weekly podcast. A full archive of that show is still available by clicking back through the series and on iTunes.
     image: http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2012/8/17/1345198917516/Guardian_film_show_1400.jpg
+    
+  podcast-rand{1..4000}:
+     name: <domainName()>
+     link: <url()>
+     description: <text($maxNbChars = 200)>
+     image: http://placehold.it/300x300
