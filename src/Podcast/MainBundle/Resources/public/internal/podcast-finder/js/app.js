@@ -254,11 +254,7 @@ PodCatcher.entity.Podcast.prototype = {
     __construct: function() {},
     
     getEpisodesAction: function(parameters) {
-        
-        console.log(parameters);
         var self = this;
-//        self.pagination.page(parameters.page);
-        
         $.get(Routing.generate('get_podcast_episodes', { _format: 'json', slug: parameters.slug, page: parameters.page }), function(response) {
             
             var maxPage = Math.floor(response.metadata.total / parameters.amount) + 1;
@@ -266,10 +262,7 @@ PodCatcher.entity.Podcast.prototype = {
             if(parameters.page > maxPage) {
                 self.page(maxPage);
             }
-            
-            console.log(self);
-            console.log(self.maxPageIndex());
-            
+
             self.maxPageIndex(maxPage);
 
             delete response.metadata;            

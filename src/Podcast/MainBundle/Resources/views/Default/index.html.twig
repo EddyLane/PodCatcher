@@ -7,8 +7,8 @@
 <div class="row-fluid">
     <div class="span2 sideBar">
         <ul>
-            <li data-link="home"><figure><i class='icon-home'></i> <div class='menuText'>Home</div></figure></li>
-            <li data-link="directory" class="active"><figure><i class="icon-th-large"></i> <div class="menuText">Directory</div></figure></li>
+            <li data-link="home"><figure><i class='icon-home'></i> <div class='menuText'><a href='/'>Home</a></div></figure></li>
+            <li data-link="directory" class="active"><figure><i class="icon-th-large"></i> <div class="menuText"><a href='/'>Directory</a></div></figure></li>
         </ul>
     </div>
     <div class="span10 content borBox">
@@ -100,7 +100,7 @@
                     </div>
                     <div class="span4 blogSide">
                         <div>
-                            <img style="width:100%; height: auto; border: 1px solid #D2D2D2, max-width: 300px;" data-bind="attr: { src: image }">
+                            <img style="width:100%; height: auto; border: 1px solid #D2D2D2; max-width: 300px;" data-bind="attr: { src: image }">
                         </div>
                         <hr>
                         <div class="tags">
@@ -123,9 +123,17 @@
             <div class="row-fluid">
                 <div class="span12">
                     <div class="pagination pagination-centered" data-bind="with: pagination">
-                        <ul data-bind="foreach: ko.utils.range(1, maxPageIndex)">
+                        <ul>
+                            <li>
+                                <a href='#' data-bind="attr: { href: Routing.generate('get_podcast_episodes', { slug: $parent.slug, page: 1 }) }">&laquo;</a>
+                            </li>
+                            <!-- ko foreach: ko.utils.range(1, maxPageIndex) -->
                             <li data-bind="css: { active: ($data) == $parent.page() }">
                                 <a href="#" data-bind="text: $data, attr: { href: Routing.generate('get_podcast_episodes', { slug: $parents[1].slug, page: $data }) }"></a>
+                            </li>
+                            <!-- /ko -->                          
+                            <li>
+                                <a href='#' data-bind="attr: { href: Routing.generate('get_podcast_episodes', { slug: $parent.slug, page: maxPageIndex }) }">&raquo;</a>
                             </li>
                         </ul>
                     </div>
