@@ -5,7 +5,7 @@ namespace Podcast\MainBundle\Entity;
 use Doctrine\ORM\EntityRepository;
 use Podcast\MainBundle\Entity\Category;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-
+use Doctrine\ORM\Query;
 /**
  * PodcastRepository
  *
@@ -31,14 +31,12 @@ class PodcastRepository extends EntityRepository
      * @param string $category
      * @param string $category
      */
-    public function findAllByCategoryAndOrganization(array $categories = [], array $organizations = [], $sort = 'name', $order = 'asc', $amount = 8, $page = 1)
+    public function findAllByCategoryAndOrganization(array $categories = [], array $organizations = [], $sort = "podcast.name", $order = 'asc', $amount = 8, $page = 1, $hydration = Query::HYDRATE_ARRAY)
     {
         $qb = $this->createQueryBuilder('podcast');
         
         $qb
            ->distinct()
-           ->leftJoin('podcast.episodes','episode')
-           ->groupBy('podcast.id')
         ;
 
         if(count($categories) > 0) {
@@ -58,13 +56,16 @@ class PodcastRepository extends EntityRepository
             'total' => count(new Paginator($qb->getQuery(), false))
         ];
         
+        
         $entities = $qb
+           ->leftJoin('podcast.episodes','episode')
            ->addSelect(sprintf('%s as updated, %s as name', $qb->expr()->max('episode.pub_date'), 'podcast.name'))
+           ->groupBy('podcast.id')
            ->setMaxResults($amount)
            ->setFirstResult(($page-1) * $amount)
            ->orderBy($sort, $order)
            ->getQuery()
-           ->getArrayResult()
+           ->getResult($hydration)
         ;
                 
         return [

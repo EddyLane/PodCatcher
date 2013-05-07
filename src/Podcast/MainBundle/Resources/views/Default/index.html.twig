@@ -62,7 +62,7 @@
                 <div class="pagination pagination-centered">
                     <ul data-bind="foreach: ko.utils.range(1, pagination.maxPageIndex)">
                         <li data-bind="css: { active: $data == $parent.pagination.page() }">
-                            <a href="#" data-bind="text: $data, attr: { href: $parent.getLinkForPage($data) }, click: $parent.page"></a>
+                            <a href="#" data-bind="text: $data, attr: { href: $parent.getLinkForPage($data) }, click: $parent.pagination.page"></a>
                         </li>
                     </ul>
                 </div>

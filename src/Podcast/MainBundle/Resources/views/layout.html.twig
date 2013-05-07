@@ -19,6 +19,7 @@
         <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
         <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
         <!-- /fos_js_routing -->
+        
 
         {% javascripts
             '@PodcastMainBundle/Resources/public/jquery/jquery.js'
@@ -31,17 +32,18 @@
             '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-popover.js'
             '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-tab.js'
 
+
             '@PodcastMainBundle/Resources/public/sammy/lib/sammy.js'
 
             '@PodcastMainBundle/Resources/public/internal/virgin/js/showdown.js'
             '@PodcastMainBundle/Resources/public/internal/virgin/js/main.js'
 
             '@PodcastMainBundle/Resources/public/knockout/build/output/knockout-latest.js'
-
-            '@PodcastMainBundle/Resources/public/internal/podcast-finder/js/app.js'
         %}
         <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
+        
+        <script data-main="{{ asset('bundles/podcastmain/internal/js/app.js') }}" src="{{ asset('bundles/podcastmain/requirejs/require.js') }}"></script>
 
     </head>
     <body>
