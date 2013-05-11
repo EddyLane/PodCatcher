@@ -9,13 +9,7 @@ soundManager.setup({
     url: 'bundles/podcastmain/soundmanager/swf'
 });
 
-soundManager.defaultOptions.whileplaying = function() {
-    podcast.dom.progress.css('width', ((this.position / this.duration) * 100) + '%');
-}
 
-soundManager.defaultOptions.whileloading = function() {
-    podcast.dom.buffer.css('width', ((this.bytesLoaded/this.bytesTotal) * 100) + '%');
-}
 
 var base_url = "/";
 var mapping = {

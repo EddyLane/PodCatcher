@@ -9,7 +9,8 @@ function PodCatcher() {
     
     this.AppKernel = {
         podcastFinder: new PodCatcher.PodcastFinder(),
-        podcastController: new PodCatcher.PodcastController()
+        podcastController: new PodCatcher.PodcastController(),
+        player: new PodCatcher.Player()
     };
     
     this.active = ko.observable();
@@ -37,6 +38,50 @@ function PodCatcher() {
     }).run();
 }
 
+PodCatcher.Player = function() {
+    
+    var self = this;
+    
+    this.buffer = ko.observable();
+    this.progress = ko.observable();
+    this.episode = ko.observable();
+    
+    soundManager.setup({
+        url: '/bundles/podcastmain/soundmanager/swf'
+    });
+    
+    soundManager.defaultOptions.whileplaying = function() {
+        self.progress(((this.position / this.duration) * 100) + '%');
+    }
+
+    soundManager.defaultOptions.whileloading = function() {
+        self.buffer(((this.bytesLoaded/this.bytesTotal) * 100) + '%');
+    }          
+}
+
+PodCatcher.Player.prototype = {
+    
+    play: function(episode) {
+        
+        if(!episode) {
+            return soundManager.play();
+        } 
+        else if(soundManager.getSoundById(episode.link)) {
+            return soundManager.play(episode.link);
+        }
+        
+        soundManager.stopAll();
+        soundManager.createSound({
+            id: episode.link,
+            url: episode.link,
+            autoLoad: true,
+            autoPlay: true
+        });   
+         
+    }
+    
+}
+
 PodCatcher.PodcastController = function() {
     this.template = ko.observable('view-podcast');
     this.podcast = ko.observable();
@@ -61,10 +106,8 @@ PodCatcher.PodcastController.prototype = {
  */
 PodCatcher.PodcastFinder = function() {
     this.template = ko.observable('view-podcast-finder');
-    this.categories = ko.observableArray();
-    this.organizations = ko.observableArray();
     this.podcasts = ko.observableArray();
-    this.pagination = new PodCatcher.Paginator(this.refresh, { _format: 'json', sort: this.sorts[0] }, this.podcasts);
+    this.pagination = new PodCatcher.PodcastFinderPaginator(this.refresh, { _format: 'json', sort: this.sorts[0] }, this.podcasts);
     this.__construct();
 };
 //Set our observable arrays up
@@ -75,21 +118,7 @@ PodCatcher.PodcastFinder.prototype = {
         { name: 'A-Z', sort: 'name', direction: 'asc' }
     ],
 
-    __construct: function() {
-        var self = this;
-        
-        $.get(Routing.generate('get_categories', { _format: "json" }), function(categories) {
-            self.categories($.map(categories, function(category) {
-                return new PodCatcher.entity.ListItem(category);
-            }));
-        });
-        $.get(Routing.generate('get_organizations', { _format: "json" }), function(organizations) {
-            self.organizations($.map(organizations, function(organization) {
-                return new PodCatcher.entity.ListItem(organization);
-            }));
-        });
-        
-    },
+    __construct: function() {},
     
     getLinkForPage: function(page) {
         var sort = this.pagination.sort() || this.sorts[1];
@@ -100,27 +129,6 @@ PodCatcher.PodcastFinder.prototype = {
             sort: sort.sort, 
             direction: sort.direction
         });
-    },
-            
-    clearSelected: function(list) {
-        ko.utils.arrayForEach(list, function(organization) {
-            organization.selected(false);
-        });
-        PodCatcher.PodcastFinder.prototype.refresh();
-    },      
-            
-    getSelected: function(list) {
-        return ko.utils.arrayFilter(list, function(item) {
-            return item.selected();
-        });
-    },
-            
-    getSelectedSlugs: function(list, slugs) {
-        var slugs = [];
-        ko.utils.arrayForEach(this.getSelected(list), function(item) {
-            slugs.push(item.slug);
-        });
-        return slugs;
     },
             
     refresh: function(parameters) {
@@ -143,12 +151,8 @@ PodCatcher.PodcastFinder.prototype = {
     
     goToPage: function(page) {
         this.pagination.page(page);
-    },
-            
-    toggleItem: function(item) {
-        item.toggle();
-        PodCatcher.PodcastFinder.prototype.refresh();
     }
+    
 };
 
 /**
@@ -190,7 +194,7 @@ PodCatcher.entity = {
 }
 
 
-PodCatcher.Paginator = function(cb, parameters, results) {
+PodCatcher.BasePaginator = function(cb, parameters, results) {
     
     var self = this;
     
@@ -199,9 +203,54 @@ PodCatcher.Paginator = function(cb, parameters, results) {
     this.results = results;
     
     this.page = ko.observable(parameters.page || 1);
+    
     this.maxPageIndex = ko.observable(parameters.max || 1);
+    
+    this.displayFirstPage = ko.computed(function() {
+        var page = self.page(),
+            maxPage = self.maxPageIndex(),
+            newPage;
+            
+        newPage = (page > 3) ? page - 2 : 1;
+
+        if(newPage < maxPage && newPage > (maxPage - 4)) {
+            console.log('here');
+            newPage -= (newPage - (maxPage - 4));
+        }
+
+        return newPage;
+    });
+    this.displayLastPage = ko.computed(function() {
+        
+        var page = self.page(),
+            maxPage = self.maxPageIndex(),
+            newPage;
+            
+        if(page < (maxPage - 3)) {
+            newPage = page + 2;
+        }
+        else {
+            newPage = maxPage;
+        }
+        
+
+        if(newPage < 5 && maxPage > 4 && newPage < maxPage) {
+            newPage += (5 - newPage);
+        }
+        
+        return newPage;
+    });
+    
     this.amount = ko.observable(parameters.amount || 32);
     this.sort = ko.observable(parameters.sort || "");
+    
+    this.refresh(this.getRefreshParameters());
+};
+
+PodCatcher.Paginator = function(cb, parameters, results) {
+    var self = this;
+    
+    PodCatcher.BasePaginator.call(this, cb, parameters, results);
     
     this.page.subscribe(function() {
         self.refresh(self.getRefreshParameters());
@@ -212,18 +261,87 @@ PodCatcher.Paginator = function(cb, parameters, results) {
     this.sort.subscribe(function() {
         self.refresh(self.getRefreshParameters());
     });    
+}
+
+PodCatcher.PodcastFinderPaginator = function(cb, parameters, results) {
     
-    this.refresh(this.getRefreshParameters());
+    var self = this;
+    
+    PodCatcher.BasePaginator.call(this, cb, parameters, results);
+
+    this.categories = ko.observableArray();
+    this.organizations = ko.observableArray();
+    
+    this.loadListItems('get_categories', this.categories);
+    this.loadListItems('get_organizations', this.organizations);
+    
+    this.page.subscribe(function() {
+        self.refresh(self.getRefreshParameters(self.categories(), self.organizations()));
+    });
+    this.amount.subscribe(function() {
+        self.refresh(self.getRefreshParameters(self.categories(), self.organizations()));
+    });
+    this.sort.subscribe(function() {
+        self.refresh(self.getRefreshParameters(self.categories(), self.organizations()));
+    });    
+    
+    this.toggleItem = function(item) {
+        item.toggle();
+        self.refresh(self.getRefreshParameters(self.categories(), self.organizations()));
+    }
+}
+
+PodCatcher.PodcastFinderPaginator.prototype = {
+                
+    clearSelected: function(list) {
+        ko.utils.arrayForEach(list, function(organization) {
+            organization.selected(false);
+        });
+        PodCatcher.PodcastFinder.prototype.refresh();
+    },      
+            
+    getSelected: function(list) {
+        return ko.utils.arrayFilter(list, function(item) {
+            return item.selected();
+        });
+    },
+            
+    getSelectedSlugs: function(list) {
+        var slugs = [];
+        ko.utils.arrayForEach(this.getSelected(list), function(item) {
+            slugs.push(item.slug);
+        });
+        return slugs;
+    },
+            
+    getRefreshParameters: function(categories, organizations) {
+        return $.extend(
+                this.parameters,
+                { page: this.page(), sort: this.sort(), amount: this.amount(), categories: this.getSelectedSlugs(categories), organizations: this.getSelectedSlugs(organizations) }
+        );
+    },
+            
+    loadListItems: function(url, result) {
+        $.get(Routing.generate(url, { _format: "json" }), function(organizations) {
+            result($.map(organizations, function(organization) {
+                return new PodCatcher.entity.ListItem(organization);
+            }));
+        });  
+    },
+
 };
 
 PodCatcher.Paginator.prototype = {
+    
     getRefreshParameters: function() {
         return $.extend(
                 this.parameters,
                 { page: this.page(), sort: this.sort(), amount: this.amount() }
         );
     }
+    
 }
+        
 
 PodCatcher.entity.Podcast.prototype = {
     

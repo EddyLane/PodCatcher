@@ -10,12 +10,26 @@
             <li data-link="home"><figure><i class='icon-home'></i> <div class='menuText'><a href='/'>Home</a></div></figure></li>
             <li data-link="directory" class="active"><figure><i class="icon-th-large"></i> <div class="menuText"><a href='/'>Directory</a></div></figure></li>
         </ul>
+            
+            <hr>
+
+        <div style="width: 100%; height: 150px; margin-top:20px;" data-bind="with: AppKernel.player">
+            <p style="color: #000;font-family: 'OpenSansLight';font-size: 16px;font-weight: lighter;" data-bind="text: episode.name"></p>
+            <div class="progress progress-striped active">
+                <div class="bar" data-bind="style: { width: progress }"></div>
+                <div class="bar bar-warning" data-bind="style: { width: buffer }"></div>
+            </div>
+            <button class="btn-github">
+                <i class="icon-play"></i>
+            </button>
+        </div>
+
     </div>
     <div class="span10 content borBox">
         <div data-bind="template: { name: active().template(), data: active() }"></div>
         
     <script type="text/html" id="view-podcast-finder">
-        <div class='row-fluid'>
+        <div class='row-fluid' data-bind="with: pagination">
             <div class="span8" data-bind="with: organizations">
                 <div class='page-header'>
                     <h2 class='hBig'>Organization
@@ -60,9 +74,17 @@
         <div class="row-fluid">
             <div class="span12">
                 <div class="pagination pagination-centered">
-                    <ul data-bind="foreach: ko.utils.range(1, pagination.maxPageIndex)">
-                        <li data-bind="css: { active: $data == $parent.pagination.page() }">
-                            <a href="#" data-bind="text: $data, attr: { href: $parent.getLinkForPage($data) }, click: $parent.pagination.page"></a>
+                    <ul>
+                        <li data-bind="with: 1">
+                            <a href='#' data-bind="click: $parent.pagination.page, attr: { href: $parent.getLinkForPage(1) }">&laquo;</a>
+                        </li>
+                        <!-- ko foreach: ko.utils.range(pagination.displayFirstPage, pagination.displayLastPage) -->
+                            <li data-bind="css: { active: $data == $parent.pagination.page() }">
+                                <a href="#" data-bind="text: $data, attr: { href: $parent.getLinkForPage($data) }, click: $parent.pagination.page"></a>
+                            </li>
+                        <!-- /ko -->
+                        <li data-bind="with: pagination.maxPageIndex">
+                            <a href='#' data-bind="click: $parent.pagination.page, attr: { href: $parent.getLinkForPage(1) }">&raquo;</a>
                         </li>
                     </ul>
                 </div>
@@ -83,14 +105,20 @@
                 <div class="row-fluid">
                     <div class="span8 blogContent" data-bind="foreach: episodes">
                         <div class="row-fluid blogPost">
+                            
                             <div class="title">
                                 <blockquote>
-                                    <p data-bind="text: name"></p>
+                                    <p style="cursor: pointer" data-bind="click: $root.AppKernel.player.play">
+                                    <!-- ko text: name --><!-- /ko -->&nbsp;&nbsp;<span class="label label-info">New</span>
+                                    </p>                                    
+
                                     <small> <!-- ko text: pub_date --><!-- /ko --> | <!-- ko text: length --><!-- /ko --> </small>
                                 </blockquote>
                             </div>
+               
                             <div class="blogContent">
-                                <p data-bind="html: description">
+                        
+                                <p data-bind="html: description" style="clear:both;">
                                 </p>
                                 <p>
                                     <a href="#" data-bind="attr: { href: link }, text: link"></a>
