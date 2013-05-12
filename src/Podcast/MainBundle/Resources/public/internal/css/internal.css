@@ -176,3 +176,7 @@ width: 10px !important;
 #login-form .control-group label {
     color: #fff;
 }
+
+.playing-now {
+    color: #000 !important;
+}

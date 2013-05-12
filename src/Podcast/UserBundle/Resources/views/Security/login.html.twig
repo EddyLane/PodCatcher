@@ -1,7 +1,3 @@
-d{% if error %}
-<div class="alert alert-error">{{ error|trans({}, 'FOSUserBundle') }}</div>
-{% endif %}
-
 <form action="{{ path("fos_user_security_check") }}" method="post" id="login-form">
     <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
     <div class="control-group">

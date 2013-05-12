@@ -13,17 +13,21 @@
             
             <hr>
 
-        <div style="width: 100%; height: 150px; margin-top:20px;" data-bind="with: AppKernel.player">
-            <p style="color: #000;font-family: 'OpenSansLight';font-size: 16px;font-weight: lighter;" data-bind="text: episode.name"></p>
+        <div style="width: 100%; margin-top:20px; margin-bottom: 20px;" data-bind="with: Player">
+            <div data-bind="with: episode">
+            <p style="color: #000;font-family: 'OpenSansLight';font-size: 16px;font-weight: lighter;" data-bind="text: name">
+            </p>
+            </div>
             <div class="progress progress-striped active">
                 <div class="bar" data-bind="style: { width: progress }"></div>
                 <div class="bar bar-warning" data-bind="style: { width: buffer }"></div>
             </div>
-            <button class="btn-github">
-                <i class="icon-play"></i>
-            </button>
         </div>
-
+            
+            <hr>
+            
+        {% render("FOSUserBundle:Security:login") %}
+            
     </div>
     <div class="span10 content borBox">
         <div data-bind="template: { name: active().template(), data: active() }"></div>
@@ -108,8 +112,8 @@
                             
                             <div class="title">
                                 <blockquote>
-                                    <p style="cursor: pointer" data-bind="click: $root.AppKernel.player.play">
-                                    <!-- ko text: name --><!-- /ko -->&nbsp;&nbsp;<span class="label label-info">New</span>
+                                    <p style="cursor: pointer" data-bind="click: play, style: { color: playing() ? 'black' : ''  }">
+                                        <!-- ko text: name --><!-- /ko -->&nbsp;&nbsp;<span class="label label-info">New</span>
                                     </p>                                    
 
                                     <small> <!-- ko text: pub_date --><!-- /ko --> | <!-- ko text: length --><!-- /ko --> </small>
@@ -152,7 +156,7 @@
                 <div class="span12">
                     <div class="pagination pagination-centered" data-bind="with: pagination">
                         <ul>
-                            <li>
+                            <li data-bind="css: { active: page() == 1 }">
                                 <a href='#' data-bind="attr: { href: Routing.generate('get_podcast_episodes', { slug: $parent.slug, page: 1 }) }">&laquo;</a>
                             </li>
                             <!-- ko foreach: ko.utils.range(1, maxPageIndex) -->
@@ -160,7 +164,7 @@
                                 <a href="#" data-bind="text: $data, attr: { href: Routing.generate('get_podcast_episodes', { slug: $parents[1].slug, page: $data }) }"></a>
                             </li>
                             <!-- /ko -->                          
-                            <li>
+                            <li data-bind="css: { active: page() == maxPageIndex() }">
                                 <a href='#' data-bind="attr: { href: Routing.generate('get_podcast_episodes', { slug: $parent.slug, page: maxPageIndex }) }">&raquo;</a>
                             </li>
                         </ul>
