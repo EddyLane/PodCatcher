@@ -38,29 +38,68 @@ function PodCatcher() {
     }).run();
 }
 soundManager.setup({
-    url: '/bundles/podcastmain/soundmanager/swf'
+    url: '/bundles/podcastmain/soundmanager/swf',
+    onready: function() {
+        var episode = PodCatcher.Player.episode();
+        if(episode) {
+            var sound  = soundManager.createSound({
+                id: episode.id,
+                url: episode.link,
+                autoLoad: true
+            });
+            
+            var loadAmount = PodCatcher.Player.bytesLoaded(),
+                loaded = false;
+        
+        console.log(loadAmount);
+        
+            soundManager.play(episode.id, {
+                
+                whileloading: function() {
+                    
+                    console.log(this.bytesLoaded + " " +loadAmount);
+                    PodCatcher.Player.bytesLoaded(this.bytesLoaded);
+                    if(!loaded && this.bytesLoaded >= loadAmount) {
+                        sound.play({ position: PodCatcher.Player.position() });
+                        loaded = true;
+                    }
+                }
+                
+            });
+        }
+    }
 
 });
 soundManager.defaultOptions.whileplaying = function() {
+    PodCatcher.Player.position(this.position);
     PodCatcher.Player.progress(((this.position / this.duration) * 100) + '%');
 }
 
 soundManager.defaultOptions.whileloading = function() {
+    PodCatcher.Player.bytesLoaded(this.bytesLoaded);
     PodCatcher.Player.buffer(((this.bytesLoaded / this.bytesTotal) * 100) + '%');
 }
 
-PodCatcher.Player = {
-    buffer: ko.observable(),
-    progress: ko.observable(),
-    episode: ko.observable(),
-    history: ko.observableArray([], { persist: 'playerHistory' }),
-    play: function(episode) {
-        
 
-        if (!episode) {
-            soundManager.play();
-        }
-        else if (soundManager.getSoundById(episode.id)) {
+PodCatcher.Player = {
+    buffer: ko.observable(0, { persist: 'playerBuffer' }),
+    progress: ko.observable(0, { persist: 'playerProgress' }),
+    position: ko.observable(0, { persist: 'playerPosition' }),
+    episode: ko.observable(false, { persist: 'playerEpisode' }),
+    bytesLoaded: ko.observable(0, { persist: 'playerLoaded' }),
+    history: ko.observableArray([], { persist: 'playerHistory' }),
+    reset: function() {
+        soundManager.stopAll();
+        this.buffer(0);
+        this.progress(0);
+        this.position(0);
+        this.episode(false);
+    },
+    play: function(episode) {
+
+        PodCatcher.Player.reset();
+
+        if (soundManager.getSoundById(episode.id)) {
             soundManager.play(episode.id);
         }
         else if (PodCatcher.Player.history.indexOf(episode.id) === -1) {
@@ -69,13 +108,14 @@ PodCatcher.Player = {
         
         PodCatcher.Player.episode(episode);
         
-        soundManager.stopAll();
-        soundManager.createSound({
+        var sound = soundManager.createSound({
             id: episode.id,
             url: episode.link,
             autoLoad: true,
             autoPlay: true
         });
+        
+        return sound;
     }
 }
 
@@ -379,24 +419,5 @@ PodCatcher.entity.ListItem.prototype = {
  * Init this nonsense already
  */
 $(document).ready(function() {
-    var Podcatcher = ko.applyBindings(new PodCatcher());
+    ko.applyBindings(new PodCatcher());
 });
-
-(function(ko) {
-    ko.extenders.localStore = function(target, key) {
-        console.log("FUCKFUCKFUCK");
-        var value = amplify.store(key) || target();
-
-        var result = ko.computed({
-            read: target,
-            write: function(newValue) {
-                amplify.store(key, newValue);
-                target(newValue);
-            }
-        });
-
-        result(value);
-
-        return result;
-    };
-})(ko);

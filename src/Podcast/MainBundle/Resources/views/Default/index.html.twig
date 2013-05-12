@@ -5,176 +5,181 @@
 {% block content %}
 
 <div class="row-fluid">
-    <div class="span2 sideBar">
+    <div class="span2 sideBar" data-bind="with: Player">
+        <div class="row-fluid">
+            <div data-bind="with: episode">
+                <p style="color: #000;font-family: 'OpenSansLight';font-size: 16px;font-weight: lighter;" data-bind="text: name"></p>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span2"> 
+                <button class="btn btn-mini btn-block">
+                    <i class="icon-play"></i>
+                </button>
+            </div>
+            <div class="span10"> 
+                <div class="progress progress-striped active">
+                    <div class="bar" data-bind="style: { width: progress }"></div>
+                    <div class="bar bar-warning" data-bind="style: { width: buffer }"></div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+            {#
+        {% render("FOSUserBundle:Security:login") %}
+#}
         <ul>
             <li data-link="home"><figure><i class='icon-home'></i> <div class='menuText'><a href='/'>Home</a></div></figure></li>
             <li data-link="directory" class="active"><figure><i class="icon-th-large"></i> <div class="menuText"><a href='/'>Directory</a></div></figure></li>
         </ul>
-            
-            <hr>
-
-        <div style="width: 100%; margin-top:20px; margin-bottom: 20px;" data-bind="with: Player">
-            <div data-bind="with: episode">
-            <p style="color: #000;font-family: 'OpenSansLight';font-size: 16px;font-weight: lighter;" data-bind="text: name">
-            </p>
-            </div>
-            <div class="progress progress-striped active">
-                <div class="bar" data-bind="style: { width: progress }"></div>
-                <div class="bar bar-warning" data-bind="style: { width: buffer }"></div>
-            </div>
-        </div>
-            
-            <hr>
-            
-        {% render("FOSUserBundle:Security:login") %}
-            
     </div>
     <div class="span10 content borBox">
         <div data-bind="template: { name: active().template(), data: active() }"></div>
-        
-    <script type="text/html" id="view-podcast-finder">
-        <div class='row-fluid' data-bind="with: pagination">
+
+        <script type="text/html" id="view-podcast-finder">
+            <div class='row-fluid' data-bind="with: pagination">
             <div class="span8" data-bind="with: organizations">
-                <div class='page-header'>
-                    <h2 class='hBig'>Organization
-                        <small class="pull-right" style="cursor: pointer" data-bind="click: $parent.clearSelected">Clear</small>
-                    </h2>
-                </div>
-                <ul class="nav nav-stacked nav-pills" data-bind="foreach: $data" style="height: 200px; overflow: auto; padding: 5px;">
-                    <li data-bind="css: { active: selected }"><a href="#" data-bind="text: name, click: $parents[1].toggleItem, attr: { href: Routing.generate('get_organization', { slug: slug }) }"></a></li>
-                </ul>
+            <div class='page-header'>
+            <h2 class='hBig'>Organization
+            <small class="pull-right" style="cursor: pointer" data-bind="click: $parent.clearSelected">Clear</small>
+            </h2>
+            </div>
+            <ul class="nav nav-stacked nav-pills" data-bind="foreach: $data" style="height: 200px; overflow: auto; padding: 5px;">
+            <li data-bind="css: { active: selected }"><a href="#" data-bind="text: name, click: $parents[1].toggleItem, attr: { href: Routing.generate('get_organization', { slug: slug }) }"></a></li>
+            </ul>
             </div>
             <div class="span4" data-bind="with: categories">
-                <div class='page-header'>
-                    <h2 class='hBig'>Category
-                        <small class="pull-right" style="cursor: pointer" data-bind="click: $parent.clearSelected">Clear</small>
-                    </h2>
-                </div>       
-                <ul class="nav nav-stacked nav-pills" data-bind="foreach: $data" style="height: 200px; overflow: auto; padding: 5px;">
-                      <li data-bind="css: { active: selected }"><a href="#" data-bind="text: name, click: $parents[1].toggleItem, attr: { href: Routing.generate('get_category', { slug: slug }) }"></a></li>
-                </ul>
+            <div class='page-header'>
+            <h2 class='hBig'>Category
+            <small class="pull-right" style="cursor: pointer" data-bind="click: $parent.clearSelected">Clear</small>
+            </h2>
+            </div>       
+            <ul class="nav nav-stacked nav-pills" data-bind="foreach: $data" style="height: 200px; overflow: auto; padding: 5px;">
+            <li data-bind="css: { active: selected }"><a href="#" data-bind="text: name, click: $parents[1].toggleItem, attr: { href: Routing.generate('get_category', { slug: slug }) }"></a></li>
+            </ul>
             </div>
-        </div>
+            </div>
 
-        <div class='page-header'>
+            <div class='page-header'>
             <h1 class='hBig'>Podcasts
 
             </h1>
-                <ul class="nav nav-tabs" data-bind="foreach: sorts">
-                    <li class="pull-right" data-bind="css: { active: ( $data == $parent.pagination.sort() ) }">
-                        <a href="#" data-bind="click: $parent.pagination.sort"><!-- ko text: name --><!-- /ko --></a>
-                    </li>
-                </ul>
-        </div>
-
-        <div class='row-fluid gallery photo' data-bind="foreach: podcasts">
-            <figure class='tile'>
-                <a data-bind="attr: { href: Routing.generate('get_podcast', { slug: slug }) }">
-                    <img data-bind="attr: { alt: name, src: image }">
-                </a>
-            </figure>
-        </div>
-         
-        <div class="row-fluid">
-            <div class="span12">
-                <div class="pagination pagination-centered">
-                    <ul>
-                        <li data-bind="with: 1">
-                            <a href='#' data-bind="click: $parent.pagination.page, attr: { href: $parent.getLinkForPage(1) }">&laquo;</a>
-                        </li>
-                        <!-- ko foreach: ko.utils.range(pagination.displayFirstPage, pagination.displayLastPage) -->
-                            <li data-bind="css: { active: $data == $parent.pagination.page() }">
-                                <a href="#" data-bind="text: $data, attr: { href: $parent.getLinkForPage($data) }, click: $parent.pagination.page"></a>
-                            </li>
-                        <!-- /ko -->
-                        <li data-bind="with: pagination.maxPageIndex">
-                            <a href='#' data-bind="click: $parent.pagination.page, attr: { href: $parent.getLinkForPage(1) }">&raquo;</a>
-                        </li>
-                    </ul>
-                </div>
+            <ul class="nav nav-tabs" data-bind="foreach: sorts">
+            <li class="pull-right" data-bind="css: { active: ( $data == $parent.pagination.sort() ) }">
+            <a href="#" data-bind="click: $parent.pagination.sort"><!-- ko text: name --><!-- /ko --></a>
+            </li>
+            </ul>
             </div>
-        </div>
+
+            <div class='row-fluid gallery photo' data-bind="foreach: podcasts">
+            <figure class='tile'>
+            <a data-bind="attr: { href: Routing.generate('get_podcast', { slug: slug }) }">
+            <img data-bind="attr: { alt: name, src: image }">
+            </a>
+            </figure>
+            </div>
+
+            <div class="row-fluid">
+            <div class="span12">
+            <div class="pagination pagination-centered">
+            <ul>
+            <li data-bind="with: 1">
+            <a href='#' data-bind="click: $parent.pagination.page, attr: { href: $parent.getLinkForPage(1) }">&laquo;</a>
+            </li>
+            <!-- ko foreach: ko.utils.range(pagination.displayFirstPage, pagination.displayLastPage) -->
+            <li data-bind="css: { active: $data == $parent.pagination.page() }">
+            <a href="#" data-bind="text: $data, attr: { href: $parent.getLinkForPage($data) }, click: $parent.pagination.page"></a>
+            </li>
+            <!-- /ko -->
+            <li data-bind="with: pagination.maxPageIndex">
+            <a href='#' data-bind="click: $parent.pagination.page, attr: { href: $parent.getLinkForPage(1) }">&raquo;</a>
+            </li>
+            </ul>
+            </div>
+            </div>
+            </div>
         </script>
         <script id="view-podcast" type="text/html">
             <div data-bind="with: podcast">
-                <div class="page-header">
-                    <h1 class="hBig"><!-- ko text: name --><!-- /ko -->
-                        <small>Episodes</small>
-                    </h1>
+            <div class="page-header">
+            <h1 class="hBig"><!-- ko text: name --><!-- /ko -->
+            <small>Episodes</small>
+            </h1>
 
 
-                </div>
+            </div>
 
 
-                <div class="row-fluid">
-                    <div class="span8 blogContent" data-bind="foreach: episodes">
-                        <div class="row-fluid blogPost">
-                            
-                            <div class="title">
-                                <blockquote>
-                                    <p style="cursor: pointer" data-bind="click: play, style: { color: isPlaying() ? 'black' : ''  }">
-                                        <!-- ko text: name --><!-- /ko -->&nbsp;&nbsp;
-                                        <span class="label label-info" data-bind="visible: isNew">New</span>
-                                    </p>                                    
-
-                                    <small> <!-- ko text: pub_date --><!-- /ko --> | <!-- ko text: length --><!-- /ko --> </small>
-                                </blockquote>
-                            </div>
-               
-                            <div class="blogContent">
-                        
-                                <p data-bind="html: description" style="clear:both;">
-                                </p>
-                                <p>
-                                    <a href="#" data-bind="attr: { href: link }, text: link"></a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="span4 blogSide">
-                        <div>
-                            <img style="width:100%; height: auto; border: 1px solid #D2D2D2; max-width: 300px;" data-bind="attr: { src: image }">
-                        </div>
-                        <hr>
-                        <div class="tags">
-                            <h6>Categories</h6>
-                            <ul class="unstyled" data-bind="foreach: categories">
-                                <li>
-                                    <a data-bind="text: name, attr: { href: Routing.generate('get_category', { slug: slug }) }" style="color: white"></a>
-                                </li>
-                            </ul>
-                            <h6>Organizations</h6>
-                            <ul class="unstyled" data-bind="foreach: organizations">
-                                <li>
-                                    <a data-bind="text: name, attr: { href: Routing.generate('get_organization', { slug: slug }) }" style="color: white"></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-        
             <div class="row-fluid">
-                <div class="span12">
-                    <div class="pagination pagination-centered" data-bind="with: pagination">
-                        <ul>
-                            <li data-bind="css: { active: page() == 1 }">
-                                <a href='#' data-bind="attr: { href: Routing.generate('get_podcast_episodes', { slug: $parent.slug, page: 1 }) }">&laquo;</a>
-                            </li>
-                            <!-- ko foreach: ko.utils.range(1, maxPageIndex) -->
-                            <li data-bind="css: { active: ($data) == $parent.page() }">
-                                <a href="#" data-bind="text: $data, attr: { href: Routing.generate('get_podcast_episodes', { slug: $parents[1].slug, page: $data }) }"></a>
-                            </li>
-                            <!-- /ko -->                          
-                            <li data-bind="css: { active: page() == maxPageIndex() }">
-                                <a href='#' data-bind="attr: { href: Routing.generate('get_podcast_episodes', { slug: $parent.slug, page: maxPageIndex }) }">&raquo;</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+            <div class="span8 blogContent" data-bind="foreach: episodes">
+            <div class="row-fluid blogPost">
+
+            <div class="title">
+            <blockquote>
+            <p style="cursor: pointer" data-bind="click: play, style: { color: isPlaying() ? 'black' : ''  }">
+            <!-- ko text: name --><!-- /ko -->&nbsp;&nbsp;
+            <span class="label label-info" data-bind="visible: isNew">New</span>
+            </p>                                    
+
+            <small> <!-- ko text: pub_date --><!-- /ko --> | <!-- ko text: length --><!-- /ko --> </small>
+            </blockquote>
+            </div>
+
+            <div class="blogContent">
+
+            <p data-bind="html: description" style="clear:both;">
+            </p>
+            <p>
+            <a href="#" data-bind="attr: { href: link }, text: link"></a>
+            </p>
+            </div>
+            </div>
+            </div>
+            <div class="span4 blogSide">
+            <div>
+            <img style="width:100%; height: auto; border: 1px solid #D2D2D2; max-width: 300px;" data-bind="attr: { src: image }">
+            </div>
+            <hr>
+            <div class="tags">
+            <h6>Categories</h6>
+            <ul class="unstyled" data-bind="foreach: categories">
+            <li>
+            <a data-bind="text: name, attr: { href: Routing.generate('get_category', { slug: slug }) }" style="color: white"></a>
+            </li>
+            </ul>
+            <h6>Organizations</h6>
+            <ul class="unstyled" data-bind="foreach: organizations">
+            <li>
+            <a data-bind="text: name, attr: { href: Routing.generate('get_organization', { slug: slug }) }" style="color: white"></a>
+            </li>
+            </ul>
+            </div>
+            </div>
+            </div>
+
+            <div class="row-fluid">
+            <div class="span12">
+            <div class="pagination pagination-centered" data-bind="with: pagination">
+            <ul>
+            <li data-bind="css: { active: page() == 1 }">
+            <a href='#' data-bind="attr: { href: Routing.generate('get_podcast_episodes', { slug: $parent.slug, page: 1 }) }">&laquo;</a>
+            </li>
+            <!-- ko foreach: ko.utils.range(1, maxPageIndex) -->
+            <li data-bind="css: { active: ($data) == $parent.page() }">
+            <a href="#" data-bind="text: $data, attr: { href: Routing.generate('get_podcast_episodes', { slug: $parents[1].slug, page: $data }) }"></a>
+            </li>
+            <!-- /ko -->                          
+            <li data-bind="css: { active: page() == maxPageIndex() }">
+            <a href='#' data-bind="attr: { href: Routing.generate('get_podcast_episodes', { slug: $parent.slug, page: maxPageIndex }) }">&raquo;</a>
+            </li>
+            </ul>
+            </div>
+            </div>
             </div>        
             </div>
         </script>
-        </div>
     </div>
+</div>
 
 {% endblock %}
