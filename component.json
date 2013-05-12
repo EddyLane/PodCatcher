@@ -5,6 +5,7 @@
     "jquery": "~1.9.1",
     "bootstrap": "latest",
     "angular": "git://github.com/angular/bower-angular.git",
-    "soundmanager": "latest"
+    "soundmanager": "latest",
+    "knockout.localStorage": "git://github.com/jimrhoskins/knockout.localStorage.git"
   }
 }

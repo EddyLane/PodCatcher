@@ -112,8 +112,9 @@
                             
                             <div class="title">
                                 <blockquote>
-                                    <p style="cursor: pointer" data-bind="click: play, style: { color: playing() ? 'black' : ''  }">
-                                        <!-- ko text: name --><!-- /ko -->&nbsp;&nbsp;<span class="label label-info">New</span>
+                                    <p style="cursor: pointer" data-bind="click: play, style: { color: isPlaying() ? 'black' : ''  }">
+                                        <!-- ko text: name --><!-- /ko -->&nbsp;&nbsp;
+                                        <span class="label label-info" data-bind="visible: isNew">New</span>
                                     </p>                                    
 
                                     <small> <!-- ko text: pub_date --><!-- /ko --> | <!-- ko text: length --><!-- /ko --> </small>

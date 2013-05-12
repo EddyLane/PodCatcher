@@ -53,16 +53,20 @@ PodCatcher.Player = {
     buffer: ko.observable(),
     progress: ko.observable(),
     episode: ko.observable(),
+    history: ko.observableArray([], { persist: 'playerHistory' }),
     play: function(episode) {
         
 
         if (!episode) {
-            return soundManager.play();
+            soundManager.play();
         }
         else if (soundManager.getSoundById(episode.id)) {
-            return soundManager.play(episode.id);
+            soundManager.play(episode.id);
         }
-
+        else if (PodCatcher.Player.history.indexOf(episode.id) === -1) {
+            PodCatcher.Player.history.push(episode.id);
+        }
+        
         PodCatcher.Player.episode(episode);
         
         soundManager.stopAll();
@@ -175,27 +179,26 @@ PodCatcher.entity = {
         this.pub_date = data.pub_date;
         this.link = data.link;
         this.cb = cb;
-        this.playing = ko.computed(function() {
-            
-            var playing = PodCatcher.Player.episode();
-            if(!playing) {
-                return false;
-            }
-            console.log(this.id+" : "+playing.id);
-            return this.id === playing.id;
-        }, this);
-
+        this.isPlaying = ko.computed(this.isPlaying, this);
+        this.isNew = ko.computed(this.isNew, this);
     }
 
 }
 
 PodCatcher.entity.Episode.prototype = {
-    
     play: function() {
         this.cb(this);
+    },
+    isPlaying: function() {
+        var playing = PodCatcher.Player.episode();
+        if (!playing) {
+            return false;
+        }
+        return this.id === playing.id;
+    },
+    isNew: function() {
+        return (PodCatcher.Player.history.indexOf(this.id) === -1) ? true: false;
     }
-    
-    
 }
 
 PodCatcher.BasePaginator = function(cb, parameters, results) {
@@ -378,3 +381,22 @@ PodCatcher.entity.ListItem.prototype = {
 $(document).ready(function() {
     var Podcatcher = ko.applyBindings(new PodCatcher());
 });
+
+(function(ko) {
+    ko.extenders.localStore = function(target, key) {
+        console.log("FUCKFUCKFUCK");
+        var value = amplify.store(key) || target();
+
+        var result = ko.computed({
+            read: target,
+            write: function(newValue) {
+                amplify.store(key, newValue);
+                target(newValue);
+            }
+        });
+
+        result(value);
+
+        return result;
+    };
+})(ko);
