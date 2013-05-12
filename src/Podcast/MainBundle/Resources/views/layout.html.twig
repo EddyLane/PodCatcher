@@ -19,7 +19,7 @@
         <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
         <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
         <!-- /fos_js_routing -->
-        
+
 
         {% javascripts
             '@PodcastMainBundle/Resources/public/jquery/jquery.js'
@@ -47,7 +47,7 @@
         %}
         <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
-        
+
 
     </head>
     <body>
@@ -56,7 +56,7 @@
             <header class="borBox row-fluid pat-lightwool">
                 <div class="span2 pull-left subHeadInner">
 
-                
+
                 </div>
                 <div class="span7 pull-left">
                     <br/>
@@ -146,6 +146,11 @@
                     </div>
                 </div>
             </div>
-
-        </body>
-    </html>
+        <script type="text/html" id="view-podcast-finder">
+            {% include 'PodcastMainBundle:Podcast:getPodcasts.html.twig' %}
+        </script>
+        <script id="view-podcast" type="text/html">
+            {% include 'PodcastMainBundle:Podcast:getPodcast.html.twig' %}
+        </script>
+    </body>
+</html>

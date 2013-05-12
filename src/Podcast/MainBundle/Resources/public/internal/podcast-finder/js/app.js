@@ -41,30 +41,27 @@ soundManager.setup({
     url: '/bundles/podcastmain/soundmanager/swf',
     onready: function() {
         var episode = PodCatcher.Player.episode();
-        if(episode) {
-            var sound  = soundManager.createSound({
+        if (episode) {
+            var sound = soundManager.createSound({
                 id: episode.id,
                 url: episode.link,
                 autoLoad: true
             });
-            
-            var loadAmount = PodCatcher.Player.bytesLoaded(),
-                loaded = false;
-        
-        console.log(loadAmount);
-        
+
+            var progress = PodCatcher.Player.progress();
+            var loadAmount = progress.substring(0, progress.length - 1);
+            loaded = false;
+
             soundManager.play(episode.id, {
-                
                 whileloading: function() {
-                    
-                    console.log(this.bytesLoaded + " " +loadAmount);
+
                     PodCatcher.Player.bytesLoaded(this.bytesLoaded);
-                    if(!loaded && this.bytesLoaded >= loadAmount) {
-                        sound.play({ position: PodCatcher.Player.position() });
+                    if (!loaded && ((this.bytesLoaded / this.bytesTotal) * 100) >= loadAmount) {
+                        sound.play({position: PodCatcher.Player.position()});
                         loaded = true;
                     }
                 }
-                
+
             });
         }
     }
@@ -75,20 +72,29 @@ soundManager.defaultOptions.whileplaying = function() {
     PodCatcher.Player.progress(((this.position / this.duration) * 100) + '%');
 }
 
+soundManager.defaultOptions.onload = function() {
+    PodCatcher.Player.loading(false);
+}
+
 soundManager.defaultOptions.whileloading = function() {
+    PodCatcher.Player.loading(true);
     PodCatcher.Player.bytesLoaded(this.bytesLoaded);
     PodCatcher.Player.buffer(((this.bytesLoaded / this.bytesTotal) * 100) + '%');
 }
 
-
 PodCatcher.Player = {
-    buffer: ko.observable(0, { persist: 'playerBuffer' }),
-    progress: ko.observable(0, { persist: 'playerProgress' }),
-    position: ko.observable(0, { persist: 'playerPosition' }),
-    episode: ko.observable(false, { persist: 'playerEpisode' }),
-    bytesLoaded: ko.observable(0, { persist: 'playerLoaded' }),
-    history: ko.observableArray([], { persist: 'playerHistory' }),
-    reset: function() {
+    status: [
+        "playing",
+        "stopped"
+    ],
+    buffer: ko.observable(0, {persist: 'playerBuffer'}),
+    progress: ko.observable(0, {persist: 'playerProgress'}),
+    position: ko.observable(0, {persist: 'playerPosition'}),
+    episode: ko.observable(false, {persist: 'playerEpisode'}),
+    bytesLoaded: ko.observable(0, {persist: 'playerLoaded'}),
+    history: ko.observableArray([], {persist: 'playerHistory'}),
+    loading: ko.observable(false),
+    stop: function() {
         soundManager.stopAll();
         this.buffer(0);
         this.progress(0);
@@ -97,24 +103,23 @@ PodCatcher.Player = {
     },
     play: function(episode) {
 
-        PodCatcher.Player.reset();
+        PodCatcher.Player.stop();
+
+        PodCatcher.Player.history.push(episode.id);
 
         if (soundManager.getSoundById(episode.id)) {
-            soundManager.play(episode.id);
+            return soundManager.play(episode.id);
         }
-        else if (PodCatcher.Player.history.indexOf(episode.id) === -1) {
-            PodCatcher.Player.history.push(episode.id);
-        }
-        
+
         PodCatcher.Player.episode(episode);
-        
+
         var sound = soundManager.createSound({
             id: episode.id,
             url: episode.link,
             autoLoad: true,
             autoPlay: true
         });
-        
+
         return sound;
     }
 }
@@ -148,12 +153,10 @@ PodCatcher.PodcastFinder = function() {
 };
 //Set our observable arrays up
 PodCatcher.PodcastFinder.prototype = {
-    
     sorts: [
         {name: 'Last Updated', sort: 'updated', direction: 'desc'},
         {name: 'A-Z', sort: 'name', direction: 'asc'}
     ],
-
     getLinkForPage: function(page) {
         var sort = this.pagination.sort() || this.sorts[1];
         return Routing.generate('get_podcasts', {
@@ -211,7 +214,7 @@ PodCatcher.entity = {
         this.__construct();
     },
     Episode: function(data, cb) {
-        
+
         this.id = data.id;
         this.name = data.name;
         this.description = data.description;
@@ -237,7 +240,7 @@ PodCatcher.entity.Episode.prototype = {
         return this.id === playing.id;
     },
     isNew: function() {
-        return (PodCatcher.Player.history.indexOf(this.id) === -1) ? true: false;
+        return (PodCatcher.Player.history.indexOf(this.id) === -1) ? true : false;
     }
 }
 
