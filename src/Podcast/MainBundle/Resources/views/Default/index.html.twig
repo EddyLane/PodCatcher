@@ -17,9 +17,12 @@
             </div>
         </div>
         <div class="row-fluid">
-            <div class="span2"> 
-                <a class="btn btn-link" data-bind="click: stop">
+            <div class="span2" data-bind="with: episode"> 
+                <a class="btn btn-mini btn-link" data-bind="click: $parent.stop, visible: $parent.playing">
                     <i class="icon-stop"></i>
+                </a>
+                <a class="btn btn-mini btn-link" data-bind="click: $parent.play, visible: !$parent.playing()">
+                    <i class="icon-play"></i>
                 </a>
             </div>
             <div class="span10"> 
@@ -31,18 +34,21 @@
         </div>
 
         <hr>
-            {#
-        {% render("FOSUserBundle:Security:login") %}
-#}
         <ul>
             <li data-link="home"><figure><i class='icon-home'></i> <div class='menuText'><a href='/'>Home</a></div></figure></li>
             <li data-link="directory" class="active"><figure><i class="icon-th-large"></i> <div class="menuText"><a href='/'>Directory</a></div></figure></li>
         </ul>
+        
+        <hr>
+        
+                {% render("PodcastUserBundle:Security:login") %}
+
+        
     </div>
     <div class="span10 content borBox">
-        
+
         <div data-bind="template: { name: active().template(), data: active() }"></div>
-        
+
     </div>
 </div>
 

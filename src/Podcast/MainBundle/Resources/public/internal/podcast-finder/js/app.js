@@ -45,21 +45,22 @@ soundManager.setup({
             var sound = soundManager.createSound({
                 id: episode.id,
                 url: episode.link,
-                autoLoad: true
+                autoLoad: true,
             });
 
             var progress = PodCatcher.Player.progress();
-            var loadAmount = progress.substring(0, progress.length - 1);
+           
+            var loadAmount = (progress) ? progress.substring(0, progress.length - 1) : 0;
             loaded = false;
 
             soundManager.play(episode.id, {
                 whileloading: function() {
-
+                    console.log(!loaded && ((this.bytesLoaded / this.bytesTotal) * 100) >= loadAmount);
                     PodCatcher.Player.bytesLoaded(this.bytesLoaded);
-                    if (!loaded && ((this.bytesLoaded / this.bytesTotal) * 100) >= loadAmount) {
-                        sound.play({position: PodCatcher.Player.position()});
-                        loaded = true;
-                    }
+//                    if (!loaded && ((this.bytesLoaded / this.bytesTotal) * 100) >= loadAmount) {
+//                        sound.play({position: PodCatcher.Player.position()});
+//                        loaded = true;
+//                    }
                 }
 
             });
@@ -83,10 +84,8 @@ soundManager.defaultOptions.whileloading = function() {
 }
 
 PodCatcher.Player = {
-    status: [
-        "playing",
-        "stopped"
-    ],
+
+    playing: ko.observable(false),
     buffer: ko.observable(0, {persist: 'playerBuffer'}),
     progress: ko.observable(0, {persist: 'playerProgress'}),
     position: ko.observable(0, {persist: 'playerPosition'}),
@@ -96,20 +95,28 @@ PodCatcher.Player = {
     loading: ko.observable(false),
     stop: function() {
         soundManager.stopAll();
+        
         this.buffer(0);
         this.progress(0);
         this.position(0);
-        this.episode(false);
+        PodCatcher.Player.playing(false);
+        PodCatcher.Player.loading(false);
+        return PodCatcher.Player.episode();
     },
     play: function(episode) {
 
-        PodCatcher.Player.stop();
+        PodCatcher.Player.playing(true);
 
-        PodCatcher.Player.history.push(episode.id);
+        var isPlaying = PodCatcher.Player.stop();
 
         if (soundManager.getSoundById(episode.id)) {
-            return soundManager.play(episode.id);
+            return soundManager.play(episode.id, {
+                position: PodCatcher.Player.position()
+            });
         }
+
+
+        PodCatcher.Player.history.push(episode.id);
 
         PodCatcher.Player.episode(episode);
 
@@ -117,7 +124,7 @@ PodCatcher.Player = {
             id: episode.id,
             url: episode.link,
             autoLoad: true,
-            autoPlay: true
+            autoPlay: true,
         });
 
         return sound;
@@ -149,7 +156,7 @@ PodCatcher.PodcastController.prototype = {
 PodCatcher.PodcastFinder = function() {
     this.template = ko.observable('view-podcast-finder');
     this.podcasts = ko.observableArray();
-    this.pagination = new PodCatcher.PodcastFinderPaginator(this.refresh, {_format: 'json', sort: this.sorts[0]}, this.podcasts);
+    this.pagination = new PodCatcher.PodcastFinderPaginator(this.refresh, {_format: 'json', sort: this.sorts[0], amount: 16 }, this.podcasts);
 };
 //Set our observable arrays up
 PodCatcher.PodcastFinder.prototype = {
@@ -210,8 +217,6 @@ PodCatcher.entity = {
         this.image = data.image;
         this.episodes = ko.observableArray();
         this.pagination = new PodCatcher.Paginator(this.getEpisodesAction, {_format: 'json', slug: this.slug, page: data.page}, this.episodes);
-
-        this.__construct();
     },
     Episode: function(data, cb) {
 
@@ -315,9 +320,17 @@ PodCatcher.Paginator = function(cb, parameters, results) {
 
 PodCatcher.PodcastFinderPaginator = function(cb, parameters, results) {
 
-    var self = this;
-
     PodCatcher.BasePaginator.call(this, cb, parameters, results);
+
+    var self = this,
+        refresh = function() {
+        self.refresh(self.getRefreshParameters(self.categories(), self.organizations()));
+    };
+    
+    
+    this.page.subscribe(refresh);
+    this.amount.subscribe(refresh);
+    this.sort.subscribe(refresh);    
 
     this.categories = ko.observableArray();
     this.organizations = ko.observableArray();
@@ -325,19 +338,9 @@ PodCatcher.PodcastFinderPaginator = function(cb, parameters, results) {
     this.loadListItems('get_categories', this.categories);
     this.loadListItems('get_organizations', this.organizations);
 
-    this.page.subscribe(function() {
-        self.refresh(self.getRefreshParameters(self.categories(), self.organizations()));
-    });
-    this.amount.subscribe(function() {
-        self.refresh(self.getRefreshParameters(self.categories(), self.organizations()));
-    });
-    this.sort.subscribe(function() {
-        self.refresh(self.getRefreshParameters(self.categories(), self.organizations()));
-    });
-
     this.toggleItem = function(item) {
         item.toggle();
-        self.refresh(self.getRefreshParameters(self.categories(), self.organizations()));
+        refresh();
     }
 }
 
@@ -388,8 +391,6 @@ PodCatcher.Paginator.prototype = {
 
 
 PodCatcher.entity.Podcast.prototype = {
-    __construct: function() {
-    },
     getEpisodesAction: function(parameters) {
         var self = this;
         $.get(Routing.generate('get_podcast_episodes', {_format: 'json', slug: parameters.slug, page: parameters.page}), function(response) {

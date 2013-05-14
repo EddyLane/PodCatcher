@@ -36,9 +36,6 @@
 
             '@PodcastMainBundle/Resources/public/sammy/lib/sammy.js'
 
-            '@PodcastMainBundle/Resources/public/internal/virgin/js/showdown.js'
-            '@PodcastMainBundle/Resources/public/internal/virgin/js/main.js'
-
             '@PodcastMainBundle/Resources/public/knockout/build/output/knockout-latest.js'
 
             '@PodcastMainBundle/Resources/public/knockout.localStorage/knockout.localStorage.js'
@@ -76,13 +73,12 @@
                     </div>
                 </div>
 
-
             </header>
             <section class="subHead">
                 <section class="row-fluid subHeadInner borBox">
                     <div class='span12'>
 
-                        <h3 class='pull-left welcome'>Now playing</h3>
+                        <h3 class='pull-left welcome'></h3>
                         <figure class='menuButton btn sharp btn-success'><i class='icon-white icon-th-list'></i> Menu</figure>
                         <div class='form-horizontal centerOnPage' >
                             <div class="input-append">
@@ -119,12 +115,26 @@
                 </footer>
             </div>
 
-
-            <!-- ##### MODALS #####- -->
-            <div class='modal fade hide' id="thisModal">
-
+            
+            <div id="loginModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="myModalLabel">Modal header</h3>
+                </div>
+                <div class="modal-body">
+                    <p>Enter Credentials</p><br/>
+                    <form class="form form-vertical sharp" method="post" action="/user/Login">
+                        <input type="text" placeholder="Enter UserName/Email" name="email"/><br/>
+                        <input type="password" placeholder="Password" name="pass"/><br/>
+                        <button class="btn" type="submit">Sign In</button>
+                        <a class="btn btn-info" href="/register">Register</a>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                    <button class="btn btn-primary">Save changes</button>
+                </div>
             </div>
-
 
             <!-- ### BACKGROUND DIV -->
             <div class='bg'>
@@ -146,6 +156,21 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="modal hide fade">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3>Modal header</h3>
+                </div>
+                <div class="modal-body">
+                    <p>One fine body…</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn">Close</a>
+                    <a href="#" class="btn btn-primary">Save changes</a>
+                </div>
+            </div> 
+            
         <script type="text/html" id="view-podcast-finder">
             {% include 'PodcastMainBundle:Podcast:getPodcasts.html.twig' %}
         </script>
