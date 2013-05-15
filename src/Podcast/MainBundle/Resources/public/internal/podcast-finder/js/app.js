@@ -10,6 +10,7 @@ function PodCatcher() {
     this.AppKernel = {
         podcastFinder: new PodCatcher.PodcastFinder(),
         podcastController: new PodCatcher.PodcastController(),
+        user: new PodCatcher.User({ username: $('#username'), password: $('#password'), csrf_token: $('#csrf_token')})
     };
 
     this.Player = PodCatcher.Player;
@@ -83,16 +84,39 @@ soundManager.defaultOptions.whileloading = function() {
     PodCatcher.Player.buffer(((this.bytesLoaded / this.bytesTotal) * 100) + '%');
 }
 
+
+PodCatcher.User = function(configuration) {
+    var self = this;
+    this.error = ko.observable();
+    this.login = function() {
+        $.ajax({
+            type: 'POST',
+            url: Routing.generate('fos_user_security_check'),
+            dataType: 'json',
+            data: {
+                _username: configuration.username.val(),
+                _password: configuration.password.val(),
+                _csrf_token: configuration.csrf_token.val()
+            },
+            error: function(xhr, status, error) {
+                console.log(xhr);
+                this.error(xhr.responseText);
+            }
+        });
+
+    };
+}
+
 PodCatcher.Player = {
 
     playing: ko.observable(false),
+    loading: ko.observable(false),
     buffer: ko.observable(0, {persist: 'playerBuffer'}),
     progress: ko.observable(0, {persist: 'playerProgress'}),
     position: ko.observable(0, {persist: 'playerPosition'}),
     episode: ko.observable(false, {persist: 'playerEpisode'}),
     bytesLoaded: ko.observable(0, {persist: 'playerLoaded'}),
     history: ko.observableArray([], {persist: 'playerHistory'}),
-    loading: ko.observable(false),
     stop: function() {
         soundManager.stopAll();
         

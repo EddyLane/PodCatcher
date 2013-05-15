@@ -14,11 +14,23 @@ namespace Podcast\UserBundle\Controller;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContext;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 use FOS\UserBundle\Controller\SecurityController as FOSSecurityController;
 
+/**
+ * Security controller.
+ * @Route("/security")
+*/
 class SecurityController extends FOSSecurityController
 {
+    
+    /**
+     * @Route("/login", name="login")
+     * @Method({"POST"})
+     */
     public function loginAction(Request $request)
     {
         /** @var $session \Symfony\Component\HttpFoundation\Session\Session */

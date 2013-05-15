@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Podcast\MainBundle\Handler;
+namespace Podcast\UserBundle\Handler;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
@@ -19,48 +19,47 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerI
 use Symfony\Component\Security\Http\Authentication\AuthenticationFailureHandlerInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
-class AuthenticationHandler implements AuthenticationSuccessHandlerInterface,
-    AuthenticationFailureHandlerInterface
-{
+use Symfony\Component\HttpFoundation\JsonResponse;
+
+class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, AuthenticationFailureHandlerInterface {
+
     private $router;
 
-    public function __construct(Router $router)
-    {
+    public function __construct(Router $router) {
         $this->router = $router;
     }
 
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token)
-    {
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token) {
         if ($request->isXmlHttpRequest()) {
-            $user = $token->getUser();
+            // Handle XHR here
+            return new Response('Logged in bizatch');
+        } else {
+            // If the user tried to access a protected resource and was forces to login
+            // redirect him back to that resource
+            if ($targetPath = $request->getSession()->get('_security.target_path')) {
+                $url = $targetPath;
+            } else {
+                // Otherwise, redirect him to wherever you want
+                $url = $this->router->generate('user_view', array(
+                    'nickname' => $token->getUser()->getNickname()
+                ));
+            }
 
-            $result = array('success' => true, 'user' => $user->getPublicData());
-
-            $response = new Response(json_encode($result));
-
-            $response->headers->set('Content-Type', 'application/json');
-
-            return $response;
+            return new RedirectResponse($url);
         }
     }
 
-    /**
-     * This is called when an interactive authentication attempt fails. This is
-     * called by authentication listeners inheriting from
-     * AbstractAuthenticationListener.
-     *
-     * @param  Request                 $request
-     * @param  AuthenticationException $exception
-     * @return Response                the response to return
-     */
-    public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
-    {
+    public function onAuthenticationFailure(Request $request, AuthenticationException $exception) {
         if ($request->isXmlHttpRequest()) {
-            $result = array('success' => false, 'message' => $exception->getMessage());
-            $response = new Response(json_encode($result));
-            $response->headers->set('Content-Type', 'application/json');
+            // Handle XHR here
+            return new JsonResponse($exception->getMessage(), 400);
+        } else {
+            // Create a flash message with the authentication error message
+            $request->getSession()->setFlash('error', $exception->getMessage());
+            $url = $this->router->generate('user_login');
 
-            return $response;
+            return new RedirectResponse($url);
         }
     }
+
 }

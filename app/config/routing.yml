@@ -1,13 +1,3 @@
-podcast_admin:
-    resource: "@PodcastAdminBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
-podcast_user:
-    resource: "@PodcastUserBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
 # Internal routing configuration to handle ESI
 # ****** WARNING ******
 # This route should be enabled with caution as it can open a security vulnerability
@@ -27,9 +17,18 @@ PodcastMainBundle:
    prefix:   /
    options:
      expose: true
+
+PodcastUserBundle:
+   type: rest
+   resource: "@PodcastUserBundle/Resources/config/routing.yml"
+   prefix:   /
+   options:
+     expose: true
      
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+    options:
+      expose: true
 
 fos_user_profile:
     resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
