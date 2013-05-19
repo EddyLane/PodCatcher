@@ -25,10 +25,10 @@
         "friendsofsymfony/rest-bundle": "*",
         "friendsofsymfony/jsrouting-bundle": "master",
         "leafo/lessphp": "~0.3",
-        "braincrafted/bootstrap-bundle": "master",
         "knplabs/knp-menu-bundle":"dev-master",
         "knplabs/knp-paginator-bundle": "dev-master",
-        "fkr/simplepie-bundle": "1.0.*"
+        "fkr/simplepie-bundle": "1.0.*",
+        "mopa/bootstrap-bundle": "2.1.*"
     },
     "require-dev": {
         "nelmio/alice": "1.4.*@dev",

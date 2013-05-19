@@ -87,6 +87,7 @@ soundManager.defaultOptions.whileloading = function() {
 
 PodCatcher.User = function(configuration) {
     var self = this;
+    this.username = ko.observable();
     this.error = ko.observable();
     this.login = function() {
         $.ajax({
@@ -98,13 +99,18 @@ PodCatcher.User = function(configuration) {
                 _password: configuration.password.val(),
                 _csrf_token: configuration.csrf_token.val()
             },
-            error: function(xhr, status, error) {
-                console.log(xhr);
-                this.error(xhr.responseText);
+            success: function(response) {
+                self.username(response.message);
+            },
+            error: function(xhr) {
+                self.error($.parseJSON(xhr.responseText).message);
             }
         });
 
     };
+    this.getListenedTo = function() {
+        
+    }
 }
 
 PodCatcher.Player = {
@@ -139,8 +145,15 @@ PodCatcher.Player = {
             });
         }
 
-
-        PodCatcher.Player.history.push(episode.id);
+        if(PodCatcher.Player.history.indexOf(episode.id) === -1) {
+            PodCatcher.Player.history.push(episode.id);
+            
+            $.ajax({
+                url: Routing.generate('listen_podcast_episode', { _format: 'json', slug: 'test', id: episode.id }),
+                type: 'patch'
+            });
+            
+        }
 
         PodCatcher.Player.episode(episode);
 

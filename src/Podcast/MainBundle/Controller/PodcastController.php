@@ -31,7 +31,8 @@ class PodcastController extends FOSRestController
                     $paramFetcher->get('sort'),
                     $paramFetcher->get('direction'),
                     $paramFetcher->get('amount'),
-                    $paramFetcher->get('page')
+                    $paramFetcher->get('page'),
+                    $this->get('security.context')->getToken()
                 )
         ;
                 

@@ -35,27 +35,40 @@
 
         <hr>
         <ul>
-            <li data-link="home"><figure><i class='icon-home'></i> <div class='menuText'><a href='/'>Home</a></div></figure></li>
-            <li data-link="directory" class="active"><figure><i class="icon-th-large"></i> <div class="menuText"><a href='/'>Directory</a></div></figure></li>
+            <li><figure><i class='icon-home'></i> <div class='menuText'><a href='/'>Home</a></div></figure></li>
+            <li><figure><i class="icon-th-large"></i> <div class="menuText"><a href='/'>Directory</a></div></figure></li>
+            <li><figure><i class="icon-user"></i> <div class="menuText"><a href="#" data-toggle="modal" data-target="#myModal" data-backdrop="false">Register</a></div></figure></li>
         </ul>
-        
+
         <hr>
-        
+
             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
-                <a href="{{ path('fos_user_security_logout') }}">
+        <a href="{{ path('fos_user_security_logout') }}">
                     {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-                </a>
+            </a>
             {% else %}
                 {% render("PodcastUserBundle:Security:login") %}
             {% endif %}
-        
+
+            <br/>
+
+        </div>
+        <div class="span10 content borBox">
+            <div data-bind="template: { name: active().template(), data: active() }"></div></div>
     </div>
-    <div class="span10 content borBox">
-
-        <div data-bind="template: { name: active().template(), data: active() }"></div>
-
-    </div>
-</div>
-
+    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <form action="{{ path('fos_user_registration_register') }}" method="POST" class="fos_user_registration_register form-horizontal" style="padding-bottom:0px; margin-bottom:0px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">User registration</h3>
+            </div>
+            <div class="modal-body">
+        {% render("PodcastUserBundle:Registration:register") %}
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary" value="Register" />
+                </div>
+            </form>
+        </div>
 {% endblock %}

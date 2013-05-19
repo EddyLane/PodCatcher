@@ -74,20 +74,6 @@ class User extends BaseUser
         return $this->subscriptions;
     }
 
-    public function getPublicData()
-    {
-        return array(
-            "username" => $this->getUsername(),
-            "email" => $this->getEmail(),
-            "subscriptions" => $this->subscriptions
-        );
-    }
-
-    /**
-     * Add playlists
-     *
-     * @param Podcast\MainBundle\Entity\Playlist $playlists
-     */
     public function addSubscription(Podcast $podcast)
     {
         if (!$this->subscriptions->contains($podcast)) {
@@ -101,32 +87,4 @@ class User extends BaseUser
             $this->subscriptions->removeElement($podcast);
         }
     }
-
-    /**
-     * Get playlists
-     *
-     * @return Doctrine\Common\Collections\Collection
-     */
-//    public function getSubscriptions() {
-//        return $this->subscriptions;
-//    }
-
-    /**
-     * Add playlists
-     *
-     * @param Podcast\MainBundle\Entity\Playlist $playlists
-     */
-    public function addPlaylist(Playlist $playlists)
-    {
-        $this->playlists[] = $playlists;
-    }
-
-    /**
-     * Get playlists
-     *
-     * @return Doctrine\Common\Collections\Collection
-     */
-//    public function getPlaylists() {
-//        return $this->playlists;
-//    }
 }

@@ -20,12 +20,11 @@ class PodcastEpisodeController extends FOSRestController {
      * "get_podcast_episodes" [GET] /podcasts/{$slug}/episodes
      * 
      * @QueryParam(name="page", requirements="\d+", default="1", description="Page of podcasts.")
-     * @param type $podcastSlug
      * @return FOS\RestBundle\View\View
      * @throws Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
-    public function getEpisodesAction($slug, ParamFetcher $paramFetcher) {
-        
+    public function getEpisodesAction($slug, ParamFetcher $paramFetcher) 
+    {
         $em = $this->getDoctrine()->getManager();
 
         $podcast = $em->getRepository('PodcastMainBundle:Podcast')->findOneBySlug($slug);
@@ -48,7 +47,28 @@ class PodcastEpisodeController extends FOSRestController {
                 ->setTemplateVar('entities');
 
         return $this->handleView($view);
+    }
+    
+    /**
+     * "listen_podcast_episode" [GET] /podcasts/{$slug}/episodes/{$id}/listen
+     * 
+     * @return FOS\RestBundle\View\View
+     * @throws Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */    
+    public function listenEpisodeAction($slug, $id)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $user = $this->get('security.context')->getToken()->getUser();
         
+        $episode = $em->getRepository('PodcastMainBundle:Episode')->find($id);
+
+        $user->addListenedTo($episode);
+
+        $em->persist($user);
+        $em->flush();
+        
+        return $this->view('success', 200);
     }
 
 }

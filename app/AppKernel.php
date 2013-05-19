@@ -26,7 +26,7 @@ class AppKernel extends Kernel
 	    new FOS\RestBundle\FOSRestBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
-//            new Braincrafted\BootstrapBundle\BcBootstrapBundle(),
+            new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
             new Fkr\SimplePieBundle\FkrSimplePieBundle(),
             new Podcast\MainBundle\PodcastMainBundle(),
             new Podcast\UserBundle\PodcastUserBundle(),

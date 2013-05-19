@@ -1,7 +1,9 @@
 <div data-bind="with: AppKernel.user">
+    <!-- ko ifnot: username -->
     <form action="{{ path("fos_user_security_check") }}" method="post" id="login-form" data-bind="submit: login">
-        
-        <div class="alert" data-bind="text: error"></div>
+        <div data-bind="if: error">
+            <div class="alert alert-error" data-bind="text: error"></div>
+        </div>
         
         <input type="hidden" id="csrf_token" name="_csrf_token" value="{{ csrf_token }}" />
         <div class="control-group">
@@ -25,4 +27,5 @@
         </div>
         <input class="btn btn-primary" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
     </form>
+    <!-- /ko -->
 </div>
