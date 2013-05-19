@@ -3,18 +3,22 @@
  * 
  * @returns {PodCatcher}
  */
-function PodCatcher() {
+function PodCatcher(auth) {
 
     var self = this;
 
     this.AppKernel = {
         podcastFinder: new PodCatcher.PodcastFinder(),
         podcastController: new PodCatcher.PodcastController(),
-        user: new PodCatcher.User({ username: $('#username'), password: $('#password'), csrf_token: $('#csrf_token')})
     };
 
     this.Player = PodCatcher.Player;
+    this.User = PodCatcher.User;
+    
+    this.User.getListenedTo();
+    this.User.getSubscribed();
     this.active = ko.observable();
+    this.auth = auth;
 
     Sammy(function() {
 
@@ -37,6 +41,22 @@ function PodCatcher() {
         });
 
     }).run();
+    
+    $('#searchInput').typeahead({
+        minLength: 3,
+        items: 10,
+        source: function (query, process) {
+            return $.get(Routing.generate('get_podcasts', { _format: 'json' }), { search: query }, function (data) {
+                return process($.map(data.entities, function(n) {
+                    return n.name;
+                }));
+            });
+        },
+        updater: function(podcast) {
+            document.location = Routing.generate('get_podcast', { slug: podcast.slug });
+        }
+    });
+    
 }
 soundManager.setup({
     url: '/bundles/podcastmain/soundmanager/swf',
@@ -56,7 +76,7 @@ soundManager.setup({
 
             soundManager.play(episode.id, {
                 whileloading: function() {
-                    console.log(!loaded && ((this.bytesLoaded / this.bytesTotal) * 100) >= loadAmount);
+                    //console.log(!loaded && ((this.bytesLoaded / this.bytesTotal) * 100) >= loadAmount);
                     PodCatcher.Player.bytesLoaded(this.bytesLoaded);
 //                    if (!loaded && ((this.bytesLoaded / this.bytesTotal) * 100) >= loadAmount) {
 //                        sound.play({position: PodCatcher.Player.position()});
@@ -85,31 +105,46 @@ soundManager.defaultOptions.whileloading = function() {
 }
 
 
-PodCatcher.User = function(configuration) {
-    var self = this;
-    this.username = ko.observable();
-    this.error = ko.observable();
-    this.login = function() {
+PodCatcher.User = {
+    username: ko.observable(),
+    error: ko.observable(),
+    subscriptions: ko.observableArray([]),
+    template: ko.observable('view-subscriptions'),
+    login: function() {
         $.ajax({
             type: 'POST',
             url: Routing.generate('fos_user_security_check'),
             dataType: 'json',
             data: {
-                _username: configuration.username.val(),
-                _password: configuration.password.val(),
-                _csrf_token: configuration.csrf_token.val()
+                _username: $('#username').val(),
+                _password: $('#password').val(),
+                _csrf_token: $('#csrf_token').val()
             },
             success: function(response) {
-                self.username(response.message);
+                PodCatcher.User.username(response.message);
             },
             error: function(xhr) {
                 self.error($.parseJSON(xhr.responseText).message);
             }
         });
-
-    };
-    this.getListenedTo = function() {
+    },
+    subscribe: function(podcast) {
         
+    },
+    getSubscribed: function() {
+        $.get(Routing.generate('get_subscribed', { _format: 'json' }), PodCatcher.User.subscriptions);
+    },
+    getListenedTo: function() {
+        $.get(Routing.generate('get_listened', { _format: 'json' }), function(response) {
+            ko.utils.arrayForEach(response, function(episode) {
+                if(PodCatcher.Player.history.indexOf(episode.id) === -1) {
+                    PodCatcher.Player.history.push(episode.id);
+                }
+            });
+        });
+    },
+    listenTo: function(episode) {
+        PodCatcher.Player.play(episode);
     }
 }
 
@@ -137,7 +172,7 @@ PodCatcher.Player = {
 
         PodCatcher.Player.playing(true);
 
-        var isPlaying = PodCatcher.Player.stop();
+        PodCatcher.Player.stop();
 
         if (soundManager.getSoundById(episode.id)) {
             return soundManager.play(episode.id, {
@@ -146,13 +181,8 @@ PodCatcher.Player = {
         }
 
         if(PodCatcher.Player.history.indexOf(episode.id) === -1) {
-            PodCatcher.Player.history.push(episode.id);
-            
-            $.ajax({
-                url: Routing.generate('listen_podcast_episode', { _format: 'json', slug: 'test', id: episode.id }),
-                type: 'patch'
-            });
-            
+            PodCatcher.Player.history.push(episode.id); 
+            $.post(Routing.generate('post_listen_podcast_episode', { _format: 'json', slug: 'test', id: episode.id }))
         }
 
         PodCatcher.Player.episode(episode);
@@ -249,6 +279,7 @@ PodCatcher.entity = {
     Podcast: function(data) {
         this.name = data.name;
         this.slug = data.slug;
+        this.description = data.description;
         this.categories = data.categories;
         this.organizations = data.organizations;
         this.image = data.image;
@@ -306,7 +337,6 @@ PodCatcher.BasePaginator = function(cb, parameters, results) {
         newPage = (page > 3) ? page - 2 : 1;
 
         if (newPage < maxPage && newPage > (maxPage - 4)) {
-            console.log('here');
             newPage -= (newPage - (maxPage - 4));
         }
 
@@ -442,7 +472,7 @@ PodCatcher.entity.Podcast.prototype = {
 
             delete response.metadata;
             self.results($.map(response, function(episode) {
-                return new PodCatcher.entity.Episode(episode, PodCatcher.Player.play);
+                return new PodCatcher.entity.Episode(episode, PodCatcher.User.listenTo);
             }));
         });
     }
@@ -455,10 +485,3 @@ PodCatcher.entity.ListItem.prototype = {
     }
 
 };
-
-/**
- * Init this nonsense already
- */
-$(document).ready(function() {
-    ko.applyBindings(new PodCatcher());
-});

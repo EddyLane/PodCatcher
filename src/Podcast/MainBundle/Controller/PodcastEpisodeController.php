@@ -50,12 +50,12 @@ class PodcastEpisodeController extends FOSRestController {
     }
     
     /**
-     * "listen_podcast_episode" [GET] /podcasts/{$slug}/episodes/{$id}/listen
+     * "post_listen_podcast_episode" [POST] /podcasts/{$slug}/episodes/{$id}/listen
      * 
      * @return FOS\RestBundle\View\View
      * @throws Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */    
-    public function listenEpisodeAction($slug, $id)
+    public function postListenEpisodeAction($slug, $id)
     {
         $em = $this->getDoctrine()->getEntityManager();
 

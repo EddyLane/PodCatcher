@@ -34,13 +34,14 @@ class PodcastRepository extends EntityRepository
      * @param string $category
      */
     public function findAllByCategoryAndOrganization(
+            TokenInterface $token,
             array $categories = [], 
             array $organizations = [], 
             $sort = "podcast.name", 
             $order = 'asc', 
             $amount = 8, 
             $page = 1, 
-            TokenInterface $token,
+            $search = false,
             $hydration = Query::HYDRATE_ARRAY
             )
     {
@@ -49,6 +50,11 @@ class PodcastRepository extends EntityRepository
         $qb
            ->distinct()
         ;
+        
+        if($search) {
+            $qb->add('where', $qb->expr()->like('podcast.name', ':search'))
+               ->setParameter('search', $search."%");
+        }
 
         if(count($categories) > 0) {
             $qb

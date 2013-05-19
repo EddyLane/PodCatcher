@@ -1,4 +1,4 @@
-<div data-bind="with: AppKernel.user">
+<div data-bind="with: User">
     <!-- ko ifnot: username -->
     <form action="{{ path("fos_user_security_check") }}" method="post" id="login-form" data-bind="submit: login">
         <div data-bind="if: error">

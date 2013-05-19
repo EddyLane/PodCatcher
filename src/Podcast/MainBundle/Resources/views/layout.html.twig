@@ -29,6 +29,7 @@
             '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-modal.js'
             '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-tooltip.js'
             '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-popover.js'
+            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-typeahead.js'
             '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-tab.js'
 
             '@PodcastMainBundle/Resources/public/soundmanager/script/soundmanager2.js'
@@ -81,7 +82,7 @@
                         <figure class='menuButton btn sharp btn-success'><i class='icon-white icon-th-list'></i> Menu</figure>
                         <div class='form-horizontal centerOnPage' >
                             <div class="input-append">
-                                <input class="span4fix" id="searchInput" data-provide='typeahead' placeholder="Super Search" data-control='home' size="16" type="text">
+                                <input class="span4fix" id="searchInput" placeholder="Super Search" size="16" type="text">
                                 <button class="btn btn-info" type="button"><i class='icon-white icon-search'></i></button>
                             </div>
                         </div>
@@ -173,8 +174,26 @@
         <script type="text/html" id="view-podcast-finder">
             {% include 'PodcastMainBundle:Podcast:getPodcasts.html.twig' %}
         </script>
-        <script id="view-podcast" type="text/html">
+        <script type="text/html" id="view-podcast">
             {% include 'PodcastMainBundle:Podcast:getPodcast.html.twig' %}
+        </script>
+        <script type="text/html" id="view-subscriptions">
+            <div class='row-fluid gallery photo' data-bind="foreach: subscriptions">
+                <figure class='tile'>
+                    <a data-bind="attr: { href: Routing.generate('get_podcast', { slug: slug }) }">
+                        <img data-bind="attr: { alt: name, src: image }">
+                    </a>
+                </figure>
+            </div>
+        </script>
+         
+        <script>
+            /**
+             * Init this nonsense already
+             */
+            $(document).ready(function() {
+                ko.applyBindings(new PodCatcher());
+            });
         </script>
     </body>
 </html>

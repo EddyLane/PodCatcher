@@ -3,15 +3,20 @@
 namespace Podcast\UserBundle\Entity;
 
 use FOS\UserBundle\Entity\User as BaseUser;
-use Doctrine\ORM\Mapping as ORM;
 
 use Podcast\MainBundle\Entity\Podcast,
     Podcast\MainBundle\Entity\Playlist,
     Podcast\MainBundle\Entity\Episode;
 
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection as ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+
+use JMS\SerializerBundle\Annotation;
 /**
  * @ORM\Entity
  * @ORM\Table(name="User")
+ * @Annotation\ExclusionPolicy("all")
  */
 class User extends BaseUser
 {
@@ -32,6 +37,7 @@ class User extends BaseUser
     private $subscriptions;
 
     /**
+     * @Annotation\Expose
      * @ORM\ManyToMany(targetEntity="Podcast\MainBundle\Entity\Episode", inversedBy="listenedBy", cascade={"all"})
      * @ORM\JoinTable(name="user_episode",
      * joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
@@ -55,6 +61,11 @@ class User extends BaseUser
     public function getId()
     {
         return $this->id;
+    }
+    
+    public function getListenedTo()
+    {
+        return $this->listenedTo;
     }
 
     public function removeListenedTo(Episode $episode)

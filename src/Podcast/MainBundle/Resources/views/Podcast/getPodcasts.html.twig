@@ -44,7 +44,7 @@
     <div class="span12">
         <div class="pagination pagination-centered">
             <ul>
-                <li data-bind="with: 1">
+                <li data-bind="with: 1, css: { active: pagination.page() == 1 }">
                     <a href='#' data-bind="click: $parent.pagination.page, attr: { href: $parent.getLinkForPage(1) }">&laquo;</a>
                 </li>
                 <!-- ko foreach: ko.utils.range(pagination.displayFirstPage, pagination.displayLastPage) -->
@@ -52,7 +52,7 @@
                     <a href="#" data-bind="text: $data, attr: { href: $parent.getLinkForPage($data) }, click: $parent.pagination.page"></a>
                 </li>
                 <!-- /ko -->
-                <li data-bind="with: pagination.maxPageIndex">
+                <li data-bind="with: pagination.maxPageIndex, css: { active: pagination.page() == pagination.maxPageIndex() }">
                     <a href='#' data-bind="click: $parent.pagination.page, attr: { href: $parent.getLinkForPage(1) }">&raquo;</a>
                 </li>
             </ul>
