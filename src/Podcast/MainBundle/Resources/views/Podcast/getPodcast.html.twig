@@ -35,7 +35,7 @@
         </div>
         <div class="span4 blogSide">
             <div class="btn-toolbar">
-                <button class="btn btn-primary"><i class="icon-star-empty icon-white"></i></button>
+                <button class="btn btn-primary" data-bind="click: $root.User.subscribe"><i class="icon-white" data-bind="css: { 'icon-star': subscribed() }"></i></button>
             </div>
             <div>
                 <img style="width:100%; height: auto; border: 1px solid #D2D2D2; max-width: 300px;" data-bind="attr: { src: image }">

@@ -108,7 +108,7 @@ soundManager.defaultOptions.whileloading = function() {
 PodCatcher.User = {
     username: ko.observable(),
     error: ko.observable(),
-    subscriptions: ko.observableArray([]),
+    subscriptions: ko.observableArray([], { persist: 'userSubscriptions' }),
     template: ko.observable('view-subscriptions'),
     login: function() {
         $.ajax({
@@ -129,7 +129,17 @@ PodCatcher.User = {
         });
     },
     subscribe: function(podcast) {
-        
+//        var found = false;
+//        ko.utils.arrayForEach(PodCatcher.User.subscriptions(), function(searchPodcast) {
+//            if(podcast.id === searchPodcast.id) {
+//                found = true;
+//                return;
+//            }
+//        });
+//        if(!found) {
+            PodCatcher.User.subscriptions.push(podcast);
+            console.log(PodCatcher.User.subscriptions());
+//        }
     },
     getSubscribed: function() {
         $.get(Routing.generate('get_subscribed', { _format: 'json' }), PodCatcher.User.subscriptions);
@@ -285,6 +295,7 @@ PodCatcher.entity = {
         this.image = data.image;
         this.episodes = ko.observableArray();
         this.pagination = new PodCatcher.Paginator(this.getEpisodesAction, {_format: 'json', slug: this.slug, page: data.page}, this.episodes);
+        this.subscribed = ko.computed(this.subscribed);
     },
     Episode: function(data, cb) {
 
@@ -475,8 +486,15 @@ PodCatcher.entity.Podcast.prototype = {
                 return new PodCatcher.entity.Episode(episode, PodCatcher.User.listenTo);
             }));
         });
+    },
+    subscribed: function() {
+        ko.utils.arrayForEach(PodCatcher.User.subscriptions(), function(podcast) {
+            if(podcast.id === this.id) {
+                return true;
+            }
+        });
+        return false;
     }
-
 };
 
 PodCatcher.entity.ListItem.prototype = {
