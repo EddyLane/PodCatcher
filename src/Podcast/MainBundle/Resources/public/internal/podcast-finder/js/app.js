@@ -16,7 +16,6 @@ function PodCatcher(auth) {
     this.User = PodCatcher.User;
     
     this.User.getListenedTo();
-    this.User.getSubscribed();
     this.active = ko.observable();
     this.auth = auth;
 
@@ -38,6 +37,11 @@ function PodCatcher(auth) {
             } else {
                 self.active().podcast().pagination.page(this.params.page);
             }
+        });
+        
+        this.get(Routing.generate('get_subscribed'), function(context) {
+            self.active(self.User);
+            self.User.getSubscribed();
         });
 
     }).run();
@@ -295,7 +299,7 @@ PodCatcher.entity = {
         this.image = data.image;
         this.episodes = ko.observableArray();
         this.pagination = new PodCatcher.Paginator(this.getEpisodesAction, {_format: 'json', slug: this.slug, page: data.page}, this.episodes);
-        this.subscribed = ko.computed(this.subscribed);
+        this.subscribed = ko.computed(this.subscribed, this);
     },
     Episode: function(data, cb) {
 
@@ -488,12 +492,16 @@ PodCatcher.entity.Podcast.prototype = {
         });
     },
     subscribed: function() {
+        var self = this,
+            found = false;
+    
         ko.utils.arrayForEach(PodCatcher.User.subscriptions(), function(podcast) {
-            if(podcast.id === this.id) {
-                return true;
+            if(podcast.slug === self.slug) {
+                found = true;
+                return;
             }
         });
-        return false;
+        return found;
     }
 };
 
