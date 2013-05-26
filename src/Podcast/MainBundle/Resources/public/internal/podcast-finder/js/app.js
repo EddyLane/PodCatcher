@@ -128,6 +128,7 @@ PodCatcher.User = {
                 PodCatcher.User.username(response.message);
             },
             error: function(xhr) {
+                console.log(xhr.responseText);
                 self.error($.parseJSON(xhr.responseText).message);
             }
         });
@@ -196,7 +197,7 @@ PodCatcher.Player = {
 
         if(PodCatcher.Player.history.indexOf(episode.id) === -1) {
             PodCatcher.Player.history.push(episode.id); 
-            $.post(Routing.generate('post_listen_podcast_episode', { _format: 'json', slug: 'test', id: episode.id }))
+            $.post(Routing.generate('post_listen', { _format: 'json', id: episode.id }))
         }
 
         PodCatcher.Player.episode(episode);

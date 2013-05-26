@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "dependencies": {
     "jquery": "~1.9.1",
-    "bootstrap": "latest",
-    "angular": "git://github.com/angular/bower-angular.git",
+    "bootstrap": "https://github.com/twitter/bootstrap/archive/3.0.0-wip.zip",
     "soundmanager": "latest",
-    "knockout.localStorage": "git://github.com/jimrhoskins/knockout.localStorage.git"
+    "knockout.localStorage": "git://github.com/jimrhoskins/knockout.localStorage.git",
+    "font-awesome": "~3.1.1"
   }
 }

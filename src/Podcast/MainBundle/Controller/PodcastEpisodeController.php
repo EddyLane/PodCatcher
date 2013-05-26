@@ -48,28 +48,7 @@ class PodcastEpisodeController extends FOSRestController {
 
         return $this->handleView($view);
     }
-    
-    /**
-     * "post_listen_podcast_episode" [POST] /podcasts/{$slug}/episodes/{$id}/listen
-     * 
-     * @return FOS\RestBundle\View\View
-     * @throws Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     */    
-    public function postListenEpisodeAction($slug, $id)
-    {
-        $em = $this->getDoctrine()->getEntityManager();
 
-        $user = $this->get('security.context')->getToken()->getUser();
-        
-        $episode = $em->getRepository('PodcastMainBundle:Episode')->find($id);
-
-        $user->addListenedTo($episode);
-
-        $em->persist($user);
-        $em->flush();
-        
-        return $this->view('success', 200);
-    }
 
 }
 

@@ -4,12 +4,15 @@
         <title>Home |Virgin</title>
 
         {% stylesheets filter="lessphp,cssrewrite"
-            'bundles/podcastmain/internal/virgin/css/bootstrap.css'
-            'bundles/podcastmain/internal/virgin/css/responsive.css'
+
+            'bundles/podcastmain/bootstrap/less/bootstrap.less'
+            'bundles/podcastmain/font-awesome/build/assets/font-awesome/less/font-awesome.less'
+
             'bundles/podcastmain/internal/virgin/css/style.css'   
             'bundles/podcastmain/internal/css/internal.css'   
-            'bundles/podcastmain/internal/virgin/css/style.css'            
-            'bundles/podcastmain/select2/select2.css'
+            'bundles/podcastmain/internal/virgin/css/style.css'   
+            '@PodcastMainBundle/Resources/public/internal/virgin/css/style.css'
+         
         %}
         <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
@@ -23,15 +26,6 @@
         {% javascripts
             '@PodcastMainBundle/Resources/public/jquery/jquery.js'
 
-            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-alert.js'
-            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-button.js'
-            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-dropdown.js'
-            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-modal.js'
-            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-tooltip.js'
-            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-popover.js'
-            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-typeahead.js'
-            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-tab.js'
-
             '@PodcastMainBundle/Resources/public/soundmanager/script/soundmanager2.js'
 
             '@PodcastMainBundle/Resources/public/sammy/lib/sammy.js'
@@ -41,6 +35,8 @@
             '@PodcastMainBundle/Resources/public/knockout.localStorage/knockout.localStorage.js'
 
             '@PodcastMainBundle/Resources/public/internal/podcast-finder/js/app.js'
+            '@PodcastMainBundle/Resources/public/internal/virgin/js/main.js'
+
         %}
         <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
@@ -136,9 +132,7 @@
                 </div>
             </div>
 
-            <!-- ### BACKGROUND DIV -->
-            <div class='bg'>
-            </div>
+        
 
             <div class='commandWindow hide'>
                 <div class='commandWindow-inner'>
