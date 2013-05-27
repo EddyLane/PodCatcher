@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "dependencies": {
     "jquery": "~1.9.1",
-    "bootstrap": "https://github.com/twitter/bootstrap/archive/3.0.0-wip.zip",
+    "bootstrap": "latest",
     "soundmanager": "latest",
     "knockout.localStorage": "git://github.com/jimrhoskins/knockout.localStorage.git",
     "font-awesome": "~3.1.1"

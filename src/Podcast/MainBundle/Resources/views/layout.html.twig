@@ -6,12 +6,11 @@
         {% stylesheets filter="lessphp,cssrewrite"
 
             'bundles/podcastmain/bootstrap/less/bootstrap.less'
+            'bundles/podcastmain/bootstrap/less/responsive.less'
             'bundles/podcastmain/font-awesome/build/assets/font-awesome/less/font-awesome.less'
+            'bundles/podcastmain/internal/aro/library/css/styles.css'
+            '@PodcastMainBundle/Resources/public/internal/less/style.less'
 
-            'bundles/podcastmain/internal/virgin/css/style.css'   
-            'bundles/podcastmain/internal/css/internal.css'   
-            'bundles/podcastmain/internal/virgin/css/style.css'   
-            '@PodcastMainBundle/Resources/public/internal/virgin/css/style.css'
          
         %}
         <link rel="stylesheet" href="{{ asset_url }}" />
@@ -26,6 +25,16 @@
         {% javascripts
             '@PodcastMainBundle/Resources/public/jquery/jquery.js'
 
+            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-alert.js'
+            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-button.js'
+            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-dropdown.js'
+            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-modal.js'
+            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-tooltip.js'
+            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-popover.js'
+            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-typeahead.js'
+            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-tab.js'
+            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-carousel.js'
+
             '@PodcastMainBundle/Resources/public/soundmanager/script/soundmanager2.js'
 
             '@PodcastMainBundle/Resources/public/sammy/lib/sammy.js'
@@ -35,139 +44,82 @@
             '@PodcastMainBundle/Resources/public/knockout.localStorage/knockout.localStorage.js'
 
             '@PodcastMainBundle/Resources/public/internal/podcast-finder/js/app.js'
-            '@PodcastMainBundle/Resources/public/internal/virgin/js/main.js'
-
         %}
         <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
-
-
     </head>
     <body>
-
-        <div class='frontLayer'>
-            <header class="borBox row-fluid pat-lightwool">
-                <div class="span2 pull-left subHeadInner">
+        <!-- Part 1: Wrap all page content here -->
+        <div id="wrap">
 
 
-                </div>
-                <div class="span7 pull-left">
-                    <br/>
-                </div>
-                <div class="span3 pull-right">
-                    <div class="loginBox">
-                        <button class="btn btn-info droppy-toggle right" type='button' data-toggle='droppy'><i class='icon-white icon-user'></i> User&nbsp;&nbsp;<b class='caret'></b></button>
-                        <ul class="dropdown-menu droppy-menu" id="uOpsL">
-                            <li><a href="#"><i class='icon-user'></i> Profile</a></li>
-                            <li><a href="#" data-target='settingsModal'><i class='icon-cog'></i> Settings</a></li>
-                            <li class='divider'></li>
-                            <li><a href="#" data-target='loginModal'><i class='icon-share-alt'></i> Log In</a></li>
-                            <li><a href="#" data-target='registerModal'><i class='icon-bookmark'></i> Register</a></li>
-                            <li class='divider'></li>
-                            <li><a href="#"><i class='icon-question-sign'></i> Help</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-            </header>
-            <section class="subHead">
-                <section class="row-fluid subHeadInner borBox">
-                    <div class='span12'>
-
-                        <h3 class='pull-left welcome'></h3>
-                        <figure class='menuButton btn sharp btn-success'><i class='icon-white icon-th-list'></i> Menu</figure>
-                        <div class='form-horizontal centerOnPage' >
-                            <div class="input-append">
-                                <input class="span4fix" id="searchInput" placeholder="Super Search" size="16" type="text">
-                                <button class="btn btn-info" type="button"><i class='icon-white icon-search'></i></button>
-                            </div>
-                        </div>
-                        <ul class="bcrumbs pull-right">
-                            <li>Podcatcher</li>
-                            <li class="divdot">.</li>
-                            <li>Directory</li>
-                        </ul>
-                    </div>
-                </section>
-            </section>
-            <section class="container-fluid" id="mainContainer">
-               {% block content %}{% endblock %}
-                </section>
-                <footer>
-                    <div class="container-fluid" id="footMain">
-                        <div class="row-fluid">
-                            <div class="span6">
-                                <div class="pull-left">
-                                    <h6>Press ` or tilde key to access command line</h6>
-                                </div>
-                            </div>
-                            <div class="span6">
-                                <div class="pull-right">
-                                    <h6>Company Name Here</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
-            </div>
-
-            
-            <div id="loginModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h3 id="myModalLabel">Modal header</h3>
-                </div>
-                <div class="modal-body">
-                    <p>Enter Credentials</p><br/>
-                    <form class="form form-vertical sharp" method="post" action="/user/Login">
-                        <input type="text" placeholder="Enter UserName/Email" name="email"/><br/>
-                        <input type="password" placeholder="Password" name="pass"/><br/>
-                        <button class="btn" type="submit">Sign In</button>
-                        <a class="btn btn-info" href="/register">Register</a>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                    <button class="btn btn-primary">Save changes</button>
+          <!-- Fixed navbar -->
+          <div class="navbar navbar-orange navbar-fixed-top">
+                <div class="navbar-inner">
+                    <p class="brand">
+                        <i class="icon-headphones"></i>PodCapture
+                    </p>
+                    <ul class="nav pull-right">
+                        <li class="divider-vertical"></li>
+                        <li><a href="#"><i class="icon-user icon-large"></i></a></li>
+                        <li><a href="#"><i class="icon-cog icon-large"></i></a></li>
+                    </ul>
                 </div>
             </div>
+<section class="subhead" style="box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px; margin-top:41px;">
+    <section class="row-fluid subhead-inner">
+        <div class="span12" data-bind="with: active">
+            <!-- ko if: template() == 'view-podcast-finder' -->
+            <ul class="nav nav-pills pull-right" data-bind="foreach: sorts" id="podcast-sorts">
+                <li class="pull-right" data-bind="css: { active: ( $data == $parent.pagination.sort() ) }">
+                    <a href="#" data-bind="click: $parent.pagination.sort"><!-- ko text: name --><!-- /ko --></a>
+                </li>
+            </ul>
+            <!-- /ko -->
 
-        
-
-            <div class='commandWindow hide'>
-                <div class='commandWindow-inner'>
-                    <h2 class='hBig'>CommandLine</h2><br/>
-                    <div class='form sharp form-horizontal'>
-                        <div class='input-append row-fluid'>
-                            <input class='sharp span9' id="commandInput" placeholder='Enter Command' type='text'/><button class='btn btn-info'>Go</button>
-                        </div>
-                    </div>
-                    <br/>
-                    <div class='alert fade in'>
-                        <a class='close' data-dismiss='alert'>&times;</a>
-                        <p>Type <code> goto("dashboard") or goto("portfolio") </code></p>
-
-                    </div>
+            <div class="form-horizontal">
+               <div class="input-append">
+                    <input placeholder="Super Search" data-control="home" size="16" type="text"><button class="btn btn-warning" type="button">Podcasts&nbsp;&nbsp;<b class="caret"></b></button><ul class="dropdown-menu droppy-menu" id="sOpsL">
+                        <li><a href="#"><i class="icon-fire"></i> Designs</a></li>
+                        <li><a href="#"><i class="icon-eye-open"></i> Apps</a></li>
+                        <li><a href="#"><i class="icon-eye-close"></i> Prototypes</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#"><i class="icon-user"></i> Members</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#"><i class="icon-align-justify"></i> Articles</a></li>
+                    </ul><button class="btn btn-warning" type="button"><i class="icon-white icon-search"></i></button>
                 </div>
             </div>
-            
-            <div class="modal hide fade">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h3>Modal header</h3>
-                </div>
-                <div class="modal-body">
-                    <p>One fine body…</p>
-                </div>
-                <div class="modal-footer">
-                    <a href="#" class="btn">Close</a>
-                    <a href="#" class="btn btn-primary">Save changes</a>
-                </div>
-            </div> 
         </div>
-            
-        <script type="text/html" id="view-podcast-finder">
-            {% include 'PodcastMainBundle:Podcast:getPodcasts.html.twig' %}
+    </section>
+</section>
+
+          <!-- Begin page content -->
+          <div class="container">
+            <div class="row-fluid">
+                <div class="span2">Left</div>
+                <div class="span10">
+                <div data-bind="template: { name: active().template(), data: active() }"></div>
+
+
+                    </div>
+                </div>
+          
+</div>
+
+
+ <div id="footer">
+      <div class="container">
+<div class="progress progress-warning ">
+                        <span class="title">
+                            The Frank Skinner Show - Absolute Radio <i class="icon-sign-blank" style="color:#f89406;"></i>
+                        </span>
+                        <div class="bar text-filled-2" data-percentage="25" style="width: 25%;">25%</div>
+                    </div>
+      </div>
+    </div>
+    <script type="text/html" id="view-podcast-finder">
+           {% include 'PodcastMainBundle:Podcast:getPodcasts.html.twig' %}
         </script>
         <script type="text/html" id="view-podcast">
             {% include 'PodcastMainBundle:Podcast:getPodcast.html.twig' %}
@@ -179,16 +131,18 @@
                         <img data-bind="attr: { alt: name, src: image }">
                     </a>
                 </figure>
-            </div>
+                    </div>
+                </div>
+           </div>
         </script>
-         
         <script>
             /**
-             * Init this nonsense already
+            * Init this nonsense already
              */
             $(document).ready(function() {
                 ko.applyBindings(new PodCatcher());
-            });
-        </script>
+                $('#myCarousel').carousel();
+           });
+ </script>
     </body>
 </html>
