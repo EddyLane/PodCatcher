@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Home |Virgin</title>
+
+        {% stylesheets filter="lessphp,cssrewrite"
+
+            'bundles/podcastmain/bootstrap/less/bootstrap.less'
+            'bundles/podcastmain/bootstrap/less/responsive.less'
+            'bundles/podcastmain/font-awesome/build/assets/font-awesome/less/font-awesome.less'
+            'bundles/podcastmain/internal/aro/library/css/styles.css'
+            'bundles/podcastmain/internal/less/style.less'
+
+         
+        %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+
+        <!-- fos_js_routing -->
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+        <!-- /fos_js_routing -->
+
+
+        {% javascripts
+            '@PodcastMainBundle/Resources/public/jquery/jquery.js'
+
+            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-alert.js'
+            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-button.js'
+            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-dropdown.js'
+            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-modal.js'
+            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-tooltip.js'
+            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-popover.js'
+            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-typeahead.js'
+            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-tab.js'
+
+            '@PodcastMainBundle/Resources/public/soundmanager/script/soundmanager2.js'
+
+            '@PodcastMainBundle/Resources/public/sammy/lib/sammy.js'
+
+            '@PodcastMainBundle/Resources/public/knockout/build/output/knockout-latest.js'
+
+            '@PodcastMainBundle/Resources/public/knockout.localStorage/knockout.localStorage.js'
+
+            '@PodcastMainBundle/Resources/public/internal/podcast-finder/js/app.js'
+        %}
+        <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    </head>
+    <body>
+        <!-- Part 1: Wrap all page content here -->
+        <div id="wrap">
+
+
+          <!-- Fixed navbar -->
+          <div class="navbar navbar-orange navbar-fixed-top">
+                <div class="navbar-inner">
+                    <p class="brand">
+                        <i class="icon-headphones"></i>PodCapture
+                    </p>
+                    <ul class="nav pull-right">
+                        <li class="divider-vertical"></li>
+                        <li><a href="#"><i class="icon-user icon-large"></i></a></li>
+                        <li><a href="#"><i class="icon-cog icon-large"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+<section class="subhead" style="box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px; margin-top:41px;">
+    <section class="row-fluid subhead-inner">
+        <div class="span12">
+
+            <div class="form-horizontal">
+               <div class="input-append">
+                    <input placeholder="Super Search" data-control="home" size="16" type="text"><button class="btn btn-warning" type="button">Podcasts&nbsp;&nbsp;<b class="caret"></b></button><ul class="dropdown-menu droppy-menu" id="sOpsL">
+                        <li><a href="#"><i class="icon-fire"></i> Designs</a></li>
+                        <li><a href="#"><i class="icon-eye-open"></i> Apps</a></li>
+                        <li><a href="#"><i class="icon-eye-close"></i> Prototypes</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#"><i class="icon-user"></i> Members</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#"><i class="icon-align-justify"></i> Articles</a></li>
+                    </ul><button class="btn btn-warning" type="button"><i class="icon-white icon-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+
+          <!-- Begin page content -->
+          <div class="container">
+            <div class="row-fluid">
+                <div class="span2">Left</div>
+                <div class="span10">
+                <div data-bind="template: { name: active().template(), data: active() }"></div>
+
+
+                    </div>
+                </div>
+          
+          <div class="push"></div>
+</div>
+
+ <div id="footer">
+      <div class="container">
+<div class="progress progress-warning ">
+                        <span class="title">
+                            The Frank Skinner Show - Absolute Radio <i class="icon-sign-blank" style="color:#f89406;"></i>
+                        </span>
+                        <div class="bar text-filled-2" data-percentage="25" style="width: 25%;">25%</div>
+                    </div>
+      </div>
+    </div>
+    -         -        <script type="text/html" id="view-podcast-finder">
+           {% include 'PodcastMainBundle:Podcast:getPodcasts.html.twig' %}
+        </script>
+        <script type="text/html" id="view-podcast">
+            {% include 'PodcastMainBundle:Podcast:getPodcast.html.twig' %}
+        </script>
+        <script type="text/html" id="view-subscriptions">
+            <div class='row-fluid gallery photo' data-bind="foreach: subscriptions">
+                <figure class='tile'>
+                    <a data-bind="attr: { href: Routing.generate('get_podcast', { slug: slug }) }">
+                        <img data-bind="attr: { alt: name, src: image }">
+                    </a>
+                </figure>
+                    </div>
+                </div>
+           </div>
+        </script>
+        <script>
+            /**
+            * Init this nonsense already
+             */
+            $(document).ready(function() {
+                ko.applyBindings(new PodCatcher());
+           });
+-        </script>
+    </body>
+</html>

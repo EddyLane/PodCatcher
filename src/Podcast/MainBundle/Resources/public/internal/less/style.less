@@ -1,0 +1,266 @@
+@main-orange: #faa732;
+
+      html,
+      body {
+        height: 100%;
+        /* The html and body elements cannot have any padding or margin. */
+      }
+
+@font-face {
+    font-family: 'OpenSansLight';
+    src: url('../virgin/fonts/OpenSans-Light-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+.subhead {
+  height: 29px;
+  padding: 10px;
+  border-bottom: 1px rgba(240,240,240,1) solid;
+  top: 49px;
+  left: 0;
+  right: 0;
+  z-index: 400;
+  background-color: rgb(251,251,251);
+  text-align: center;
+
+  form {
+    display:inline-block;
+  }
+
+}
+
+.navbar-inner {
+  .brand {
+    padding-bottom: 0px;
+     margin-left:0px;
+  }
+}
+ /* Wrapper for page content to push down footer */
+      #wrap {
+        min-height: 100%;
+        height: auto !important;
+        height: 100%;
+        /* Negative indent footer by it's height */
+        margin: 0 auto -101px;
+      }
+
+      /* Set the fixed height of the footer here */
+      #push,
+      #footer {
+        height: 60px;
+      }
+
+      #footer {
+        position: fixed;
+        bottom: 0px;
+        left:0;
+        right:0;
+        margin-left:auto;
+        margin-right:auto;
+      }
+
+      /* Lastly, apply responsive CSS fixes as necessary */
+      @media (max-width: 767px) {
+        #footer {
+          margin-left: -20px;
+          margin-right: -20px;
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+      }
+
+.knob-wrapper.knob-small {
+  width: 40px;
+  height: 40px;
+}
+.knob-wrapper.knob-small .knob-inner i {
+  font-size:17px;
+  line-height:40px;
+}
+
+
+.hBig{
+    font-family:"OpenSansLight";
+    font-size:22px;
+    color:rgba(0,175,219,1);
+    font-weight:lighter;
+}
+.hBig small{
+    font-family:"OpenSansLight";
+    font-size:18px;
+    color:rgba(0,0,0,0.4);
+}
+
+
+.gallery .tile{
+    padding:8px;
+    border:1px rgb(230,230,230) solid;
+    display:inline-block;
+    margin:0px 10px 10px 0px;
+    opacity:0.7;
+    position:relative;
+    -webkit-transition:opacity .2s ease;
+    -moz-transition:opacity .2s ease;
+    -ms-transition:opacity .2s ease;
+    -o-transition:opacity .2s ease;
+    transition:opacity .2s ease;
+
+    overflow:hidden;
+}
+.gallery .tile img{
+    position:absolute;
+    top:8px;left:8px;
+    z-index:31;
+}
+.gallery .tile:hover{
+    box-shadow:0px 0px 10px 0px rgba(0,0,0,0.1);
+    opacity:1;
+}
+.gallery .tile:hover .hoverImg{
+    opacity:1;
+}
+.gallery .tile .hoverImg{
+    position: absolute;
+    top:40px;left:0;right:0;
+    height:30px;
+    z-index:32;
+    opacity:0;
+    background-color:rgba(0,0,0,0.1);
+    text-align:center;padding-top:6px;
+    color:#FFF;
+    -webkit-transition:opacity .2s ease;
+    -moz-transition:opacity .2s ease;
+    -ms-transition:opacity .2s ease;
+    -o-transition:opacity .2s ease;
+    transition:opacity .2s ease;
+}
+.gallery.photo .tile{
+    width:150px;
+    height:150px;
+}
+.gallery.photo .tile img{
+    width:150px;
+    height:150px;
+}
+.gallery.video .tile{
+    width:160px;
+    height:90px;
+}
+.gallery.video .tile img{
+    width:160px;
+    height:90px;
+}
+.gallery.video .tile .hoverImg{
+    height:24px;
+    font-size:18px;
+    padding-top:3px;
+    padding-bottom:3px;
+}
+.gallery.books .tile{
+    height:160px;
+    width:120px;
+}
+.gallery.books .tile img{
+    height:160px;
+    width:120px;
+}
+.gallery.books .tile .hoverImg{
+    font-size:14px;
+}
+
+#podcast-sorts {
+  li.active {
+    a {
+  background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAHklEQVQIW2NkQAXGjEh8YyD7LEwAzAFJggTgHJAAAE+uAzjGgU3wAAAAAElFTkSuQmCC') #faa732;
+  background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAHklEQVQIW2NkQAXGjEh8YyD7LEwAzAFJggTgHJAAAE+uAzjGgU3wAAAAAElFTkSuQmCC'), -webkit-gradient(linear, 0 0, 0 100%, from(#fbb450), to(#f89406));
+  background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAHklEQVQIW2NkQAXGjEh8YyD7LEwAzAFJggTgHJAAAE+uAzjGgU3wAAAAAElFTkSuQmCC'), -webkit-linear-gradient(top, #fbb450, #f89406);
+  background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAHklEQVQIW2NkQAXGjEh8YyD7LEwAzAFJggTgHJAAAE+uAzjGgU3wAAAAAElFTkSuQmCC'), -o-linear-gradient(top, #fbb450, #f89406);
+  background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAHklEQVQIW2NkQAXGjEh8YyD7LEwAzAFJggTgHJAAAE+uAzjGgU3wAAAAAElFTkSuQmCC'), linear-gradient(to bottom, #fbb450, #f89406);
+  background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAHklEQVQIW2NkQAXGjEh8YyD7LEwAzAFJggTgHJAAAE+uAzjGgU3wAAAAAElFTkSuQmCC'), -moz-linear-gradient(top, #fbb450, #f89406);
+  background-repeat:repeat;
+  filter:progid:dximagetransform.microsoft.gradient(startColorstr='#fffbb450', endColorstr='#fff89406', GradientType=0);
+  filter:progid:dximagetransform.microsoft.gradient(enabled=false);
+  color:#fefefe;
+    }
+  }
+  li {
+
+    a {
+            font-family: 'RobotoCondensed', Arial, san-serif;
+
+      color: @main-orange;
+    }
+  }
+}
+
+
+.side-bar ul{
+    list-style:none;
+    margin:0;
+}
+.side-bar ul > li{
+    font-family:"OpenSansLight";
+    color:#444;
+    cursor:pointer;
+    font-size:16px;
+    margin-bottom:2px;
+    color: #999;
+
+}
+.side-bar ul >li figure{
+    padding:6px 14px 6px 14px;
+    margin:0;
+    color: #999;
+}
+
+.side-bar ul > li figure.active {
+  color: @main-orange;
+}
+.side-bar ul > li figure:hover{
+    background-color:rgba(0,0,0,0.03);
+    color:#666;
+}
+.side-bar ul > li.active figure:first-child{
+    color:rgba(0,175,219,1);
+    background-color:rgba(0,0,0,0.01);
+}
+
+.side-bar ul > li  i{
+    display:inline-block;
+    color: inherit;
+}
+.side-bar ul > li  .menuText{
+    display:inline-block;
+
+    a {
+      color: inherit;
+    }
+    a:hover {
+        text-decoration: none;
+    }
+}
+
+.side-bar ul.subSide{
+    padding:5px 0px 5px 0px;
+    display:none;
+}
+.side-bar ul.subSide li{
+    font-size:15px;
+    line-height:17px;
+    margin-bottom:5px;
+    padding:4px 10px 5px 14px;
+    margin-left:10px;
+}
+.side-bar ul.subSide li:hover{
+    background-color:rgba(0,175,219,0.1);
+}
+
+#super-search {
+        position: absolute;
+        left:0;
+        right:0;
+        margin-left:auto;
+        margin-right:auto;
+}

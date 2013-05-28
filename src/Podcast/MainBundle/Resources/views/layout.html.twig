@@ -10,8 +10,7 @@
             'bundles/podcastmain/font-awesome/build/assets/font-awesome/less/font-awesome.less'
             'bundles/podcastmain/internal/aro/library/css/styles.css'
             '@PodcastMainBundle/Resources/public/internal/less/style.less'
-
-         
+            'bundles/podcastmain/internal/less/fonts.less'
         %}
         <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
@@ -34,10 +33,16 @@
             '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-typeahead.js'
             '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-tab.js'
             '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-carousel.js'
+            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-transition.js'
+
 
             '@PodcastMainBundle/Resources/public/soundmanager/script/soundmanager2.js'
 
             '@PodcastMainBundle/Resources/public/sammy/lib/sammy.js'
+
+            '@PodcastMainBundle/Resources/public/isotope/jquery.isotope.js'
+
+            '@PodcastMainBundle/Resources/public/jquery-masonry/jquery.masonry.js'
 
             '@PodcastMainBundle/Resources/public/knockout/build/output/knockout-latest.js'
 
@@ -53,8 +58,8 @@
         <div id="wrap">
 
 
-          <!-- Fixed navbar -->
-          <div class="navbar navbar-orange navbar-fixed-top">
+            <!-- Fixed navbar -->
+            <div class="navbar navbar-orange navbar-fixed-top">
                 <div class="navbar-inner">
                     <p class="brand">
                         <i class="icon-headphones"></i>PodCapture
@@ -66,83 +71,98 @@
                     </ul>
                 </div>
             </div>
-<section class="subhead" style="box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px; margin-top:41px;">
-    <section class="row-fluid subhead-inner">
-        <div class="span12" data-bind="with: active">
-            <!-- ko if: template() == 'view-podcast-finder' -->
-            <ul class="nav nav-pills pull-right" data-bind="foreach: sorts" id="podcast-sorts">
-                <li class="pull-right" data-bind="css: { active: ( $data == $parent.pagination.sort() ) }">
-                    <a href="#" data-bind="click: $parent.pagination.sort"><!-- ko text: name --><!-- /ko --></a>
-                </li>
-            </ul>
-            <!-- /ko -->
+            <section class="subhead" style="box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px; margin-top:41px;">
+                <section class="row-fluid subhead-inner">
+                    <div class="span12" data-bind="with: active">
+                        <!-- ko if: template() == 'view-podcast-finder' -->
 
-            <div class="form-horizontal">
-               <div class="input-append">
-                    <input placeholder="Super Search" data-control="home" size="16" type="text"><button class="btn btn-warning" type="button">Podcasts&nbsp;&nbsp;<b class="caret"></b></button><ul class="dropdown-menu droppy-menu" id="sOpsL">
-                        <li><a href="#"><i class="icon-fire"></i> Designs</a></li>
-                        <li><a href="#"><i class="icon-eye-open"></i> Apps</a></li>
-                        <li><a href="#"><i class="icon-eye-close"></i> Prototypes</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#"><i class="icon-user"></i> Members</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#"><i class="icon-align-justify"></i> Articles</a></li>
-                    </ul><button class="btn btn-warning" type="button"><i class="icon-white icon-search"></i></button>
-                </div>
-            </div>
-        </div>
-    </section>
-</section>
 
-          <!-- Begin page content -->
-          <div class="container">
-            <div class="row-fluid">
-                <div class="span2">Left</div>
-                <div class="span10">
-                <div data-bind="template: { name: active().template(), data: active() }"></div>
+
+                        <ul class="nav nav-pills pull-right" data-bind="foreach: sorts" id="podcast-sorts">
+                            <li class="pull-right" data-bind="css: { active: ( $data == $parent.pagination.sort() ) }">
+                                <a href="#" data-bind="click: $parent.pagination.sort"><!-- ko text: name --><!-- /ko --></a>
+                            </li>
+                        </ul>
+                        <!-- /ko -->
+
+                        <ul class="nav nav-pills pull-right">
+                            <li><a href="#"><i class="icon-filter"></i></a></li>
+                        </ul>
+                        
+                        <div class="form-horizontal" id="super-search">
+                            <div class="input-append">
+                                <input placeholder="Super Search" data-control="home" size="16" type="text"><button class="btn btn-warning" type="button">Podcasts&nbsp;&nbsp;<b class="caret"></b></button><ul class="dropdown-menu droppy-menu" id="sOpsL">
+                                    <li><a href="#"><i class="icon-fire"></i> Designs</a></li>
+                                    <li><a href="#"><i class="icon-eye-open"></i> Apps</a></li>
+                                    <li><a href="#"><i class="icon-eye-close"></i> Prototypes</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#"><i class="icon-user"></i> Members</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#"><i class="icon-align-justify"></i> Articles</a></li>
+                                </ul><button class="btn btn-warning" type="button"><i class="icon-white icon-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Begin page content -->
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span2 side-bar">
+                        <ul>
+                            <li><figure class="active"><i class='icon-home'></i> <div class='menuText'><a href='/'>Home</a></div></figure></li>
+                            <li><figure><i class="icon-th-large"></i> <div class="menuText"><a href='/'>Directory</a></div></figure></li>
+                            <li data-bind="with: User"><figure><i class="icon-star"></i> <div class="menuText"><a href='{{ path('get_subscribed') }}'>Subscribed&nbsp;<!-- <div class="badge pull-right" data-bind="text: subscriptions().length"></div> --></a></figure></li>
+                            <li><figure><i class="icon-user"></i> <div class="menuText"><a href="#" data-toggle="modal" data-target="#myModal" data-backdrop="false">Register</a></div></figure></li>
+                        </ul>
+
+                    </div>
+                    <div class="span10">
+                        <div data-bind="template: { name: active().template(), data: active() }"></div>
 
 
                     </div>
                 </div>
-          
-</div>
+
+            </div>
 
 
- <div id="footer">
-      <div class="container">
-<div class="progress progress-warning ">
+            <div id="footer">
+                <div class="container">
+                    <div class="progress progress-warning ">
                         <span class="title">
                             The Frank Skinner Show - Absolute Radio <i class="icon-sign-blank" style="color:#f89406;"></i>
                         </span>
                         <div class="bar text-filled-2" data-percentage="25" style="width: 25%;">25%</div>
                     </div>
-      </div>
-    </div>
-    <script type="text/html" id="view-podcast-finder">
-           {% include 'PodcastMainBundle:Podcast:getPodcasts.html.twig' %}
-        </script>
-        <script type="text/html" id="view-podcast">
-            {% include 'PodcastMainBundle:Podcast:getPodcast.html.twig' %}
-        </script>
-        <script type="text/html" id="view-subscriptions">
-            <div class='row-fluid gallery photo' data-bind="foreach: subscriptions">
-                <figure class='tile'>
-                    <a data-bind="attr: { href: Routing.generate('get_podcast', { slug: slug }) }">
-                        <img data-bind="attr: { alt: name, src: image }">
-                    </a>
-                </figure>
-                    </div>
                 </div>
-           </div>
-        </script>
-        <script>
-            /**
-            * Init this nonsense already
-             */
-            $(document).ready(function() {
-                ko.applyBindings(new PodCatcher());
-                $('#myCarousel').carousel();
-           });
- </script>
-    </body>
-</html>
+            </div>
+            <script type="text/html" id="view-podcast-finder">
+                   {% include 'PodcastMainBundle:Podcast:getPodcasts.html.twig' %}
+            </script>
+            <script type="text/html" id="view-podcast">
+                    {% include 'PodcastMainBundle:Podcast:getPodcast.html.twig' %}
+            </script>
+            <script type="text/html" id="view-subscriptions">
+                        <div class='row-fluid gallery photo' data-bind="foreach: subscriptions">
+                        <figure class='tile'>
+                        <a data-bind="attr: { href: Routing.generate('get_podcast', { slug: slug }) }">
+                        <img data-bind="attr: { alt: name, src: image }">
+                        </a>
+                        </figure>
+                        </div>ß
+                        </div>
+                        </div>
+            </script>
+            <script>
+                        /**
+                        * Init this nonsense already
+                        */
+                        $(document).ready(function() {
+                            ko.applyBindings(new PodCatcher());
+                            //$('#myCarousel').carousel();
+                        });
+            </script>
+        </body>
+ </html>

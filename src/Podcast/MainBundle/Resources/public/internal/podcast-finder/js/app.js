@@ -238,7 +238,7 @@ PodCatcher.PodcastController.prototype = {
 PodCatcher.PodcastFinder = function() {
     this.template = ko.observable('view-podcast-finder');
     this.podcasts = ko.observableArray();
-    this.pagination = new PodCatcher.PodcastFinderPaginator(this.refresh, {_format: 'json', sort: this.sorts[0], amount: 16 }, this.podcasts);
+    this.pagination = new PodCatcher.PodcastFinderPaginator(this.refresh, {_format: 'json', sort: this.sorts[0], amount: 15 }, this.podcasts);
 };
 //Set our observable arrays up
 PodCatcher.PodcastFinder.prototype = {
@@ -270,6 +270,14 @@ PodCatcher.PodcastFinder.prototype = {
             self.results($.map(response.entities, function(podcast) {
                 return new PodCatcher.entity.ImageListItem(podcast[0]);
             }));
+           // $('#thumbview').masonry({
+           //    itemSelector: '.tile',
+           //    columnWidth: function( containerWidth ) {
+           //      return containerWidth / 5;
+           //    },
+           //    isAnimated: !Modernizr.csstransitions,
+           //    //isFitWidth: true
+           //  });
         });
     },
     goToPage: function(page) {
