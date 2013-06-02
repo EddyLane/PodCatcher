@@ -20,6 +20,7 @@ function PodcastDetailCtrl($scope, $routeParams, $http) {
         $scope.podcast.episodes = data;
     });
   });
+  
 }
 
 //PodcastDetailCtrl.$inject = ['$scope', '$routeParams', 'Podcast'];
