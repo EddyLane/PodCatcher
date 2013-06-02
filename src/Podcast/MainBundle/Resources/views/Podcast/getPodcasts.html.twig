@@ -1,6 +1,6 @@
 <div class='row-fluid gallery photo' id="thumbview">
     <figure class='tile' ng-repeat="podcast in podcasts">
-        <a href="#{{ path('get_podcasts') }}{% raw %}{{podcast.podcast_slug}}{% endraw %}">
+        <a href="#{{ path('get_podcasts') }}/{% raw %}{{podcast.podcast_slug}}{% endraw %}">
             <img ng-src="{% raw %}{{podcast.podcast_image}}{% endraw %}">
         </a>
     </figure>

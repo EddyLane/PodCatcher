@@ -1,31 +1,28 @@
-<div data-bind="with: podcast">
+<div>
     <div class="page-header">
-        <h1 class="hBig"><!-- ko text: name --><!-- /ko -->
+        <h1 class="hBig">{% raw %}{{ podcast.name }}{% endraw %}
             <small>Episodes</small>
         </h1>
-
-
     </div>
-
-
     <div class="row-fluid">
-        <div class="span8 blogContent" data-bind="foreach: episodes">
-            <div class="row-fluid blogPost">
+        <div class="span8 blogContent">
+            <div class="row-fluid blogPost" ng-repeat="episode in podcast.episodes">
 
                 <div class="title">
                     <blockquote>
-                        <p style="cursor: pointer" data-bind="click: play, style: { color: isPlaying() ? 'black' : ''  }">
-                            <!-- ko text: name --><!-- /ko -->&nbsp;&nbsp;
-                            <span class="label label-warning" data-bind="visible: isNew">New</span>
+                        <p style="cursor: pointer">
+                            {% raw %}{{ episode.name }}{% endraw %}&nbsp;&nbsp;
+                            <span class="label label-warning">New</span>
                         </p>                                    
 
-                        <small> <!-- ko text: pub_date --><!-- /ko --> | <!-- ko text: length --><!-- /ko --> </small>
+                        <small> {% raw %}{{ episode.pub_date }}{% endraw %} | {% raw %}{{ episode.length }}{% endraw %} </small>
                     </blockquote>
                 </div>
 
                 <div class="blogContent">
 
-                    <p data-bind="html: description" style="clear:both;">
+                    <p style="clear:both;">
+                        {% raw %}{{ episode.description }}{% endraw %}
                     </p>
                     <p>
                         <a href="#" data-bind="attr: { href: link }, text: link"></a>
@@ -38,7 +35,7 @@
                 <button class="btn btn-warning" data-bind="click: $root.User.subscribe"><i class="icon-white" data-bind="css: { 'icon-star': subscribed(), 'icon-star-empty' : !subscribed() }"></i></button>
             </div>
             <div>
-                <img style="width:100%; height: auto; border: 1px solid #D2D2D2; max-width: 300px;" data-bind="attr: { src: image }">
+                <img style="width:100%; height: auto; border: 1px solid #D2D2D2; max-width: 300px;"  ng-src="{% raw %}{{ podcast.image }}{% endraw %}">
             </div>
             <hr>
             <p data-bind="html: description"></p>
