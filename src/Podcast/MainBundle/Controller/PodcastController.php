@@ -13,8 +13,8 @@ class PodcastController extends FOSRestController
     /**
      * @QueryParam(name="page", requirements="\d+", default="1", description="Page of the overview.")
      * @QueryParam(name="amount", requirements="\d+", default="16", description="Amount of podcasts")
-     * @QueryParam(name="sort", requirements="[a-z]+", default="podcast.name", description="Sort field")
-     * @QueryParam(name="direction", requirements="[a-z]+", default="asc", description="Direction to sort")
+     * @QueryParam(name="sort", requirements="[a-z]+", description="Search")
+     * @QueryParam(name="direction", requirements="[a-z]+", default="desc", description="Direction to sort")
      * @QueryParam(name="search", requirements="[a-z]+", description="Search")
      * @QueryParam(array=true, name="categories", requirements="[a-z]+", description="Categories to filter on")
      * @QueryParam(array=true, name="organizations", requirements="[a-z]+", description="Organizations to filter on")
@@ -39,6 +39,7 @@ class PodcastController extends FOSRestController
         ;
                 
         $view = $this->view($podcasts)
+                     ->setTemplate('PodcastMainBundle:Podcast:getPodcasts.html.twig')
                      ->setTemplateVar('entities');
 
         return $this->handleView($view);

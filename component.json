@@ -8,6 +8,8 @@
     "knockout.localStorage": "git://github.com/jimrhoskins/knockout.localStorage.git",
     "font-awesome": "~3.1.1",
     "isotope": "~1.5.25",
-    "jquery-masonry": "~2.1.08"
+    "jquery-masonry": "~2.1.08",
+    "angular": "~1.0.7",
+    "angular-resource": "~1.0.7"
   }
 }

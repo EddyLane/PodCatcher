@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="podcatcher">
     <head>
         <title>Home |Virgin</title>
-
         {% stylesheets filter="lessphp,cssrewrite"
 
             'bundles/podcastmain/bootstrap/less/bootstrap.less'
@@ -14,49 +13,10 @@
         %}
         <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
-
-        <!-- fos_js_routing -->
-        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-        <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-        <!-- /fos_js_routing -->
-
-
-        {% javascripts
-            '@PodcastMainBundle/Resources/public/jquery/jquery.js'
-
-            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-alert.js'
-            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-button.js'
-            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-dropdown.js'
-            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-modal.js'
-            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-tooltip.js'
-            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-popover.js'
-            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-typeahead.js'
-            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-tab.js'
-            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-carousel.js'
-            '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-transition.js'
-
-
-            '@PodcastMainBundle/Resources/public/soundmanager/script/soundmanager2.js'
-
-            '@PodcastMainBundle/Resources/public/sammy/lib/sammy.js'
-
-            '@PodcastMainBundle/Resources/public/isotope/jquery.isotope.js'
-
-            '@PodcastMainBundle/Resources/public/jquery-masonry/jquery.masonry.js'
-
-            '@PodcastMainBundle/Resources/public/knockout/build/output/knockout-latest.js'
-
-            '@PodcastMainBundle/Resources/public/knockout.localStorage/knockout.localStorage.js'
-
-            '@PodcastMainBundle/Resources/public/internal/podcast-finder/js/app.js'
-        %}
-        <script src="{{ asset_url }}"></script>
-        {% endjavascripts %}
     </head>
     <body>
         <!-- Part 1: Wrap all page content here -->
         <div id="wrap">
-
 
             <!-- Fixed navbar -->
             <div class="navbar navbar-orange navbar-fixed-top">
@@ -71,19 +31,17 @@
                     </ul>
                 </div>
             </div>
+
             <section class="subhead" style="box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px; margin-top:41px;">
+
                 <section class="row-fluid subhead-inner">
-                    <div class="span12" data-bind="with: active" id="main-content">
-                        <!-- ko if: template() == 'view-podcast-finder' -->
-
-
+                    <div class="span12" id="main-content">
 
                         <ul class="nav nav-pills pull-right" data-bind="foreach: sorts" id="podcast-sorts">
-                            <li class="pull-right" data-bind="css: { active: ( $data == $parent.pagination.sort() ) }">
-                                <a href="#" data-bind="click: $parent.pagination.sort"><!-- ko text: name --><!-- /ko --></a>
+                            <li class="pull-right">
+                                <a href="#"><!-- ko text: name --><!-- /ko --></a>
                             </li>
                         </ul>
-                        <!-- /ko -->
 
                         <ul class="nav nav-pills pull-right">
                             <li><a href="#"><i class="icon-filter"></i> Filter</a></li>
@@ -103,7 +61,9 @@
                             </div>
                         </div>
                     </div>
+
                 </section>
+
             </section>
 
             <!-- Begin page content -->
@@ -113,56 +73,36 @@
                         <ul>
                             <li><figure class="active"><i class='icon-home'></i> <div class='menuText'><a href='/'>Home</a></div></figure></li>
                             <li><figure><i class="icon-th-large"></i> <div class="menuText"><a href='/'>Directory</a></div></figure></li>
-                            <li data-bind="with: User"><figure><i class="icon-star"></i> <div class="menuText"><a href='{{ path('get_subscribed') }}'>Subscribed&nbsp;<!-- <div class="badge pull-right" data-bind="text: subscriptions().length"></div> --></a></figure></li>
+                            <li><figure><i class="icon-star"></i> <div class="menuText"><a href='{{ path('get_subscribed') }}'>Subscribed</a></figure></li>
                             <li><figure><i class="icon-user"></i> <div class="menuText"><a href="#" data-toggle="modal" data-target="#myModal" data-backdrop="false">Register</a></div></figure></li>
                         </ul>
 
                     </div>
                     <div class="span10">
-                        <div data-bind="template: { name: active().template(), data: active() }"></div>
+                        <div ng-view></div>
 
 
                     </div>
                 </div>
 
             </div>
+            <!-- fos_js_routing -->
+            <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+            <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+            <!-- /fos_js_routing -->
+            {% javascripts
+                '@PodcastMainBundle/Resources/public/jquery/jquery.js'
+                '@PodcastMainBundle/Resources/public/angular/angular.js'
 
+                '@PodcastMainBundle/Resources/public/internal/podcatcher/js/app.js'
+                '@PodcastMainBundle/Resources/public/internal/podcatcher/js/controllers.js'
+                '@PodcastMainBundle/Resources/public/internal/podcatcher/js/filters.js'
+                '@PodcastMainBundle/Resources/public/internal/podcatcher/js/directives.js'
+                '@PodcastMainBundle/Resources/public/internal/podcatcher/js/services.js'
 
-            <div id="footer">
-                <div class="container">
-                    <div class="progress progress-warning ">
-                        <span class="title">
-                            The Frank Skinner Show - Absolute Radio <i class="icon-sign-blank" style="color:#f89406;"></i>
-                        </span>
-                        <div class="bar text-filled-2" data-percentage="25" style="width: 25%;">25%</div>
-                    </div>
-                </div>
-            </div>
-            <script type="text/html" id="view-podcast-finder">
-                   {% include 'PodcastMainBundle:Podcast:getPodcasts.html.twig' %}
-            </script>
-            <script type="text/html" id="view-podcast">
-                    {% include 'PodcastMainBundle:Podcast:getPodcast.html.twig' %}
-            </script>
-            <script type="text/html" id="view-subscriptions">
-                        <div class='row-fluid gallery photo' data-bind="foreach: subscriptions">
-                        <figure class='tile'>
-                        <a data-bind="attr: { href: Routing.generate('get_podcast', { slug: slug }) }">
-                        <img data-bind="attr: { alt: name, src: image }">
-                        </a>
-                        </figure>
-                        </div>ß
-                        </div>
-                        </div>
-            </script>
-            <script>
-                        /**
-                        * Init this nonsense already
-                        */
-                        $(document).ready(function() {
-                            ko.applyBindings(new PodCatcher());
-                            //$('#myCarousel').carousel();
-                        });
-            </script>
-        </body>
- </html>
+                '@PodcastMainBundle/Resources/public/angular-resource/angular-resource.js'
+            %}
+            <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}  
+    </body>
+</html>

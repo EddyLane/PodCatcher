@@ -37,12 +37,12 @@ class PodcastRepository extends EntityRepository
             TokenInterface $token,
             array $categories = [], 
             array $organizations = [], 
-            $sort = "podcast.name", 
-            $order = 'asc', 
+            $sort = null, 
+            $order = 'desc', 
             $amount = 8, 
             $page = 1, 
-            $search = false,
-            $hydration = Query::HYDRATE_ARRAY
+            $search = null,
+            $hydration = Query::HYDRATE_SCALAR
             )
     {
         $qb = $this->createQueryBuilder('podcast');
@@ -75,12 +75,17 @@ class PodcastRepository extends EntityRepository
         
         $qb
            ->leftJoin('podcast.episodes','episode')
-           ->addSelect(sprintf('%s as updated, %s as name', $qb->expr()->max('episode.pub_date'), 'podcast.name'))
+           ->addSelect(sprintf('%s as podcast_updated', $qb->expr()->max('episode.pub_date')))
            ->groupBy('podcast.id')
            ->setMaxResults($amount)
            ->setFirstResult(($page-1) * $amount)
-           ->orderBy($sort, $order)
         ;
+        
+        if(!$sort) {
+           $sort = 'podcast_updated';
+        }
+        
+        $qb->orderBy($sort, $order);
         
         $entities = $qb
                 ->getQuery()
