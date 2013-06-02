@@ -466,6 +466,9 @@ PodCatcher.PodcastFinderPaginator.prototype = {
                 return new PodCatcher.entity.ListItem(organization);
             }));
         });
+    },
+    getCategoryColumn: function(i, amount) {
+        return this.categories.slice(i, amount);
     }
 
 };

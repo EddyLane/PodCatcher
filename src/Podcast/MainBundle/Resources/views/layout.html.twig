@@ -73,7 +73,7 @@
             </div>
             <section class="subhead" style="box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px; margin-top:41px;">
                 <section class="row-fluid subhead-inner">
-                    <div class="span12" data-bind="with: active">
+                    <div class="span12" data-bind="with: active" id="main-content">
                         <!-- ko if: template() == 'view-podcast-finder' -->
 
 
@@ -86,9 +86,9 @@
                         <!-- /ko -->
 
                         <ul class="nav nav-pills pull-right">
-                            <li><a href="#"><i class="icon-filter"></i></a></li>
+                            <li><a href="#"><i class="icon-filter"></i> Filter</a></li>
                         </ul>
-                        
+
                         <div class="form-horizontal" id="super-search">
                             <div class="input-append">
                                 <input placeholder="Super Search" data-control="home" size="16" type="text"><button class="btn btn-warning" type="button">Podcasts&nbsp;&nbsp;<b class="caret"></b></button><ul class="dropdown-menu droppy-menu" id="sOpsL">

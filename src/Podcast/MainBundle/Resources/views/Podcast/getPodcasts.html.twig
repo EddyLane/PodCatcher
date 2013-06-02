@@ -1,4 +1,36 @@
-
+<div class='row-fluid'>
+    <div class="span4">
+         <div class='page-header'>
+            <h2 class='hBig'>Organization
+                <small class="pull-right" style="cursor: pointer" data-bind="click: $parent.clearSelected">Clear</small>
+            </h2>
+        </div>
+    </div>
+    <div class="span8">
+        <div class='page-header'>
+            <h2 class='hBig'>Category
+                <small class="pull-right" style="cursor: pointer" data-bind="click: $parent.clearSelected">Clear</small>
+            </h2>
+        </div>    
+    </div>
+</div>
+<div class="row-fluid"  data-bind="with: pagination" >
+    <div class="span4" data-bind="with: organizations">
+        <ul class="nav nav-stacked nav-pills" data-bind="foreach: $data" style="height: 200px; overflow: auto; padding: 5px;">
+            <li data-bind="css: { active: selected }"><a href="#" data-bind="text: name, click: $parents[1].toggleItem, attr: { href: Routing.generate('get_organization', { slug: slug }) }"></a></li>
+        </ul>
+    </div>
+    <div class="span4" data-bind="with: categories">   
+        <ul class="nav nav-stacked nav-pills" data-bind="foreach: $parent.getCategoryColumn(0,3)" style="height: 200px; overflow: auto; padding: 5px;">
+            <li data-bind="css: { active: selected }"><a href="#" data-bind="text: name, click: $parents[1].toggleItem, attr: { href: Routing.generate('get_category', { slug: slug }) }"></a></li>
+        </ul>
+    </div>
+    <div class="span4" data-bind="with: categories">   
+        <ul class="nav nav-stacked nav-pills" data-bind="foreach: $parent.getCategoryColumn(3,3)" style="height: 200px; overflow: auto; padding: 5px;">
+            <li data-bind="css: { active: selected }"><a href="#" data-bind="text: name, click: $parents[1].toggleItem, attr: { href: Routing.generate('get_category', { slug: slug }) }"></a></li>
+        </ul>
+    </div>
+</div>
 <div class='row-fluid gallery photo' data-bind="foreach: podcasts" id="thumbview">
     <figure class='tile'>
         <a data-bind="attr: { href: Routing.generate('get_podcast', { slug: slug }) }">
