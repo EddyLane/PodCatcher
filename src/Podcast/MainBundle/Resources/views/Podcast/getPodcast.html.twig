@@ -21,8 +21,7 @@
 
                 <div class="blogContent">
 
-                    <p style="clear:both;">
-                        {% raw %}{{ episode.description }}{% endraw %}
+                    <p style="clear:both;" ng-bind-html-unsafe="episode.description">
                     </p>
                     <p>
                         <a href="#" data-bind="attr: { href: link }, text: link"></a>

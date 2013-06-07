@@ -10,6 +10,7 @@
     "isotope": "~1.5.25",
     "jquery-masonry": "~2.1.08",
     "angular": "~1.0.7",
-    "angular-resource": "~1.0.7"
+    "angular-resource": "~1.0.7",
+    "angular-bootstrap": "~0.3.0"
   }
 }

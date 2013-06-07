@@ -4,7 +4,7 @@
 console.log(Routing.generate('get_podcast'));
 console.log(Routing.generate('get_podcasts'));
 
-angular.module('podcatcher', ['podcatcherFilters']).
+angular.module('podcatcher', ['podcatcherFilters', 'ui.bootstrap']).
   config(['$routeProvider', function($routeProvider) {
   $routeProvider.
       when(Routing.generate('get_podcasts'), {templateUrl: Routing.generate('get_podcasts', { _format: 'html' }), controller: PodcastListCtrl}).

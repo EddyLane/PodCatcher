@@ -35,8 +35,8 @@ class PodcastRepository extends EntityRepository
      */
     public function findAllByCategoryAndOrganization(
             TokenInterface $token,
-            array $categories = [], 
-            array $organizations = [], 
+            array $categories = array(), 
+            array $organizations = array(), 
             $sort = null, 
             $order = 'desc', 
             $amount = 8, 
@@ -69,9 +69,11 @@ class PodcastRepository extends EntityRepository
             ;
         }
 
-        $metadata = [
-            'total' => count(new Paginator($qb->getQuery(), false))
-        ];
+        $metadata = array(
+            'total' => count(new Paginator($qb->getQuery(), false)),
+            'amount'=> $amount,
+            'page' => $page
+        );
         
         $qb
            ->leftJoin('podcast.episodes','episode')
@@ -91,10 +93,10 @@ class PodcastRepository extends EntityRepository
                 ->getQuery()
                 ->getResult($hydration);
 
-        return [
+        return array(
             'metadata' => $metadata,
             'entities' => $entities
-        ];
+        );
     }
     
     

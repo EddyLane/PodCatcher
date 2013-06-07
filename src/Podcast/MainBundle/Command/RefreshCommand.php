@@ -57,11 +57,15 @@ class RefreshCommand extends ContainerAwareCommand {
                 $episode->setLink($enclosure->link);
                 $episode->setHash($enclosure->link);
                 $episode->setName($episodeXml->get_title());
-                $episode->setDescription(nl2br($episodeXml->get_item_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'summary')[0]["data"]));
+
+                $description = $episodeXml->get_item_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'summary');
+
+                $episode->setDescription(nl2br($description[0]["data"]));
                 
                 try {
+                    $duration = $episodeXml->get_item_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'duration');
                     $episode->setLength(new \DateTime(
-                            $episodeXml->get_item_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'duration')[0]["data"]
+                            $duration[0]["data"]
                     ));                    
                 } catch(\Exception $e) {
                     $output->writeln(sprintf('<error>Podcast <comment>%s</comment> episode <comment>%s</comment> has incorrect duration: \'%s\'</error>', $podcast->getName(), $episodeXml->get_title(), $e->getMessage()));

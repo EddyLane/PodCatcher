@@ -79,7 +79,7 @@
 
                     </div>
                     <div class="span10">
-                        <div ng-view></div>
+                        <div ng-view id="content"></div>
 
 
                     </div>
@@ -94,13 +94,18 @@
                 '@PodcastMainBundle/Resources/public/jquery/jquery.js'
                 '@PodcastMainBundle/Resources/public/angular/angular.js'
 
+                '@PodcastMainBundle/Resources/public/angular-bootstrap/ui-bootstrap.js'
+                '@PodcastMainBundle/Resources/public/angular-bootstrap/ui-bootstrap-tpls.js'
+                '@PodcastMainBundle/Resources/public/angular-resource/angular-resource.js'
+
+                '@PodcastMainBundle/Resources/public/isotope/jquery.isotope.js'
+
                 '@PodcastMainBundle/Resources/public/internal/podcatcher/js/app.js'
                 '@PodcastMainBundle/Resources/public/internal/podcatcher/js/controllers.js'
                 '@PodcastMainBundle/Resources/public/internal/podcatcher/js/filters.js'
                 '@PodcastMainBundle/Resources/public/internal/podcatcher/js/directives.js'
                 '@PodcastMainBundle/Resources/public/internal/podcatcher/js/services.js'
 
-                '@PodcastMainBundle/Resources/public/angular-resource/angular-resource.js'
             %}
             <script src="{{ asset_url }}"></script>
             {% endjavascripts %}  
