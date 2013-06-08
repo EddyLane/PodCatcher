@@ -1,10 +1,13 @@
 'use strict';
 
-/* Services */
-
 angular.module('podcatcherServices', ['ngResource']).
-    factory('Phone', function($resource){
-  return $resource('phones/:phoneId.json', {}, {
-    query: {method:'GET', params:{phoneId:'phones'}, isArray:true}
-  });
+        factory('Category', function($resource) {
+    return $resource(Routing.generate('get_categories', {_format: 'json'}), {}, {
+        query: {method: 'GET', isArray: true}
+    });
+}).
+        factory('Organization', function($resource) {
+    return $resource(Routing.generate('get_organizations', {_format: 'json'}), {}, {
+        query: {method: 'GET', isArray: true}
+    });
 });
