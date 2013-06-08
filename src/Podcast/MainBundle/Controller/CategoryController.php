@@ -46,7 +46,7 @@ class CategoryController extends FOSRestController
 
         $em = $this->getDoctrine()->getManager();
 
-        $query = $em->getRepository('PodcastMainBundle:Category')->findAll();
+        $query = $em->getRepository('PodcastMainBundle:Category')->findBy(array(), array('slug' => 'asc'));
 
         //Paginate
         $paginator = $this->get('knp_paginator');

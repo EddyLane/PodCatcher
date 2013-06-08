@@ -18,7 +18,7 @@ class CategoryRepository extends EntityRepository
      * @param  string $sortDirection
      * @return type
      */
-    public function findAllWithDefaultSort($sortField = "p.id", $sortDirection = "asc")
+    public function findAllWithDefaultSort($sortField = "p.slug", $sortDirection = "asc")
     {
         return $this->findBy(array(), array($sortField => $sortDirection));
     }

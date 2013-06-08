@@ -1,8 +1,69 @@
-<div class='row-fluid gallery photo' id="thumbview">
-    <figure class='tile' ng-repeat="podcast in podcasts">
-        <a href="#{{ path('get_podcasts') }}/{% raw %}{{podcast.podcast_slug}}{% endraw %}">
-            <img ng-src="{% raw %}{{podcast.podcast_image}}{% endraw %}">
-        </a>
-    </figure>
+<section class="subhead" style="box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px; margin-top:41px;">
+    <section class="row-fluid subhead-inner">
+        <div class="span12" id="main-content">
+
+            <ul class="nav nav-pills pull-right">
+
+                <li class="dropdown pull-right">
+                    <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html">
+                        <i class="icon-filter"></i> {% raw %}{{ currentSort.name }}{% endraw %}
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu" role="menu" id="podcast-sorts">
+                        <li ng-repeat="sort in sorts"><a ng-click="setSort(sort)">{% raw %}{{ sort.name }}{% endraw %}</a></li>
+                    </ul>
+                </li>
+
+
+            </ul>   
+
+            <div class="form-horizontal" id="super-search">
+                <div class="input-append">
+                    <input placeholder="Super Search" size="16" type="text" ng-model="podcastSearch" typeahead="podcast.slug for podcast in podcasts | filter:$viewValue"><button class="btn btn-warning" type="button">Podcasts&nbsp;&nbsp;<b class="caret"></b></button><ul class="dropdown-menu droppy-menu" id="sOpsL">
+                        <li><a href="#"><i class="icon-fire"></i> Designs</a></li>
+                        <li><a href="#"><i class="icon-eye-open"></i> Apps</a></li>
+                        <li><a href="#"><i class="icon-eye-close"></i> Prototypes</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#"><i class="icon-user"></i> Members</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#"><i class="icon-align-justify"></i> Articles</a></li>
+                    </ul><button class="btn btn-warning" type="button"><i class="icon-white icon-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+<!-- Begin page content -->
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span2 side-bar">
+            <ul>
+                <li><figure class="active"><i class='icon-home'></i> <div class='menuText'><a href='/'>Home</a></div></figure></li>
+                <li><figure><i class="icon-th-large"></i> <div class="menuText"><a href='/'>Directory</a></div></figure></li>
+                <li><figure><i class="icon-star"></i> <div class="menuText"><a href='{{ path('get_subscribed') }}'>Subscribed</a></figure></li>
+                <li><figure><i class="icon-user"></i> <div class="menuText"><a href="#" data-toggle="modal" data-target="#myModal" data-backdrop="false">Register</a></div></figure></li>
+            </ul>
+        </div>
+        <div class="span2 filter-container">
+            <div class="well well-small">
+                <select ui-select2 ng-model="selectedCategories" ng-options="c.slug as c.name for c in categories" data-placeholder="Filter categories" multiple="true" style="width: 100%;">
+                </select> 
+                <select ui-select2 ng-model="selectedOrganizations" ng-options="o.slug as o.name for o in organizations" data-placeholder="Filter organizations" multiple="true" style="width: 100%;">
+                </select> 
+            </div>
+        </div>
+        <div class="span8">
+            <div id="content">
+
+                <div class='row-fluid gallery photo' id="thumbview">
+                    <figure class='tile' ng-repeat="podcast in podcasts">
+                        <a href="#{{ path('get_podcasts') }}/{% raw %}{{podcast.podcast_slug}}{% endraw %}">
+                            <img ng-src="{% raw %}{{podcast.podcast_image}}{% endraw %}">
+                        </a>
+                    </figure>
+                </div>
+                <pagination boundary-links="true" num-pages="noOfPages" current-page="currentPage" max-size="maxSize" class="pagination-centered"></pagination>
+            </div>
+        </div>
+    </div>
 </div>
-<pagination boundary-links="true" num-pages="noOfPages" current-page="currentPage" max-size="maxSize" class="pagination-centered"></pagination>

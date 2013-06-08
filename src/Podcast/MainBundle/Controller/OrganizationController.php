@@ -46,7 +46,7 @@ class OrganizationController extends FOSRestController
         
         $em = $this->getDoctrine()->getManager();
 
-        $query = $em->getRepository('PodcastMainBundle:Organization')->findAll();
+        $query = $em->getRepository('PodcastMainBundle:Organization')->findBy(array(), array('slug' => 'asc'));
 
         //Paginate
         $paginator = $this->get('knp_paginator');
