@@ -19,6 +19,8 @@ function PodcastListCtrl($scope, $http, Category, Organization) {
   ];
   $scope.currentSort = $scope.sorts[1];
 
+    
+
   $scope.refresh = function() {
     $http({
         url: Routing.generate('get_podcasts', { _format: 'json', categories: $scope.selectedCategories, organizations: $scope.selectedOrganizations }),
@@ -34,6 +36,16 @@ function PodcastListCtrl($scope, $http, Category, Organization) {
         $scope.noOfPages = Math.floor(response.metadata.total / response.metadata.amount) + 1;
     });
   };
+  
+  $scope.searchPodcasts = function(query) {
+  return [
+      { podcast_name: 'Test' }
+  ];
+  return ['One', 'Two', 'Three'];
+    return $http.jsonp(Routing.generate('get_podcasts', { _format: 'json', search: query, amount: 15 })).then(function(response){
+        return response.entities;
+    });
+  }
   
   $scope.setSort = function(sort) {
       $scope.currentSort = sort;

@@ -19,7 +19,7 @@
 
             <div class="form-horizontal" id="super-search">
                 <div class="input-append">
-                    <input placeholder="Super Search" size="16" type="text" ng-model="podcastSearch" typeahead="podcast.slug for podcast in podcasts | filter:$viewValue"><button class="btn btn-warning" type="button">Podcasts&nbsp;&nbsp;<b class="caret"></b></button><ul class="dropdown-menu droppy-menu" id="sOpsL">
+                    <input placeholder="Super Search" size="16" type="text" ng-model="podcastSearch" typeahead="podcast_slug for podcast in searchPodcasts($viewValue)"><button class="btn btn-warning" type="button">Podcasts&nbsp;&nbsp;<b class="caret"></b></button><ul class="dropdown-menu droppy-menu" id="sOpsL">
                         <li><a href="#"><i class="icon-fire"></i> Designs</a></li>
                         <li><a href="#"><i class="icon-eye-open"></i> Apps</a></li>
                         <li><a href="#"><i class="icon-eye-close"></i> Prototypes</a></li>
@@ -55,12 +55,23 @@
         <div class="span8">
             <div id="content">
 
-                <div class='row-fluid gallery photo' id="thumbview">
-                    <figure class='tile' ng-repeat="podcast in podcasts">
-                        <a href="#{{ path('get_podcasts') }}/{% raw %}{{podcast.podcast_slug}}{% endraw %}">
-                            <img ng-src="{% raw %}{{podcast.podcast_image}}{% endraw %}">
+                <div class='row-fluid' id="thumb-view">
+                    <div class="view" ng-repeat="podcast in podcasts" tooltip="{% raw %}{{podcast.podcast_name}}{% endraw %}">
+                        <div class="view-back">
+                            <a href="#{{ path('get_podcasts') }}/{% raw %}{{podcast.podcast_slug}}{% endraw %}" class="like"s>
+                                <i class="icon-heart icon-large"></i>
+                            </a>
+                            <a href="#{{ path('get_podcasts') }}/{% raw %}{{podcast.podcast_slug}}{% endraw %}" class="listen">
+                                <i class="icon-headphones icon-large"></i>
+                            </a>                            
+                            <a href="#{{ path('get_podcasts') }}/{% raw %}{{podcast.podcast_slug}}{% endraw %}" class="list">
+                                <i class="icon-headphones icon-list-ul"></i>
+                            </a>    
+                        </div>
+                            <a href="#{{ path('get_podcasts') }}/{% raw %}{{podcast.podcast_slug}}{% endraw %}">
+                        <img ng-src="{% raw %}{{podcast.podcast_image}}{% endraw %}">
                         </a>
-                    </figure>
+                    </div>
                 </div>
                 <pagination boundary-links="true" num-pages="noOfPages" current-page="currentPage" max-size="maxSize" class="pagination-centered"></pagination>
             </div>

@@ -1,8 +1,6 @@
 'use strict';
 
 /* App Module */
-console.log(Routing.generate('get_podcast'));
-console.log(Routing.generate('get_podcasts'));
 
 angular.module('podcatcher', ['podcatcherFilters', 'podcatcherServices', 'ui.bootstrap', 'ui.select2']).
   config(['$routeProvider', function($routeProvider) {
