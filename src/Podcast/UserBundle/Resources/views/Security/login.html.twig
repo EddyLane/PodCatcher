@@ -1,31 +1,31 @@
-<div data-bind="with: User">
-    <!-- ko ifnot: username -->
-    <form action="{{ path("fos_user_security_check") }}" method="post" id="login-form" data-bind="submit: login">
-        <div data-bind="if: error">
-            <div class="alert alert-error" data-bind="text: error"></div>
+<div modal="shouldBeOpen" close="close()" options="options">
+    <form method="post" id="login-form" class="nomargin">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
+            <h3>Login</h3>
         </div>
-        
-        <input type="hidden" id="csrf_token" name="_csrf_token" value="{{ csrf_token }}" />
-        <div class="control-group">
-            <div class="controls">
-                <div class="input-prepend">
-                    <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" placeholder="{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}" class="input-block-level" />
+        <div class="modal-body">
+            <input type="hidden" id="csrf_token" name="_csrf_token" value="{{ csrf_token }}" />
+            <div class="control-group">
+                <div class="controls">
+                    <input type="text" id="username" name="_username" value="{{ last_username }}" placeholder="{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}" class="input-block-level" />
+                    <div ng-show="">
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="control-group">
-            <div class="controls">
-                <div class="input-prepend">
-                    <input type="password" id="password" name="_password" required="required" placeholder="{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}"  class="input-block-level" />
+            <div class="control-group">
+                <div class="controls">
+                    <input type="password" id="password" name="_password" placeholder="{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}"  class="input-block-level" />
                 </div>
             </div>
+            <div class="control-group">
+                <label class="checkbox" for="remember_me">
+                    <input type="checkbox" id="remember_me" name="_remember_me" value="on" /> {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
+                </label>
+            </div>
         </div>
-        <div class="control-group">
-            <label class="checkbox" for="remember_me">
-                <input type="checkbox" id="remember_me" name="_remember_me" value="on" /> {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
-            </label>
+        <div class="modal-footer">
+            <input class="btn btn-primary" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" ng-click="login(user)"/>
         </div>
-        <input class="btn btn-primary" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
     </form>
-    <!-- /ko -->
 </div>

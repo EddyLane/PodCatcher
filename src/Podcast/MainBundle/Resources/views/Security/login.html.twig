@@ -3,7 +3,7 @@
 <div class="alert alert-error">{{ error|trans({}, 'FOSUserBundle') }}</div>
 {% endif %}
 <div data-bind="with: AppKernel.user">
-    <form action="{{ path("fos_user_security_check") }}" method="post" id="login-form" data-bind="submit: login">
+    <form action="{{ path("fos_user_security_check") }}" method="post" id="login-form">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
         <div class="control-group">
             <div class="controls">

@@ -2,15 +2,39 @@
 
 /* Controllers */
 
+function SubscriptionsListCtrl($scope, User) {
+    console.log('hetr');
+}
 
+function LoginFormCtrl($scope, User) {
+    
+    $scope.user = User;
+    
+    $scope.login = function(userForm) {
+        console.log(Routing.generate("fos_user_security_check"));
+    };
+    
+    $scope.open = function() {
+        $scope.shouldBeOpen = true;
+    };
 
-function PodcastListCtrl($scope, $http, Category, Organization) {
+    $scope.close = function() {
+        $scope.closeMsg = 'I was closed at: ' + new Date();
+        $scope.shouldBeOpen = false;
+    };
+
+    $scope.options = {
+        backdropFade: true,
+        dialogFade: true
+    };
+}
+
+function PodcastListCtrl($scope, $http, limitToFilter, Category, Organization, User) {
     
   $scope.maxResultSize = 32;
   $scope.currentPage = 1;
   $scope.maxSize = 8;
   $scope.noOfPages;
-  $scope.podcastSearch = undefined;
   $scope.categories = Category.query();
   $scope.organizations = Organization.query();
   $scope.sorts = [
@@ -18,9 +42,7 @@ function PodcastListCtrl($scope, $http, Category, Organization) {
       { name: 'Last Updated', sort: 'podcast_updated', direction: 'desc'}
   ];
   $scope.currentSort = $scope.sorts[1];
-
-    
-
+  $scope.user = User;
   $scope.refresh = function() {
     $http({
         url: Routing.generate('get_podcasts', { _format: 'json', categories: $scope.selectedCategories, organizations: $scope.selectedOrganizations }),
@@ -37,15 +59,11 @@ function PodcastListCtrl($scope, $http, Category, Organization) {
     });
   };
   
-  $scope.searchPodcasts = function(query) {
-  return [
-      { podcast_name: 'Test' }
-  ];
-  return ['One', 'Two', 'Three'];
-    return $http.jsonp(Routing.generate('get_podcasts', { _format: 'json', search: query, amount: 15 })).then(function(response){
-        return response.entities;
+  $scope.searchPodcasts = function(cityName) {
+    return $http.jsonp(Routing.generate('get_podcasts', { search: cityName })).then(function(response){
+      return limitToFilter(response.data.entities, 15);
     });
-  }
+  };
   
   $scope.setSort = function(sort) {
       $scope.currentSort = sort;

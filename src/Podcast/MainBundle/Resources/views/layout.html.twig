@@ -25,20 +25,23 @@
             <div class="navbar navbar-orange navbar-fixed-top">
                 <div class="navbar-inner">
                     <p class="brand">
-                        <i class="icon-headphones"></i>PodCapture
+                        <i class="icon-headphones icon-large" style="position: absolute; top: 7px;"></i>
                     </p>
                     <ul class="nav pull-right">
                         <li><a href="#"><i class="icon-star icon-large"></i></a></li>
                         <li class="divider-vertical"></li>
-                        <li><a href="#"><i class="icon-user icon-large"></i></a></li>
+                        <li ng-controller="LoginFormCtrl">
+                            <a ng-click="open()"><i class="icon-user icon-large"></i></a>
+                            {% render "PodcastUserBundle:Security:login" %}
+                        </li>
                         <li><a href="#"><i class="icon-cog icon-large"></i></a></li>
                     </ul>
                 </div>
             </div>
 
             <div ng-view>
-              
-              
+
+
             </div>
             <!-- fos_js_routing -->
             <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
