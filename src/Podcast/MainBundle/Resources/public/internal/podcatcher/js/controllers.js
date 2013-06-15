@@ -3,7 +3,7 @@
 /* Controllers */
 
 function SubscriptionsListCtrl($scope, User) {
-    console.log('hetr');
+    $scope.user = User;
 }
 
 function LoginFormCtrl($scope, User) {
@@ -30,7 +30,6 @@ function LoginFormCtrl($scope, User) {
 }
 
 function PodcastListCtrl($scope, $http, limitToFilter, Category, Organization, User) {
-    
   $scope.maxResultSize = 32;
   $scope.currentPage = 1;
   $scope.maxSize = 8;
@@ -56,9 +55,19 @@ function PodcastListCtrl($scope, $http, limitToFilter, Category, Organization, U
     }).success(function(response) {
         $scope.podcasts = response.entities;
         $scope.noOfPages = Math.floor(response.metadata.total / response.metadata.amount) + 1;
+        
+
+//                setTimeout(function(){
+//              $("#thumb-view").isotope({ 
+//                    itemSelector: '.view',
+//                    masonry: {
+//                        columnWidth: 5
+//                    }
+//                });
+//                },3000);
     });
   };
-  
+    
   $scope.searchPodcasts = function(cityName) {
     return $http.jsonp(Routing.generate('get_podcasts', { search: cityName })).then(function(response){
       return limitToFilter(response.data.entities, 15);

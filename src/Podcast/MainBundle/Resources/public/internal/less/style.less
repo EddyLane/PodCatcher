@@ -1,5 +1,20 @@
 @main-orange: #faa732;
-
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
       html,
       body {
         height: 100%;
@@ -304,15 +319,11 @@ blockquote p {
 
 
 .view {
-	-webkit-perspective: 1050px;
-	-moz-perspective: 1050px;
-	-o-perspective: 1050px;
-	-ms-perspective: 1050px;
-	perspective: 1050px;
+
 
         img {
-            width: 320px;
-            height: 220px;
+            width: 216px;
+            height: 216px;
         }
 
 }
@@ -395,19 +406,12 @@ blockquote p {
 .view {
 	width: 216px;
 	height: 216px;
-	margin: 10px;
 	float: left;
 	position: relative;
-	border: 8px solid #fff;
 	box-shadow: 1px 1px 2px rgba(0,0,0,0.05);
 	background: #333;
-	-webkit-perspective: 500px;
-	-moz-perspective: 500px;
-	-o-perspective: 500px;
-	-ms-perspective: 500px;
-	perspective: 500px;
+  margin: 5px;
 }
-
 .view .slice{
 	width: 60px;
 	height: 100%;
@@ -478,6 +482,10 @@ blockquote p {
 	text-align: center;
 	font-weight: 700;
         text-decoration: none;
+}
+
+.view-back a.active i {
+    color: @main-orange;
 }
 
 .view-back a.like {
@@ -557,9 +565,7 @@ blockquote p {
 	-ms-transition: left 0.3s ease-in-out;
 	transition: left 0.3s ease-in-out;
 }
-#thumbview {
-    	box-sizing: content-box;
-}
+
 
 .view {
 	overflow: hidden;
@@ -583,4 +589,10 @@ blockquote p {
 
 .nomargin {
     margin: 0px;
+}
+
+#thumb-view {
+    margin: 0 auto;
+    padding: 5px;
+
 }

@@ -1,22 +1,32 @@
 'use strict';
 
-angular.module('podcatcherServices', ['ngResource'])
+angular.module('podcatcherServices', ['ngResource', 'podcatcherFilters', 'LocalStorageModule'])
+
 .factory('Category', function($resource) {
     return $resource(Routing.generate('get_categories', {_format: 'json'}), {}, {
         query: {method: 'GET', isArray: true}
     });
 })
+
 .factory('Organization', function($resource) {
     return $resource(Routing.generate('get_organizations', {_format: 'json'}), {}, {
         query: {method: 'GET', isArray: true}
     });
 })
-.service('User', function() {
-    this.subscriptions = [];
+
+.service('User', function($filter, localStorageService) {
+    this.subscriptions = JSON.parse(localStorageService.get('subscriptions')) || [];
     this.subscribe = function(podcast) {
-        if(this.subscriptions.indexOf(podcast) === -1) {
+        var found = $filter('getById')(this.subscriptions, podcast.podcast_id);
+        if(found === false) {
             this.subscriptions.push(podcast);
-            console.log(this.subscriptions);
+            localStorageService.add('subscriptions', JSON.stringify(this.subscriptions));
+        } else {
+            this.subscriptions.splice(found, 1);
+            localStorageService.add('subscriptions', JSON.stringify(this.subscriptions));
         }
+    };
+    this.isSubscribed = function(podcast) {
+        return ($filter('getById')(this.subscriptions, podcast.podcast_id) !== false) ? true : false;
     };
 });
