@@ -5,7 +5,7 @@
 function HomeCtrl($scope, $http) {
 }
 
-function SubscriptionsListCtrl($scope, $http, User) {
+function SubscriptionsListCtrl($scope, $http, $filter, User) {
     $scope.user = User;
 
     $scope.setActive = function(podcast) {
@@ -19,7 +19,7 @@ function SubscriptionsListCtrl($scope, $http, User) {
     if($scope.user.subscriptions) {
       $scope.setActive($scope.user.subscriptions[0]);
     }
-    
+
 }
 
 function LoginFormCtrl($scope, User) {

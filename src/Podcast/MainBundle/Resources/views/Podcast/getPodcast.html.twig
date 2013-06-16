@@ -1,9 +1,18 @@
-<div>
+<section class="subhead" style="box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px; margin-top:41px;">
+    <section class="row-fluid subhead-inner">
+        <div class="span12" id="main-content">
+        </div>
+    </section>
+</section>
+<div class="container-fluid">
+<div class="row-fluid">
+    <div class="span12">
     <div class="page-header">
         <h1 class="hBig">{% raw %}{{ podcast.name }}{% endraw %}
             <small>Episodes</small>
         </h1>
     </div>
+</div>
     <div class="row-fluid">
         <div class="span8 blogContent">
             <div class="row-fluid blogPost" ng-repeat="episode in podcast.episodes">
@@ -75,4 +84,5 @@
             </div>
         </div>
     </div>        
+</div>
 </div>

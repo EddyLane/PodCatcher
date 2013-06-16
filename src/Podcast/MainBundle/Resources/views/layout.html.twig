@@ -11,7 +11,6 @@
             '@PodcastMainBundle/Resources/public/internal/less/style.less'
 
             'bundles/podcastmain/select2/select2.css'
-
             'bundles/podcastmain/internal/less/fonts.less'
         %}
         <link rel="stylesheet" href="{{ asset_url }}" />
@@ -28,13 +27,13 @@
                         <i class="icon-headphones icon-large" style="position: absolute; top: 7px;"></i>
                     </p>
                     <ul class="nav pull-left">
+                        <li class="divider-vertical"></li>
                         <li>
                             <a href="#{{ path('_welcome') }}"><i class="icon-home icon-large"></i></a>
                         </li>
-                    </ul>
+                       <li ng-controller="SubscriptionsListCtrl"><a href="#{{ path('get_subscribed') }}"><i class="icon-heart icon-large"></i>
+                            <span class="badge badge-warning">{% raw %}{{ user.subscriptions.length }}{% endraw %}</span></a></li>                    </ul>
                     <ul class="nav pull-right">
-                        <li ng-controller="SubscriptionsListCtrl"><a href="#{{ path('get_subscribed') }}"><i class="icon-heart icon-large"></i>
-                            <span class="badge badge-warning">{% raw %}{{ user.subscriptions.length }}{% endraw %}</span></a></li>
                         <li class="divider-vertical"></li>
                         <li ng-controller="LoginFormCtrl">
                             <a ng-click="open()"><i class="icon-user icon-large"></i></a>
