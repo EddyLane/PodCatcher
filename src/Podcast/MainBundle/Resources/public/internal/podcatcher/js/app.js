@@ -70,6 +70,10 @@ angular.module('podcatcher', ['LocalStorageModule', 'podcatcherFilters', 'podcat
           width : (this.masonry.cols - unusedCols) * this.masonry.columnWidth
         };
   };
+
+  $(window),resize(function() {
+    console.log(window.height);
+  });
 //
 //$("#thumb-view").isotope({ 
 //    itemSelector: '.view',
