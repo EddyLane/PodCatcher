@@ -61,4 +61,13 @@ class UserController extends FOSRestController
         
         return $this->handleView($view);
     }
+
+    public function getSubscriptionAction($slug)
+    {
+        $response = $this->forward('PodcastMainBundle:PodcastEpisode:getEpisodes', array(
+            'slug'  => $slug
+        ));
+
+        return $response;
+    }
 }
