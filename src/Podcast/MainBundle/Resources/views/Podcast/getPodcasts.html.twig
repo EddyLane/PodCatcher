@@ -62,20 +62,14 @@
                 </div> -->
                 <div class='row-fluid'>
                     <div class="span12">
-                  
-                        <ul class="nav nav-tabs pull-right">
-                            <li ng-repeat="sort in sorts"><a ng-click="setSort(sort)">{% raw %}{{ sort.name }}{% endraw %}</a></li>
 
                         </ul>
-                        <div id="thumb-view">
-
-      <div class-"big-left-previous">
-                            <i class="icon-arrow-left"></i>
-                        </div>
+                        <div id="thumb-view" iso-grid>
 
 
 
-                                                    <div class="view" ng-repeat="podcast in podcasts | orderBy: podcast.podcast_name">
+
+                              <div class="view" ng-repeat="podcast in podcasts | orderBy: podcast.podcast_name"  iso-grid>
                                 <div class="view-back">
                                     <a class="like" ng-click="user.subscribe(podcast)" style="cursor:pointer" ng-class="{ active: user.isSubscribed(podcast) }">
                                         <i class="icon-heart icon-large"></i>
@@ -91,9 +85,7 @@
                                     <img ng-src="{% raw %}{{podcast.podcast_image}}{% endraw %}">
                                 </a>
                             </div>
-                    <div class-"big-right-previous">
-                            <i class="icon-arrow-right"></i>
-                        </div>
+
                         </div>
         
                     </div>

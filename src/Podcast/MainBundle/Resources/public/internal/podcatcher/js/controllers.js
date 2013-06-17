@@ -82,6 +82,7 @@ function PodcastListCtrl($scope, $http, $routeParams, limitToFilter, Category, O
                setTimeout(function(){
              $("#thumb-view").isotope({ 
                    itemSelector: '.view',
+                   containerStyle: { position: 'relative', overflow: 'visible' },
                    masonry: {
                        columnWidth: 5
                    }

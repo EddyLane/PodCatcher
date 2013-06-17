@@ -1,33 +1,6 @@
 @main-orange: #faa732;
-html, body, div, span, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp,
-small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section, summary,
-time, mark, audio, video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-}
-      html,
-      body {
-        height: 100%;
-        /* The html and body elements cannot have any padding or margin. */
-      }
 
-@font-face {
-    font-family: 'OpenSansLight';
-    src: url('../virgin/fonts/OpenSans-Light-webfont.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
 
-}
 
 .subhead {
   height: 29px;
@@ -101,13 +74,11 @@ time, mark, audio, video {
 
 
 .hBig{
-    font-family:"OpenSansLight";
     font-size:22px;
     color:rgba(0,175,219,1);
     font-weight:lighter;
 }
 .hBig small{
-    font-family:"OpenSansLight";
     font-size:18px;
     color:rgba(0,0,0,0.4);
 }
@@ -207,7 +178,6 @@ time, mark, audio, video {
 
     a {
 text-align:right;
-            font-family: 'RobotoCondensed', Arial, san-serif;
 
       color: @main-orange;
     }
@@ -223,7 +193,6 @@ a:hover {
     margin:0;
 }
 .side-bar ul > li{
-    font-family:"OpenSansLight";
     color:#444;
     cursor:pointer;
     font-size:16px;
@@ -629,9 +598,11 @@ blockquote p {
  }
 
 .big-left-previous {
+  width: 60px;
+  height: 100%;
   background-color: #eee;
   position: absolute;
-  left: 0px;
+  left: -60px;
   z-index: 99;
   text-align: left;
 }
@@ -640,7 +611,7 @@ blockquote p {
   height: 100%;
   background-color: #eee;
   position: absolute;
-  right: 0px;
+  right: -60px;
   z-index: 99;
   text-align: right;
 }
