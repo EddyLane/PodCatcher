@@ -1,7 +1,7 @@
-<div modal="shouldBeOpen" close="close()" options="options">
+<div modal="shouldBeOpen" close="shouldBeOpen = false" options="options">
     <form method="post" id="login-form" class="nomargin">
         <div class="modal-header">
-            <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
+            <button type="button" class="close" ng-click="shouldBeOpen = false" aria-hidden="true">&times;</button>
             <h3>Login</h3>
         </div>
         <div class="modal-body">

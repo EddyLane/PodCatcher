@@ -15,7 +15,13 @@ angular.module('podcatcherServices', ['ngResource', 'podcatcherFilters', 'LocalS
 })
 
 .service('User', function($filter, localStorageService) {
+    
     this.subscriptions = JSON.parse(localStorageService.get('subscriptions')) || [];
+
+    this.authenticate = function() {
+        
+    };
+
     this.subscribe = function(podcast) {
         var found = $filter('getById')(this.subscriptions, podcast.podcast_id);
         if(found === false) {

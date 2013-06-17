@@ -29,15 +29,6 @@ function LoginFormCtrl($scope, User) {
     $scope.login = function(userForm) {
         console.log(Routing.generate("fos_user_security_check"));
     };
-    
-    $scope.open = function() {
-        $scope.shouldBeOpen = true;
-    };
-
-    $scope.close = function() {
-        $scope.closeMsg = 'I was closed at: ' + new Date();
-        $scope.shouldBeOpen = false;
-    };
 
     $scope.options = {
         backdropFade: true,
