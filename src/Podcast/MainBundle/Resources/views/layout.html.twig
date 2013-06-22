@@ -32,11 +32,11 @@
                             <span class="badge badge-warning">{% raw %}{{ user.subscriptions.length }}{% endraw %}</span></a></li>                    </ul>
                     <ul class="nav pull-right">
                         <li class="divider-vertical"></li>
-                        <li ng-controller="LoginFormCtrl" class="dropdown">
-                            <a class="dropdown-toggle" role="button" data-toggle="dropdown"><i class="icon-user icon-large"></i></a>
+                        <li ng-controller="SecurityCtrl" class="dropdown">
+                            <a class="dropdown-toggle" role="button" data-toggle="dropdown"><i class="icon-user icon-large"></i> {% raw %}{{ master.username }}{% endraw %}</a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a ng-click="shouldBeOpen = true">login</a></li>
-                                <li><a ng-click="registerShouldBeOpen = true">register</a></li>
+                                <li><a ng-click="shouldBeOpen = true">Login</a></li>
+                                <li><a ng-click="registerShouldBeOpen = true">Register</a></li>
                             </ul>
                             {% render "PodcastUserBundle:Security:login" %}
                             {% render "PodcastUserBundle:Registration:register" %}

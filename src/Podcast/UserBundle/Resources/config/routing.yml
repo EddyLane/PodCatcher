@@ -1,7 +1,11 @@
 security:
     type:     annotation
     resource: Podcast\UserBundle\Controller\SecurityController
-    
+
+registration:
+    type:     annotation
+    resource: Podcast\UserBundle\Controller\RegistrationController
+
 users:
     type:     rest
     prefix:   /user

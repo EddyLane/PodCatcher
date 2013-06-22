@@ -26,8 +26,21 @@ use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Controller\RegistrationController as FOSRegistrationController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
+/**
+ * Security controller.
+ * @Route("/registration")
+*/
 class RegistrationController extends FOSRegistrationController
 {
+
+    /**
+     * @Route("/register", name="register")
+     * @Method({"POST"})
+     */
     public function registerAction(Request $request)
     {
         /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
@@ -49,6 +62,7 @@ class RegistrationController extends FOSRegistrationController
             $form->bind($request);
 
             if ($form->isValid()) {
+                die('valid');
                 $event = new FormEvent($form, $request);
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
 

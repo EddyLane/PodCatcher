@@ -15,11 +15,18 @@ angular.module('podcatcherServices', ['ngResource', 'podcatcherFilters', 'LocalS
 })
 
 .service('User', function($filter, localStorageService) {
-    
+
+    this.username = localStorageService.get('username');
+    this.email = localStorageService.get('email');
     this.subscriptions = JSON.parse(localStorageService.get('subscriptions')) || [];
 
-    this.authenticate = function() {
+    this.authenticate = function(details) {
         
+    };
+
+    this.persist = function() {
+        localStorageService.add('username', this.username);
+        localStorageService.add('email', this.email);
     };
 
     this.subscribe = function(podcast) {
@@ -32,6 +39,7 @@ angular.module('podcatcherServices', ['ngResource', 'podcatcherFilters', 'LocalS
             localStorageService.add('subscriptions', JSON.stringify(this.subscriptions));
         }
     };
+
     this.isSubscribed = function(podcast) {
         return ($filter('getById')(this.subscriptions, podcast.podcast_id) !== false) ? true : false;
     };

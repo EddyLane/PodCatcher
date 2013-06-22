@@ -71,9 +71,6 @@ angular.module('podcatcher', ['LocalStorageModule', 'podcatcherFilters', 'podcat
         };
   };
 
-  $(window),resize(function() {
-    console.log(window.height);
-  });
 //
 //$("#thumb-view").isotope({ 
 //    itemSelector: '.view',

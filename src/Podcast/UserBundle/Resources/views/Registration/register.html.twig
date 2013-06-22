@@ -1,14 +1,36 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 <div modal="registerShouldBeOpen" close="registerShouldBeOpen = false" options="options">
-    <form method="post" id="login-form" class="nomargin">
+    <form method="post" id="registration-form" class="nomargin" novalidate>
+    	<div class="modal-header">
+            <button type="button" class="close" ng-click="registerShouldBeOpen = false" aria-hidden="true">&times;</button>
+            <h3>Register</h3>
+        </div>
         <div class="modal-body">
-			<div class="control-group">
-				<label class="control-label">{{ form_label(form.username) }}</label>
-				<div class="controls">
-					{{ form_widget(form.username) }}
-				</div>
-			</div>
+        	<div class="control-group">
+        		<label class="form-label">{{ form_label(form.username) }}</label>
+        		<div class="controls">
+			        	{{ form_widget(form.username, { 'attr': {'ng-model': 'form.username'}}) }}
+                        <span class="help-inline">{{ form_errors(form.username) }}</span>
+        		</div>
+        	</div>
+        	<div class="control-group">
+        		<label class="form-label">{{ form_label(form.email) }}</label>
+        		<div class="controls">
+			        	{{ form_widget(form.email, { 'attr': {'ng-model': 'form.email'}}) }}
+                        <span class="help-inline">{{ form_errors(form.email) }}</span>
+        		</div>
+        	</div>
+        	<div class="control-group">
+        		<div class="controls">
+			        	{{ form_widget(form.plainPassword, { 'attr': {'ng-model': 'form.password'} }) }}
+                        <span class="help-inline">{{ form_errors(form.plainPassword) }}</span>
+        		</div>
+        	</div>
 		</div>
+		{{ form_rest(form) }}
+        <div class="modal-footer">
+            <button class="btn btn-warning" ng-click="register(copy)">Register</button>      
+        </div>
     </form>
 </div>

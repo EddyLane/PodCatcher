@@ -9,31 +9,48 @@ function SubscriptionsListCtrl($scope, $http, $filter, User) {
     $scope.user = User;
 
     $scope.setActive = function(podcast) {
-      console.log('active');
         $scope.active = podcast;
         $http.get(Routing.generate('get_subscription', { _format: 'json', slug: podcast.podcast_slug })).success(function(data) {
             $scope.active.episodes = data;
         });
     };
-
-    if($scope.user.subscriptions) {
-      $scope.setActive($scope.user.subscriptions[0]);
-    }
-
 }
 
-function LoginFormCtrl($scope, User) {
+function SecurityCtrl($http, $scope, User) {
     
-    $scope.user = User;
-    
-    $scope.login = function(userForm) {
-        console.log(Routing.generate("fos_user_security_check"));
+    $scope.copy = User;
+    $scope.master= User;
+
+    $scope.register= function(userForm) {
+
+        $http({
+                method: 'POST',
+          url: Routing.generate('register'),
+          data: $('#registration-form').serialize(),
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        })        
+        .success(function(data, status, headers, config) {
+             console.log(data);
+        }).error(function(data, status, headers, config) {
+             console.log(status);
+             console.log(data);
+        });
+
+
+        $scope.master = angular.copy($scope.copy);
+        $scope.master.persist();
     };
 
     $scope.options = {
         backdropFade: true,
         dialogFade: true
     };
+ 
+  $scope.reset = function() {
+    $scope.copy = angular.copy($scope.master);
+  };
+ 
+  $scope.reset();    
 }
 
 function PodcastListCtrl($scope, $http, $routeParams, limitToFilter, Category, Organization, User) {
