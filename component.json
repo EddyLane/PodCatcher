@@ -14,6 +14,7 @@
     "angular-bootstrap": "~0.3.0",
     "angular-ui-select2": "~0.0.2",
     "angular-local-storage": "latest",
-    "select2": "~3.3.1"
+    "select2": "~3.3.1",
+    "flatstrap": "latest"
   }
 }

@@ -2,6 +2,12 @@
 
 angular.module('podcatcherServices', ['ngResource', 'podcatcherFilters', 'LocalStorageModule'])
 
+.factory('Podcast', function($resource) {
+    return $resource(Routing.generate('get_podcasts', {_format: 'json'}), {}, {
+         query: {method: 'GET', isArray: true}
+    });
+})
+
 .factory('Category', function($resource) {
     return $resource(Routing.generate('get_categories', {_format: 'json'}), {}, {
         query: {method: 'GET', isArray: true}

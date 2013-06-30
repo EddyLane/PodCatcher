@@ -1,89 +1,114 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="podcatcher">
-    <head>
-        <title>Home |Virgin</title>
-        {% stylesheets filter="lessphp,cssrewrite"
+<head>
+    <title>Home |Virgin</title>
+    {% stylesheets filter="lessphp,cssrewrite"
 
-            'bundles/podcastmain/bootstrap/less/bootstrap.less'
-            'bundles/podcastmain/bootstrap/less/responsive.less'
-            'bundles/podcastmain/font-awesome/build/assets/font-awesome/less/font-awesome.less'
-            '@PodcastMainBundle/Resources/public/internal/less/style.less'
-            'bundles/podcastmain/select2/select2.css'
-        %}
-        <link rel="stylesheet" href="{{ asset_url }}" />
-        {% endstylesheets %}
-    </head>
-    <body>
-        <!-- Part 1: Wrap all page content here -->
-        <div id="wrap">
+    'bundles/podcastmain/flatstrap/assets/less/bootstrap.less'
+    'bundles/podcastmain/flaststrap/assets/less/responsive.less'
+    'bundles/podcastmain/font-awesome/build/assets/font-awesome/less/font-awesome.less'
+    '@PodcastMainBundle/Resources/public/internal/less/style.less'
+    'bundles/podcastmain/select2/select2.css' %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+    <style type="text/css">
+        body {
+            padding-top: 41px;
+            padding-bottom: 40px;
+        }
 
-            <!-- Fixed navbar -->
-            <div class="navbar navbar-orange navbar-fixed-top">
-                <div class="navbar-inner">
-                    <p class="brand">
-                        <i class="icon-headphones icon-large" style="position: absolute; top: 7px;"></i>
-                    </p>
-                    <ul class="nav pull-left">
-                        <li class="divider-vertical"></li>
-                        <li>
-                            <a href="#{{ path('_welcome') }}"><i class="icon-home icon-large"></i></a>
-                        </li>
-                       <li ng-controller="SubscriptionsListCtrl"><a href="#{{ path('get_subscribed') }}"><i class="icon-heart icon-large"></i>
-                            <span class="badge badge-warning">{% raw %}{{ user.subscriptions.length }}{% endraw %}</span></a></li>                    </ul>
-                    <ul class="nav pull-right">
-                        <li class="divider-vertical"></li>
-                        <li ng-controller="SecurityCtrl" class="dropdown">
-                            <a class="dropdown-toggle" role="button" data-toggle="dropdown"><i class="icon-user icon-large"></i> {% raw %}{{ master.username }}{% endraw %}</a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a ng-click="shouldBeOpen = true">Login</a></li>
-                                <li><a ng-click="registerShouldBeOpen = true">Register</a></li>
-                            </ul>
-                            {% render "PodcastUserBundle:Security:login" %}
-                            {% render "PodcastUserBundle:Registration:register" %}
-                        </li>
-                        <li><a href="#"><i class="icon-cog icon-large"></i></a></li>
-                    </ul>
-                </div>
-            </div>
+        .sidebar-nav {
+            padding: 9px 0;
+        }
 
-            <div ng-view>
+        @media (max-width: 980px) {
+            /* Enable use of floated navbar text */
+            .navbar-text.pull-right {
+                float: none;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Fixed navbar -->
+<div class="navbar navbar-orange navbar-fixed-top">
+    <div class="navbar-inner">
+        <p class="brand">
+            <i class="icon-headphones icon-large" style="position: absolute; top: 7px;"></i>
+        </p>
+        <ul class="nav pull-left">
+            <li class="divider-vertical"></li>
+            <li>
+                <a href="#{{ path('_welcome') }}" class="active"><i class="icon-home icon-large"></i></a>
+            </li>
+            <li ng-controller="SubscriptionsListCtrl" class="subscriptions-icon">
+                <a href="#{{ path('get_subscribed') }}"><i class="icon-heart icon-large"></i>
+                    <span class="badge badge-warning">{% raw %}{{ user.subscriptions.length }}{% endraw %}</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav pull-right">
+            <li class="divider-vertical"></li>
+            <li ng-controller="SecurityCtrl" class="dropdown">
+                <a class="dropdown-toggle" role="button" data-toggle="dropdown"><i
+                            class="icon-user icon-large"></i></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a ng-click="shouldBeOpen = true">Login</a></li>
+                    <li><a ng-click="registerShouldBeOpen = true">Register</a></li>
+                </ul>
+                {% render "PodcastUserBundle:Security:login" %}
+                {% render "PodcastUserBundle:Registration:register" %}
+            </li>
+            <li><a href="#"><i class="icon-cog icon-large"></i></a></li>
+        </ul>
+    </div>
+</div>
+
+<div ng-view>
 
 
-            </div>
-            <!-- fos_js_routing -->
-            <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-            <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-            <!-- /fos_js_routing -->
-            {% javascripts
-                '@PodcastMainBundle/Resources/public/jquery/jquery.js'
-                '@PodcastMainBundle/Resources/public/angular/angular.js'
+</div>
+<!-- fos_js_routing -->
+<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+<!-- /fos_js_routing -->
+{% javascripts
+'@PodcastMainBundle/Resources/public/jquery/jquery.js'
+'@PodcastMainBundle/Resources/public/angular/angular.js'
 
-                '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-transition.js'
-                '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-dropdown.js'
-                '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-button.js'
-                '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-typeahead.js'
-                '@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-tooltip.js'
+'@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-transition.js'
+'@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-dropdown.js'
+'@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-button.js'
+'@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-typeahead.js'
+'@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-tooltip.js'
 
-                '@PodcastMainBundle/Resources/public/select2/select2.js'
-                '@PodcastMainBundle/Resources/public/angular-ui-select2/src/select2.js'
+'@PodcastMainBundle/Resources/public/select2/select2.js'
+'@PodcastMainBundle/Resources/public/angular-ui-select2/src/select2.js'
 
-                '@PodcastMainBundle/Resources/public/angular-bootstrap/ui-bootstrap.js'
-                '@PodcastMainBundle/Resources/public/angular-bootstrap/ui-bootstrap-tpls.js'
+'@PodcastMainBundle/Resources/public/angular-bootstrap/ui-bootstrap.js'
+'@PodcastMainBundle/Resources/public/angular-bootstrap/ui-bootstrap-tpls.js'
 
-                '@PodcastMainBundle/Resources/public/angular-resource/angular-resource.js'
-                '@PodcastMainBundle/Resources/public/angular-local-storage/angular-local-storage.js'
+'@PodcastMainBundle/Resources/public/angular-resource/angular-resource.js'
+'@PodcastMainBundle/Resources/public/angular-local-storage/angular-local-storage.js'
 
-                '@PodcastMainBundle/Resources/public/jquery-masonry/jquery.masonry.js'
-                '@PodcastMainBundle/Resources/public/isotope/jquery.isotope.js'
+'@PodcastMainBundle/Resources/public/jquery-masonry/jquery.masonry.js'
+'@PodcastMainBundle/Resources/public/isotope/jquery.isotope.js'
 
-                '@PodcastMainBundle/Resources/public/internal/podcatcher/js/app.js'
-                '@PodcastMainBundle/Resources/public/internal/podcatcher/js/controllers.js'
-                '@PodcastMainBundle/Resources/public/internal/podcatcher/js/filters.js'
-                '@PodcastMainBundle/Resources/public/internal/podcatcher/js/directives.js'
-                '@PodcastMainBundle/Resources/public/internal/podcatcher/js/services.js'
+'@PodcastMainBundle/Resources/public/internal/podcatcher/js/app.js'
 
-            %}
-            <script src="{{ asset_url }}"></script>
-            {% endjavascripts %}  
-    </body>
+'@PodcastMainBundle/Resources/public/internal/podcatcher/js/controllers/PodcastDetailCtrl.js'
+'@PodcastMainBundle/Resources/public/internal/podcatcher/js/controllers/PodcastListCtrl.js'
+'@PodcastMainBundle/Resources/public/internal/podcatcher/js/controllers/SecurityCtrl.js'
+'@PodcastMainBundle/Resources/public/internal/podcatcher/js/controllers/SubscriptionsListCtrl.js'
+
+'@PodcastMainBundle/Resources/public/internal/podcatcher/js/filters/getById.js'
+
+'@PodcastMainBundle/Resources/public/internal/podcatcher/js/directives/appVersion.js'
+
+'@PodcastMainBundle/Resources/public/internal/podcatcher/js/services/services.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+</body>
 </html>
