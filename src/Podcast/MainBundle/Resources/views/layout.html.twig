@@ -3,9 +3,8 @@
 <head>
     <title>Home |Virgin</title>
     {% stylesheets filter="lessphp,cssrewrite"
-
     'bundles/podcastmain/flatstrap/assets/less/bootstrap.less'
-    'bundles/podcastmain/flaststrap/assets/less/responsive.less'
+    'bundles/podcastmain/flatstrap/assets/less/responsive.less'
     'bundles/podcastmain/font-awesome/build/assets/font-awesome/less/font-awesome.less'
     '@PodcastMainBundle/Resources/public/internal/less/style.less'
     'bundles/podcastmain/select2/select2.css' %}
@@ -30,6 +29,7 @@
             }
         }
     </style>
+
 </head>
 <body>
 <!-- Fixed navbar -->
@@ -70,44 +70,44 @@
 
 
 </div>
+
+
 <!-- fos_js_routing -->
 <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 <!-- /fos_js_routing -->
+
 {% javascripts
-'@PodcastMainBundle/Resources/public/jquery/jquery.js'
-'@PodcastMainBundle/Resources/public/angular/angular.js'
+'js/jquery/jquery.js'
+'js/angular/angular.js'
+'js/bootstrap/js/bootstrap-transition.js'
+'js/bootstrap/js/bootstrap-dropdown.js'
+'js/bootstrap/js/bootstrap-button.js'
+'js/bootstrap/js/bootstrap-typeahead.js'
+'js/bootstrap/js/bootstrap-tooltip.js'
+'js/angular-bootstrap/ui-bootstrap.js'
+'js/angular-bootstrap/ui-bootstrap-tpls.js'
+'js/angular-resource/angular-resource.js'
+'js/angular-local-storage/angular-local-storage.js'
+'js/isotope/jquery.isotope.js'
 
-'@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-transition.js'
-'@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-dropdown.js'
-'@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-button.js'
-'@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-typeahead.js'
-'@PodcastMainBundle/Resources/public/bootstrap/js/bootstrap-tooltip.js'
+'@PodcastMainBundle/Resources/public/app/app.js'
 
-'@PodcastMainBundle/Resources/public/select2/select2.js'
-'@PodcastMainBundle/Resources/public/angular-ui-select2/src/select2.js'
+'@PodcastMainBundle/Resources/public/app/controllers/podcast-detail-controller.js'
+'@PodcastMainBundle/Resources/public/app/controllers/podcast-list-controller.js'
+'@PodcastMainBundle/Resources/public/app/controllers/security-controller.js'
+'@PodcastMainBundle/Resources/public/app/controllers/subscriptions-list-controller.js'
 
-'@PodcastMainBundle/Resources/public/angular-bootstrap/ui-bootstrap.js'
-'@PodcastMainBundle/Resources/public/angular-bootstrap/ui-bootstrap-tpls.js'
+'@PodcastMainBundle/Resources/public/app/services/category-factory.js'
+'@PodcastMainBundle/Resources/public/app/services/organization-factory.js'
+'@PodcastMainBundle/Resources/public/app/services/podcast-factory.js'
+'@PodcastMainBundle/Resources/public/app/services/user-service.js'
 
-'@PodcastMainBundle/Resources/public/angular-resource/angular-resource.js'
-'@PodcastMainBundle/Resources/public/angular-local-storage/angular-local-storage.js'
+'@PodcastMainBundle/Resources/public/app/filters/get-by-id.js'
 
-'@PodcastMainBundle/Resources/public/jquery-masonry/jquery.masonry.js'
-'@PodcastMainBundle/Resources/public/isotope/jquery.isotope.js'
+'@PodcastMainBundle/Resources/public/app/directives/app-version.js'
 
-'@PodcastMainBundle/Resources/public/internal/podcatcher/js/app.js'
-
-'@PodcastMainBundle/Resources/public/internal/podcatcher/js/controllers/PodcastDetailCtrl.js'
-'@PodcastMainBundle/Resources/public/internal/podcatcher/js/controllers/PodcastListCtrl.js'
-'@PodcastMainBundle/Resources/public/internal/podcatcher/js/controllers/SecurityCtrl.js'
-'@PodcastMainBundle/Resources/public/internal/podcatcher/js/controllers/SubscriptionsListCtrl.js'
-
-'@PodcastMainBundle/Resources/public/internal/podcatcher/js/filters/getById.js'
-
-'@PodcastMainBundle/Resources/public/internal/podcatcher/js/directives/appVersion.js'
-
-'@PodcastMainBundle/Resources/public/internal/podcatcher/js/services/services.js' %}
+%}
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 </body>

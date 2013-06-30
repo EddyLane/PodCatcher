@@ -22,15 +22,17 @@ class AppKernel extends Kernel
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
-	    new JMS\SerializerBundle\JMSSerializerBundle($this),
-	    new FOS\RestBundle\FOSRestBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle($this),
+            new FOS\RestBundle\FOSRestBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
             new Fkr\SimplePieBundle\FkrSimplePieBundle(),
+//            new Hearsay\RequireJSBundle\HearsayRequireJSBundle(),
+
             new Podcast\MainBundle\PodcastMainBundle(),
             new Podcast\UserBundle\PodcastUserBundle(),
-            new Podcast\AdminBundle\PodcastAdminBundle(),
+            new Podcast\AdminBundle\PodcastAdminBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -38,9 +38,11 @@ class PodcastController extends FOSRestController
                 )
         ;
                 
-        $view = $this->view($podcasts)
+        $view = $this->view($podcasts['entities'])
                      ->setTemplate('PodcastMainBundle:Podcast:getPodcasts.html.twig')
                      ->setTemplateVar('entities');
+
+        $view->setHeaders($podcasts['metadata']);
 
         return $this->handleView($view);
     }

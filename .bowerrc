@@ -1,4 +1,4 @@
 {
-    "directory" : "src/Podcast/MainBundle/Resources/public",
+    "directory" : "web/js",
     "json"      : "component.json"
 }

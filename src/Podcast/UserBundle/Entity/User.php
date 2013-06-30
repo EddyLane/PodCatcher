@@ -2,7 +2,7 @@
 
 namespace Podcast\UserBundle\Entity;
 
-use FOS\UserBundle\Entity\User as BaseUser;
+use FOS\UserBundle\Model\User as BaseUser;
 
 use Podcast\MainBundle\Entity\Podcast,
     Podcast\MainBundle\Entity\Playlist,

@@ -15,6 +15,7 @@
     "angular-ui-select2": "~0.0.2",
     "angular-local-storage": "latest",
     "select2": "~3.3.1",
-    "flatstrap": "latest"
+    "flatstrap": "latest",
+    "requirejs": "~2.1.6"
   }
 }

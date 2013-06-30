@@ -70,9 +70,9 @@ class PodcastRepository extends EntityRepository
         }
 
         $metadata = array(
-            'total' => count(new Paginator($qb->getQuery(), false)),
-            'amount'=> $amount,
-            'page' => $page
+            'X-Pagination-Total' => count(new Paginator($qb->getQuery(), false)),
+            'X-Pagination-Amount'=> $amount,
+            'X-Pagination-Page' => $page
         );
         
         $qb
