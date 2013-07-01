@@ -1,9 +1,0 @@
-{
-  "name": "knockout.localStorage",
-  "version": "0.0.0",
-  "commit": "a723de548768e3a2a76b1b81dd6661af63e47325",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/jimrhoskins/knockout.localStorage.git"
-  }
-}

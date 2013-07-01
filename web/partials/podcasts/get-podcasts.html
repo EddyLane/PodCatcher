@@ -16,8 +16,8 @@
 
 <ul class="nav nav-tabs podcast-order">
     <li><span>Order by </span> </li>
-    <li ng-repeat="sort in sorts" ng-class="{ active: sort.name == currentSort.name }"><a ng-click="setSort(sort)">{% raw %}{{ sort.name }}{% endraw %}</a></li>
-    <li ng-repeat="category in categories | orderBy: 'name':reverse" class="pull-right"><a>{% raw %}{{ category.name }}{% endraw %}</a></li>
+    <li ng-repeat="sort in sorts" ng-class="{ active: sort.name == currentSort.name }"><a ng-click="setSort(sort)">{{ sort.name }}</a></li>
+    <li ng-repeat="category in categories | orderBy: 'name':reverse" class="pull-right"><a>{{ category.name }}</a></li>
     <li class="pull-right"><span>Filter </span></li>
 </ul>
 
@@ -64,14 +64,14 @@
                                     <a class="like" ng-click="user.subscribe(podcast)" style="cursor:pointer" ng-class="{ active: user.isSubscribed(podcast) }">
                                         <i class="icon-heart icon-large"></i>
                                     </a>
-                                    <a href="#{{ path('get_podcasts') }}/{% raw %}{{podcast.podcast_slug}}{% endraw %}" class="listen">
+                                    <a href="#{{ path('get_podcasts') }}/{{podcast.podcast_slug}}" class="listen">
                                         <i class="icon-headphones icon-large"></i>
                                     </a>
-                                    <a href="#{{ path('get_podcasts') }}/{% raw %}{{podcast.podcast_slug}}{% endraw %}" class="list">
+                                    <a href="#{{ path('get_podcasts') }}/{{podcast.podcast_slug}}" class="list">
                                         <i class="icon-headphones icon-list-ul"></i>
                                     </a>
                                 </div>
-                                <a href="/#{{ Routing.generate('get_podcast', { slug: podcast.podcast_slug }) }}">
+                                <a href="#{{ routing.generate('get_podcast', { slug: podcast.podcast_slug }) }}">
                                     <img ng-src="{{podcast.podcast_image}}">
                                 </a>
                             </div>

@@ -2,6 +2,8 @@
 
 angular.module('podcatcher')
     .controller('PodcastListCtrl', function ($scope, $http, $routeParams, limitToFilter, Category, Organization, User, Podcast) {
+
+        $scope.routing = Routing;
         $scope.maxResultSize = 15;
         $scope.currentPage = $routeParams.page || 1;
         $scope.maxSize = $routeParams.amount || 8;
@@ -36,7 +38,7 @@ angular.module('podcatcher')
             $scope.currentPage = pageNo;
         };
 
-        $scope.$watch('currentPage', $scope.getPodcasts);
-        $scope.$watch('currentSort', $scope.getPodcasts);
-        $scope.refresh();
+        $scope.$watch('currentPage', getPodcasts);
+        $scope.$watch('currentSort', getPodcasts);
+        getPodcasts();
     });

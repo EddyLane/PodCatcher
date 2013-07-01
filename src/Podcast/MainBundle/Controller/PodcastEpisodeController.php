@@ -18,10 +18,6 @@ class PodcastEpisodeController extends FOSRestController {
 
     /**
      * "get_podcast_episodes" [GET] /podcasts/{$slug}/episodes
-     * 
-     * @QueryParam(name="page", requirements="\d+", default="1", description="Page of podcasts.")
-     * @return FOS\RestBundle\View\View
-     * @throws Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     public function getEpisodesAction($slug, ParamFetcher $paramFetcher) 
     {
@@ -32,19 +28,17 @@ class PodcastEpisodeController extends FOSRestController {
         if (!$podcast) {
             throw $this->createNotFoundException('This podcast does not exist');
         }
-        //Paginate
+
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
                 $podcast->getEpisodes(), $paramFetcher->get('page'), 10
         );
         
-        $pagination['metadata'] = array(
-            'total' => $pagination->getTotalItemCount()
-        );
-        
         $view = $this->view($pagination, 200)
                 ->setTemplate('PodcastMainBundle:Default:index.html.twig')
                 ->setTemplateVar('entities');
+
+        $view->setHeader('X-Pagination-Total', $pagination->getTotalItemCount());
 
         return $this->handleView($view);
     }
