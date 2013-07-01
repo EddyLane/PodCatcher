@@ -18,6 +18,8 @@ class PodcastEpisodeController extends FOSRestController {
 
     /**
      * "get_podcast_episodes" [GET] /podcasts/{$slug}/episodes
+     *
+     * @QueryParam(name="page", requirements="\d+", default="1", description="Page of podcasts.")
      */
     public function getEpisodesAction($slug, ParamFetcher $paramFetcher) 
     {
@@ -39,6 +41,7 @@ class PodcastEpisodeController extends FOSRestController {
                 ->setTemplateVar('entities');
 
         $view->setHeader('X-Pagination-Total', $pagination->getTotalItemCount());
+        $view->setHeader('X-Pagination-Amount', 10);
 
         return $this->handleView($view);
     }

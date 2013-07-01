@@ -32,13 +32,13 @@ angular.module('podcatcher')
 
         $scope.setSort = function (sort) {
             $scope.currentSort = sort;
+            getPodcasts();
         };
 
         $scope.setPage = function (pageNo) {
             $scope.currentPage = pageNo;
+            getPodcasts();
         };
 
-        $scope.$watch('currentPage', getPodcasts);
-        $scope.$watch('currentSort', getPodcasts);
         getPodcasts();
     });
