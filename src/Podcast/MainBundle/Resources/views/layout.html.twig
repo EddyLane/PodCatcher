@@ -3,11 +3,11 @@
 <head>
     <title>Home |Virgin</title>
     {% stylesheets filter="lessphp,cssrewrite"
-    'bundles/podcastmain/flatstrap/assets/less/bootstrap.less'
-    'bundles/podcastmain/flatstrap/assets/less/responsive.less'
-    'bundles/podcastmain/font-awesome/build/assets/font-awesome/less/font-awesome.less'
+    'js/flatstrap/assets/less/bootstrap.less'
+    'js/flatstrap/assets/less/responsive.less'
+    'js/font-awesome/build/assets/font-awesome/less/font-awesome.less'
     '@PodcastMainBundle/Resources/public/internal/less/style.less'
-    'bundles/podcastmain/select2/select2.css' %}
+    %}
     <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
     <style type="text/css">
@@ -71,6 +71,9 @@
 
 </div>
 
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+    {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}
+{% endif %}
 
 <!-- fos_js_routing -->
 <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>

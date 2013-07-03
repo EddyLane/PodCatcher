@@ -1,5 +1,6 @@
 parameters:
     vendor_security.authentication_handler: Podcast\UserBundle\Handler\AuthenticationHandler
+    podcast.listener.before_controller: Podcast\UserBundle\Listener\BeforeControllerListener
 
 services:
     authentication_handler:
@@ -7,3 +8,10 @@ services:
         arguments:  [@router]
         tags:
             - { name: 'monolog.logger', channel: 'security' }
+
+    before_controller:
+    	class: %podcast.listener.before_controller%
+    	scope: request
+    	tags:
+    		- { name:'kernel.event_listener', event: 'kernel.controller', method: 'onKernelController' }
+    	arguments:	[@security.context]

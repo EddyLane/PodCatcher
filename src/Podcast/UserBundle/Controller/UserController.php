@@ -8,6 +8,13 @@ use FOS\RestBundle\Request\ParamFetcher;
 
 class UserController extends FOSRestController
 {
+    private $user;
+
+    public function __construct()
+    {
+        
+    }
+
     
     public function getListenedAction() 
     {
@@ -20,6 +27,18 @@ class UserController extends FOSRestController
         $view->setTemplate('PodcastMainBundle:Default:index.html.twig')
              ->setTemplateVar('entity');
         
+        return $this->handleView($view);
+    }
+
+    public function getUserAction()
+    {
+        $user = $this->get('security.context')->getToken()->getUser();
+        $response = array(
+            'id' => $user->getId(),
+            'username'=> $user->getUsername(),
+            'email' => $user->getEmail()
+        );
+        $view = $this->view($response, 200);
         return $this->handleView($view);
     }
     

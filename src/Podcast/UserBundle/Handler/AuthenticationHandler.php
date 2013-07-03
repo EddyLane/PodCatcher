@@ -30,6 +30,10 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token) {
+
+        return new JsonResponse(array('success' => true, 'message' => $token->getUser()->getUsername()), 200);
+
+
         if ($request->isXmlHttpRequest()) {
             // Handle XHR here
             return new JsonResponse(array('success' => true, 'message' => $token->getUser()->getUsername()), 200);
@@ -50,6 +54,10 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception) {
+
+            return new JsonResponse(array('success' => false, 'message' => $exception->getMessage()), 400);
+
+        
         if ($request->isXmlHttpRequest()) {
             // Handle XHR here
             return new JsonResponse(array('success' => false, 'message' => $exception->getMessage()), 400);

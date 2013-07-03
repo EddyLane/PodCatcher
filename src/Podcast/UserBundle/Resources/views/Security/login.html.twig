@@ -1,5 +1,5 @@
 <div modal="shouldBeOpen" close="shouldBeOpen = false" options="options">
-    <form method="post" id="login-form" class="nomargin">
+    <form method="post" id="login-form" class="nomargin" action="{{ path("fos_user_security_check") }}">
         <div class="modal-header">
             <button type="button" class="close" ng-click="shouldBeOpen = false" aria-hidden="true">&times;</button>
             <h3>Login</h3>

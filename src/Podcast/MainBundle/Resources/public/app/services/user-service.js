@@ -1,8 +1,8 @@
 angular.module('podcatcher')
-    .service('User', function($filter, localStorageService) {
+    .service('User', function($filter, $http, localStorageService) {
 
-        this.username = localStorageService.get('username');
-        this.email = localStorageService.get('email');
+        this.username;
+        this.email;
         this.subscriptions = JSON.parse(localStorageService.get('subscriptions')) || [];
 
         this.authenticate = function(details) {
@@ -28,4 +28,9 @@ angular.module('podcatcher')
         this.isSubscribed = function(podcast) {
             return ($filter('getById')(this.subscriptions, podcast.podcast_id) !== false) ? true : false;
         };
+
+        $http.get(Routing.generate('get_user', { format: 'json' })).success(function(response) {
+            console.log(response);
+        });
+
     });

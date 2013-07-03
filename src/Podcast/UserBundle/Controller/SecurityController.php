@@ -28,7 +28,7 @@ class SecurityController extends FOSSecurityController
 {
     
     /**
-     * @Route("/login", name="login")
+     * @Route("/login", name="podcast_login")
      * @Method({"POST"})
      */
     public function loginAction(Request $request)
