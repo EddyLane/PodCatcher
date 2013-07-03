@@ -2,10 +2,13 @@ angular.module('podcatcher')
     .service('User', function($filter, $http, localStorageService) {
 
         var self = this;
+
         this.username;
+        this.authenticated;
         this.email;
         this.subscriptions = [];
         this.episodes = [];   
+
         // this.subscriptions = JSON.parse(localStorageService.get('subscriptions')) || [];
         // this.episodes = JSON.parse(localStorageService.get('episodes')) || [];
 
@@ -35,12 +38,14 @@ angular.module('podcatcher')
         };
 
         $http.get(Routing.generate('get_user'))
-        .success(function(response) {
-            self.username = response.username;
-            self.email = response.email;
-            self.subscriptions = response.subscriptions;
-        })
-        .error(function(response) {
-            console.log('NOT AUTHENTICATED');
-        });
+            .success(function(response) {
+                self.username = response.username;
+                self.email = response.email;
+                self.subscriptions = response.subscriptions;
+                self.authenticated = true;
+            })
+            .error(function(response) {
+                self.authenticated = false;
+                console.log('NOT AUTHENTICATED');
+            });
     });

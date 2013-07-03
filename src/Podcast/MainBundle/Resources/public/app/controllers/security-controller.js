@@ -6,24 +6,14 @@ angular.module('podcatcher')
         $scope.copy = User;
         $scope.master = User;
 
-        $scope.register = function (userForm) {
-
+        $scope.login = function (loginForm) {
             $http({
                 method: 'POST',
-                url: Routing.generate('register'),
-                data: $('#registration-form').serialize(),
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                url: Routing.generate('fos_user_security_check')
             })
-                .success(function (data, status, headers, config) {
-                    console.log(data);
-                }).error(function (data, status, headers, config) {
-                    console.log(status);
-                    console.log(data);
-                });
+            .success(function(data, status, headers, config) {
 
-
-            $scope.master = angular.copy($scope.copy);
-            $scope.master.persist();
+            });
         };
 
         $scope.options = {

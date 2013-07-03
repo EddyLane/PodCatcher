@@ -53,11 +53,14 @@
             <li class="divider-vertical"></li>
             <li ng-controller="SecurityCtrl" class="dropdown">
                 <a class="dropdown-toggle" role="button" data-toggle="dropdown"><i
-                            class="icon-user icon-large"></i></a>
+                            class="icon-user icon-large"></i> {% raw %}{{ user.username }}{% endraw %}</a>
+
                 <ul class="dropdown-menu" role="menu">
-                    <li><a ng-click="shouldBeOpen = true">Login</a></li>
-                    <li><a ng-click="registerShouldBeOpen = true">Register</a></li>
+                    <li ng-show="!user.authenticated"><a ng-click="shouldBeOpen = true">Login</a></li>
+                    <li ng-show="!user.authenticated"><a ng-click="registerShouldBeOpen = true">Register</a></li>
+                    <li ng-show="user.authenticated"><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
                 </ul>
+
                 {% render "PodcastUserBundle:Security:login" %}
                 {% render "PodcastUserBundle:Registration:register" %}
             </li>
@@ -71,9 +74,9 @@
 
 </div>
 
-{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+<!-- {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
     {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}
-{% endif %}
+{% endif %} -->
 
 <!-- fos_js_routing -->
 <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
