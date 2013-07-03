@@ -13,14 +13,19 @@ use Doctrine\Common\Collections\ArrayCollection as ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 use JMS\SerializerBundle\Annotation;
+
 /**
  * @ORM\Entity
+ * 
  * @ORM\Table(name="User")
+ * 
  * @Annotation\ExclusionPolicy("all")
+ * 
  */
 class User extends BaseUser
 {
     /**
+     * @Annotation\Expose
      * @ORM\ManyToOne(targetEntity="Podcast\MainBundle\Entity\Playlist", inversedBy="user")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * @var type
@@ -28,6 +33,7 @@ class User extends BaseUser
     private $playlists;
 
     /**
+     * @Annotation\Expose
      * @ORM\ManyToMany(targetEntity="Podcast\MainBundle\Entity\Podcast", inversedBy="subscribed", cascade={"persist"})
      * @ORM\JoinTable(name="user_podcast",
      * joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},

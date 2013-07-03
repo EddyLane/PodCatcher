@@ -5,14 +5,29 @@ namespace Podcast\UserBundle\Controller;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use FOS\RestBundle\Request\ParamFetcher;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\SecurityContextInterface;
+use JMS\SecurityExtraBundle\Annotation\Secure;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class UserController extends FOSRestController
 {
+    /**
+     * Current user.
+     *
+     * @var User
+     */
     private $user;
 
-    public function __construct()
+    /**
+     * {@inheritdoc}
+     */
+    public function initialize(Request $request, SecurityContextInterface $security_context)
     {
-        
+        $this->user = $security_context->getToken()->getUser();
+        if(!$security_context->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            throw new HttpException(403, 'User not logged in');
+        }
     }
 
     
@@ -30,15 +45,27 @@ class UserController extends FOSRestController
         return $this->handleView($view);
     }
 
+    public function postSubscribeAction($id)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $podcast = $em->getRepository('PodcastMainBundle:Podcast')->find($id);
+        
+        if(!$podcast) {
+            throw $this->createNotFoundException();
+        }
+
+        $this->user->addSubscription($podcast);
+        $em->persist($this->user);
+        $em->flush();
+
+        $view = $this->view(200);
+        return $this->handleView($view);
+    }
+
     public function getUserAction()
     {
-        $user = $this->get('security.context')->getToken()->getUser();
-        $response = array(
-            'id' => $user->getId(),
-            'username'=> $user->getUsername(),
-            'email' => $user->getEmail()
-        );
-        $view = $this->view($response, 200);
+        $view = $this->view($this->user, 200);
         return $this->handleView($view);
     }
     

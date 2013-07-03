@@ -1,9 +1,13 @@
 angular.module('podcatcher')
     .service('User', function($filter, $http, localStorageService) {
 
+        var self = this;
         this.username;
         this.email;
-        this.subscriptions = JSON.parse(localStorageService.get('subscriptions')) || [];
+        this.subscriptions = [];
+        this.episodes = [];   
+        // this.subscriptions = JSON.parse(localStorageService.get('subscriptions')) || [];
+        // this.episodes = JSON.parse(localStorageService.get('episodes')) || [];
 
         this.authenticate = function(details) {
 
@@ -18,19 +22,25 @@ angular.module('podcatcher')
             var found = $filter('getById')(this.subscriptions, podcast.podcast_id);
             if(found === false) {
                 this.subscriptions.push(podcast);
-                localStorageService.add('subscriptions', JSON.stringify(this.subscriptions));
+                $http.post(Routing.generate('post_subscribe', { id: podcast.podcast_id }));
+                // localStorageService.add('subscriptions', JSON.stringify(this.subscriptions));
             } else {
                 this.subscriptions.splice(found, 1);
-                localStorageService.add('subscriptions', JSON.stringify(this.subscriptions));
+                // localStorageService.add('subscriptions', JSON.stringify(this.subscriptions));
             }
-        };
+        }; 
 
         this.isSubscribed = function(podcast) {
             return ($filter('getById')(this.subscriptions, podcast.podcast_id) !== false) ? true : false;
         };
 
-        $http.get(Routing.generate('get_user', { format: 'json' })).success(function(response) {
-            console.log(response);
+        $http.get(Routing.generate('get_user'))
+        .success(function(response) {
+            self.username = response.username;
+            self.email = response.email;
+            self.subscriptions = response.subscriptions;
+        })
+        .error(function(response) {
+            console.log('NOT AUTHENTICATED');
         });
-
     });

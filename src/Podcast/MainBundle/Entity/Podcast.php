@@ -22,7 +22,7 @@ use JMS\SerializerBundle\Annotation;
 class Podcast
 {
     /**
-     * @var integer $id
+     * @Annotation\Expose
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
