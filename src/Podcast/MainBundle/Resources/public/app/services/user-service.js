@@ -12,8 +12,18 @@ angular.module('podcatcher')
         // this.subscriptions = JSON.parse(localStorageService.get('subscriptions')) || [];
         // this.episodes = JSON.parse(localStorageService.get('episodes')) || [];
 
-        this.authenticate = function(details) {
-
+        this.authenticate = function() {
+            $http.get(Routing.generate('get_user'))
+            .success(function(response) {
+                self.username = response.username;
+                self.email = response.email;
+                self.subscriptions = response.subscriptions;
+                self.authenticated = true;
+            })
+            .error(function(response) {
+                self.authenticated = false;
+                console.log('NOT AUTHENTICATED');
+            });
         };
 
         this.persist = function() {
@@ -37,15 +47,6 @@ angular.module('podcatcher')
             return ($filter('getById')(this.subscriptions, podcast.podcast_id) !== false) ? true : false;
         };
 
-        $http.get(Routing.generate('get_user'))
-            .success(function(response) {
-                self.username = response.username;
-                self.email = response.email;
-                self.subscriptions = response.subscriptions;
-                self.authenticated = true;
-            })
-            .error(function(response) {
-                self.authenticated = false;
-                console.log('NOT AUTHENTICATED');
-            });
+        this.authenticate();
+
     });

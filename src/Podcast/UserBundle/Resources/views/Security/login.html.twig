@@ -1,14 +1,14 @@
 <div modal="shouldBeOpen" close="shouldBeOpen = false" options="options">
-    <form method="post" id="login-form" class="nomargin" action="{{ path("fos_user_security_check") }}">
+    <form method="post" id="login-form" class="nomargin">
         <div class="modal-header">
             <button type="button" class="close" ng-click="shouldBeOpen = false" aria-hidden="true">&times;</button>
             <h3>Login</h3>
         </div>
         <div class="modal-body">
-            <input type="hidden" id="csrf_token" name="_csrf_token" value="{{ csrf_token }}" />
+            <input type="hidden" id="csrf_token" name="_csrf_token" ng-model="copy" value="{{ csrf_token }}" />
             <div class="control-group">
                 <div class="controls">
-                    <input type="text" id="username" name="_username" value="{{ last_username }}" placeholder="{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}" class="input-block-level" />
+                    <input type="text" id="username" name="_username" value="{{ last_username }}" ng-model="copy.username" placeholder="{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}" class="input-block-level" />
                     <div ng-show="">
                     </div>
                 </div>
@@ -25,7 +25,8 @@
             </div>
         </div>
         <div class="modal-footer">
-            <input class="btn btn-warning" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" ng-click="login(user)"/>
+            <button class="btn btn-warning" ng-click="login(user)">Login</button>
+<!--             <input class="btn btn-warning" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" ng-click="login(user)"/> -->
         </div>
     </form>
 </div>
