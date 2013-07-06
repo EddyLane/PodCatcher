@@ -19,7 +19,7 @@ angular.module('podcatcher')
                 $scope.shouldBeOpen = false;
             })
             .error(function(response) {
-                $scope.message = response.message;
+                $scope.error = response.message;
             });
         };
 

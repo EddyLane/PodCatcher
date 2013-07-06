@@ -51,18 +51,22 @@
         </ul>
         <ul class="nav pull-right">
             <li class="divider-vertical"></li>
-            <li ng-controller="SecurityCtrl" class="dropdown">
+            <li class="dropdown">
                 <a class="dropdown-toggle" role="button" data-toggle="dropdown"><i
-                            class="icon-user icon-large"></i> {% raw %}{{ user.username }}{% endraw %}</a>
+                            class="icon-user icon-large"></i></a>
 
                 <ul class="dropdown-menu" role="menu">
-                    <li ng-show="!user.authenticated"><a ng-click="shouldBeOpen = true">Login</a></li>
-                    <li ng-show="!user.authenticated"><a ng-click="registerShouldBeOpen = true">Register</a></li>
-                    <li ng-show="user.authenticated"><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
+                    <li ng-show="!user.authenticated" ng-controller="SecurityCtrl">
+                        <a ng-click="open = true">Login</a>
+                        {% render "PodcastUserBundle:Security:login" %}
+                    </li>
+                    <li ng-show="!user.authenticated" ng-controller="RegistrationCtrl">
+                        <a ng-click="open = true">Register</a>
+                        {% render "PodcastUserBundle:Registration:register" %}
+                    </li>
+                    <li ng-show="user.authenticated" ng-controller="SecurityCtrl"><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
                 </ul>
 
-                {% render "PodcastUserBundle:Security:login" %}
-                {% render "PodcastUserBundle:Registration:register" %}
             </li>
             <li><a href="#"><i class="icon-cog icon-large"></i></a></li>
         </ul>
@@ -102,6 +106,7 @@
 '@PodcastMainBundle/Resources/public/app/controllers/podcast-detail-controller.js'
 '@PodcastMainBundle/Resources/public/app/controllers/podcast-list-controller.js'
 '@PodcastMainBundle/Resources/public/app/controllers/security-controller.js'
+'@PodcastMainBundle/Resources/public/app/controllers/registration-controller.js'
 '@PodcastMainBundle/Resources/public/app/controllers/subscriptions-list-controller.js'
 
 '@PodcastMainBundle/Resources/public/app/services/category-factory.js'

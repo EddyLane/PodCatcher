@@ -1,36 +1,41 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-<div modal="registerShouldBeOpen" close="registerShouldBeOpen = false" options="options">
-    <form method="post" id="registration-form" class="nomargin" novalidate>
+<div modal="open" close="open = false" options="options">
+    <form method="post" id="registration-form" class="nomargin" name="registration-form" novalidate>
     	<div class="modal-header">
-            <button type="button" class="close" ng-click="registerShouldBeOpen = false" aria-hidden="true">&times;</button>
+            <button type="button" class="close" ng-click="open = false" aria-hidden="true">&times;</button>
             <h3>Register</h3>
         </div>
         <div class="modal-body">
-        	<div class="control-group">
+        	<div class="control-group" ng-class="{ error: errors.username }">
         		<label class="form-label">{{ form_label(form.username) }}</label>
         		<div class="controls">
-			        	{{ form_widget(form.username, { 'attr': {'ng-model': 'form.username'}}) }}
-                        <span class="help-inline">{{ form_errors(form.username) }}</span>
+			        	{{ form_widget(form.username, { 'attr': {'ng-model': 'form.username' }, 'required': true }) }}
+                        <span ng-repeat="formError in errors.username" class="help-inline">{% raw %}{{ formError }}{% endraw %}</span>
         		</div>
         	</div>
-        	<div class="control-group">
+        	<div class="control-group" ng-class="{ error: errors.email }">
         		<label class="form-label">{{ form_label(form.email) }}</label>
         		<div class="controls">
-			        	{{ form_widget(form.email, { 'attr': {'ng-model': 'form.email'}}) }}
-                        <span class="help-inline">{{ form_errors(form.email) }}</span>
+			        	{{ form_widget(form.email, { 'attr': {'ng-model': 'form.email' }, 'required': true }) }}
+                    <span ng-repeat="formError in errors.email" class="help-inline">{% raw %}{{ formError }}{% endraw %}</span>
         		</div>
         	</div>
-        	<div class="control-group">
+        	<div class="control-group" ng-class="{ error: errors.plainPassword.first }">
         		<div class="controls">
-			        	{{ form_widget(form.plainPassword, { 'attr': {'ng-model': 'form.password'} }) }}
-                        <span class="help-inline">{{ form_errors(form.plainPassword) }}</span>
+			        	{{ form_widget(form.plainPassword.first, { 'attr': {'ng-model': 'form.password.first' } }) }}
+                    <span ng-repeat="formError in errors.plainPassword.first" class="help-inline">{% raw %}{{ formError }}{% endraw %}</span>
         		</div>
         	</div>
-		</div>
+            <div class="control-group" ng-class="{ error: errors.plainPassword.second }">
+                <div class="controls">
+                    {{ form_widget(form.plainPassword.second, { 'attr': {'ng-model': 'form.password.second' } }) }}
+                    <span ng-repeat="formError in errors.plainPassword.second" class="help-inline">{% raw %}{{ formError }}{% endraw %}</span>
+                </div>
+            </div>		</div>
 		{{ form_rest(form) }}
         <div class="modal-footer">
-            <button class="btn btn-warning" ng-click="register(copy)">Register</button>      
+            <button class="btn btn-warning" ng-click="register()">Register</button>
         </div>
     </form>
 </div>

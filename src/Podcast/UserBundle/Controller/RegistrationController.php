@@ -62,7 +62,6 @@ class RegistrationController extends FOSRegistrationController
             $form->bind($request);
 
             if ($form->isValid()) {
-                die('valid');
                 $event = new FormEvent($form, $request);
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
 
@@ -75,13 +74,33 @@ class RegistrationController extends FOSRegistrationController
 
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
                 return new JsonResponse($response);
-                //return $response;
+            } else {
+                return new JsonResponse($this->getErrorMessages($form), 400);
+
             }
         }
 
         return $this->container->get('templating')->renderResponse('PodcastUserBundle:Registration:register.html.'.$this->getEngine(), array(
             'form' => $form->createView(),
         ));
+    }
+
+    private function getErrorMessages(\Symfony\Component\Form\Form $form) {
+        $errors = array();
+
+        if ($form->hasChildren()) {
+            foreach ($form->getChildren() as $child) {
+                if (!$child->isValid()) {
+                    $errors[$child->getName()] = $this->getErrorMessages($child);
+                }
+            }
+        } else {
+            foreach ($form->getErrors() as $key => $error) {
+                $errors[] = $this->container->get('translator')->trans($error->getMessage(), array(), 'FOSUserBundle');
+            }
+        }
+
+        return $errors;
     }
 
     /**

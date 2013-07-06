@@ -24,12 +24,6 @@ angular.module('podcatcher')
             });
         };
 
-        $scope.searchPodcasts = function (cityName) {
-            return $http.jsonp(Routing.generate('get_podcasts', { search: cityName })).then(function (response) {
-                return limitToFilter(response.data.entities, 15);
-            });
-        };
-
         $scope.setSort = function (sort) {
             $scope.currentSort = sort;
             getPodcasts();
