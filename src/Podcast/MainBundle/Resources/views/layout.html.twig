@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="podcatcher">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head>
     <title>Home |Virgin</title>
     {% stylesheets filter="lessphp,cssrewrite"
@@ -41,10 +42,13 @@
         <ul class="nav pull-left">
             <li class="divider-vertical"></li>
             <li>
-                <a href="#{{ path('_welcome') }}" class="active"><i class="icon-home icon-large"></i></a>
+                <a href="#{{ path('_welcome') }}"><i class="icon-home icon-large"></i> <span class="show-desktop">Home</span></a>
+            </li>
+            <li>
+                <a href="#"><i class="icon-list-alt icon-large"></i> <span class="show-desktop">Directory</span></a>
             </li>
             <li ng-controller="SubscriptionsListCtrl" class="subscriptions-icon">
-                <a href="#{{ path('get_subscribed') }}"><i class="icon-heart icon-large"></i>
+                <a href="#{{ path('get_subscribed') }}"><i class="icon-heart icon-large"></i> <span class="show-desktop">Subscribed</span>
                     <span class="badge badge-warning">{% raw %}{{ user.subscriptions.length }}{% endraw %}</span>
                 </a>
             </li>
@@ -114,6 +118,7 @@
 
 '@PodcastMainBundle/Resources/public/app/app.js'
 
+'@PodcastMainBundle/Resources/public/app/controllers/user-home-controller.js'
 '@PodcastMainBundle/Resources/public/app/controllers/podcast-detail-controller.js'
 '@PodcastMainBundle/Resources/public/app/controllers/podcast-search-controller.js'
 '@PodcastMainBundle/Resources/public/app/controllers/podcast-list-controller.js'

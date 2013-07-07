@@ -30,6 +30,10 @@ class UserController extends FOSRestController
         }
     }
 
+    public function getHomeAction()
+    {
+
+    }
     
     public function getListenedAction() 
     {
