@@ -11,7 +11,7 @@
     "jquery-masonry": "~2.1.08",
     "angular": "~1.0.7",
     "angular-resource": "~1.0.7",
-    "angular-bootstrap": "~0.3.0",
+    "angular-bootstrap": "latest",
     "angular-ui-select2": "~0.0.2",
     "angular-local-storage": "latest",
     "select2": "~3.3.1",

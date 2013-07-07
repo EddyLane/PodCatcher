@@ -72,7 +72,18 @@
         </ul>
     </div>
 </div>
-
+<section class="subhead" ng-controller="PodcastSearchCtrl">
+    <section class="row-fluid subhead-inner">
+        <div class="span12" id="main-content">
+            <div class="form-horizontal" id="super-search">
+                <div class="input-append">
+                    <input type="text" ng-model="result" ng-model="result" typeahead="suggestion.name for suggestion in search($viewValue)">
+                    <button class="btn btn-warning" type="button"><i class="icon-white icon-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
 <div ng-view>
 
 
@@ -104,6 +115,7 @@
 '@PodcastMainBundle/Resources/public/app/app.js'
 
 '@PodcastMainBundle/Resources/public/app/controllers/podcast-detail-controller.js'
+'@PodcastMainBundle/Resources/public/app/controllers/podcast-search-controller.js'
 '@PodcastMainBundle/Resources/public/app/controllers/podcast-list-controller.js'
 '@PodcastMainBundle/Resources/public/app/controllers/security-controller.js'
 '@PodcastMainBundle/Resources/public/app/controllers/registration-controller.js'

@@ -28,7 +28,7 @@
                     <blockquote>
                         <a ng-click="user.listen(episode)">
                             {{ episode.name }}&nbsp;&nbsp;
-                            <span class="label label-warning">New</span>
+                            <span class="label label-warning" ng-show="user.episodes.indexOf(episode.id) == -1">New</span>
                         </a>
 
                         <small> {{ episode.pub_date }} | {{ episode.length }}</small>
