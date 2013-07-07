@@ -3,6 +3,8 @@
 namespace Podcast\MainBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Podcast\UserBundle\Entity\User;
+use Doctrine\ORM\Query;
 
 /**
  * EpisodeRepository
@@ -12,4 +14,17 @@ use Doctrine\ORM\EntityRepository;
  */
 class EpisodeRepository extends EntityRepository
 {
+    public function getListenedToIds(User $user)
+    {
+        $qb = $this->createQueryBuilder('episode');
+
+        $episodeIds = $qb->select('episode.id')
+            ->innerJoin('episode.listenedBy', 'user')
+            ->where('user.id = :userId')
+            ->setParameter('userId', $user->getId())
+            ->getQuery()
+            ->getResult('numeric_array');
+
+        return $episodeIds;
+    }
 }

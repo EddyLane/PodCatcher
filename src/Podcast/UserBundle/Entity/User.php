@@ -43,7 +43,6 @@ class User extends BaseUser
     private $subscriptions;
 
     /**
-     * @Annotation\Expose
      * @ORM\ManyToMany(targetEntity="Podcast\MainBundle\Entity\Episode", inversedBy="listenedBy", cascade={"all"})
      * @ORM\JoinTable(name="user_episode",
      * joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},

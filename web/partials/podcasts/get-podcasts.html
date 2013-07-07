@@ -25,18 +25,9 @@
 <div class="container-fluid">
     <div class="row-fluid">
 
-        <!--
-        <div class="span2 side-bar">
-            <ul>
-                <li><figure class="active"><i class='icon-home'></i> <div class='menuText'><a href='/'>Home</a></div></figure></li>
-                <li><figure><i class="icon-th-large"></i> <div class="menuText"><a href='/'>Directory</a></div></figure></li>
-                <li><figure><i class="icon-star"></i> <div class="menuText"><a href='#{{ path('get_subscribed') }}'>Subscribed</a></figure></li>
-                <li><figure><i class="icon-user"></i> <div class="menuText"><a href="#" data-toggle="modal" data-target="#myModal" data-backdrop="false">Register</a></div></figure></li>
-            </ul>
-        </div>
-        -->
         <div class="span12">
             <div id="content">
+                
                 <!--   <div class="row-fluid">
                       <div class="span6 filter-container">
                           <select ui-select2 ng-model="selectedCategories" ng-options="c.slug as c.name for c in categories" data-placeholder="Filter categories" multiple="true" style="width: 100%; height: 100px;">
@@ -59,20 +50,20 @@
 
 
 
-                            <div class="view" ng-repeat="podcast in podcasts | orderBy: podcast.podcast_name"  iso-grid>
+                            <div class="view" ng-repeat="podcast in podcasts | orderBy: podcast.name"  iso-grid>
                                 <div class="view-back">
                                     <a class="like" ng-click="user.subscribe(podcast)" style="cursor:pointer" ng-class="{ active: user.isSubscribed(podcast) }">
                                         <i class="icon-heart icon-large"></i>
                                     </a>
-                                    <a href="#{{ path('get_podcasts') }}/{{podcast.podcast_slug}}" class="listen">
+                                    <a href="#{{ path('get_podcasts') }}/{{podcast.slug}}" class="listen">
                                         <i class="icon-headphones icon-large"></i>
                                     </a>
-                                    <a href="#{{ path('get_podcasts') }}/{{podcast.podcast_slug}}" class="list">
+                                    <a href="#{{ path('get_podcasts') }}/{{podcast.slug}}" class="list">
                                         <i class="icon-headphones icon-list-ul"></i>
                                     </a>
                                 </div>
-                                <a href="#{{ routing.generate('get_podcast', { slug: podcast.podcast_slug }) }}">
-                                    <img ng-src="{{podcast.podcast_image}}">
+                                <a href="#{{ routing.generate('get_podcast', { slug: podcast.slug }) }}">
+                                    <img ng-src="{{podcast.image}}">
                                 </a>
                             </div>
 

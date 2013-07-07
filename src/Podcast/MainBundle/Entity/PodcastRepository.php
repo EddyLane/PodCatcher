@@ -42,7 +42,7 @@ class PodcastRepository extends EntityRepository
             $amount = 8, 
             $page = 1, 
             $search = null,
-            $hydration = Query::HYDRATE_SCALAR
+            $hydration = Query::HYDRATE_ARRAY
             )
     {
         $qb = $this->createQueryBuilder('podcast');
@@ -77,18 +77,17 @@ class PodcastRepository extends EntityRepository
         
         $qb
            ->leftJoin('podcast.episodes','episode')
-           ->addSelect(sprintf('%s as podcast_updated', $qb->expr()->max('episode.pub_date')))
+           ->addSelect(sprintf('%s as HIDDEN podcast_updated', $qb->expr()->max('episode.pub_date')))
            ->groupBy('podcast.id')
            ->setMaxResults($amount)
            ->setFirstResult(($page-1) * $amount)
         ;
-        
+
         if(!$sort) {
            $sort = 'podcast_updated';
         }
-        
+
         $qb->orderBy($sort, $order);
-        
         $entities = $qb
                 ->getQuery()
                 ->getResult($hydration);

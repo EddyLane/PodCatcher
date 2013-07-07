@@ -99,6 +99,8 @@ doctrine:
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
+        hydrators:
+            numeric_array: Podcast\MainBundle\Hydrator\NumericArrayHydrator
 
 # Swiftmailer Configuration
 swiftmailer:

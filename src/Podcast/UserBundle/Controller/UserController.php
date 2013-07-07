@@ -37,7 +37,8 @@ class UserController extends FOSRestController
             $view = $this->view('Please log in', 401);
         } else {
             $user = $this->get('security.context')->getToken()->getUser();
-            $view = $this->view($user->getListenedTo(), 200);
+            $episodeIds = $this->getDoctrine()->getManager()->getRepository('PodcastMainBundle:Episode')->getListenedToIds($user);
+            $view = $this->view($episodeIds, 200);
         }
         $view->setTemplate('PodcastMainBundle:Default:index.html.twig')
              ->setTemplateVar('entity');
@@ -47,7 +48,7 @@ class UserController extends FOSRestController
 
     public function postSubscribeAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $podcast = $em->getRepository('PodcastMainBundle:Podcast')->find($id);
         
@@ -56,6 +57,24 @@ class UserController extends FOSRestController
         }
 
         $this->user->addSubscription($podcast);
+        $em->persist($this->user);
+        $em->flush();
+
+        $view = $this->view(200);
+        return $this->handleView($view);
+    }
+
+    public function deleteUnsubscribeAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $podcast = $em->getRepository('PodcastMainBundle:Podcast')->find($id);
+
+        if(!$podcast) {
+            throw $this->createNotFoundException();
+        }
+
+        $this->user->removeSubscription($podcast);
         $em->persist($this->user);
         $em->flush();
 

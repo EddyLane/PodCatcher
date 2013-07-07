@@ -10,26 +10,26 @@
 			<input type="text" ng-model="search" style="width: 100%" placeholder="Filter subscriptions">
 		</div>
 		<ul class="nav nav-pills nav-stacked">
-			<li ng-repeat="podcast in user.subscriptions | orderBy:'podcast_name'  | filter:search" ng-class="{ active: ( active.podcast_id == podcast.podcast_id )}">
-				<a ng-click="setActive(podcast)">
-					<img ng-src="{{podcast.podcast_image}}">
-					{{ podcast.podcast_name }}
+			<li ng-repeat="subscription in user.subscriptions | orderBy:'name'  | filter:search" ng-class="{ active: ( podcast.id == subscription.id )}">
+				<a ng-click="showSubscription(subscription)">
+					<img ng-src="{{subscription.image}}">
+					{{ subscription.name }}
 				</a>
 			</li>
 		</ul>
 	</div>
 	<div class="span8">
-		<img ng-src="{{active.podcast_image}}" style="width:100px; height:100px;" class="pull-left">
-		<h2 class="pull-right">{{ active.podcast_name }}</h2>
+		<img ng-src="{{podcast.image}}" style="width:100px; height:100px;" class="pull-left">
+		<h2 class="pull-right">{{ podcast.name }}</h2>
 		<div class="blogContent">
-            <div class="row-fluid blogPost" ng-repeat="episode in active.episodes">
+            <div class="row-fluid blogPost" ng-repeat="episode in podcast.episodes">
 
                 <div class="title">
                     <blockquote>
-                        <p style="cursor: pointer">
+                        <a ng-click="user.listen(episode)">
                             {{ episode.name }}&nbsp;&nbsp;
                             <span class="label label-warning">New</span>
-                        </p>                                    
+                        </a>
 
                         <small> {{ episode.pub_date }} | {{ episode.length }}</small>
                     </blockquote>

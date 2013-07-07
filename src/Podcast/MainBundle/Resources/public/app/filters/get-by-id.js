@@ -8,7 +8,7 @@ angular.module('podcatcherFilters', []).
         return function(input, id) {
             var i=0, len=input.length;
             for (; i<len; i++) {
-                if (+input[i].podcast_id === +id) {
+                if (+input[i].id === +id) {
                     return i;
                 }
             }

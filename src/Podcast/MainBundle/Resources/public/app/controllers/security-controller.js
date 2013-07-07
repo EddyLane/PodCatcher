@@ -7,7 +7,7 @@ angular.module('podcatcher')
         $scope.master = User;
         $scope.user = User;
 
-        $scope.login = function (loginForm) {
+        $scope.login = function () {
             $http({
                 method: 'POST',
                 url: Routing.generate('fos_user_security_check'),

@@ -59,20 +59,20 @@
 
 
 
-                            <div class="view" ng-repeat="podcast in podcasts | orderBy: podcast.podcast_name"  iso-grid>
+                            <div class="view" ng-repeat="podcast in podcasts | orderBy: podcast.name"  iso-grid>
                                 <div class="view-back">
                                     <a class="like" ng-click="user.subscribe(podcast)" style="cursor:pointer" ng-class="{ active: user.isSubscribed(podcast) }">
                                         <i class="icon-heart icon-large"></i>
                                     </a>
-                                    <a href="#{{ path('get_podcasts') }}/{% raw %}{{podcast.podcast_slug}}{% endraw %}" class="listen">
+                                    <a href="#{{ path('get_podcasts') }}/{% raw %}{{podcast.slug}}{% endraw %}" class="listen">
                                         <i class="icon-headphones icon-large"></i>
                                     </a>
-                                    <a href="#{{ path('get_podcasts') }}/{% raw %}{{podcast.podcast_slug}}{% endraw %}" class="list">
+                                    <a href="#{{ path('get_podcasts') }}/{% raw %}{{podcast.slug}}{% endraw %}" class="list">
                                         <i class="icon-headphones icon-list-ul"></i>
                                     </a>
                                 </div>
-                                <a href="/#{{ Routing.generate('get_podcast', { slug: podcast.podcast_slug }) }}">
-                                    <img ng-src="{{podcast.podcast_image}}">
+                                <a href="/#{{ Routing.generate('get_podcast', { slug: podcast.slug }) }}">
+                                    <img ng-src="{{podcast.image}}">
                                 </a>
                             </div>
 
