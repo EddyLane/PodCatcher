@@ -52,8 +52,8 @@
         <ul class="nav pull-right">
             <li class="divider-vertical"></li>
             <li class="dropdown">
-                <a class="dropdown-toggle" role="button" data-toggle="dropdown"><i
-                            class="icon-user icon-large"></i></a>
+                <a class="dropdown-toggle" role="button" data-toggle="dropdown" ng-controller="SecurityCtrl"><i
+                            class="icon-user icon-large"></i> {% raw %}{{ user.username }}{% endraw %}</a>
 
                 <ul class="dropdown-menu" role="menu">
                     <li ng-show="!user.authenticated" ng-controller="SecurityCtrl">

@@ -1,0 +1,8 @@
+# %kernel.root_dir%/serializer/FOSUB/Model.User.yml
+FOS\UserBundle\Model\User:
+    exclusion_policy: none
+    properties:
+        password:
+            exclude: true
+        salt:
+            exclude: true

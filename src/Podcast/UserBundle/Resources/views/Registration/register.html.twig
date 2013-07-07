@@ -7,6 +7,7 @@
             <h3>Register</h3>
         </div>
         <div class="modal-body">
+            <div class="alert alert-error" ng-show="errors">Please rectify the problems with the form and try again</div>
         	<div class="control-group" ng-class="{ error: errors.username }">
         		<label class="form-label">{{ form_label(form.username) }}</label>
         		<div class="controls">
@@ -22,12 +23,14 @@
         		</div>
         	</div>
         	<div class="control-group" ng-class="{ error: errors.plainPassword.first }">
+                <label class="form-label">{{ form_label(form.plainPassword.first) }}</label>
         		<div class="controls">
 			        	{{ form_widget(form.plainPassword.first, { 'attr': {'ng-model': 'form.password.first' } }) }}
                     <span ng-repeat="formError in errors.plainPassword.first" class="help-inline">{% raw %}{{ formError }}{% endraw %}</span>
         		</div>
         	</div>
             <div class="control-group" ng-class="{ error: errors.plainPassword.second }">
+                <label class="form-label">{{ form_label(form.plainPassword.second) }}</label>
                 <div class="controls">
                     {{ form_widget(form.plainPassword.second, { 'attr': {'ng-model': 'form.password.second' } }) }}
                     <span ng-repeat="formError in errors.plainPassword.second" class="help-inline">{% raw %}{{ formError }}{% endraw %}</span>

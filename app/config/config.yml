@@ -160,7 +160,9 @@ fkr_simple_pie:
     cache_dir: %kernel.cache_dir%/rss
     cache_duration: 3600
 
-#hearsay_require_js:
-#    base_directory: %kernel.root_dir%/../web/js
-#    paths:
-#        app: %kernel.root_dir%/../src/Podcast/MainBundle/Resources/public/app
+jms_serializer:
+    metadata:
+        directories:
+            FOSUB:
+                namespace_prefix: FOS\UserBundle
+                path: %kernel.root_dir%/serializer/FOSUB

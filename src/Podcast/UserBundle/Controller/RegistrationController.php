@@ -96,7 +96,7 @@ class RegistrationController extends FOSRegistrationController
             }
         } else {
             foreach ($form->getErrors() as $key => $error) {
-                $errors[] = $this->container->get('translator')->trans($error->getMessage(), array(), 'FOSUserBundle');
+                $errors[] = $this->container->get('translator')->trans($error->getMessage(), array(), 'validators');
             }
         }
 

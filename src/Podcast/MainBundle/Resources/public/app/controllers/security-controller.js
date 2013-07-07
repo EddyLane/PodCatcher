@@ -16,7 +16,7 @@ angular.module('podcatcher')
             })
             .success(function(data, status, headers, config) {
                 $scope.user.authenticate();
-                $scope.shouldBeOpen = false;
+                $scope.open = false;
             })
             .error(function(response) {
                 $scope.error = response.message;
