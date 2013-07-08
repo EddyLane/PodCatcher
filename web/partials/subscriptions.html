@@ -1,14 +1,6 @@
-<section class="subhead" style="box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px; margin-top:41px;">
-    <section class="row-fluid subhead-inner">
-        <div class="span12" id="main-content">
-        </div>
-    </section>
-</section>
 <div class="row-fluid">
-	<div class="span4 subscription-list" style="padding-left:20px;">
-		<div style="padding-right: 10px;">
-			<input type="text" ng-model="search" style="width: 100%" placeholder="Filter subscriptions">
-		</div>
+	<div class="span4 subscription-list">
+		<input type="text" ng-model="search"  placeholder="Filter subscriptions">
 		<ul class="nav nav-pills nav-stacked">
 			<li ng-repeat="subscription in user.subscriptions | orderBy:'name'  | filter:search" ng-class="{ active: ( podcast.id == subscription.id )}">
 				<a ng-click="showSubscription(subscription)">
@@ -18,33 +10,25 @@
 			</li>
 		</ul>
 	</div>
-	<div class="span8">
-		<img ng-src="{{podcast.image}}" style="width:100px; height:100px;" class="pull-left">
-		<h2 class="pull-right">{{ podcast.name }}</h2>
-		<div class="blogContent">
+	<div class="span8 subscription-container">
+		<img ng-src="{{podcast.image}}" class="pull-left">
+		<h2>{{ podcast.name }}</h2>
+		<div>
             <div class="row-fluid blogPost" ng-repeat="episode in podcast.episodes">
-
                 <div class="title">
                     <blockquote>
                         <a ng-click="user.listen(episode)">
                             {{ episode.name }}&nbsp;&nbsp;
                             <span class="label label-warning" ng-show="user.episodes.indexOf(episode.id) == -1">New</span>
                         </a>
-
                         <small> {{ episode.pub_date }} | {{ episode.length }}</small>
                     </blockquote>
                 </div>
-
                 <div class="blogContent">
-
-                    <p style="clear:both;" ng-bind-html-unsafe="episode.description">
-                    </p>
-                    <p>
-                        <a href="#" data-bind="attr: { href: link }, text: link"></a>
+                    <p ng-bind-html-unsafe="episode.description">
                     </p>
                 </div>
             </div>
         </div>
-
 	</div>
 </div>

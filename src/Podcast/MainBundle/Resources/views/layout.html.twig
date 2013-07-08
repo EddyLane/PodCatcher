@@ -34,7 +34,7 @@
 </head>
 <body>
 <!-- Fixed navbar -->
-<div class="navbar navbar-orange navbar-fixed-top">
+<div class="navbar navbar-orange navbar-fixed-top" ng-cloak>
     <div class="navbar-inner">
         <p class="brand">
             <i class="icon-headphones icon-large" style="position: absolute; top: 7px;"></i>
@@ -42,10 +42,10 @@
         <ul class="nav pull-left">
             <li class="divider-vertical"></li>
             <li>
-                <a href="#{{ path('_welcome') }}"><i class="icon-home icon-large"></i> <span class="show-desktop">Home</span></a>
+                <a href="#{{ path('_welcome') }}"><i class="icon-home icon-large"></i></a>
             </li>
             <li>
-                <a href="#"><i class="icon-list-alt icon-large"></i> <span class="show-desktop">Directory</span></a>
+                <a href="#{{ path('get_podcasts') }}"><i class="icon-list-alt icon-large"></i> <span class="show-desktop">Directory</span></a>
             </li>
             <li ng-controller="SubscriptionsListCtrl" class="subscriptions-icon">
                 <a href="#{{ path('get_subscribed') }}"><i class="icon-heart icon-large"></i> <span class="show-desktop">Subscribed</span>

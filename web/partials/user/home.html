@@ -1,15 +1,45 @@
-<div class="container-fluid">
+<div class="container-fluid" style="padding-top:30px;">
     <div class="row-fluid">
         <div class="span4">
-
-            <carousel interval="myInterval">
-                <slide ng-repeat="podcast in carouselPodcasts" active="slide.active">
-                    <img ng-src="{{podcast.image}}" style="margin:auto;">
-                    <div class="carousel-caption">
-                        <h4>{{ podcast.name }}</h4>
-                    </div>
-                </slide>
-            </carousel>
+            <div class="widget-box transparent">
+                <div class="widget-header">
+                    <h4><i class="icon-refresh"></i> Latest episodes</h4>
+                </div>
+                <div class="widget-content">
+                    <table class="table">
+                        <tr>
+                            <td>
+                                Frank Skinner on Asbolute Radio
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Football Weekly
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Frank Skinner on Asbolute Radio
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Football Weekly
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Frank Skinner on Asbolute Radio
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Football Weekly
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
 
         </div>
         <div class="span4">
@@ -35,25 +65,6 @@
 
             <div class="widget-box transparent">
                 <div class="widget-header">
-                    <h4><i class="icon-refresh"></i> Latest episodes</h4>
-                </div>
-                <div class="widget-content">
-                    <table class="table">
-                        <tr>
-                            <td>
-                                Frank Skinner on Asbolute Radio
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Football Weekly
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div class="widget-box transparent">
-                <div class="widget-header">
                     <h4><i class="icon-repeat"></i> History</h4>
                 </div>
                 <div class="widget-content">
@@ -72,8 +83,13 @@
                 </div>
             </div>
         </div>
-        <div class="span4">
+        <div class="span4 episode-calendar well">
             <datepicker ng-model="dt" show-weeks="showWeeks" starting-day="1" date-disabled="disabled(date, mode)" min="minDate" max="'2015-06-22'"></datepicker>
+            <table class="table table-condensed">
+                <tbody>
+                    <tr><td>Frank Skinner on Absolute Radio</td><td>New episode about something or other~</td></tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
