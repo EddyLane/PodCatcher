@@ -1,7 +1,3 @@
-default:
-    type: annotation
-    resource: Podcast\MainBundle\Controller\DefaultController
-
 categories:
     type:     rest
     resource: Podcast\MainBundle\Controller\CategoryController
