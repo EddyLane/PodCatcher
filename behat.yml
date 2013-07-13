@@ -11,9 +11,9 @@ default:
                 debug: false
         Behat\MinkExtension\Extension:
             zombie: ~
-            default_session: 'symfony2'
+            default_session: zombie
             javascript_session: 'zombie'
-            base_url: 'http://podcatcher.local'
+            base_url: 'http://podcatcher.local/app_test.php/'
 
         SensioLabs\Behat\PageObjectExtension\Extension:
             namespaces:

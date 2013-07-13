@@ -27,4 +27,15 @@ class PageObjectContext extends BasePageObjectContext
     {
         $this->getPage($pageName)->open();
     }
+    /**
+     * @When /^I submit the login form with the following details:$/
+     */
+    public function iSubmitTheLoginFormWithTheFollowingDetails(TableNode $table)
+    {
+        $page = $this->getPage('Homepage')->open();
+        $page->openLoginForm();
+        $page->fillLoginForm($table->getHash());
+        $page->submitLoginForm();
+    }
+
 }

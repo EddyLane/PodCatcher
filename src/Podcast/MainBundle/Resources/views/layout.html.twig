@@ -34,10 +34,10 @@
 </head>
 <body>
 <!-- Fixed navbar -->
-<div class="navbar navbar-orange navbar-fixed-top" ng-cloak>
+<div class="navbar navbar-orange navbar-fixed-top">
     <div class="navbar-inner">
         <p class="brand">
-            <i class="icon-headphones icon-large" style="position: absolute; top: 7px;"></i>
+            <i class="icon-headphones icon-large"></i>
         </p>
         <ul class="nav pull-left">
             <li class="divider-vertical"></li>
@@ -56,12 +56,12 @@
         <ul class="nav pull-right">
             <li class="divider-vertical"></li>
             <li class="dropdown">
-                <a class="dropdown-toggle" role="button" data-toggle="dropdown" ng-controller="SecurityCtrl"><i
+                <a class="dropdown-toggle" role="button" data-toggle="dropdown" id="security-ctrl" ng-controller="SecurityCtrl"><i
                             class="icon-user icon-large"></i> {% raw %}{{ user.username }}{% endraw %}</a>
 
                 <ul class="dropdown-menu" role="menu">
                     <li ng-show="!user.authenticated" ng-controller="SecurityCtrl">
-                        <a ng-click="open = true">Login</a>
+                        <a ng-click="open = true" id="login-ctrl">Login</a>
                         {% render "PodcastUserBundle:Security:login" %}
                     </li>
                     <li ng-show="!user.authenticated" ng-controller="RegistrationCtrl">

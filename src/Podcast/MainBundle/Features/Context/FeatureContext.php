@@ -26,5 +26,15 @@ class FeatureContext extends BaseContext //MinkContext if you want to test web
     public function __construct(array $parameters)
     {
         $this->useContext('pageObject', new PageObjectContext($parameters));
+        $this->useContext('database', new DatabaseContext($parameters));
     }
+
+
+   /**
+    * @Given /^I am not authenticated$/
+    */
+    public function iAmNotAuthenticated()
+    {
+    }
+
 }

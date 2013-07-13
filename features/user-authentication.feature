@@ -4,7 +4,7 @@ Feature: User authentication
     Given the following users exist:
       | username | email              | password |
       | everzet  | ever.zet@gmail.com | ever.zet |
-      And I visited the homepage
+      And I visited homepage
 
   Scenario: User logs in to the application
       And I am not authenticated
