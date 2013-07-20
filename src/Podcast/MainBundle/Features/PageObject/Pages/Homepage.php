@@ -25,6 +25,10 @@ class Homepage extends Page
     public function submitLoginForm()
     {
         $this->find('css','form#login-form')->find('css', 'button')->press();
+        $form = $this->find('css', '#login-form');
+        if($form) {
+            echo 'CONTENT: '.$form->getContent();
+        }
     }
 
     public function fillLoginForm($fields)
@@ -34,6 +38,12 @@ class Homepage extends Page
             $form->fillField('username', $field['username']);
             $form->fillField('password', $field['password']);
         }
+    }
+
+    public function hasMessage($expected)
+    {
+        $actualMessage = $this->find('css', 'div.alert');
+        return $actualMessage->getText() === $expected;
     }
 
 }

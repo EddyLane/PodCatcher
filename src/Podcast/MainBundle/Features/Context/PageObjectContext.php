@@ -32,10 +32,30 @@ class PageObjectContext extends BasePageObjectContext
      */
     public function iSubmitTheLoginFormWithTheFollowingDetails(TableNode $table)
     {
+        $this->getMainContext()->getSession()->reset();
         $page = $this->getPage('Homepage')->open();
         $page->openLoginForm();
         $page->fillLoginForm($table->getHash());
         $page->submitLoginForm();
+        $this->getMainContext()->getSession()->wait(50000);
+        $this->ge
+        echo $this->getMainContext()->getSession()->getPage()->find('css','form')->getHtml();
+        echo $this->getMainContext()->getSession()->getStatusCode();
+    }
+    /**
+     * @Then /^I should be authenticated as "([^"]*)"$/
+     */
+    public function iShouldBeAuthenticatedAs($arg1)
+    {
     }
 
+    /**
+     * @Then /^I should see the message "([^"]*)"$/
+     */
+    public function iShouldSeeTheMessage($message)
+    {
+        if(!$this->getPage('Homepage')->hasMessage($message)) {
+            throw new \Exception('Could not find message '.$message);
+        }
+    }
 }

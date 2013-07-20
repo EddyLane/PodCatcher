@@ -95,12 +95,17 @@ doctrine:
         user:     "%database_user%"
         password: "%database_password%"
         charset:  UTF8
-
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
         hydrators:
             numeric_array: Podcast\MainBundle\Hydrator\NumericArrayHydrator
+        dql:
+            datetime_functions:
+                date: Podcast\MainBundle\DQL\DateFunction
+
+
+
 
 # Swiftmailer Configuration
 swiftmailer:

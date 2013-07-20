@@ -16,6 +16,7 @@
     "angular-local-storage": "latest",
     "select2": "~3.3.1",
     "flatstrap": "latest",
-    "requirejs": "~2.1.6"
+    "requirejs": "~2.1.6",
+    "moment": "~2.1.0"
   }
 }

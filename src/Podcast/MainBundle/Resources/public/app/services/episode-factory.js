@@ -1,6 +1,6 @@
 angular.module('podcatcher')
     .factory('Episode', function($resource) {
-        return $resource(Routing.generate('get_podcasts')+'/:slug/episodes', {}, {
+        return $resource(Routing.generate('get_episodes'), {}, {
             query: {method: 'GET', isArray: true }
         });
     });

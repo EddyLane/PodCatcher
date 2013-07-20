@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('podcatcher')
-    .controller('PodcastDetailCtrl', function ($scope, $routeParams, Podcast, Episode, User) {
+    .controller('PodcastDetailCtrl', function ($scope, $routeParams, Podcast, PodcastEpisode, User) {
         $scope.currentPage = $routeParams.page || 1;
         $scope.maxSize = $routeParams.amount || 8;
         $scope.user = User;

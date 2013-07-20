@@ -2,8 +2,10 @@
 
 namespace Podcast\MainBundle\Entity;
 
-use Doctrine\ORM\EntityRepository;
 use Podcast\UserBundle\Entity\User;
+use Doctrine\ORM\EntityRepository;
+use Podcast\MainBundle\Entity\Category;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\ORM\Query;
 
 /**
@@ -27,4 +29,48 @@ class EpisodeRepository extends EntityRepository
 
         return $episodeIds;
     }
+
+    public function getEpisodes($pubDate = false, array $podcasts = [], $sort = 'episode.pub_date', $order = 'desc', $amount = 10, $page = 1, $hydration = Query::HYDRATE_ARRAY )
+    {
+        $qb = $this->createQueryBuilder('episode');
+
+        $qb
+            ->distinct()
+        ;
+
+        if(count($podcasts) > 0) {
+            $qb
+                ->innerJoin('episode.podcast', 'podcast')
+                ->add('where', $qb->expr()->in('podcast.id', $podcasts))
+            ;
+        }
+
+        if($pubDate) {
+            $qb->add('where',$qb->expr()->eq('DATE(episode.pub_date)', ':pub_date'))
+               ->setParameter('pub_date', new \DateTime($pubDate), \Doctrine\DBAL\Types\Type::DATETIME);
+        }
+
+        $metadata = array(
+            'X-Pagination-Total' => count(new Paginator($qb->getQuery(), false)),
+            'X-Pagination-Amount'=> $amount,
+            'X-Pagination-Page' => $page
+        );
+
+        $qb
+            ->setMaxResults($amount)
+            ->setFirstResult(($page-1) * $amount)
+        ;
+
+//        $qb->orderBy($sort, $order);
+
+        $entities = $qb
+            ->getQuery()
+            ->getResult($hydration);
+
+        return array(
+            'metadata' => $metadata,
+            'entities' => $entities
+        );
+    }
+
 }

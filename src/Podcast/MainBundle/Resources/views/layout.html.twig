@@ -37,18 +37,18 @@
 <div class="navbar navbar-orange navbar-fixed-top">
     <div class="navbar-inner">
         <p class="brand">
-            <i class="icon-headphones icon-large"></i>
+            <i class="icon-headphones"></i>
         </p>
         <ul class="nav pull-left">
             <li class="divider-vertical"></li>
             <li>
-                <a href="#{{ path('_welcome') }}"><i class="icon-home icon-large"></i></a>
+                <a href="#{{ path('_welcome') }}"><i class="icon-home"></i> Home</a>
             </li>
             <li>
-                <a href="#{{ path('get_podcasts') }}"><i class="icon-list-alt icon-large"></i> <span class="show-desktop">Directory</span></a>
+                <a href="#{{ path('get_podcasts') }}"><i class="icon-list-alt"></i> <span class="show-desktop">Directory</span></a>
             </li>
             <li ng-controller="SubscriptionsListCtrl" class="subscriptions-icon">
-                <a href="#{{ path('get_subscribed') }}"><i class="icon-heart icon-large"></i> <span class="show-desktop">Subscribed</span>
+                <a href="#{{ path('get_subscribed') }}"><i class="icon-heart"></i> <span class="show-desktop">Subscribed</span>
                     <span class="badge badge-warning">{% raw %}{{ user.subscriptions.length }}{% endraw %}</span>
                 </a>
             </li>
@@ -115,7 +115,7 @@
 'js/angular-resource/angular-resource.js'
 'js/angular-local-storage/angular-local-storage.js'
 'js/isotope/jquery.isotope.js'
-
+'js/moment/moment.js'
 '@PodcastMainBundle/Resources/public/app/app.js'
 
 '@PodcastMainBundle/Resources/public/app/controllers/user-home-controller.js'
@@ -130,6 +130,7 @@
 '@PodcastMainBundle/Resources/public/app/services/organization-factory.js'
 '@PodcastMainBundle/Resources/public/app/services/podcast-factory.js'
 '@PodcastMainBundle/Resources/public/app/services/episode-factory.js'
+'@PodcastMainBundle/Resources/public/app/services/podcast-episode-factory.js'
 '@PodcastMainBundle/Resources/public/app/services/user-service.js'
 
 '@PodcastMainBundle/Resources/public/app/filters/get-by-id.js'

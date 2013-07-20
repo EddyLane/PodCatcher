@@ -8,6 +8,10 @@ categories:
 podcasts:
     type:     rest
     resource: Podcast\MainBundle\Controller\PodcastController
+
+episodes:
+    type:     rest
+    resource: Podcast\MainBundle\Controller\EpisodeController
     
 organizations:
     type:     rest

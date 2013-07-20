@@ -1,7 +1,7 @@
 default:
     context:
         parameters:
-            base_url: 'http://podcatcher.local/app_test.php'
+            base_url: 'http://podcatcher.local/app_test.php/'
         class: Podcast\MainBundle\Features\Context\FeatureContext
     extensions:
         Behat\Symfony2Extension\Extension:
