@@ -15,6 +15,7 @@
         </div>
         <div class="row-fluid">
             <div class="span8 blogContent">
+                <div class="spinner" ng-show="loadingEpisodes"></div>
                 <div class="row-fluid blogPost" ng-repeat="episode in podcast.episodes">
 
                     <div class="title">
@@ -39,6 +40,7 @@
                 </div>
             </div>
             <div class="span4 blogSide">
+                <div class="spinner" ng-show="loadingPodcast"></div>
                 <div class="btn-toolbar">
                     <button class="btn btn-warning" ng-click="user.subscribe(podcast)"><i ng-class="{ 'icon-heart': user.isSubscribed(podcast), 'icon-heart-empty': !user.isSubscribed(podcast) }"></i></button>
                 </div>

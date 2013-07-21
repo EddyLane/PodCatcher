@@ -1,7 +1,8 @@
-<div class="container-fluid" style="padding-top:30px;">
+<div class="container-fluid subscriptions-container" style="padding-top:30px;">
     <div class="row-fluid">
-        <div class="span4">
-            <div class="widget-box transparent">
+        <div ng-class="{ 'span8': !user.authenticated, 'span4': user.authenticated }">
+            <div class="spinner fade in out" ng-show="loadingLatest"></div>
+            <div class="widget-box transparent fade in out" ng-hide="loadingLatest">
                 <div class="widget-header">
                     <h4><i class="icon-refresh"></i> Latest episodes</h4>
                 </div>
@@ -9,7 +10,10 @@
                     <table class="table">
                         <tr ng-repeat="episode in latestEpisodes">
                             <td>
-                                {{ episode.name }}
+                                <a ng-click="user.listen(episode)">
+                                    <span class="label label-warning" ng-show="user.episodes.indexOf(episode.id) == -1 && user.authenticated">N</span>
+                                    {{ episode.name }}
+                                </a>
                             </td>
                         </tr>
                     </table>
@@ -17,10 +21,13 @@
             </div>
 
         </div>
-        <div class="span4">
+        <div class="span4" ng-show="user.authenticated">
             <div class="widget-box transparent">
                 <div class="widget-header">
                     <h4><i class="icon-heart"></i> Subscriptions</h4>
+                </div>
+                <div class="widget-content" ng-show="user.subscriptions.length === 0">
+                    <p>You have no subscriptions. <a href="#{{ routing.generate('get_podcasts') }}">Subscribe</a> to something perhaps?</p>
                 </div>
                 <div class="widget-content">
                     <table class="table">
@@ -35,16 +42,17 @@
         </div>
         <div class="span4 episode-calendar pagination-centered">
 
-            <div class="btn-group" style="margin-bottom: 10px;" ng-init="type = 'all-podcasts'">
+            <div class="btn-group" ng-init="type = 'all-podcasts'" ng-show="user.authenticated">
                 <button type="button" class="btn btn-warning" ng-model="type" btn-radio="'all-podcasts'">All podcasts</button>
                 <button type="button" class="btn btn-warning" ng-model="type" btn-radio="'subscribed'">Subscribed</button>
             </div>
 
             <datepicker ng-model="pubDate" show-weeks="false" starting-day="1" date-disabled="disabled(date, mode)" max="maxDate"></datepicker>
-            <table class="table table-condensed">
+            <div class="spinner clear clearfix fade in out" ng-show='loading'></div>
+            <table class="table table-condensed fade in out" ng-hide='loading'>
                 <tbody>
                     <tr ng-repeat="episode in episodes">
-                        <td><a ng-click="user.listen(episode)"><span class="label label-warning" ng-show="user.episodes.indexOf(episode.id) == -1">New</span> <i class="icon-heart" ng-show="isSubscribed(episode)"></i> {{ episode.name }}</a></td>
+                        <td><a ng-click="user.listen(episode)"><span class="label label-warning" ng-show="user.authenticated && user.episodes.indexOf(episode.id) == -1">N</span> <i class="icon-heart" ng-show="isSubscribed(episode)"></i> {{ episode.name }}</a></td>
                     </tr>
                 </tbody>
             </table>

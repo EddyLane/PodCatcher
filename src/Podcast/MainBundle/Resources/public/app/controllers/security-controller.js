@@ -8,6 +8,7 @@ angular.module('podcatcher')
         $scope.user = User;
 
         $scope.login = function () {
+            $scope.loading = true;
             $http({
                 method: 'POST',
                 url: Routing.generate('fos_user_security_check'),
@@ -17,9 +18,11 @@ angular.module('podcatcher')
             .success(function(data, status, headers, config) {
                 $scope.user.authenticate();
                 $scope.open = false;
+                $scope.loading = false;
             })
             .error(function(response) {
                 $scope.error = response.message;
+                $scope.loading = false;
             });
         };
 
