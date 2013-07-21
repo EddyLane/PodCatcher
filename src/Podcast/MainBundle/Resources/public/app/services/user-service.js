@@ -46,12 +46,14 @@ angular.module('podcatcher')
             var found = $filter('getById')(this.subscriptions, podcast.id);
             if(found === false) {
                 this.subscriptions.push(podcast);
-                $http.post(Routing.generate('post_subscribe', { id: podcast.id }));
-                // localStorageService.add('subscriptions', JSON.stringify(this.subscriptions));
+                if(self.authenticated) {
+                    $http.post(Routing.generate('post_subscribe', { id: podcast.id }));
+                }
             } else {
                 this.subscriptions.splice(found, 1);
-                $http.delete(Routing.generate('delete_unsubscribe', { id: podcast.id }));
-                // localStorageService.add('subscriptions', JSON.stringify(this.subscriptions));
+                if(self.authenticated) {
+                    $http.delete(Routing.generate('delete_unsubscribe', { id: podcast.id }));
+                }
             }
         };
 
@@ -60,8 +62,7 @@ angular.module('podcatcher')
         };
 
         this.isSubscribed = function(podcast) {
-            return false;
-//            return ($filter('getById')(this.subscriptions, podcast.id) !== false) ? true : false;
+            return ($filter('getById')(this.subscriptions, podcast.id) !== false) ? true : false;
         };
 
         this.authenticate();

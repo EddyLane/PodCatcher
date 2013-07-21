@@ -10,8 +10,9 @@
                     <table class="table">
                         <tr ng-repeat="episode in latestEpisodes">
                             <td>
+                                <span class="label label-warning" ng-show="user.episodes.indexOf(episode.id) == -1 && user.authenticated">N</span>
+                                &nbsp;
                                 <a ng-click="user.listen(episode)">
-                                    <span class="label label-warning" ng-show="user.episodes.indexOf(episode.id) == -1 && user.authenticated">N</span>
                                     {{ episode.name }}
                                 </a>
                             </td>
@@ -33,7 +34,9 @@
                     <table class="table">
                         <tr ng-repeat="podcast in user.subscriptions">
                             <td>
-                                {{ podcast.name }}
+                                <a href="#{{ routing.generate('get_subscription', { slug: podcast.slug }) }}">
+                                    {{ podcast.name }}
+                                </a>
                             </td>
                         </tr>
                     </table>
@@ -42,7 +45,7 @@
         </div>
         <div class="span4 episode-calendar pagination-centered">
 
-            <div class="btn-group" ng-init="type = 'all-podcasts'" ng-show="user.authenticated">
+            <div class="btn-group" ng-init="type = 'all-podcasts'" ng-show="user.authenticated && user.subscriptions.length > 0">
                 <button type="button" class="btn btn-warning" ng-model="type" btn-radio="'all-podcasts'">All podcasts</button>
                 <button type="button" class="btn btn-warning" ng-model="type" btn-radio="'subscribed'">Subscribed</button>
             </div>
