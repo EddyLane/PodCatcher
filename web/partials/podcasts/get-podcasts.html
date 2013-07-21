@@ -39,10 +39,10 @@
                                     <a class="like" ng-click="user.subscribe(podcast)" style="cursor:pointer" ng-class="{ active: user.isSubscribed(podcast) }">
                                         <i class="icon-heart icon-large"></i>
                                     </a>
-                                    <a href="#{{ path('get_podcasts') }}/{{podcast.slug}}" class="listen">
-                                        <i class="icon-headphones icon-large"></i>
-                                    </a>
-                                    <a href="#{{ path('get_podcasts') }}/{{podcast.slug}}" class="list">
+                                    <!--<a href="#{{ path('get_podcasts') }}/{{podcast.slug}}" class="listen">-->
+                                        <!--<i class="icon-headphones icon-large"></i>-->
+                                    <!--</a>-->
+                                    <a href="#{{ routing.generate('get_podcast', { slug: podcast.slug }) }}" class="list">
                                         <i class="icon-headphones icon-list-ul"></i>
                                     </a>
                                 </div>

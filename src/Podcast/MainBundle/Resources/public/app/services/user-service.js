@@ -36,6 +36,8 @@ angular.module('podcatcher')
         };
 
         this.listen = function(episode) {
+            console.log(episode);
+            console.log(this.episodes.indexOf(episode.id));
             if(this.episodes.indexOf(episode.id) === -1) {
                 this.episodes.push(episode.id);
                 $http.post(Routing.generate('post_listen', { id: episode.id }));

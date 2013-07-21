@@ -18,9 +18,12 @@ angular.module('podcatcher')
         $scope.user = User;
 
         var getPodcasts = function () {
-            $scope.podcasts = Podcast.query({ page: $scope.currentPage, amount: $scope.maxResultSize, sort: $scope.currentSort.sort, direction: $scope.currentSort.direction, categories: $scope.selectedCategories }, function(u, getResponseHeaders){
+            $scope.loading = true;
+            Podcast.query({ page: $scope.currentPage, amount: $scope.maxResultSize, sort: $scope.currentSort.sort, direction: $scope.currentSort.direction, categories: $scope.selectedCategories }, function(result, getResponseHeaders){
                 var headers = getResponseHeaders();
+                $scope.podcasts = result;
                 $scope.noOfPages = Math.floor(headers["x-pagination-total"] / headers["x-pagination-amount"]) + 1;
+                $scope.loading = false;
             });
         };
 
@@ -34,5 +37,8 @@ angular.module('podcatcher')
             getPodcasts();
         };
 
+
         getPodcasts();
+
+        $scope.$watch('currentPage', getPodcasts);
     });

@@ -22,4 +22,11 @@ angular.module('podcatcherFilters', [])
             }
             return result;
         };
+    })
+    .filter('orderByField', function() {
+        return function(field, collection) {
+            return collection.sort(function(a, b) {
+                return a[field] - b[field];
+            });
+        }
     });
