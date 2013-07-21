@@ -7,34 +7,9 @@
                 </div>
                 <div class="widget-content">
                     <table class="table">
-                        <tr>
+                        <tr ng-repeat="episode in latestEpisodes">
                             <td>
-                                Frank Skinner on Asbolute Radio
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Football Weekly
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Frank Skinner on Asbolute Radio
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Football Weekly
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Frank Skinner on Asbolute Radio
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Football Weekly
+                                {{ episode.name }}
                             </td>
                         </tr>
                     </table>
@@ -49,45 +24,28 @@
                 </div>
                 <div class="widget-content">
                     <table class="table">
-                        <tr>
+                        <tr ng-repeat="podcast in user.subscriptions">
                             <td>
-                                Frank Skinner on Asbolute Radio
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Football Weekly
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-
-            <div class="widget-box transparent">
-                <div class="widget-header">
-                    <h4><i class="icon-repeat"></i> History</h4>
-                </div>
-                <div class="widget-content">
-                    <table class="table">
-                        <tr>
-                            <td>
-                                Frank Skinner on Asbolute Radio
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Football Weekly
+                                {{ podcast.name }}
                             </td>
                         </tr>
                     </table>
                 </div>
             </div>
         </div>
-        <div class="span4 episode-calendar">
-            <datepicker ng-model="pubDate" show-weeks="false" starting-day="1" date-disabled="disabled(date, mode)" min="minDate" max="'2015-06-22'"></datepicker>
+        <div class="span4 episode-calendar pagination-centered">
+
+            <div class="btn-group" style="margin-bottom: 10px;" ng-init="type = 'all-podcasts'">
+                <button type="button" class="btn btn-warning" ng-model="type" btn-radio="'all-podcasts'">All podcasts</button>
+                <button type="button" class="btn btn-warning" ng-model="type" btn-radio="'subscribed'">Subscribed</button>
+            </div>
+
+            <datepicker ng-model="pubDate" show-weeks="false" starting-day="1" date-disabled="disabled(date, mode)" max="maxDate"></datepicker>
             <table class="table table-condensed">
                 <tbody>
-                    <tr><td>Frank Skinner on Absolute Radio</td><td>New episode about something or other~</td></tr>
+                    <tr ng-repeat="episode in episodes">
+                        <td><a ng-click="user.listen(episode)"><span class="label label-warning" ng-show="user.episodes.indexOf(episode.id) == -1">New</span> <i class="icon-heart" ng-show="isSubscribed(episode)"></i> {{ episode.name }}</a></td>
+                    </tr>
                 </tbody>
             </table>
         </div>

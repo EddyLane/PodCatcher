@@ -13,8 +13,6 @@ use JMS\SerializerBundle\Annotation;
  * @ORM\Table()
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="Podcast\MainBundle\Entity\EpisodeRepository")
- *
- * @Annotation\ExclusionPolicy("all")
  */
 class Episode
 {
@@ -72,6 +70,12 @@ class Episode
      * @ORM\Column(name="link", type="string", length=1020)
      */
     private $link;
+
+    /**
+     * @Annotation\Expose
+     * @ORM\Column(name="podcast_id", type="integer", length=1020)
+     */
+    private $podcastId;
 
     /**
      * @ORM\ManyToOne(targetEntity="Podcast", inversedBy="episodes")

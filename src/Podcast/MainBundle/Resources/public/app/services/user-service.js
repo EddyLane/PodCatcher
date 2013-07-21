@@ -1,6 +1,5 @@
 angular.module('podcatcher')
-    .service('User', function($filter, $http, localStorageService) {
-
+    .service('User', function($http, localStorageService, $filter) {
         var self = this;
 
         this.username;
@@ -37,7 +36,6 @@ angular.module('podcatcher')
         };
 
         this.listen = function(episode) {
-            console.log('listen');
             if(this.episodes.indexOf(episode.id) === -1) {
                 this.episodes.push(episode.id);
                 $http.post(Routing.generate('post_listen', { id: episode.id }));
@@ -55,12 +53,16 @@ angular.module('podcatcher')
                 $http.delete(Routing.generate('delete_unsubscribe', { id: podcast.id }));
                 // localStorageService.add('subscriptions', JSON.stringify(this.subscriptions));
             }
-        }; 
+        };
+
+        this.getSubscriptionIds = function() {
+            return ($filter('getFieldFromArray')('id', this.subscriptions));
+        };
 
         this.isSubscribed = function(podcast) {
-            return ($filter('getById')(this.subscriptions, podcast.id) !== false) ? true : false;
+            return false;
+//            return ($filter('getById')(this.subscriptions, podcast.id) !== false) ? true : false;
         };
 
         this.authenticate();
-
     });

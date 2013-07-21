@@ -40,8 +40,7 @@ class EpisodeRepository extends EntityRepository
 
         if(count($podcasts) > 0) {
             $qb
-                ->innerJoin('episode.podcast', 'podcast')
-                ->add('where', $qb->expr()->in('podcast.id', $podcasts))
+                ->innerJoin('episode.podcast', 'podcast', 'with',  $qb->expr()->in('podcast.id', $podcasts))
             ;
         }
 

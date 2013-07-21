@@ -22,7 +22,7 @@ class EpisodeController extends FOSRestController {
      * @QueryParam(name="amount", requirements="\d+", default="16", description="Amount of eps")
      * @QueryParam(name="sort", requirements="[a-z]+", description="Search")
      * @QueryParam(name="direction", requirements="[a-z]+", default="desc", description="Direction to sort")
-     * @QueryParam(array=true, name="podcasts", requirements="[a-z]+", description="Podcasts to filter on")
+     * @QueryParam(name="podcast", description="Podcasts to filter on")
      * @param ParamFetcher $paramFetcher
      */
     public function getEpisodesAction(ParamFetcher $paramFetcher)
@@ -33,7 +33,7 @@ class EpisodeController extends FOSRestController {
             ->getRepository('PodcastMainBundle:Episode')
             ->getEpisodes (
                 $paramFetcher->get('pub_date'),
-                $paramFetcher->get('podcasts'),
+                preg_split('@,@', $paramFetcher->get('podcast'), NULL, PREG_SPLIT_NO_EMPTY), //Bullshit hack to get around the fact that angular sends arrays up like this &podcast=1,2,3,4 instead of &podcast[]=1&podcast[]=2 etc
                 $paramFetcher->get('sort'),
                 $paramFetcher->get('direction'),
                 $paramFetcher->get('amount'),
