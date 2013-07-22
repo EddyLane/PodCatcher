@@ -11,11 +11,17 @@
 		</ul>
 	</div>
 	<div class="span8 subscription-container">
-		<img ng-src="{{podcast.image}}" class="pull-left">
+
+        <ul class="nav nav-pills pull-right" ng-show="podcast" ng-init="onlyNew = false">
+            <li ng-class="{ active: onlyNew === false }"><a ng-click="onlyNew = false">All episodes</a></li>
+            <li ng-class="{ active: onlyNew === true }"><a ng-click="onlyNew = true">Unplayed</a></li>
+        </ul>
+
+		<img ng-src="{{podcast.image}}" class="pull-left clearfix">
 		<h2>{{ podcast.name }}</h2>
 		<div>
             <div class="spinner" ng-show="loading"></div>
-            <div class="row-fluid blogPost" ng-repeat="episode in podcast.episodes" ng-hide="loading">
+            <div class="row-fluid blogPost" ng-repeat="episode in podcast.episodes | filter : subscriptionFilter" ng-hide="loading">
                 <div class="title">
                     <blockquote>
                         <a ng-click="user.listen(episode)">

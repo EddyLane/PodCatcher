@@ -1,62 +1,55 @@
-<ul class="nav nav-tabs podcast-order">
-    <li><span>Order by </span> </li>
-    <li ng-repeat="sort in sorts" ng-class="{ active: sort.name == currentSort.name }"><a ng-click="setSort(sort)">{{ sort.name }}</a></li>
-    <li ng-repeat="category in categories | orderBy: 'name':reverse" class="pull-right"><a>{{ category.name }}</a></li>
-    <li class="pull-right"><span>Filter </span></li>
-</ul>
-
-
-<div class="container-fluid">
-    <div class="row-fluid">
-
+<div class="container">
+    <div class="row">
         <div class="span12">
-            <div id="content">
-                
-                <!--   <div class="row-fluid">
-                      <div class="span6 filter-container">
-                          <select ui-select2 ng-model="selectedCategories" ng-options="c.slug as c.name for c in categories" data-placeholder="Filter categories" multiple="true" style="width: 100%; height: 100px;">
-                          </select>
-                      </div>
-                      <div class="span6 filter-container">
-
-                          <select ui-select2 ng-model="selectedOrganizations" ng-options="o.slug as o.name for o in organizations" data-placeholder="Filter organizations" multiple="true" style="width: 100%; height: 100px;">
-                          </select>
-                      </div>
-                  </div> -->
-
-
-
-                <div class='row-fluid'>
-                    <div class="span12">
-
-                        <div id="thumb-view" iso-grid>
-
-
-
-
-                            <div class="view" ng-repeat="podcast in podcasts | orderBy: podcast.name"  iso-grid>
-                                <div class="view-back">
-                                    <a class="like" ng-click="user.subscribe(podcast)" style="cursor:pointer" ng-class="{ active: user.isSubscribed(podcast) }">
-                                        <i class="icon-heart icon-large"></i>
-                                    </a>
-                                    <!--<a href="#{{ path('get_podcasts') }}/{{podcast.slug}}" class="listen">-->
-                                        <!--<i class="icon-headphones icon-large"></i>-->
-                                    <!--</a>-->
-                                    <a href="#{{ routing.generate('get_podcast', { slug: podcast.slug }) }}" class="list">
-                                        <i class="icon-headphones icon-list-ul"></i>
-                                    </a>
-                                </div>
-                                <a href="#{{ routing.generate('get_podcast', { slug: podcast.slug }) }}">
-                                    <img ng-src="{{podcast.image}}">
-                                </a>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-                <pagination boundary-links="true" num-pages="noOfPages" current-page="currentPage" max-size="maxSize" class="pagination-centered"></pagination>
+            <div class="jumbotron">
+                <h1>Featured podcast</h1>
             </div>
         </div>
     </div>
+</div>
+<div class="get-podcasts-container">
+    <ul class="nav nav-tabs podcast-order">
+        <li><span>Order by </span> </li>
+        <li ng-repeat="sort in sorts" ng-class="{ active: sort.name == currentSort.name }"><a ng-click="setSort(sort)">{{ sort.name }}</a></li>
+        <li ng-repeat="category in categories | orderBy: 'name':reverse" class="pull-right"><a>{{ category.name }}</a></li>
+        <li class="pull-right"><span>Filter </span></li>
+    </ul>
+    <div class="spinner" ng-show="loading"></div>
+
+
+    <ul class="cbp-rfgrid">
+        <li ng-repeat="podcast in podcasts | orderBy: podcast.name"><a href="#"><img ng-src="{{podcast.image}}"/><div><h3>{{ episode.name }}</h3></div></a></li>
+     </ul>
+
+
+
+    <!--<div class="container-fluid" ng-hide="loading">-->
+        <!--<div class="row-fluid">-->
+            <!--<div class="span12">-->
+                <!--<div id="content">-->
+                    <!--<div class='row-fluid'>-->
+                        <!--<div class="span12">-->
+                            <!--<div id="thumb-view">-->
+                                <!--<div class="view" ng-repeat="podcast in podcasts | orderBy: podcast.name">-->
+                                    <!--<div class="view-back">-->
+                                        <!--<a class="like" ng-click="user.subscribe(podcast)" style="cursor:pointer" ng-class="{ active: user.isSubscribed(podcast) }">-->
+                                            <!--<i class="icon-heart icon-large"></i>-->
+                                        <!--</a>-->
+                                        <!--<a href="#{{ routing.generate('get_podcast', { slug: podcast.slug }) }}" class="list">-->
+                                            <!--<i class="icon-headphones icon-list-ul"></i>-->
+                                        <!--</a>-->
+                                    <!--</div>-->
+                                    <!--<a href="#{{ routing.generate('get_podcast', { slug: podcast.slug }) }}">-->
+                                        <!--<img ng-src="{{podcast.image}}">-->
+                                    <!--</a>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<pagination boundary-links="true" num-pages="noOfPages" current-page="currentPage" max-size="maxSize" class="pagination-centered"></pagination>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
 </div>

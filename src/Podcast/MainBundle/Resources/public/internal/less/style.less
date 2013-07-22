@@ -757,6 +757,7 @@ blockquote p {
   h2 {
     display: inline-block;
     padding-left: 20px;
+    color: @main-blue;
   }
   img {
     max-width: 150px;
@@ -771,6 +772,9 @@ blockquote p {
   }
   div.spinner {
     top: 100px !important;
+  }
+  .nav-pills li {
+    font-size:  @baseFontSize * 1.25;
   }
 }
 .episode-calendar {
@@ -833,4 +837,163 @@ blockquote p {
 @keyframes rotation {
   from {transform: rotate(0deg);}
   to {transform: rotate(359deg);}
+}
+.get-podcasts-container {
+  .spinner {
+    top: 200px;
+  }
+}
+/* Base class
+------------------------- */
+.jumbotron {
+  position: relative;
+  padding: 40px 0;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(0,0,0,.4), 0 0 30px rgba(0,0,0,.075);
+  background: #020031; /* Old browsers */
+  background: -moz-linear-gradient(45deg,  #020031 0%, #6d3353 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,#020031), color-stop(100%,#6d3353)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(45deg,  #020031 0%,#6d3353 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(45deg,  #020031 0%,#6d3353 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(45deg,  #020031 0%,#6d3353 100%); /* IE10+ */
+  background: linear-gradient(45deg,  #020031 0%,#6d3353 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#020031', endColorstr='#6d3353',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+  -webkit-box-shadow: inset 0 3px 7px rgba(0,0,0,.2), inset 0 -3px 7px rgba(0,0,0,.2);
+  -moz-box-shadow: inset 0 3px 7px rgba(0,0,0,.2), inset 0 -3px 7px rgba(0,0,0,.2);
+  box-shadow: inset 0 3px 7px rgba(0,0,0,.2), inset 0 -3px 7px rgba(0,0,0,.2);
+}
+.jumbotron h1 {
+  font-size: 80px;
+  font-weight: bold;
+  letter-spacing: -1px;
+  line-height: 1;
+}
+.jumbotron p {
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 1.25;
+  margin-bottom: 30px;
+}
+
+/* Link styles (used on .masthead-links as well) */
+.jumbotron a {
+  color: #fff;
+  color: rgba(255,255,255,.5);
+  -webkit-transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+.jumbotron a:hover {
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255,255,255,.25);
+}
+
+.cbp-rfgrid {
+  margin: 35px 0 0 0;
+  padding: 0;
+  list-style: none;
+  position: relative;
+  width: 100%;
+}
+
+.cbp-rfgrid li {
+  position: relative;
+  float: left;
+  overflow: hidden;
+  width: 16.6666667%; /* Fallback */
+  width: -webkit-calc(100% / 6);
+  width: calc(100% / 6);
+}
+
+.cbp-rfgrid li a,
+.cbp-rfgrid li a img {
+  display: block;
+  width: 100%;
+  cursor: pointer;
+}
+
+.cbp-rfgrid li a img {
+  max-width: 100%;
+}
+
+/* Flexbox is used for centering the heading */
+.cbp-rfgrid li a div {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  right: 20px;
+  bottom: 20px;
+  background: rgba(71,163,218,0.2);
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  align-items: center;
+  text-align: center;
+  opacity: 0;
+}
+
+.cbp-rfgrid li a:hover div {
+  opacity: 1;
+}
+
+.cbp-rfgrid li a div h3 {
+  width: 100%;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 1.4em;
+  letter-spacing: 2px;
+  padding: 0 10px;
+}
+
+/* Example for media query: change number of items per row */
+
+@media screen and (max-width: 1190px) {
+  .cbp-rfgrid li {
+    width: 20%; /* Fallback */
+    width: -webkit-calc(100% / 5);
+    width: calc(100% / 5);
+  }
+}
+
+@media screen and (max-width: 945px) {
+  .cbp-rfgrid li {
+    width: 25%; /* Fallback */
+    width: -webkit-calc(100% / 4);
+    width: calc(100% / 4);
+  }
+}
+
+@media screen and (max-width: 660px) {
+  .cbp-rfgrid li {
+    width: 33.3333333%; /* Fallback */
+    width: -webkit-calc(100% / 3);
+    width: calc(100% / 3);
+  }
+}
+
+@media screen and (max-width: 660px) {
+  .cbp-rfgrid li {
+    width: 33.3333333%; /* Fallback */
+    width: -webkit-calc(100% / 3);
+    width: calc(100% / 3);
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .cbp-rfgrid li {
+    width: 50%; /* Fallback */
+    width: -webkit-calc(100% / 2);
+    width: calc(100% / 2);
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .cbp-rfgrid li {
+    width: 100%;
+  }
 }

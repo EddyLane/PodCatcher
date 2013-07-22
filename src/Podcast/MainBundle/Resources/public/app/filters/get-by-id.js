@@ -29,4 +29,9 @@ angular.module('podcatcherFilters', [])
                 return a[field] - b[field];
             });
         }
+    })
+    .filter('newEpisodes', function(User) {
+        return function(episode) {
+            return (User.episodes.indexOf(episode.id) === -1);
+        }
     });

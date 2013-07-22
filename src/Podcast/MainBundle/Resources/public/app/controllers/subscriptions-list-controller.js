@@ -12,12 +12,15 @@ angular.module('podcatcher')
             });
         };
 
+        $scope.subscriptionFilter = function(episode) {
+            return ($scope.onlyNew) ? User.episodes.indexOf(episode.id) === -1 : true;
+        }
+
         if($routeParams.slug) {
             $scope.loading = true;
             Podcast.get({ slug: $routeParams.slug }, $scope.showSubscription)
         } else if(User.subscriptions.length > 0) {
-            return ($filter('getById')(this.subscriptions, podcast.id) !== false) ? true : false;
-            $scope.showSubscription(User.subscriptions[0]);
+             $scope.showSubscription(User.subscriptions[0]);
         }
 
     });

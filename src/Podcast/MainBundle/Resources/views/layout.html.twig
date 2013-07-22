@@ -47,7 +47,7 @@
             <li>
                 <a href="#{{ path('get_podcasts') }}"><i class="icon-list-alt"></i> <span class="show-desktop">Directory</span></a>
             </li>
-            <li ng-controller="SubscriptionsListCtrl" class="subscriptions-icon">
+            <li ng-controller="SubscriptionsListCtrl" class="subscriptions-icon" ng-show="user.authenticated">
                 <a href="#{{ path('get_subscribed') }}"><i class="icon-heart"></i> <span class="show-desktop">Subscribed</span>
                     <span class="badge badge-warning">{% raw %}{{ user.subscriptions.length }}{% endraw %}</span>
                 </a>

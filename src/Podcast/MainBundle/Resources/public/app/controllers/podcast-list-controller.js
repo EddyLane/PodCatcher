@@ -37,8 +37,5 @@ angular.module('podcatcher')
             getPodcasts();
         };
 
-
-        getPodcasts();
-
         $scope.$watch('currentPage', getPodcasts);
     });
