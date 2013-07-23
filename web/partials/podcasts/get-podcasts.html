@@ -15,41 +15,7 @@
         <li class="pull-right"><span>Filter </span></li>
     </ul>
     <div class="spinner" ng-show="loading"></div>
-
-
     <ul class="cbp-rfgrid">
         <li ng-repeat="podcast in podcasts | orderBy: podcast.name"><a href="#"><img ng-src="{{podcast.image}}"/><div><h3>{{ episode.name }}</h3></div></a></li>
-     </ul>
-
-
-
-    <!--<div class="container-fluid" ng-hide="loading">-->
-        <!--<div class="row-fluid">-->
-            <!--<div class="span12">-->
-                <!--<div id="content">-->
-                    <!--<div class='row-fluid'>-->
-                        <!--<div class="span12">-->
-                            <!--<div id="thumb-view">-->
-                                <!--<div class="view" ng-repeat="podcast in podcasts | orderBy: podcast.name">-->
-                                    <!--<div class="view-back">-->
-                                        <!--<a class="like" ng-click="user.subscribe(podcast)" style="cursor:pointer" ng-class="{ active: user.isSubscribed(podcast) }">-->
-                                            <!--<i class="icon-heart icon-large"></i>-->
-                                        <!--</a>-->
-                                        <!--<a href="#{{ routing.generate('get_podcast', { slug: podcast.slug }) }}" class="list">-->
-                                            <!--<i class="icon-headphones icon-list-ul"></i>-->
-                                        <!--</a>-->
-                                    <!--</div>-->
-                                    <!--<a href="#{{ routing.generate('get_podcast', { slug: podcast.slug }) }}">-->
-                                        <!--<img ng-src="{{podcast.image}}">-->
-                                    <!--</a>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<pagination boundary-links="true" num-pages="noOfPages" current-page="currentPage" max-size="maxSize" class="pagination-centered"></pagination>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-
+    </ul>
 </div>
