@@ -1,5 +1,8 @@
-@main-orange: #faa732;
+@main-orange: #005ea5;
 @main-blue: #006AAD;
+
+@blue-bg: #357ebd;
+@blue-border: #3071a9;
 
 //body, p {
 //  color: black;
@@ -47,7 +50,7 @@ a {
     }
   }
   li {
-    span {
+    span, .dropdown-toggle {
       padding-top: 8px;
       padding-bottom: 8px;
       line-height: 20px;
@@ -98,16 +101,6 @@ a {
   right: 0;
   margin-left: auto;
   margin-right: auto;
-}
-
-/* Lastly, apply responsive CSS fixes as necessary */
-@media (max-width: 767px) {
-  #footer {
-    margin-left: -20px;
-    margin-right: -20px;
-    padding-left: 20px;
-    padding-right: 20px;
-  }
 }
 
 .knob-wrapper.knob-small {
@@ -635,6 +628,13 @@ blockquote p {
 .navbar-inverse .navbar-nav > li > a {
   color: #F1F1F1;
 }
+.panel-primary {
+  border-color: @main-orange;
+  .panel-heading {
+    background-color: @main-orange;
+    border-color: @main-orange;
+  }
+}
 
 .navbar-fixed-top {
   background-color: @main-orange;
@@ -758,9 +758,13 @@ blockquote p {
 
 .subscription-container {
   h2 {
-    display: inline-block;
-    padding-left: 20px;
-    color: @main-blue;
+//    display: inline-block;
+//    padding-left: 20px;
+    display: block;
+    color: #fff;
+    background-color: @main-blue;
+    width: 100%;
+    padding: 20px 10px;
   }
   img {
     max-width: 150px;
@@ -1003,4 +1007,29 @@ blockquote p {
 
 .model{
   display:block;
+}
+.navbar-brand {
+  color: white;
+}
+
+.episode-entry {
+  clear:both;
+  p {
+    padding: 10px;
+  }
+}
+.podcast-info {
+  img {
+    width: 100%;
+  }
+  button {
+    margin-top:10px;
+  }
+}
+.labels {
+  font-size: 20px;
+  margin-top:10px;
+  .label {
+    margin-right:5px;
+  }
 }

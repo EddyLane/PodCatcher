@@ -1,27 +1,51 @@
 <div class="container subscriptions-container">
     <div class="row">
 
-        <div class="col-lg-4 episode-calendar text-center">
-
-            <div class="btn-group" ng-init="type = 'all-podcasts'" ng-show="user.authenticated && user.subscriptions.length > 0">
-                <button type="button" class="btn btn-warning" ng-model="type" btn-radio="'all-podcasts'">All podcasts</button>
-                <button type="button" class="btn btn-warning" ng-model="type" btn-radio="'subscribed'">Subscribed</button>
+        <div class="col-lg-4 episode-calendar">
+            <div class="panel visible-lg" ng-hide="user.authenticated">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="icon-picture"></i> Featured</h3>
+                </div>
+                <carousel interval="myInterval">
+                    <slide ng-repeat="podcast in carouselPodcasts" active="slide.active">
+                        <img ng-src="{{podcast.image}}" class="img-rounded">
+                    </slide>
+                </carousel>
             </div>
 
-            <datepicker ng-model="pubDate" show-weeks="false" starting-day="1" date-disabled="disabled(date, mode)" max="maxDate"></datepicker>
-            <div class="spinner clear clearfix fade in out" ng-show='loading'></div>
-            <table class="table table-condensed fade in out" ng-hide='loading'>
-                <tbody>
-                <tr ng-repeat="episode in episodes">
-                    <td><a ng-click="user.listen(episode)"><span class="label label-warning" ng-show="user.authenticated && user.episodes.indexOf(episode.id) == -1">N</span> <i class="icon-heart" ng-show="isSubscribed(episode)"></i> {{ episode.name }}</a></td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="panel">
+
+                <!-- Default panel contents -->
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="icon-calendar"></i> Calendar</h3>
+                </div>
+
+                    <div class="text-center">
+                    <div class="btn-group" ng-init="type = 'all-podcasts'" ng-show="user.authenticated && user.subscriptions.length > 0">
+                        <button type="button" class="btn btn-primary" ng-model="type" btn-radio="'all-podcasts'">All podcasts</button>
+                        <button type="button" class="btn btn-primary" ng-model="type" btn-radio="'subscribed'">Subscribed</button>
+                    </div>
+                </div>
+
+                <datepicker ng-model="pubDate" show-weeks="false" starting-day="1" date-disabled="disabled(date, mode)" max="maxDate"></datepicker>
+
+                <div class="spinner clear clearfix fade in out" ng-show='loading'></div>
+
+                <ul class="list-group list-group-flush" ng-hide="loading">
+                    <li class="list-group-item" ng-click="user.listen(episode)" ng-repeat="episode in episodes">
+                        <a ng-click="user.listen(episode)"><span class="label label-warning" ng-show="user.authenticated && user.episodes.indexOf(episode.id) == -1">N</span> <i class="icon-heart" ng-show="isSubscribed(episode)"></i> {{ episode.name }}</a>
+                    </li>
+                </ul>
+
+            </div>
+
+
+
         </div>
 
         <div ng-class="{ 'col-lg-8': !user.authenticated, 'col-lg-4': user.authenticated }">
 
-            <div class="panel panel-info">
+            <div class="panel panel-primary">
                 <!-- Default panel contents -->
                 <div class="panel-heading">
                     <h3 class="panel-title"><i class="icon-refresh"></i> Latest episodes</h3>
@@ -39,7 +63,7 @@
 
         <div class="col-lg-4" ng-show="user.authenticated">
 
-            <div class="panel panel-info">
+            <div class="panel panel-primary">
                 <!-- Default panel contents -->
                 <div class="panel-heading">
                     <h3 class="panel-title"><i class="icon-heart"></i> Subscriptions</h3>

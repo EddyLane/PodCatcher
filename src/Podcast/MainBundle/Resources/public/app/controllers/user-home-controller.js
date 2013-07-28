@@ -12,7 +12,7 @@ angular.module('podcatcher')
             $scope.latestEpisodes = result;
             $scope.loadingLatest = false;
         });
-
+        $scope.carouselPodcasts = Podcast.query({ amount: 5 });
         $scope.isSubscribed = function(episode) {
             return User.isSubscribed({ id: episode.podcastId });
         };

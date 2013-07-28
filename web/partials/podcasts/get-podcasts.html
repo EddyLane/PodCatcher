@@ -1,19 +1,24 @@
-<div class="container">
-    <div class="row">
-            <div class="jumbotron">
-                <h1>Featured podcast</h1>
-            </div>
-    </div>
-</div>
 <div class="get-podcasts-container">
+    <div class="container">
     <ul class="nav nav-tabs podcast-order">
-        <li><span>Order by </span> </li>
+        <li class="hidden-sm"><span>Order by </span> </li>
         <li ng-repeat="sort in sorts" ng-class="{ active: sort.name == currentSort.name }"><a ng-click="setSort(sort)">{{ sort.name }}</a></li>
-        <li ng-repeat="category in categories | orderBy: 'name':reverse" class="pull-right"><a>{{ category.name }}</a></li>
-        <li class="pull-right"><span>Filter </span></li>
+        <li class="dropdown pull-right hidden-lg">
+            <a class="dropdown-toggle" id="drop6" role="button" data-toggle="dropdown" href="#">Filter <b class="caret"></b></a>
+            <ul id="menu3" class="dropdown-menu" role="menu" aria-labelledby="drop6">
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Action</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Another action</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Something else here</a></li>
+                <li role="presentation" class="divider"></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Separated link</a></li>
+            </ul>
+        </li>
+        <li ng-repeat="category in categories | orderBy: 'name':reverse" class="pull-right visible-lg"><a>{{ category.name }}</a></li>
+        <li class="pull-right visible-lg"><span>Filter </span></li>
     </ul>
     <div class="spinner" ng-show="loading"></div>
-    <ul class="cbp-rfgrid">
-        <li ng-repeat="podcast in podcasts | orderBy: podcast.name"><a href="#"><img ng-src="{{podcast.image}}"/><div><h3>{{ episode.name }}</h3></div></a></li>
-    </ul>
+        <ul class="cbp-rfgrid">
+            <li ng-repeat="podcast in podcasts | orderBy: podcast.name"><a href="#{{ routing.generate('get_podcast',{ 'slug': podcast.slug }) }}"><img ng-src="{{podcast.image}}"/><div><h3>{{ episode.name }}</h3></div></a></li>
+        </ul>
+    </div>
 </div>
