@@ -16,6 +16,8 @@ angular.module('podcatcher')
             return ($scope.onlyNew) ? User.episodes.indexOf(episode.id) === -1 : true;
         }
 
+        $http.get(Routing.generate('get_episodes_new'), { podcast: User.getSubscriptionIds() });
+
         if($routeParams.slug) {
             $scope.loading = true;
             Podcast.get({ slug: $routeParams.slug }, $scope.showSubscription)

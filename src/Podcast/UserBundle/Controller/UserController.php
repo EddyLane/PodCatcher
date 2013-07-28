@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use FOS\RestBundle\Controller\Annotations\RequestParam;
+use FOS\RestBundle\Controller\Annotations\QueryParam;
 
 class UserController extends FOSRestController
 {
@@ -110,9 +112,27 @@ class UserController extends FOSRestController
         $user->addListenedTo($episode);
 
         $em->persist($user);
+
         $em->flush();
         
         return $this->view('success', 200);
+    }
+
+    /**
+     * @QueryParam(name="podcast", description="Podcasts to filter on")
+     * @param ParamFetcher $paramFetcher
+     */
+    public function getEpisodesNewAction(ParamFetcher $paramFetcher)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $new = $em
+            ->getRepository('PodcastMainBundle:Podcast')
+            ->getNew($this->user, $paramFetcher->get('podcast'));
+
+        $view = $this->view($new);
+
+        return $this->handleView($view);
     }
     
     public function getSubscribedAction()

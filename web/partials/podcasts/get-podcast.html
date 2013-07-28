@@ -1,22 +1,22 @@
 <section class="subhead">
-    <section class="row-fluid subhead-inner">
+    <section class="row subhead-inner">
         <div class="span12" id="main-content">
         </div>
     </section>
 </section>
-<div class="container-fluid">
-    <div class="row-fluid">
-        <div class="span12">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
             <div class="page-header">
                 <h1 class="hBig">{{ podcast.name }}
                     <small>Episodes</small>
                 </h1>
             </div>
         </div>
-        <div class="row-fluid">
-            <div class="span8 blogContent">
+        <div class="row">
+            <div class="col-lg-8 blogContent">
                 <div class="spinner" ng-show="loadingEpisodes"></div>
-                <div class="row-fluid blogPost" ng-repeat="episode in podcast.episodes">
+                <div class="row blogPost" ng-repeat="episode in podcast.episodes">
 
                     <div class="title">
                         <blockquote>
@@ -39,7 +39,7 @@
                     </div>
                 </div>
             </div>
-            <div class="span4 blogSide">
+            <div class="col-lg-4 blogSide">
                 <div class="spinner" ng-show="loadingPodcast"></div>
                 <div class="btn-toolbar">
                     <button class="btn btn-warning" ng-click="user.subscribe(podcast)"><i ng-class="{ 'icon-heart': user.isSubscribed(podcast), 'icon-heart-empty': !user.isSubscribed(podcast) }"></i></button>
@@ -63,8 +63,8 @@
             </div>
         </div>
 
-        <div class="row-fluid">
-            <div class="span12">
+        <div class="row">
+            <div class="col-lg-12">
                 <pagination boundary-links="true" num-pages="noOfPages" current-page="currentPage" max-size="maxSize" class="pagination-centered"></pagination>
             </div>
         </div>

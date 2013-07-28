@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityRepository;
 use Podcast\MainBundle\Entity\Category;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\ORM\Query;
+use Podcast\UserBundle\Entity\User;
 
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 /**
@@ -26,8 +27,9 @@ class PodcastRepository extends EntityRepository
     {
         return $this->findBy(array(), array($sortField => $sortDirection));
     }
-    
-    
+
+
+
     
     /**
      * @param string $category

@@ -343,12 +343,7 @@ a {
 }
 
 #super-search {
-  position: absolute;
-  z-index: 1;
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
+  margin-top: 6px;
   button {
     box-shadow: 0;
     -moz-box-shadow: 0;
@@ -637,6 +632,21 @@ blockquote p {
   left: -45px;
 }
 
+.navbar-inverse .navbar-nav > li > a {
+  color: #F1F1F1;
+}
+
+.navbar-fixed-top {
+  background-color: @main-orange;
+  color: #fff;
+  ul {
+    li {
+      a {
+        color: #fff;
+      }
+    }
+  }
+}
 .navbar {
   .nav {
     li {
@@ -713,14 +723,7 @@ blockquote p {
 }
 
 #registration-form, #login-form {
-  input {
-    display: block;
-    width: 100%;
-    min-height: 30px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-  }
+
 }
 
 .subscriptions-icon {
@@ -996,4 +999,8 @@ blockquote p {
   .cbp-rfgrid li {
     width: 100%;
   }
+}
+
+.model{
+  display:block;
 }

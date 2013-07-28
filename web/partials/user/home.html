@@ -1,49 +1,7 @@
-<div class="container-fluid subscriptions-container" style="padding-top:30px;">
-    <div class="row-fluid">
-        <div ng-class="{ 'span8': !user.authenticated, 'span4': user.authenticated }">
-            <div class="spinner fade in out" ng-show="loadingLatest"></div>
-            <div class="widget-box transparent fade in out" ng-hide="loadingLatest">
-                <div class="widget-header">
-                    <h4><i class="icon-refresh"></i> Latest episodes</h4>
-                </div>
-                <div class="widget-content">
-                    <table class="table">
-                        <tr ng-repeat="episode in latestEpisodes">
-                            <td>
-                                <span class="label label-warning" ng-show="user.episodes.indexOf(episode.id) == -1 && user.authenticated">N</span>
-                                &nbsp;
-                                <a ng-click="user.listen(episode)">
-                                    {{ episode.name }}
-                                </a>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
+<div class="container subscriptions-container">
+    <div class="row">
 
-        </div>
-        <div class="span4" ng-show="user.authenticated">
-            <div class="widget-box transparent">
-                <div class="widget-header">
-                    <h4><i class="icon-heart"></i> Subscriptions</h4>
-                </div>
-                <div class="widget-content" ng-show="user.subscriptions.length === 0">
-                    <p>You have no subscriptions. <a href="#{{ routing.generate('get_podcasts') }}">Subscribe</a> to something perhaps?</p>
-                </div>
-                <div class="widget-content">
-                    <table class="table">
-                        <tr ng-repeat="podcast in user.subscriptions">
-                            <td>
-                                <a href="#{{ routing.generate('get_subscription', { slug: podcast.slug }) }}">
-                                    {{ podcast.name }}
-                                </a>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="span4 episode-calendar pagination-centered">
+        <div class="col-lg-4 episode-calendar text-center">
 
             <div class="btn-group" ng-init="type = 'all-podcasts'" ng-show="user.authenticated && user.subscriptions.length > 0">
                 <button type="button" class="btn btn-warning" ng-model="type" btn-radio="'all-podcasts'">All podcasts</button>
@@ -54,11 +12,48 @@
             <div class="spinner clear clearfix fade in out" ng-show='loading'></div>
             <table class="table table-condensed fade in out" ng-hide='loading'>
                 <tbody>
-                    <tr ng-repeat="episode in episodes">
-                        <td><a ng-click="user.listen(episode)"><span class="label label-warning" ng-show="user.authenticated && user.episodes.indexOf(episode.id) == -1">N</span> <i class="icon-heart" ng-show="isSubscribed(episode)"></i> {{ episode.name }}</a></td>
-                    </tr>
+                <tr ng-repeat="episode in episodes">
+                    <td><a ng-click="user.listen(episode)"><span class="label label-warning" ng-show="user.authenticated && user.episodes.indexOf(episode.id) == -1">N</span> <i class="icon-heart" ng-show="isSubscribed(episode)"></i> {{ episode.name }}</a></td>
+                </tr>
                 </tbody>
             </table>
         </div>
+
+        <div ng-class="{ 'col-lg-8': !user.authenticated, 'col-lg-4': user.authenticated }">
+
+            <div class="panel panel-info">
+                <!-- Default panel contents -->
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="icon-refresh"></i> Latest episodes</h3>
+                </div>
+                <div class="spinner fade in out" ng-show="loadingLatest"></div>
+
+                <!-- List group -->
+                <ul class="list-group list-group-flush" ng-hide="loadingLatest">
+                    <li class="list-group-item" ng-click="user.listen(episode)" ng-repeat="episode in latestEpisodes">
+                        <span class="label label-warning" ng-show="user.episodes.indexOf(episode.id) == -1 && user.authenticated">N</span>{{ episode.name }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-lg-4" ng-show="user.authenticated">
+
+            <div class="panel panel-info">
+                <!-- Default panel contents -->
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="icon-heart"></i> Subscriptions</h3>
+                </div>
+                <div class="spinner fade in out" ng-show="loadingLatest"></div>
+                <p ng-show="user.subscriptions.length === 0">You have no subscriptions. <a href="#{{ routing.generate('get_podcasts') }}">Subscribe</a> to something perhaps?</p>
+                <!-- List group -->
+                <ul class="list-group list-group-flush" ng-hide="loadingLatest">
+                    <li class="list-group-item" ng-click="user.listen(episode)" ng-repeat="podcast in user.subscriptions">
+                        {{ podcast.name }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+
     </div>
 </div>

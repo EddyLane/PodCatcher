@@ -1,35 +1,42 @@
-<div modal="open" close="open = false" options="options">
-    <form method="post" id="login-form" class="nomargin">
-        <div class="modal-header">
-            <button type="button" class="close" ng-click="open = false" aria-hidden="true">&times;</button>
-            <h3>Login</h3>
-        </div>
-        <div class="modal-body" ng-show="loading">
-            <div class="spinner"></div>
-        </div>
-        <div class="modal-body" ng-hide="loading">
-            <div class="alert alert-error" ng-show="error">{% raw %}{{ error }}{% endraw %}</div>
-            <input type="hidden" id="csrf_token" name="_csrf_token" ng-model="copy" value="{{ csrf_token }}" />
-            <div class="control-group">
-                <div class="controls">
-                    <input type="text" id="username" name="_username" value="{{ last_username }}" ng-model="copy.username" placeholder="{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}" class="input-block-level" />
-                    <div ng-show="">
+<div modal="open" close="open = false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <form method="post" id="login-form" class="nomargin">
+                    <div class="modal-header">
+                        <button type="button" class="close" ng-click="open = false" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Modal title</h4>
                     </div>
-                </div>
-            </div>
-            <div class="control-group">
-                <div class="controls">
-                    <input type="password" id="password" name="_password" placeholder="{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}"  class="input-block-level" />
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="checkbox" for="remember_me">
-                    <input type="checkbox" id="remember_me" name="_remember_me" value="on" /> {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
-                </label>
+                    <div class="modal-body" ng-show="loading">
+                        <div class="spinner"></div>
+                    </div>
+                    <div class="modal-body" ng-hide="loading">
+                        <div class="alert alert-error" ng-show="error">{% raw %}{{ error }}{% endraw %}</div>
+                        <input type="hidden" id="csrf_token" name="_csrf_token" ng-model="copy" value="{{ csrf_token }}" />
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
+                            <input type="text" class="form-control" id="username" name="_username" value="{{ last_username }}" placeholder="{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputPassword">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
+                            <input type="password" class="form-control" id="password" name="_password" placeholder="{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}"  />
+                        </div>
+
+
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="remember_me" name="_remember_me" value="on" /> {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
+                            </label>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-warning" ng-click="login(user)" type="submit" id="login-btn">Login</button>
+                    </div>
+                </form>
             </div>
         </div>
-        <div class="modal-footer">
-            <button class="btn btn-warning" ng-click="login(user)" type="submit" id="login-btn">Login</button>
-        </div>
-    </form>
+    </div>
 </div>

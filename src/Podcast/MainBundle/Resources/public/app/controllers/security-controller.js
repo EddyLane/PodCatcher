@@ -27,8 +27,8 @@ angular.module('podcatcher')
         };
 
         $scope.options = {
-            backdropFade: true,
-            dialogFade: true
+            backdropFade: false,
+            dialogFade: false
         };
 
         $scope.reset = function () {

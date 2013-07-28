@@ -4,8 +4,7 @@
 <head>
     <title>Home |Virgin</title>
     {% stylesheets filter="lessphp,cssrewrite"
-    'js/bootstrap/less/bootstrap.less'
-    'js/bootstrap/less/responsive.less'
+    'js/bootstrap/css/styles.css'
     'js/font-awesome/build/assets/font-awesome/less/font-awesome.less'
     '@PodcastMainBundle/Resources/public/internal/less/style.less'
     %}
@@ -13,83 +12,111 @@
     {% endstylesheets %}
     <style type="text/css">
         body {
-            padding-top: 41px;
-            padding-bottom: 40px;
-        }
-
-        .sidebar-nav {
-            padding: 9px 0;
-        }
-
-        @media (max-width: 980px) {
-            /* Enable use of floated navbar text */
-            .navbar-text.pull-right {
-                float: none;
-                padding-left: 5px;
-                padding-right: 5px;
-            }
+            padding-top: 50px;
         }
     </style>
 
 </head>
 <body>
-<!-- Fixed navbar -->
-<div class="navbar navbar-orange navbar-fixed-top">
-    <div class="navbar-inner">
-        <p class="brand">
-            <i class="icon-headphones"></i>
-        </p>
-        <ul class="nav pull-left">
-            <li class="divider-vertical"></li>
-            <li>
-                <a href="#{{ path('_welcome') }}"><i class="icon-home"></i> Home</a>
-            </li>
-            <li>
-                <a href="#{{ path('get_podcasts') }}"><i class="icon-list-alt"></i> <span class="show-desktop">Directory</span></a>
-            </li>
-            <li ng-controller="SubscriptionsListCtrl" class="subscriptions-icon" ng-show="user.authenticated">
-                <a href="#{{ path('get_subscribed') }}"><i class="icon-heart"></i> <span class="show-desktop">Subscribed</span>
-                    <span class="badge badge-warning">{% raw %}{{ user.subscriptions.length }}{% endraw %}</span>
-                </a>
-            </li>
-        </ul>
-        <ul class="nav pull-right">
-            <li class="divider-vertical"></li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" role="button" data-toggle="dropdown" id="security-ctrl" ng-controller="SecurityCtrl"><i
-                            class="icon-user icon-large"></i> {% raw %}{{ user.username }}{% endraw %}</a>
+<!-- Docs master nav -->
+<div class="navbar navbar-inverse navbar-fixed-top bs-docs-nav">
+    <div class="container">
+        <div class="nav-collapse collapse bs-navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="#{{ path('_welcome') }}"><i class="icon-home"></i> Home</a>
+                </li>
+                <li>
+                    <a href="#{{ path('get_podcasts') }}"><i class="icon-list-alt"></i> <span class="show-desktop">Directory</span></a>
+                </li>
+                <li ng-controller="SubscriptionsListCtrl" class="subscriptions-icon" ng-show="user.authenticated">
+                    <a href="#{{ path('get_subscribed') }}"><i class="icon-heart"></i> <span class="show-desktop">Subscribed</span>
+                        <span class="badge badge-warning">{% raw %}{{ user.subscriptions.length }}{% endraw %}</span>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" ng-controller="SecurityCtrl"><i class="icon-user icon-large"></i> {% raw %}{{ user.username }}{% endraw %}</a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                        <li ng-show="!user.authenticated" ng-controller="SecurityCtrl">
+                            <a ng-click="open = true" id="login-ctrl">Login</a>
+                            {% render "PodcastUserBundle:Security:login" %}
+                        </li>
+                        <li ng-show="!user.authenticated" ng-controller="RegistrationCtrl">
+                            <a ng-click="open = true">Register</a>
+                            {% render "PodcastUserBundle:Registration:register" %}
+                        </li>
+                        <li ng-show="user.authenticated" ng-controller="SecurityCtrl"><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
 
-                <ul class="dropdown-menu" role="menu">
-                    <li ng-show="!user.authenticated" ng-controller="SecurityCtrl">
-                        <a ng-click="open = true" id="login-ctrl">Login</a>
-                        {% render "PodcastUserBundle:Security:login" %}
-                    </li>
-                    <li ng-show="!user.authenticated" ng-controller="RegistrationCtrl">
-                        <a ng-click="open = true">Register</a>
-                        {% render "PodcastUserBundle:Registration:register" %}
-                    </li>
-                    <li ng-show="user.authenticated" ng-controller="SecurityCtrl"><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
-                </ul>
 
-            </li>
-            <li><a href="#"><i class="icon-cog icon-large"></i></a></li>
-        </ul>
+
     </div>
 </div>
-<section class="subhead" ng-controller="PodcastSearchCtrl">
-    <section class="row-fluid subhead-inner">
-        <div class="span12" id="main-content">
+{#<!-- Fixed navbar -->#}
+{#<div class="navbar navbar-orange navbar-fixed-top">#}
+    {#<div class="navbar-inner">#}
+        {#<p class="brand">#}
+            {#<i class="icon-headphones"></i>#}
+        {#</p>#}
+        {#<ul class="unstyled pull-left">#}
+            {#<li class="divider-vertical"></li>#}
+            {#<li>#}
+                {#<a href="#{{ path('_welcome') }}"><i class="icon-home"></i> Home</a>#}
+            {#</li>#}
+            {#<li>#}
+                {#<a href="#{{ path('get_podcasts') }}"><i class="icon-list-alt"></i> <span class="show-desktop">Directory</span></a>#}
+            {#</li>#}
+            {#<li ng-controller="SubscriptionsListCtrl" class="subscriptions-icon" ng-show="user.authenticated">#}
+                {#<a href="#{{ path('get_subscribed') }}"><i class="icon-heart"></i> <span class="show-desktop">Subscribed</span>#}
+                    {#<span class="badge badge-warning">{% raw %}{{ user.subscriptions.length }}{% endraw %}</span>#}
+                {#</a>#}
+            {#</li>#}
+        {#</ul>#}
+        {#<ul class="unstyled pull-right">#}
+            {#<li class="divider-vertical"></li>#}
+            {#<li class="dropdown">#}
+                {#<a class="dropdown-toggle" role="button" data-toggle="dropdown" id="security-ctrl" ng-controller="SecurityCtrl"><i#}
+                            {#class="icon-user icon-large"></i> {% raw %}{{ user.username }}{% endraw %}</a>#}
+
+                {#<ul class="dropdown-menu" role="menu">#}
+                    {#<li ng-show="!user.authenticated" ng-controller="SecurityCtrl">#}
+                        {#<a ng-click="open = true" id="login-ctrl">Login</a>#}
+                        {#{% render "PodcastUserBundle:Security:login" %}#}
+                    {#</li>#}
+                    {#<li ng-show="!user.authenticated" ng-controller="RegistrationCtrl">#}
+                        {#<a ng-click="open = true">Register</a>#}
+                        {#{% render "PodcastUserBundle:Registration:register" %}#}
+                    {#</li>#}
+                    {#<li ng-show="user.authenticated" ng-controller="SecurityCtrl"><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>#}
+                {#</ul>#}
+
+            {#</li>#}
+            {#<li><a href="#"><i class="icon-cog icon-large"></i></a></li>#}
+        {#</ul>#}
+    {#</div>#}
+{#</div>#}
+<div class="navbar text-center" ng-controller="PodcastSearchCtrl">
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
             <div class="form-horizontal" id="super-search">
-                <div class="input-append">
-                    <input type="text" ng-model="result" ng-model="result" typeahead="suggestion.name for suggestion in search($viewValue)" typeahead-on-select="onSelect($item)" >
-                    <button class="btn btn-warning" type="button"><i class="icon-white icon-search"></i></button>
-                </div>
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="result" ng-model="result" typeahead="suggestion.name for suggestion in search($viewValue)" typeahead-on-select="onSelect($item)" placeholder="Search podcasts">
+                    <span class="input-group-btn">
+                        <button class="btn btn-warning" type="button"><i class="icon-white icon-search"></i></button>
+                    </span>
+                </div><!-- /input-group -->
             </div>
         </div>
-    </section>
-</section>
-<div ng-view>
+        <div class="col-lg-3"></div>
+    </div>
 
+</div>
+
+<div ng-view class="clearfix">
 
 </div>
 
@@ -105,11 +132,11 @@
 {% javascripts
 'js/jquery/jquery.js'
 'js/angular-unstable/angular.js'
-'js/bootstrap/js/bootstrap-transition.js'
-'js/bootstrap/js/bootstrap-dropdown.js'
-'js/bootstrap/js/bootstrap-button.js'
-'js/bootstrap/js/bootstrap-typeahead.js'
-'js/bootstrap/js/bootstrap-tooltip.js'
+'js/bootstrap/js/transition.js'
+'js/bootstrap/js/dropdown.js'
+'js/bootstrap/js/button.js'
+'js/bootstrap/js/typeahead.js'
+'js/bootstrap/js/tooltip.js'
 'js/angular-bootstrap/ui-bootstrap.js'
 'js/angular-bootstrap/ui-bootstrap-tpls.js'
 'js/angular-resource-unstable/angular-resource.js'
