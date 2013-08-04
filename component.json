@@ -5,22 +5,13 @@
     "jquery": "~1.9.1",
     "bootstrap": "v3.0.0-rc1",
     "soundmanager": "master",
-    "knockout.localStorage": "git://github.com/jimrhoskins/knockout.localStorage.git",
     "font-awesome": "~3.1.1",
-    "isotope": "~1.5.25",
-    "angular-resource": "~1.0.7",
-    "angular-bootstrap": "*",
-    "angular-ui-select2": "~0.0.2",
     "angular-local-storage": "*",
     "select2": "~3.3.1",
-    "flatstrap": "*",
-    "requirejs": "~2.1.6",
     "moment": "~2.1.0",
     "angular-unstable": "~1.1.5",
-    "angular-resource-unstable": "~1.1.5"
-  },
-  "resolutions": {
-    "angular": "1.0.7",
-    "select2": "~3.4"
+    "angular-resource-unstable": "~1.1.5",
+    "angular-bootstrap": "~0.4.0",
+    "angular": "~1"
   }
 }

@@ -1,0 +1,37 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/Users/edwardlane/.nvm/v0.8.23/bin/node',
+1 verbose cli   '/Users/edwardlane/.nvm/v0.8.23/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '-g',
+1 verbose cli   'bower' ]
+2 info using npm@1.2.18
+3 info using node@v0.8.23
+4 verbose read json /Users/edwardlane/.nvm/v0.8.23/lib/package.json
+5 verbose read json /Users/edwardlane/.nvm/v0.8.23/lib/package.json
+6 verbose cache add [ 'bower', null ]
+7 verbose cache add name=undefined spec="bower" args=["bower",null]
+8 verbose parsed url { pathname: 'bower', path: 'bower', href: 'bower' }
+9 silly lockFile 206e3ce5-bower bower
+10 verbose lock bower /Users/edwardlane/.npm/206e3ce5-bower.lock
+11 silly lockFile 206e3ce5-bower bower
+12 verbose addNamed [ 'bower', '' ]
+13 verbose addNamed [ null, '' ]
+14 silly lockFile 1240aab1-bower bower@
+15 verbose lock bower@ /Users/edwardlane/.npm/1240aab1-bower.lock
+16 silly lockFile 1240aab1-bower bower@
+17 error Error: EACCES, open '/Users/edwardlane/.npm/1240aab1-bower.lock'
+17 error  { [Error: EACCES, open '/Users/edwardlane/.npm/1240aab1-bower.lock']
+17 error   errno: 3,
+17 error   code: 'EACCES',
+17 error   path: '/Users/edwardlane/.npm/1240aab1-bower.lock' }
+18 error Please try running this command again as root/Administrator.
+19 error System Darwin 12.4.0
+20 error command "/Users/edwardlane/.nvm/v0.8.23/bin/node" "/Users/edwardlane/.nvm/v0.8.23/bin/npm" "install" "-g" "bower"
+21 error cwd /Users/edwardlane/Projects/PodCatcher
+22 error node -v v0.8.23
+23 error npm -v 1.2.18
+24 error path /Users/edwardlane/.npm/1240aab1-bower.lock
+25 error code EACCES
+26 error errno 3
+27 error stack Error: EACCES, open '/Users/edwardlane/.npm/1240aab1-bower.lock'
+28 verbose exit [ 3, true ]

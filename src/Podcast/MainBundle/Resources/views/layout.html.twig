@@ -43,11 +43,11 @@
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
                         <li ng-show="!user.authenticated" ng-controller="SecurityCtrl">
                             <a ng-click="open = true" id="login-ctrl">Login</a>
-                            {% render "PodcastUserBundle:Security:login" %}
+                            {% render controller("PodcastUserBundle:Security:login") %}
                         </li>
                         <li ng-show="!user.authenticated" ng-controller="RegistrationCtrl">
                             <a ng-click="open = true">Register</a>
-                            {% render "PodcastUserBundle:Registration:register" %}
+                            {% render controller("PodcastUserBundle:Registration:register") %}
                         </li>
                         <li ng-show="user.authenticated" ng-controller="SecurityCtrl"><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
                     </ul>
@@ -56,49 +56,7 @@
         </div>
     </div>
 </div>
-{#<!-- Fixed navbar -->#}
-{#<div class="navbar navbar-orange navbar-fixed-top">#}
-    {#<div class="navbar-inner">#}
-        {#<p class="brand">#}
-            {#<i class="icon-headphones"></i>#}
-        {#</p>#}
-        {#<ul class="unstyled pull-left">#}
-            {#<li class="divider-vertical"></li>#}
-            {#<li>#}
-                {#<a href="#{{ path('_welcome') }}"><i class="icon-home"></i> Home</a>#}
-            {#</li>#}
-            {#<li>#}
-                {#<a href="#{{ path('get_podcasts') }}"><i class="icon-list-alt"></i> <span class="show-desktop">Directory</span></a>#}
-            {#</li>#}
-            {#<li ng-controller="SubscriptionsListCtrl" class="subscriptions-icon" ng-show="user.authenticated">#}
-                {#<a href="#{{ path('get_subscribed') }}"><i class="icon-heart"></i> <span class="show-desktop">Subscribed</span>#}
-                    {#<span class="badge badge-warning">{% raw %}{{ user.subscriptions.length }}{% endraw %}</span>#}
-                {#</a>#}
-            {#</li>#}
-        {#</ul>#}
-        {#<ul class="unstyled pull-right">#}
-            {#<li class="divider-vertical"></li>#}
-            {#<li class="dropdown">#}
-                {#<a class="dropdown-toggle" role="button" data-toggle="dropdown" id="security-ctrl" ng-controller="SecurityCtrl"><i#}
-                            {#class="icon-user icon-large"></i> {% raw %}{{ user.username }}{% endraw %}</a>#}
 
-                {#<ul class="dropdown-menu" role="menu">#}
-                    {#<li ng-show="!user.authenticated" ng-controller="SecurityCtrl">#}
-                        {#<a ng-click="open = true" id="login-ctrl">Login</a>#}
-                        {#{% render "PodcastUserBundle:Security:login" %}#}
-                    {#</li>#}
-                    {#<li ng-show="!user.authenticated" ng-controller="RegistrationCtrl">#}
-                        {#<a ng-click="open = true">Register</a>#}
-                        {#{% render "PodcastUserBundle:Registration:register" %}#}
-                    {#</li>#}
-                    {#<li ng-show="user.authenticated" ng-controller="SecurityCtrl"><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>#}
-                {#</ul>#}
-
-            {#</li>#}
-            {#<li><a href="#"><i class="icon-cog icon-large"></i></a></li>#}
-        {#</ul>#}
-    {#</div>#}
-{#</div>#}
 <div class="navbar text-center" ng-controller="PodcastSearchCtrl">
     <div class="row">
         <div class="col-lg-3"></div>
@@ -129,20 +87,16 @@
 <!-- /fos_js_routing -->
 
 {% javascripts
+
 'js/jquery/jquery.js'
 'js/angular-unstable/angular.js'
-'js/bootstrap/js/transition.js'
-'js/bootstrap/js/dropdown.js'
-'js/bootstrap/js/button.js'
-'js/bootstrap/js/typeahead.js'
-'js/bootstrap/js/tooltip.js'
+
 'js/angular-bootstrap/ui-bootstrap.js'
 'js/angular-bootstrap/ui-bootstrap-tpls.js'
 'js/angular-resource-unstable/angular-resource.js'
 'js/angular-local-storage/angular-local-storage.js'
-'js/isotope/jquery.isotope.js'
+
 'js/moment/moment.js'
-'js/promise-tracker/promise-tracker.js'
 
 '@PodcastMainBundle/Resources/public/app/app.js'
 

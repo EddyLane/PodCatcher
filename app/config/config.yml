@@ -14,7 +14,7 @@ framework:
     validation:      { enable_annotations: true }
     templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
     default_locale:  "%locale%"
-    trust_proxy_headers: false # Deprecated in 2.0; will be removed in 2.3 (used trusted_proxies instead)
+    trusted_proxies:  [192.0.0.1, 10.0.0.0/8]
     trusted_proxies: ~
     session:         ~
 
@@ -22,32 +22,12 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
-    form:
-        resources:
-            - "MopaBootstrapBundle:Form:fields.html.twig"
-#            - "BraincraftedBootstrapBundle:Form:form_div_layout.html.twig"
+#     form:
+#         resources:
+#             - "MopaBootstrapBundle:Form:fields.html.twig"
+# #            - "BraincraftedBootstrapBundle:Form:form_div_layout.html.twig"
     exception_controller: 'FOS\RestBundle\Controller\ExceptionController::showAction'          
 
-mopa_bootstrap:
-    form:
-        templating: true
-        render_fieldset: false
-        show_legend: false
-        show_child_legend: false
-        render_required_asterisk: true
-        checkbox_label: 'both'
-        error_type: 'block'
-        collection:
-            widget_remove_btn:
-                attr:
-                    class: btn
-                icon: null
-                icon_color: null
-            widget_add_btn:
-                attr:
-                    class: btn
-                icon: null
-                icon_color: null
 
 
 
