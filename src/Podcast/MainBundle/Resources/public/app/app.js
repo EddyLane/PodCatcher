@@ -1,7 +1,7 @@
 'use strict';
 
 /* App Module */
-angular.module('podcatcher', ['LocalStorageModule', 'podcatcherFilters', 'podcatcherDirectives', 'ngResource', 'ui.bootstrap', 'ajoslin.promise-tracker']).
+angular.module('podcatcher', ['LocalStorageModule', 'podcatcherFilters', 'podcatcherDirectives', 'ngResource', 'ui.bootstrap']).
   config(['$routeProvider', function($routeProvider) {
   $routeProvider.
       when(Routing.generate('get_subscribed'), {templateUrl: '../partials/subscriptions.html', controller: 'SubscriptionsListCtrl'}).

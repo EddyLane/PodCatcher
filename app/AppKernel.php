@@ -24,12 +24,14 @@ class AppKernel extends Kernel
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle($this),
             new FOS\RestBundle\FOSRestBundle(),
+            new FOS\CommentBundle\FOSCommentBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Fkr\SimplePieBundle\FkrSimplePieBundle(),
             new Podcast\MainBundle\PodcastMainBundle(),
             new Podcast\UserBundle\PodcastUserBundle(),
-            new Podcast\AdminBundle\PodcastAdminBundle()
+            new Podcast\AdminBundle\PodcastAdminBundle(),
+            new Podcast\CommentBundle\PodcastCommentBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

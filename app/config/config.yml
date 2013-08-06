@@ -17,6 +17,7 @@ framework:
     trusted_proxies:  [192.0.0.1, 10.0.0.0/8]
     trusted_proxies: ~
     session:         ~
+    http_method_override: true
 
 # Twig Configuration
 twig:
@@ -54,7 +55,7 @@ knp_paginator:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: true
-    bundles:        [PodcastMainBundle, FOSUserBundle]
+    bundles:        [PodcastMainBundle, FOSUserBundle, FOSCommentBundle]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -137,7 +138,13 @@ fos_rest:
         messages:
             'Symfony\Component\Routing\Exception\ResourceNotFoundException': true
 
-        
+fos_comment:
+    db_driver: orm
+    class:
+        model:
+            comment: MyProject\MyBundle\Entity\Comment
+            thread: MyProject\MyBundle\Entity\Thread
+
 sensio_framework_extra:
     view:    { annotations: false }
     router:  { annotations: true }        

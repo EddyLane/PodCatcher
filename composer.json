@@ -26,14 +26,17 @@
         "jms/security-extra-bundle": "1.5.*@dev",
         "jms/di-extra-bundle": "1.4.*@dev",
         "kriswallsmith/assetic": "1.1.*@dev",
-        "jms/serializer-bundle": "0.9.*",
+        "jms/serializer-bundle": "0.11.*",
+
         "friendsofsymfony/user-bundle": "*",
         "friendsofsymfony/rest-bundle": "0.12.0",
         "friendsofsymfony/jsrouting-bundle": "master",
-        "leafo/lessphp": "~0.3",
+        "friendsofsymfony/comment-bundle": "2.0.*",
+
+        "leafo/lessphp": "*",
         "knplabs/knp-menu-bundle":"dev-master",
         "knplabs/knp-paginator-bundle": "dev-master",
-        "fkr/simplepie-bundle": "1.0.*"
+        "fkr/simplepie-bundle": "*"
 
     },
     "require-dev": {
