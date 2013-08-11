@@ -1,15 +1,13 @@
 <div id="fos_comment_thread" data-thread="foo">
 	<div class="fos_comment_comment_form_holder">
 		<h3>Add New Comment</h3>
-		<form class="fos_comment_comment_new_form ng-pristine ng-valid" action="http://podcatcher.local/app_dev.php/api/threads/foo/comments" data-parent="" method="POST">
+		<form class="fos_comment_comment_new_form" method="POST" name="comment-root-form">
 			<fieldset>
 				<div class="form-group">
 					<textarea id="fos_comment_comment_body" name="fos_comment_comment[body]" required="required" class="form-control"></textarea>
 
-					<input type="hidden" id="fos_comment_comment__token" name="fos_comment_comment[_token]" value="71b2e31a0f23136c7df0266194e99b7658d38706">
-
 					<div class="fos_comment_submit">
-						<input type="submit" class="btn btn-primary" value="Post">
+						<input type="submit" class="btn btn-primary" ng-click="comment">
 					</div>
 				</div>
 			</fieldset>
@@ -20,7 +18,7 @@
 
 		<div class="fos_comment_comment_metas">
 			By                
-			<span class="fos_comment_comment_authorname">Anonymous</span> - <span am-time-ago="comment.comment.created_at"></span>
+			<span class="fos_comment_comment_authorname">{{ comment.comment.author.username }}</span> - <span am-time-ago="comment.comment.created_at"></span>
 		</div>
 		<div class="fos_comment_comment_body">
 			{{ comment.comment.body }}

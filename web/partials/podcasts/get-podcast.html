@@ -62,7 +62,7 @@
 
 
                     <div class="btn-toolbar">
-                        <button class="btn btn-small" ng-click="episode.comments = true">Comments</button>
+                        <button class="btn btn-small" ng-click="episode.comments = true" ng-class="{ active: (episodes.comments === true) }">Comments</button>
                     </div>
 
                     <div comments thread="episode.id" ng-if="episode.comments"></div>

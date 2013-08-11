@@ -12,9 +12,12 @@ directive('comments', function() {
     },
     controller: ["$scope", "$element", "$attrs", "$http", "$window",
       function($scope, $element, $attrs, $http, $window) { 
+      	$scope.comment = function() {
+      		console.log('comment');
+      	};
       	$http.get(Routing.generate('fos_comment_get_thread_comments', { id: 'foo', permalink: $window.location.href, _format: 'json' })).success(function(data) {
           $scope.comments = data.comments;
-        })
+        });
     }]
   };
 });
