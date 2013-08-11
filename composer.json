@@ -26,7 +26,7 @@
         "jms/security-extra-bundle": "1.5.*@dev",
         "jms/di-extra-bundle": "1.4.*@dev",
         "kriswallsmith/assetic": "1.1.*@dev",
-        "jms/serializer-bundle": "0.11.*",
+        "jms/serializer-bundle": "0.12.x-dev",
 
         "friendsofsymfony/user-bundle": "*",
         "friendsofsymfony/rest-bundle": "0.12.0",

@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
-use JMS\SerializerBundle\Annotation;
+use JMS\Serializer\Annotation;
 
 /**
  * Organization

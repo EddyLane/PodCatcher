@@ -9,7 +9,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Podcast\MainBundle\Entity\Podcast;
 use Doctrine\Common\Collections\ArrayCollection;
 
-use JMS\SerializerBundle\Annotation;
+use JMS\Serializer\Annotation;
 
 /**
  * Category

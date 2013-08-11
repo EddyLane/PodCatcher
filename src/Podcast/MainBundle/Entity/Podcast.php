@@ -8,7 +8,7 @@ use Podcast\MainBundle\Entity\Episode;
 use Doctrine\Common\Collections\ArrayCollection as ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
-use JMS\SerializerBundle\Annotation;
+use JMS\Serializer\Annotation;
 
 /**
  * Podcast\MainBundle\Entity\Podcast

@@ -5,7 +5,7 @@ namespace Podcast\MainBundle\Entity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use Podcast\MainBundle\Entity;
-use JMS\SerializerBundle\Annotation;
+use JMS\Serializer\Annotation;
 
 /**
  * Podcast\MainBundle\Entity\Episode

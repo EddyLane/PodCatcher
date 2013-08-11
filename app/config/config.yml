@@ -142,8 +142,8 @@ fos_comment:
     db_driver: orm
     class:
         model:
-            comment: MyProject\MyBundle\Entity\Comment
-            thread: MyProject\MyBundle\Entity\Thread
+            comment: Podcast\CommentBundle\Entity\Comment
+            thread: Podcast\CommentBundle\Entity\Thread
 
 sensio_framework_extra:
     view:    { annotations: false }

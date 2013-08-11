@@ -11,8 +11,7 @@ use Podcast\MainBundle\Entity\Podcast,
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection as ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
-
-use JMS\SerializerBundle\Annotation;
+use JMS\Serializer\Annotation;
 
 /**
  * @ORM\Entity

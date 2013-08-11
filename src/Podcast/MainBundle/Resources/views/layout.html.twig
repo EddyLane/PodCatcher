@@ -7,6 +7,8 @@
     'js/bootstrap/css/styles.css'
     'js/font-awesome/build/assets/font-awesome/less/font-awesome.less'
     '@PodcastMainBundle/Resources/public/internal/less/style.less'
+    '@PodcastMainBundle/Resources/public/internal/less/style.less'
+    '@FOSCommentBundle/Resources/assets/css/comments.css'
     %}
     <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
@@ -77,14 +79,8 @@
 <div ng-view class="clearfix">
 </div>
 
-<!-- {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-    {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}
-{% endif %} -->
-
-<!-- fos_js_routing -->
 <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-<!-- /fos_js_routing -->
 
 {% javascripts
 
@@ -95,6 +91,7 @@
 'js/angular-bootstrap/ui-bootstrap-tpls.js'
 'js/angular-resource-unstable/angular-resource.js'
 'js/angular-local-storage/angular-local-storage.js'
+'js/angular-moment/angular-moment.js'
 
 'js/moment/moment.js'
 

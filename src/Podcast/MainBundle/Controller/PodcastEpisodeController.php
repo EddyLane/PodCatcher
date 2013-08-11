@@ -31,7 +31,7 @@ class PodcastEpisodeController extends FOSRestController {
                 $podcast->getEpisodes(), $paramFetcher->get('page'), 10
         );
         
-        $view = $this->view($pagination, 200)
+        $view = $this->view($podcast->getEpisodes(), 200)
                 ->setTemplate('PodcastMainBundle:Default:index.html.twig')
                 ->setTemplateVar('entities');
 

@@ -1,9 +1,15 @@
 <div class="container">
-    <div class="row">
-        <div class="col-8">
+    <div class="row get-podcast-panel">
+        <div class="col-3">
             <h1 class="hBig">{{ podcast.name }}
                 <small>Episodes</small>
             </h1>
+        </div>
+        <div class="col-lg-5">
+            <ul class="nav nav-pills nav-horizontal">
+                <li class="active"><a href="#">Episodes</a></li>
+                <li><a href="#">Comments</a></li>
+            </ul>
         </div>
         <div class="col-lg-4">
             <div class="btn-group pull-right">
@@ -30,9 +36,9 @@
             </div>
             <p class="lead">{{ podcast.description }}</p>
         </div>
-        <div class="col-lg-9 blogContent">
+        <div class="col-lg-9" style="padding: 20px;">
             <div class="spinner" ng-show="loadingEpisodes"></div>
-            <div class="row blogPost" ng-repeat="episode in podcast.episodes">
+            <div class="row episode-listing" ng-repeat="episode in podcast.episodes">
 
                 <div class="title">
                     <blockquote>
@@ -46,23 +52,31 @@
                     </blockquote>
                 </div>
 
-                <div class="blogContent">
 
-                    <p style="clear:both;" ng-bind-html-unsafe="episode.description">
-                    </p>
+                    <p style="clear:both;" ng-bind-html-unsafe="episode.description"></p>
+
                     <p>
-                        <a href="#" data-bind="attr: { href: link }, text: link"></a>
+                        <a href="#" class="episode-link" data-bind="attr: { href: link }, text: link"></a>
                     </p>
-                </div>
+
+
+
+                    <div class="btn-toolbar">
+                        <button class="btn btn-small" ng-click="episode.comments = true">Comments</button>
+                    </div>
+
+                    <div comments thread="episode.id" ng-if="episode.comments"></div>
+
             </div>
         </div>
 
     </div>
 
-    <div class="row">
+
+   <!--  <div class="row">
         <div class="col-lg-12">
             <pagination boundary-links="true" num-pages="noOfPages" current-page="currentPage" max-size="maxSize" class="pagination-centered"></pagination>
         </div>
-    </div>
+    </div> -->
 </div>
 </div>
