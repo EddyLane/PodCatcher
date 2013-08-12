@@ -1,5 +1,5 @@
 angular.module('podcatcher')
-    .service('User', function($http, localStorageService, $filter) {
+    .service('User', function($http, $filter) {
         var self = this;
 
         this.username;
