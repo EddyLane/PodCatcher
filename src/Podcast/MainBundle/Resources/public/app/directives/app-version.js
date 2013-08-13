@@ -56,6 +56,7 @@ directive('comments', function() {
           getForm: function() {
             $http.get(Routing.generate('fos_comment_new_thread_comments', getParameters())).success(function(data) {
               csrfToken[data.form.children._token.vars.full_name] = data.form.children._token.vars.data;
+              $scope.form = true;
             });
           }
 

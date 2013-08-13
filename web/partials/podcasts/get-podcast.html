@@ -48,7 +48,7 @@
                                 <span class="label" ng-show="user.episodes.indexOf(episode.id) == -1">New</span>
                             </a>
                         </p>
-                        <small> {{ episode.pub_date }} | {{ episode.length }} </small>
+                        <small> <span am-time-ago="episode.pub_date"></span></small>
                     </blockquote>
                 </div>
 
