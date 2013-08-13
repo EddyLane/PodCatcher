@@ -8,9 +8,18 @@ angular.module('podcatcher')
         $scope.noOfPages;
         $scope.loadingPodcast = true;
         $scope.loadingEpisodes = true;
-        Podcast.get({ slug: $routeParams.slug }, function(data) {
+
+        var commentsOn = false;
+        $scope.toggleComments = function(episode) {
+            if(commentsOn) {
+                commentsOn.episodes = false;
+            }
+            commentsOn = episode;
+            episode.comments = !(episode.comments != 0);
+        }
+
+        $scope.podcast = Podcast.get({ slug: $routeParams.slug }, function(data) {
             $scope.loadingPodcast = false;
-            $scope.podcast = data;
             $scope.podcast.episodes = PodcastEpisode.query({ slug: $routeParams.slug }, function(u, headers) {
                 $scope.loadingEpisodes = false;
                 $scope.noOfPages = Math.floor(headers()["x-pagination-total"] / headers()["x-pagination-amount"]) + 1;

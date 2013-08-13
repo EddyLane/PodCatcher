@@ -57,7 +57,7 @@ class PodcastController extends FOSRestController
      */
     public function getPodcastAction($slug)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $podcast = $em->getRepository('PodcastMainBundle:Podcast')->findOneBySlug($slug);
         
