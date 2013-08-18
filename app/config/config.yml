@@ -143,7 +143,8 @@ fos_comment:
         model:
             comment: Podcast\CommentBundle\Entity\Comment
             thread: Podcast\CommentBundle\Entity\Thread
-
+            vote: Podcast\CommentBundle\Entity\Vote
+            
 sensio_framework_extra:
     view:    { annotations: false }
     router:  { annotations: true }        

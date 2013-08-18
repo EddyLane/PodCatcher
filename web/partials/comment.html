@@ -1,21 +1,29 @@
 <div class="fos_comment_comment_show">
-	<div class="fos_comment_comment_metas">
+	<div class="fos_comment_comment_metas clearfix">
 		By                
 		<span class="fos_comment_comment_authorname">{{ comment.comment.author.username || 'Anonymous' }}</span> - <span am-time-ago="comment.comment.created_at"></span>
+
+		<div class="fos_comment_comment_voting btn-group pull-right" ng-show="user.authenticated">
+			<button class="btn btn-xs btn-primary" ng-click="functions.upvote(comment)"><i class="icon icon-arrow-up"></i></button>
+			<button class="btn btn-xs btn-primary"><i class="icon icon-arrow-down"></i></button>
+		</div>
+		<div class="fos_comment_comment_score badge pull-right">{{ comment.comment.score }}</div>
+
 	</div>
+ 
 	<div class="fos_comment_comment_body">
 		{{ comment.comment.body }}
 	</div>
-	<div class="btn-toolbar" ng-show="!comment.replying">
-		<button class="btn btn-primary btn-small" ng-click="functions.reply(comment)">Reply</button>
+	<div class="btn-toolbar" ng-show="!comment.replying && user.authenticated">
+		<button class="btn btn-primary btn-sm" ng-click="functions.toggleReply(comment)">Reply</button>
 	</div>
 
-	<fieldset ng-if="comment.replying === true" class="comment-action">
+	<fieldset ng-if="comment.replying === true " class="comment-action">
 		<div class="form-group">
-			<textarea required="required" class="form-control" ng-model="commentBody"></textarea>
+			<textarea required="required" class="form-control" ng-init="comment.reply = ''" ng-model="comment.reply"></textarea>
 			<div class="btn-toolbar">
-				<button type="submit" class="btn btn-primary btn-small" ng-click="functions.comment()">Reply</button>
-				<button type="submit" class="btn btn-small">Cancel</button>
+				<button type="submit" class="btn btn-primary btn-sm" ng-click="functions.reply(comment)">Reply</button>
+				<button type="submit" class="btn btn-sm" ng-click="comment.replying = false">Cancel</button>
 			</div>
 		</div>
 	</fieldset>
