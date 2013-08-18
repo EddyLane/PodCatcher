@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row get-podcast-panel">
-        <div class="col-3">
+        <div class="col-lg-3">
             <h1 class="hBig">{{ podcast.name }}
                 <small>Episodes</small>
             </h1>
@@ -62,10 +62,10 @@
 
 
                     <div class="btn-toolbar">
-                        <button class="btn btn-primary btn-small" ng-init="episode.comments = false" ng-click="toggleComments(episode)" ng-class="{ active: episodes.comments }">Comments</button>
+                        <button class="btn btn-primary btn-mini" ng-init="episode.comments = false" ng-click="toggleComments(episode)" ng-class="{ active: episodes.comments }">Comments</button>
                     </div>
 
-                    <div comments thread="episode.id" ng-if="episode.comments"></div>
+                    <div comments thread="episode.id" ng-if="episode.comments" class-"comments"></div>
 
             </div>
         </div>

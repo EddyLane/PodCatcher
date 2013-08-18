@@ -1,4 +1,5 @@
-<div class="well" data-thread="foo">
+
+<div class="well">
 	<div class="fos_comment_comment_form_holder">
 		<form class="fos_comment_comment_new_form" method="POST" name="comment-root-form" ng-show="form && user.authenticated">
 			<fieldset>
@@ -14,48 +15,13 @@
 			</fieldset>
 		</form>
 	</div>
-		<ng-pluralize count="comments.length"
-                 when="{'0': 'No comments. Be the first!',
-                     'one': '1 comment',
-                     'other': '{} comments'}">
+	<ng-pluralize count="comments.length"
+	when="{'0': 'No comments. Be the first!',
+	'one': '1 comment',
+	'other': '{} comments'}">
+	</ng-pluralize>
 
-</ng-pluralize>
-	<div ng-if="comments.length > 0">
-
-		<div id="fos_comment_4" ng-repeat="comment in comments">
-			<div class="fos_comment_comment_show">
-				<div class="fos_comment_comment_metas">
-					By                
-					<span class="fos_comment_comment_authorname">{{ comment.comment.author.username || 'Anonymous' }}</span> - <span am-time-ago="comment.comment.created_at"></span>
-				</div>
-				<div class="fos_comment_comment_body">
-					{{ comment.comment.body }}
-				</div>
-			<div class="btn-toolbar">
-				<button class="btn btn-primary btn-small">Reply</button>
-			</div>
-
-				<div ng-repeat="child in comment.children">
-			<div class="fos_comment_comment_show">
-				<div class="fos_comment_comment_metas">
-					By                
-					<span class="fos_comment_comment_authorname">{{ comment.comment.author.username || 'Anonymous' }}</span> - <span am-time-ago="comment.comment.created_at"></span>
-				</div>
-				<div class="fos_comment_comment_body">
-					{{ comment.comment.body }}
-				</div>
-			<div class="btn-toolbar">
-				<button class="btn btn-primary btn-small">Reply</button>
-			</div>
-
-				<div ng-repeat="child in comment.children">
-
-
-
-				</div>
-			</div>
-				</div>
-			</div>
-		</div>
+	<div ng-repeat="comment in comments" ng-include="'/partials/comment.html'">
+	
 	</div>
 </div>
