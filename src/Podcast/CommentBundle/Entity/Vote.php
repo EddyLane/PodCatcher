@@ -14,6 +14,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class Vote extends BaseVote implements SignedVoteInterface
 {
+
+
+    public static $values = array(
+        -1, 0, 1
+    )
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -39,6 +45,14 @@ class Vote extends BaseVote implements SignedVoteInterface
      */
     protected $voter;
 
+
+    public function setValue($value) 
+    {
+        if(!in_array($value,self::$values)) {
+            throw new \Exception('Value must be either -1, 0 or 1');
+        }
+        $this->value = $value;
+    }
     /**
      * Sets the owner of the vote
      *
