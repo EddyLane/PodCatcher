@@ -4,3 +4,6 @@ services:
         arguments: [%fos_user.model.user.class%]
         tags:
             - { name: form.type, alias: podcast_mainbundle_registrationformtype }
+
+    podcast_mainbundle.update.runner:
+    	class: Podcast\MainBundle\Update\Runner

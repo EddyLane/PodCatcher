@@ -51,7 +51,8 @@
         "behat/common-contexts":               "*@dev",
         "kriswallsmith/buzz":                  ">=0.5",
         "phpunit/phpunit":                     "3.7.*",
-        "sensiolabs/behat-page-object-extension": "*"
+        "sensiolabs/behat-page-object-extension": "*",
+        "hautelook/gearman-bundle": "dev-master"
     },
     "config": {
         "bin-dir": "bin/"

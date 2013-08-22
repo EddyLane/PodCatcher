@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "93116f3abec205d3f6a49cc7ca2e4c5f",
+    "hash": "3f13fed20707c6aa6caf0bfa0ebce935",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -78,7 +78,7 @@
         },
         {
             "name": "doctrine/cache",
-            "version": "dev-master",
+            "version": "v1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/cache.git",
@@ -131,7 +131,7 @@
                     "email": "kontakt@beberlei.de"
                 },
                 {
-                    "name": "Johannes M. Schmitt",
+                    "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
                     "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
@@ -218,12 +218,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/common.git",
-                "reference": "f28a39065d455b6df1c989ea6590e971a1f0256d"
+                "reference": "b4c7860e0c5a8d13598ca34d156533300b0dacf0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/common/zipball/f28a39065d455b6df1c989ea6590e971a1f0256d",
-                "reference": "f28a39065d455b6df1c989ea6590e971a1f0256d",
+                "url": "https://api.github.com/repos/doctrine/common/zipball/b4c7860e0c5a8d13598ca34d156533300b0dacf0",
+                "reference": "b4c7860e0c5a8d13598ca34d156533300b0dacf0",
                 "shasum": ""
             },
             "require": {
@@ -284,7 +284,7 @@
                 "persistence",
                 "spl"
             ],
-            "time": "2013-08-17 18:48:00"
+            "time": "2013-08-20 18:10:31"
         },
         {
             "name": "doctrine/dbal",
@@ -550,12 +550,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/doctrine2.git",
-                "reference": "465bf0f4114db55de9e7d436a00e967002ee0bc7"
+                "reference": "b1ba11c06ffbf795417cdacddaa21e22209d5789"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/465bf0f4114db55de9e7d436a00e967002ee0bc7",
-                "reference": "465bf0f4114db55de9e7d436a00e967002ee0bc7",
+                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/b1ba11c06ffbf795417cdacddaa21e22209d5789",
+                "reference": "b1ba11c06ffbf795417cdacddaa21e22209d5789",
                 "shasum": ""
             },
             "require": {
@@ -612,7 +612,7 @@
                 "database",
                 "orm"
             ],
-            "time": "2013-08-10 16:05:40"
+            "time": "2013-08-20 08:02:51"
         },
         {
             "name": "fkr/simplepie-bundle",
@@ -1724,12 +1724,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/KnpPaginatorBundle.git",
-                "reference": "2.3.3"
+                "reference": "ce6b7b36d3bed5cb6bfb9645018dd407395fce15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/2.3.3",
-                "reference": "2.3.3",
+                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/ce6b7b36d3bed5cb6bfb9645018dd407395fce15",
+                "reference": "ce6b7b36d3bed5cb6bfb9645018dd407395fce15",
                 "shasum": ""
             },
             "require": {
@@ -1956,12 +1956,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/php-collection.git",
-                "reference": "0.3.0"
+                "reference": "5c8ec0d1091c95b973b59a3bf0eb19c5de72d8d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/php-collection/zipball/0.3.0",
-                "reference": "0.3.0",
+                "url": "https://api.github.com/repos/schmittjoh/php-collection/zipball/5c8ec0d1091c95b973b59a3bf0eb19c5de72d8d1",
+                "reference": "5c8ec0d1091c95b973b59a3bf0eb19c5de72d8d1",
                 "shasum": ""
             },
             "require": {
@@ -1998,7 +1998,7 @@
                 "sequence",
                 "set"
             ],
-            "time": "2013-07-16 08:26:26"
+            "time": "2013-08-22 09:46:14"
         },
         {
             "name": "phpoption/phpoption",
@@ -2094,12 +2094,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
-                "reference": "f666c65c810f6a23455966c37f99ba76094775b5"
+                "reference": "66df91b4bd637a83299d8072aed3658bfd3b3021"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/f666c65c810f6a23455966c37f99ba76094775b5",
-                "reference": "f666c65c810f6a23455966c37f99ba76094775b5",
+                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/66df91b4bd637a83299d8072aed3658bfd3b3021",
+                "reference": "66df91b4bd637a83299d8072aed3658bfd3b3021",
                 "shasum": ""
             },
             "require": {
@@ -2131,7 +2131,7 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2013-08-08 12:18:08"
+            "time": "2013-08-22 05:04:53"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -2140,12 +2140,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioFrameworkExtraBundle.git",
-                "reference": "v2.3.3"
+                "reference": "cce05719041d952bbec856789ca18646a1891d03"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/v2.3.3",
-                "reference": "v2.3.3",
+                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/cce05719041d952bbec856789ca18646a1891d03",
+                "reference": "cce05719041d952bbec856789ca18646a1891d03",
                 "shasum": ""
             },
             "require": {
@@ -2187,12 +2187,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioGeneratorBundle.git",
-                "reference": "8daadf79d5f305fbcf4261c052968415f4e69a00"
+                "reference": "4a7b126e9c22f858e3584b19ddce6e5bdd7677ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioGeneratorBundle/zipball/8daadf79d5f305fbcf4261c052968415f4e69a00",
-                "reference": "8daadf79d5f305fbcf4261c052968415f4e69a00",
+                "url": "https://api.github.com/repos/sensiolabs/SensioGeneratorBundle/zipball/4a7b126e9c22f858e3584b19ddce6e5bdd7677ee",
+                "reference": "4a7b126e9c22f858e3584b19ddce6e5bdd7677ee",
                 "shasum": ""
             },
             "require": {
@@ -2226,7 +2226,7 @@
                 }
             ],
             "description": "This bundle generates code for you",
-            "time": "2013-08-13 20:01:59"
+            "time": "2013-08-21 18:09:35"
         },
         {
             "name": "simplepie/simplepie",
@@ -2449,12 +2449,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/MonologBundle.git",
-                "reference": "v2.3.0"
+                "reference": "03ed73bc11367b3156cc21f22ac37c7f70fcd10a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/MonologBundle/zipball/v2.3.0",
-                "reference": "v2.3.0",
+                "url": "https://api.github.com/repos/symfony/MonologBundle/zipball/03ed73bc11367b3156cc21f22ac37c7f70fcd10a",
+                "reference": "03ed73bc11367b3156cc21f22ac37c7f70fcd10a",
                 "shasum": ""
             },
             "require": {
@@ -2561,12 +2561,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "49eb608b724f4534bc6ea3e84df8f9c3450df490"
+                "reference": "8e1cb3e3ca9c05064d827e58bd4dd406c317ea50"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/49eb608b724f4534bc6ea3e84df8f9c3450df490",
-                "reference": "49eb608b724f4534bc6ea3e84df8f9c3450df490",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/8e1cb3e3ca9c05064d827e58bd4dd406c317ea50",
+                "reference": "8e1cb3e3ca9c05064d827e58bd4dd406c317ea50",
                 "shasum": ""
             },
             "require": {
@@ -2661,7 +2661,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2013-08-17 16:34:49"
+            "time": "2013-08-22 06:42:25"
         },
         {
             "name": "twig/extensions",
@@ -2767,12 +2767,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Behat/Behat.git",
-                "reference": "d1f655666e1a370b4ea92104f87db52467651e1c"
+                "reference": "01fdb26879073785db5d38f310fb5f281a940e89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Behat/Behat/zipball/d1f655666e1a370b4ea92104f87db52467651e1c",
-                "reference": "d1f655666e1a370b4ea92104f87db52467651e1c",
+                "url": "https://api.github.com/repos/Behat/Behat/zipball/01fdb26879073785db5d38f310fb5f281a940e89",
+                "reference": "01fdb26879073785db5d38f310fb5f281a940e89",
                 "shasum": ""
             },
             "require": {
@@ -2826,7 +2826,7 @@
                 "Behat",
                 "Symfony2"
             ],
-            "time": "2013-08-18 12:17:09"
+            "time": "2013-08-18 18:57:56"
         },
         {
             "name": "behat/common-contexts",
@@ -2968,12 +2968,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Behat/Mink.git",
-                "reference": "93cda551e454cce0867d3578e8a556549c086b19"
+                "reference": "6983f2a4ed9439803f8df57e1486995e2a8129a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Behat/Mink/zipball/93cda551e454cce0867d3578e8a556549c086b19",
-                "reference": "93cda551e454cce0867d3578e8a556549c086b19",
+                "url": "https://api.github.com/repos/Behat/Mink/zipball/6983f2a4ed9439803f8df57e1486995e2a8129a2",
+                "reference": "6983f2a4ed9439803f8df57e1486995e2a8129a2",
                 "shasum": ""
             },
             "require": {
@@ -3015,7 +3015,7 @@
                 "testing",
                 "web"
             ],
-            "time": "2013-08-12 10:13:56"
+            "time": "2013-08-19 07:31:35"
         },
         {
             "name": "behat/mink-browserkit-driver",
@@ -3399,6 +3399,66 @@
             "time": "2012-10-29 02:32:06"
         },
         {
+            "name": "hautelook/gearman-bundle",
+            "version": "dev-master",
+            "target-dir": "Hautelook/GearmanBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hautelook/GearmanBundle.git",
+                "reference": "941dab782dc421e5071eeb1b1b5bb0510649e360"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hautelook/GearmanBundle/zipball/941dab782dc421e5071eeb1b1b5bb0510649e360",
+                "reference": "941dab782dc421e5071eeb1b1b5bb0510649e360",
+                "shasum": ""
+            },
+            "require": {
+                "necromant2005/gearman-stats": "1.0.*",
+                "php": ">=5.3.0",
+                "symfony/console": "~2.1",
+                "symfony/event-dispatcher": "~2.1",
+                "symfony/framework-bundle": "~2.1"
+            },
+            "require-dev": {
+                "liip/monitor": "~1.0",
+                "symfony/browser-kit": "~2.1",
+                "symfony/class-loader": "~2.1",
+                "symfony/form": "~2.1",
+                "symfony/yaml": "~2.1"
+            },
+            "suggest": {
+                "ext-gearman": "The PECL Gearman extension",
+                "liip/monitor": "To enable the gearman monitor"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Hautelook\\GearmanBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baldur Rensch",
+                    "email": "brensch@gmail.com"
+                },
+                {
+                    "name": "Brandon Woodmansee",
+                    "email": "woodmansee@gmail.com"
+                }
+            ],
+            "description": "Symfony2 Bundle that provides a service to submit Gearman jobs",
+            "keywords": [
+                "Symfony2",
+                "gearman"
+            ],
+            "time": "2013-08-20 05:15:49"
+        },
+        {
             "name": "kriswallsmith/buzz",
             "version": "dev-master",
             "source": {
@@ -3445,6 +3505,49 @@
                 "http client"
             ],
             "time": "2013-06-04 15:32:22"
+        },
+        {
+            "name": "necromant2005/gearman-stats",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/necromant2005/gearman-stats.git",
+                "reference": "0a551f5d19f75d093c3b03947879a2223b1a8b7d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/necromant2005/gearman-stats/zipball/0a551f5d19f75d093c3b03947879a2223b1a8b7d",
+                "reference": "0a551f5d19f75d093c3b03947879a2223b1a8b7d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "TweeGearmanStat": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rostislav Mykhajliw",
+                    "email": "necromant2005@gmail.com",
+                    "homepage": "https://github.com/necromant2005",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Geaman connector for getting status and statistic data",
+            "homepage": "https://github.com/necromant2005/gearman-stats.git",
+            "keywords": [
+                "gearman",
+                "statistatic"
+            ],
+            "time": "2013-06-18 04:01:30"
         },
         {
             "name": "nelmio/alice",
@@ -3539,12 +3642,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/phpspec.git",
-                "reference": "f7d15c22ef7cf33edcc10659ced27142c2dfcc69"
+                "reference": "543e9d7e9c6c593b136176f886aadfa4e369a736"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/f7d15c22ef7cf33edcc10659ced27142c2dfcc69",
-                "reference": "f7d15c22ef7cf33edcc10659ced27142c2dfcc69",
+                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/543e9d7e9c6c593b136176f886aadfa4e369a736",
+                "reference": "543e9d7e9c6c593b136176f886aadfa4e369a736",
                 "shasum": ""
             },
             "require": {
@@ -3599,7 +3702,7 @@
                 "testing",
                 "tests"
             ],
-            "time": "2013-08-05 20:47:36"
+            "time": "2013-08-21 03:48:49"
         },
         {
             "name": "phpspec/prophecy",
@@ -4038,12 +4141,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/BehatPageObjectExtension.git",
-                "reference": "v1.0.2"
+                "reference": "f49b8fe3789ba866b141baf851c5a6843326917b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/BehatPageObjectExtension/zipball/v1.0.2",
-                "reference": "v1.0.2",
+                "url": "https://api.github.com/repos/sensiolabs/BehatPageObjectExtension/zipball/f49b8fe3789ba866b141baf851c5a6843326917b",
+                "reference": "f49b8fe3789ba866b141baf851c5a6843326917b",
                 "shasum": ""
             },
             "require": {
@@ -4111,7 +4214,8 @@
         "behat/mink-extension": 20,
         "behat/mink-browserkit-driver": 20,
         "behat/mink-zombie-driver": 20,
-        "behat/common-contexts": 20
+        "behat/common-contexts": 20,
+        "hautelook/gearman-bundle": 20
     },
     "platform": {
         "php": ">=5.3.3"

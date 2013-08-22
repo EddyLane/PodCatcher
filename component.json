@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "dependencies": {
     "jquery": "~1.9.1",
-    "bootstrap": "v3.0.0-rc.2",
+    "bootstrap": "~3.0.0",
     "soundmanager": "master",
     "font-awesome": "~3.1.1",
     "select2": "~3.3.1",
