@@ -29,7 +29,13 @@ class PodcastRepository extends EntityRepository
     }
 
 
-
+    public function getPodcastIds($hydration = Query::HYDRATE_SINGLE_SCALAR)
+    {
+        return $this->createQueryBuilder('podcast')
+                    ->select('podcast.id')
+                    ->getQuery()
+                    ->getResult($hydration);
+    }
     
     /**
      * @param string $category

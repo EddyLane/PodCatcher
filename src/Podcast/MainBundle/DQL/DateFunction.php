@@ -13,7 +13,7 @@ use Doctrine\ORM\Query\AST\Functions\FunctionNode;
 /**
  * DateDiffFunction ::= "DATE" "(" ArithmeticPrimary ")"
  */
-class DateFunction extends FunctionNode
+class NowFunction extends FunctionNode
 {
     public $dateExpression = null;
 

@@ -18,7 +18,7 @@ class Vote extends BaseVote implements SignedVoteInterface
 
     public static $values = array(
         -1, 0, 1
-    )
+    );
 
     /**
      * @ORM\Id

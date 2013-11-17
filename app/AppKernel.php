@@ -28,6 +28,7 @@ class AppKernel extends Kernel
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Fkr\SimplePieBundle\FkrSimplePieBundle(),
+            new Hautelook\GearmanBundle\HautelookGearmanBundle(),
             new Podcast\MainBundle\PodcastMainBundle(),
             new Podcast\UserBundle\PodcastUserBundle(),
             new Podcast\AdminBundle\PodcastAdminBundle(),

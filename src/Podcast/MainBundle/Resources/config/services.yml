@@ -8,6 +8,6 @@ services:
         tags:
             - { name: form.type, alias: podcast_mainbundle_registrationformtype }
 
-    # podcast_mainbundle.update.runner:
-    # 	class: Podcast\MainBundle\Update\Runner
-    # 	arguments: [@doctrine]
+    podcast_mainbundle.update.runner:
+        class: Podcast\MainBundle\Update\Runner
+        arguments: ["@doctrine", "@hautelook_gearman.service.gearman"]

@@ -51,11 +51,9 @@
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
                         <li ng-show="!user.authenticated" ng-controller="SecurityCtrl">
                             <a ng-click="open = true" id="login-ctrl">Login</a>
-                            {% render controller("PodcastUserBundle:Security:login") %}
                         </li>
                         <li ng-show="!user.authenticated" ng-controller="RegistrationCtrl">
                             <a ng-click="open = true">Register</a>
-                            {% render controller("PodcastUserBundle:Registration:register") %}
                         </li>
                         <li ng-show="user.authenticated" ng-controller="SecurityCtrl"><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
                     </ul>
@@ -101,6 +99,7 @@
 #}
 <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+
 
 {% javascripts
 
